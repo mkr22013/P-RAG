@@ -223,51 +223,61 @@ async def get_ai_response(query, history):
                         messages.append({'role': 'tool', 'content': final_raw_context, 'name': func_name})
         
                         
-        # --- THE FINAL SAFETY NET (REFINED FOR DOCLING/MARKDOWN) ---
+                # --- THE FINAL SAFETY NET (RE-ENGINEERED FOR STABILITY) ---
         print("[*] TRIGGERING FINAL COMPREHENSIVE SYNTHESIS...")
         
-        # 1. CONSOLIDATE DATA: Merge Tool Results + Cache
-        master_context = []
+        # 1. CONSOLIDATE DATA: Build a single, clean MASTER DATA string
+        all_data_segments = []
+        
+        # Extract content from tool messages
         reasoning_data = [m['content'] for m in messages if m.get('role') == 'tool']
         if reasoning_data:
-            master_context.append("\n".join(reasoning_data))
+            all_data_segments.extend(reasoning_data) # Use extend, not append
+            
         if cached_data_fragments:
-            master_context.append("\n".join(cached_data_fragments))
+            all_data_segments.extend(cached_data_fragments)
 
-        # 2. CLEAN SLATE: Rebuild to kill 'JSON noise' and focus on Markdown
-        final_messages = [
-            {'role': 'system', 'content': "You are a high-precision Insurance Advisor. You answer based ONLY on the provided MASTER DATA."},
-            {'role': 'user', 'content': f"MASTER DATA (Structured Markdown):\n{str(master_context)}\n\nUSER QUESTION: {query}"}
-        ]
-
-                # --- 3. DYNAMIC INSTRUCTION: THE IRONCLAD PROTOCOL ---      
-        if master_context and "not found" not in str(master_context).lower():
+        # Flatten into one giant block of text for the LLM to read
+        master_data_string = "\n\n".join(all_data_segments)
+        
+        # 2. DYNAMIC INSTRUCTION: THE IRONCLAD PROTOCOL
+        # Check the flat string for content
+        has_data = len(master_data_string) > 20 and "not found" not in master_data_string.lower()
+        
+        if has_data:
             instruction = (
-                f"You are the Data Analyst for the {p_tier_fast} {p_type_fast} plans. "
+                f"You are the Data Analyst for {p_tier_fast} {p_type_fast}. "
                 "### MANDATORY OUTPUT RULES:"
-                "\n1. NO APOLOGIES: Never say 'Error' or 'Unable to retrieve'. If data exists in the MASTER DATA, you MUST present it as fact."
-                "\n2. NO GUESSING: Use ONLY the numbers found in the MASTER DATA. Do NOT use numbers like $1,500 or $2,000 unless they are explicitly in the provided text."
-                "\n3. TABLE ONLY: For any query involving multiple years or In/Out of Network columns, you MUST output a Markdown Table. No introductory text."
-                "\n4. NO JSON: Do not show tool calls or code blocks."
-                "\n5. START IMMEDIATELY: Begin your response directly with the data table."
+                "\n0. IGNORE PREVIOUS ERRORS: Data IS present in the MASTER DATA below."
+                "\n1. NO APOLOGIES: Never say 'Error'. Use the provided data as absolute fact."
+                "\n2. NO GUESSING: Use ONLY the numbers found in the MASTER DATA."
+                "\n3. TABLE ONLY: Output ONLY a Markdown Table. No introductory text."
+                "\n4. NO JSON: Do not show tool calls, JSON, or code blocks. "
+                "\n5. START IMMEDIATELY: Your response MUST start with the '|' character."
+                "\n6. NO TOOL HISTORY: Provide only the final result. Do not mention tools."
             )
         else:
             from server import get_available_plans
-            instruction = f"DB SCHEMA: {str(get_available_plans())}. No data found. Identify valid years/tiers only."
+            db_schema = str(get_available_plans())
+            instruction = f"DB SCHEMA: {db_schema}. No direct data found. List available years/tiers ONLY."
 
-        final_messages.insert(0, {'role': 'system', 'content': instruction})
+        # 3. CLEAN SLATE: Using the flattened string
+        final_messages = [
+            {'role': 'system', 'content': instruction},
+            {'role': 'user', 'content': f"MASTER DATA:\n{master_data_string}\n\nUSER QUESTION: {query}"}
+        ]
         
-        # 4. FINAL EXECUTION: Set temperature to 0.0 for absolute rigidity
+        # 4. FINAL EXECUTION
         final_resp = ollama.chat(
             model=LOCAL_MODEL, 
             messages=final_messages, 
             options={"temperature": 0.0} 
         )
+        
         return flatten_message_content(final_resp['message'].get('content', ''))
 
-
-    except Exception as e:
         return f"⚠️ Client Logic Error: {str(e)}"
+
 
 
 

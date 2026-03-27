@@ -128,3 +128,5 @@ Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to e
 6. Create a table comparing the individual annual deductible for 2024 Gold Medical vs 2026 Premera Gold HMO.
 
 7. Compare the individual annual deductible for 2024 Gold vs 2026 Premera Gold. Show the values in a table.
+
+8. Compare 2024 Gold vs 2026 Premera Gold deductibles.

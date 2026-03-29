@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import re
@@ -86,77 +86,67 @@ async def scan_card(file: UploadFile = File(...)):
 @app.post("/download-pdf")
 async def download_pdf(content: str = Form(...)):
     try:
-        # Initialize FPDF
-        pdf = FPDF()
+        # 1. PARSE & CLEAN MARKDOWN
+        lines = [line.strip() for line in content.split("\n") if "|" in line]
+        table_data = []
+        for line in lines:
+            if "---" in line:
+                continue
+            # Filter out empty strings from leading/trailing pipes
+            row = [cell.strip() for cell in line.split("|") if cell.strip()]
+            if row:
+                table_data.append(row)
+
+        # 2. INITIALIZE LANDSCAPE PDF (297mm wide)
+        pdf = FPDF(orientation="L", unit="mm", format="A4")
         pdf.add_page()
 
-        # 1. HEADER - Large & Bold
-        pdf.set_font("Helvetica", "B", 16)
+        # Header - Use 'helvetica' for 2.7.8+ compatibility
+        pdf.set_font("helvetica", "B", 16)
         pdf.cell(
             0,
-            15,
+            10,
             "Insurance Benefit Comparison Report",
+            align="C",
             new_x="LMARGIN",
             new_y="NEXT",
-            align="C",
         )
-        pdf.ln(5)
+        pdf.ln(10)
 
-        # 2. SEPARATE TEXT FROM TABLE
-        lines = content.split("\n")
-        table_data = []
-        regular_text = []
+        # 3. GENERATE TABLE (The Fix for Overlapping Text)
+        pdf.set_font("helvetica", size=10)
 
-        for line in lines:
-            if "|" in line:
-                # Clean row: remove outer pipes, split, and strip
-                row = [cell.strip() for cell in line.split("|") if cell.strip()]
-                # Skip separator lines like |---|---|
-                if row and not all(c == "-" for c in row):
-                    table_data.append(row)
-            else:
-                if line.strip():
-                    regular_text.append(line.strip())
+        # Calculate column widths: Benefit (50mm) + Data columns (split remaining 220mm)
+        num_cols = len(table_data[0]) if table_data else 0
+        if num_cols > 1:
+            data_w = 220 / (num_cols - 1)
+            col_widths = [50] + [data_w] * (num_cols - 1)
+        else:
+            col_widths = [270]
 
-        # 3. RENDER INTRO/SUMMARY TEXT
-        pdf.set_font("Helvetica", size=11)
-        for text in regular_text:
-            # Clean markdown bold/italics markers
-            clean_text = re.sub(r"\*+", "", text)
-            pdf.multi_cell(0, 8, clean_text)
-            pdf.ln(2)
+        # pdf.table handles the "Out-of-Network" wrapping and row height perfectly
+        with pdf.table(width=270, col_widths=col_widths, text_align="CENTER") as table:
+            for data_row in table_data:
+                row = table.row()
+                for cell_value in data_row:
+                    row.cell(str(cell_value))
 
-        # 4. RENDER THE BEAUTIFUL TABLE (Prose Style)
-        if table_data:
-            pdf.ln(5)
-            pdf.set_font("Helvetica", size=10)
+        # 4. THE BYTEARRAY FIX
+        # Convert bytearray to bytes so FastAPI doesn't try to .encode() it
+        pdf_raw = pdf.output()
+        pdf_bytes = bytes(pdf_raw)
 
-            # Using the modern fpdf2 table method for borders & shading
-            with pdf.table(
-                borders_layout="SINGLE_TOP_LINE",
-                cell_fill_color=(245, 247, 250),  # Light gray shading
-                cell_fill_mode="ROWS",
-                line_height=8,
-                text_align="LEFT",
-                width=190,  # Set table width to fit page margins
-            ) as t:
-                for data_row in table_data:
-                    row = t.row()
-                    for datum in data_row:
-                        row.cell(datum)
-
-        # 5. STREAMING OUTPUT
-        pdf_bytes = pdf.output()
-        return StreamingResponse(
-            io.BytesIO(pdf_bytes),
+        return Response(
+            content=pdf_bytes,
             media_type="application/pdf",
             headers={
-                "Content-Disposition": "attachment; filename=Benefit_Comparison.pdf"
+                "Content-Disposition": "attachment; filename=Benefit_Comparison.pdf",
+                "Content-Length": str(len(pdf_bytes)),
             },
         )
 
     except Exception as e:
-        print(f"PDF Error: {e}")
+        print(f"❌ PDF ERROR: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

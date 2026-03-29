@@ -69,6 +69,9 @@ async def get_ai_response(query, history):
                 "pcp",
                 "emergency",
                 "er",
+                "urgent",
+                "ambulance",
+                "room",
             ]
         ):
             new_type = "medical"
@@ -398,23 +401,20 @@ async def get_ai_response(query, history):
             f"### ROLE: Specialized Insurance Data Analyst for {p_tier_fast} {p_type_fast}.\n"
             "### MANDATORY OUTPUT FORMAT: MARKDOWN TABLE ONLY.\n"
             "0. START IMMEDIATELY: Your response MUST begin with the '|' character. NO INTRO TEXT.\n"
-            "1. SYNONYM MAPPING: Treat 'Specialist visit' and 'Specialist Physician' as the same. "
-            "Crucially, treat 'Primary care visit' and 'Primary Care Physician (PCP)' as the SAME BENEFIT.\n"
-            "2. STRICT BENEFIT ISOLATION: Identify the specific benefit requested (e.g., 'Deductible', 'PCP', 'ER', 'X-ray'). "
-            "You MUST ONLY include the row(s) for that exact benefit. "
-            "Physically EXCLUDE neighboring rows (like Specialist if asking for PCP) from the table.\n"
+            "1. STRICT SYNONYM MAPPING: Treat 'Primary care visit', 'Primary Care Physician', and 'PCP' as the EXACT SAME BENEFIT. "
+            "Similarly, treat 'Specialist visit' and 'Specialist Physician' as the same. Do NOT create separate rows for these synonyms.\n"
+            "2. STRICT BENEFIT ISOLATION: Identify the specific benefit requested (e.g., 'PCP', 'Specialist', 'Deductible', 'X-ray', 'Emergency Room', 'Urgent Care'). "
+            "You MUST ONLY include the row(s) for that exact benefit. Physically EXCLUDE neighboring rows from the table unless specifically asked.\n"
             "3. ATOMIC VALUE NORMALIZATION: Use ONLY the specific cost-sharing values found in the MASTER DATA. "
-            "If the text says '20% coinsurance', report ONLY that. DO NOT add '$0' or 'No Charge' to that same cell. "
-            "Do not mix values from different plan types (e.g., do not use a 'Medical' value for a 'Dental' benefit).\n"
-            "4. NO NARRATION: Do NOT explain results or add 'Note' sections at the bottom.\n"
-            "5. NETWORK COLUMNS: You MUST include 'In-Network' and 'Out-of-Network' status for each year. "
-            "STRICT EXCEPTION: ONLY use 'Same as In-Network' for the Out-of-Network column if the benefit is 'Emergency room care'. "
-            "For all other benefits in an HMO, you must report 'Not Covered' for Out-of-Network if that is what the text says.\n"
+            "If a value is $15/visit, report '$15'. Do NOT mix values from different plan types (e.g., do not use a Medical value for a Dental row).\n"
+            "4. NO NARRATION: Do NOT explain results, add bullet points, or add 'Note' sections at the bottom.\n"
+            "5. MANDATORY NETWORK COLUMNS: You MUST include 'In-Network' and 'Out-of-Network' columns for EACH year to show the full cost difference. "
+            "STRICT HMO EXCEPTION: ONLY use 'Same as In-Network' for the Out-of-Network column if the benefit is 'Emergency room care'. "
+            "For all other benefits (PCP, Specialist, X-ray, Urgent Care) in an HMO, you must report 'Not Covered' for Out-of-Network.\n"
             f"6. PLAN TYPE STRICTNESS: You are currently analyzing {p_type_fast} benefits. "
-            f"If the plan type is 'Dental', you MUST physically ignore any Medical values found in the Master Data. "
-            f"Filter out all data that does not belong to the '{p_type_fast}' category.\n"
-            "7. ROW DEDUPLICATION: Ensure you do not create separate rows for different years of the same benefit. "
-            "Merge them into a single row with multiple year columns. Normalize values (e.g., '$25/visit' and '$25' should just be '$25').\n"
+            f"If the plan type is 'Dental', you MUST physically ignore any Medical values found in the Master Data, and vice versa.\n"
+            "7. MANDATORY ROW MERGING: Merge all years of the same benefit into a SINGLE ROW with multiple year columns. "
+            "Example Header: | Benefit | 2024 In-Network | 2024 Out-of-Network | 2026 In-Network | 2026 Out-of-Network |\n"
             f"8. YEAR FILTER: ONLY create columns for: {', '.join(str(y) for y in found_years)}."
         )
 

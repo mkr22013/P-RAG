@@ -123,12 +123,12 @@ Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to e
 
 4. What are the benefits for 'Emergency Room' services in the 2026 Premera Gold HMO? Are there any specific copays or coinsurance?
 
-5. Compare the individual annual deductible for 2024 Gold Medical vs 2026 Premera Gold HMO. Please use a table.
+5. Compare 2024 Gold vs 2026 Premera Gold deductibles.
 
-6. Create a table comparing the individual annual deductible for 2024 Gold Medical vs 2026 Premera Gold HMO.
+6. Tell me about the medical PCP co-pay.
 
-7. Compare the individual annual deductible for 2024 Gold vs 2026 Premera Gold. Show the values in a table.
+7. What are the dental benefits for my 2025 plan?
 
-8. Compare 2024 Gold vs 2026 Premera Gold deductibles.
+8. Show me my urgent care benefits
 
 9. Compare my 2024 and 2026 PCP copays.

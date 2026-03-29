@@ -130,3 +130,5 @@ Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to e
 7. Compare the individual annual deductible for 2024 Gold vs 2026 Premera Gold. Show the values in a table.
 
 8. Compare 2024 Gold vs 2026 Premera Gold deductibles.
+
+9. Compare my 2024 and 2026 PCP copays.

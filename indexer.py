@@ -1,4 +1,7 @@
-import os, json, sqlite3, ollama, re
+import os, sqlite3, re
+import json as json_lib
+import ollama
+from datetime import datetime
 from docling.document_converter import DocumentConverter
 from dotenv import load_dotenv
 
@@ -6,15 +9,20 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions, TableStructur
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.base_models import InputFormat
 from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
-from docling.datamodel.pipeline_options import TableFormerMode # Crucial for 'mode'
+from docling.datamodel.pipeline_options import TableFormerMode  # Crucial for 'mode'
 
 load_dotenv()
 DOC_BASE_DIR = "./docs"
 INDEX_OUTPUT_DIR = "./indices"
-DB_PATH = "p_insurance_index.db"
+# In indexer.py, line 14
+DB_PATH = os.path.join(os.path.dirname(__file__), "p_insurance_index.db")
+
 LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
 
 os.makedirs(INDEX_OUTPUT_DIR, exist_ok=True)
+from datetime import datetime
+
+CURRENT_YEAR_INT = datetime.now().year
 
 
 def setup_db():
@@ -32,9 +40,11 @@ def setup_db():
     conn.commit()
     conn.close()
 
+
 def nuclear_flatten(val):
     clean = re.sub(r"[^a-zA-Z0-9\s$.,%]", "", str(val))
     return clean.strip()
+
 
 def classify_document(md_content):
     """Surgically extracts metadata using only the first 2000 characters."""
@@ -59,81 +69,141 @@ def classify_document(md_content):
             options={"num_ctx": 4096, "temperature": 0},
         )
 
-        data = json.loads(response["response"])
+        data = json_lib.loads(response["response"])
 
-        raw_year = str(data.get("year", "2026"))
+        raw_year = str(data.get("year", CURRENT_YEAR_INT))
         clean_year = re.sub(r"\D", "", raw_year)
 
         return {
             "year": (
-                int(clean_year) if clean_year else 2026
-            ),  # Default to 2026 if extraction fails
+                int(clean_year) if clean_year else CURRENT_YEAR_INT
+            ),  # Default to current year if extraction fails
             "type": nuclear_flatten(data.get("type", "Medical")),
             "tier": nuclear_flatten(data.get("tier", "Gold")),
         }
     except Exception as e:
         print(f"⚠️ Classification Error: {e}. Using defaults.")
         # FALLBACK: If the LLM hangs or fails, return a default so the script continues
-        return {"year": 2026, "type": "Medical", "tier": "Gold"}
+        return {"year": CURRENT_YEAR_INT, "type": "Medical", "tier": "Gold"}
 
-def generate_sub_index(md_content, sub_index_path):
+
+def get_smart_keywords(text):
+    """Rule-based extraction using an insurance whitelist and regex."""
+    text_lower = text.lower()
+    patterns = {
+        "pcp": r"\bpcp\b|primary[- ]?care",
+        "specialist": r"specialist",
+        "in-network": r"in[- ]?network",
+        "out-of-network": r"out[- ]?of[- ]?network",
+        "out-of-pocket": r"out[- ]?of[- ]?pocket",
+        "copay": r"co[- ]?pay|copay",
+        "deductible": r"deductible",
+        "coinsurance": r"co[- ]?insurance",
+        "pre-authorization": r"pre[- ]?auth",
+        "preventive": r"preventive|routine",
+        "emergency": r"emergency|medical[- ]?attention",
+        "urgent-care": r"urgent[- ]?care",
+        "pharmacy": r"pharmacy|prescription|rx",
+        "dental": r"dental|dentist|ortho|braces",
+        "vision": r"vision|eye|glasses|contacts",
+        "medical": r"medical|physician|doctor|hospital",
+    }
+
+    found = []
+    # 1. SCAN THE ENTIRE WHITELIST FIRST
+    # We removed the 'break' so it finds 'specialist' even if it already found 5 other things
+    for label, pattern in patterns.items():
+        if re.search(pattern, text_lower):
+            if label not in found:
+                found.append(label)
+
+    # 2. FILL REMAINING SLOTS WITH BACKUPS (Only if we have less than 10)
+    if len(found) < 10:
+        blacklist = [
+            "information",
+            "including",
+            "provided",
+            "agreement",
+            "services",
+            "benefit",
+            "official",
+            "document",
+        ]
+        backups = re.findall(r"\b\w{7,}\b", text_lower)
+        for w in backups:
+            if w not in found and w not in blacklist:
+                found.append(w)
+            if len(found) >= 10:
+                break
+
+    return found[:10]
+
+
+def generate_sub_index(md_content, sub_index_path, LOCAL_MODEL="llama3"):
     sub_index = []
-    print(f"I am in generate_sub_index and the content length is {len(md_content)}")
-    # 1. FORCED CHUNKING
     chunk_size = 4000
     final_chunks = [
         md_content[i : i + chunk_size] for i in range(0, len(md_content), chunk_size)
     ]
-    total = len(final_chunks)
-
-    # 2. DETECT MASSIVE FILES
-    # If the file is huge, we use "Fast Indexing" to avoid Ollama hanging
     is_massive = len(md_content) > 10000
 
-    print(
-        f"[*] Indexing {total} sections ({'FAST MODE' if is_massive else 'AI MODE'})..."
-    )
-
     for i, chunk in enumerate(final_chunks):
-        if len(chunk.strip()) < 100:
+        clean_chunk = chunk.strip()
+        if len(clean_chunk) < 100:
             continue
-        print(f"    -> Processing Part {i+1} of {total}...")
 
         if is_massive:
-            # RULE-BASED: Just grab the first line as topic and common words as keywords
-            topic = chunk.strip().split("\n")[0][:50]
-            keywords = list(set(re.findall(r"\b\w{5,}\b", chunk.lower())))[
-                :5
-            ]  # 5+ letter words
+            topic = clean_chunk.split("\n")[0][:60]
+            keywords = get_smart_keywords(clean_chunk)
         else:
-            # AI-BASED: Only for small files
-            prompt = f"Summary and 3 keywords. Return ONLY JSON: {{'topic': '...', 'keywords': []}}. Text: {chunk[:1000]}"
+            # Using ollama.chat instead of generate
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are an insurance expert. Summarize the topic and provide 3 keywords for this benefit booklet snippet.",
+                },
+                {
+                    "role": "user",
+                    "content": f"Return ONLY JSON with 'topic' and 'keywords' keys. Text: {clean_chunk[:1000]}",
+                },
+            ]
             try:
-                # Add num_ctx to increase Ollama's "mouth" size
-                response = ollama.generate(
+                # chat() returns the assistant message in ['message']['content']
+                response = ollama.chat(
                     model=LOCAL_MODEL,
-                    prompt=prompt,
+                    messages=messages,
                     format="json",
+                    stream=False,
                     options={"num_ctx": 4096},
                 )
-                metadata = json.loads(response["response"])
-                topic = metadata.get("topic", "Detail")
-                keywords = metadata.get("keywords", [])
-            except:
-                topic, keywords = "Detail", ["insurance"]
+                metadata = json_lib.loads(response["message"]["content"])
+                topic = metadata.get("topic", "Insurance Detail")
+                # --- THE FIX: MERGE LLM KEYWORDS WITH REGEX KEYWORDS ---
+                llm_keywords = metadata.get("keywords", [])
+                regex_keywords = get_smart_keywords(clean_chunk)
+
+                # Combine both lists and remove duplicates
+                keywords = list(set(llm_keywords + regex_keywords))
+            except Exception as e:
+                print(f"Chat Error: {e}")
+                topic = clean_chunk.split("\n")[0][:60]
+                keywords = get_smart_keywords(clean_chunk)
 
         sub_index.append(
             {
                 "page_number": i,
-                "topic": nuclear_flatten(topic),
+                "topic": nuclear_flatten(
+                    topic
+                ),  # Assuming this helper exists in your script
                 "keywords": [nuclear_flatten(k).lower() for k in keywords],
-                "content": chunk.strip(),
+                "content": clean_chunk,
             }
         )
 
     with open(sub_index_path, "w", encoding="utf-8") as f:
-        json.dump(sub_index, f, indent=4)
+        json_lib.dump(sub_index, f, indent=4)
     print(f"[*] SAVED SUB-INDEX: {sub_index_path}")
+
 
 def build_all():
     setup_db()
@@ -148,20 +218,17 @@ def build_all():
     # This forces Docling to treat EVERY page as an image and OCR it.
     # It is slower, but it captures 100% of 'hidden' or 'graphic' text.
     pipeline_options.ocr_options.force_full_page_ocr = True
-    
-    # 2. OCR PRECISION (Directly under ocr_options)
-    pipeline_options.ocr_options.force_full_page_ocr = True
-    
+
     # 3. FIX FOR 'mode' AND 'do_cell_matching' ERRORS
     # Cast to TableStructureOptions to resolve the linter's 'Attribute not found' error
-    table_options: TableStructureOptions = pipeline_options.table_structure_options # type: ignore
-    
+    table_options: TableStructureOptions = pipeline_options.table_structure_options  # type: ignore
+
     # Use the Enum TableFormerMode.ACCURATE instead of a string
-    table_options.mode = TableFormerMode.ACCURATE 
-    
+    table_options.mode = TableFormerMode.ACCURATE
+
     # This helps reconstruct Premera's complex multi-line benefit cells
-    table_options.do_cell_matching = True 
-    
+    table_options.do_cell_matching = True
+
     converter = DocumentConverter(
         format_options={
             InputFormat.PDF: PdfFormatOption(
@@ -236,6 +303,7 @@ def build_all():
 
     conn.commit()
     conn.close()
+
 
 if __name__ == "__main__":
     build_all()

@@ -3,9 +3,18 @@
         "page_number": 0,
         "topic": "Annual Deductible",
         "keywords": [
+            "pcp",
+            "primary",
+            "copay",
+            "deductible",
+            "individual",
+            "specialist",
+            "physician",
+            "insurance",
+            "planyear",
             "medical",
-            "deductible"
+            "2025gold"
         ],
-        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlanYear:2025 Plan Type: Medical Tier: Gold Topic: Annual Deductible The individual deductible for the 2025Gold Medical Plan is $750. The family deductible for the 2025 Gold Medical Plan is $1500. Primary Care Physician (PCP) co-pay is $35."
+        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlanYear:2025 Plan Type: Medical Tier: Gold Topic: Annual Deductible The individual deductible for the 2025Gold Medical Plan is $750. The family deductible for the 2025 Gold Medical Plan is $1500. Primary Care Physician (PCP) co-pay is $35. Specialist Physician co-pay is $60."
     }
 ]

@@ -90,9 +90,8 @@ async def download_pdf(content: str = Form(...)):
         lines = [line.strip() for line in content.split("\n") if "|" in line]
         table_data = []
         for line in lines:
-            if "---" in line:
+            if "---" in line or ":---" in line:  # Improved separator filtering
                 continue
-            # Filter out empty strings from leading/trailing pipes
             row = [cell.strip() for cell in line.split("|") if cell.strip()]
             if row:
                 table_data.append(row)
@@ -101,7 +100,7 @@ async def download_pdf(content: str = Form(...)):
         pdf = FPDF(orientation="L", unit="mm", format="A4")
         pdf.add_page()
 
-        # Header - Use 'helvetica' for 2.7.8+ compatibility
+        # Header
         pdf.set_font("helvetica", "B", 16)
         pdf.cell(
             0,
@@ -111,28 +110,36 @@ async def download_pdf(content: str = Form(...)):
             new_x="LMARGIN",
             new_y="NEXT",
         )
-        pdf.ln(10)
+        pdf.ln(5)
 
-        # 3. GENERATE TABLE (The Fix for Overlapping Text)
-        pdf.set_font("helvetica", size=10)
-
-        # Calculate column widths: Benefit (50mm) + Data columns (split remaining 220mm)
+        # 3. DYNAMIC LAYOUT ENGINE (The Fix for 7-Column Tables)
         num_cols = len(table_data[0]) if table_data else 0
+
+        # Adjust Font Size based on column count to prevent overlap
+        # 1-4 cols: 10pt | 5-6 cols: 9pt | 7+ cols: 8pt
+        font_size = 10 if num_cols <= 4 else (9 if num_cols <= 6 else 8)
+        pdf.set_font("helvetica", size=font_size)
+
+        # Calculate weighted column widths
+        # Benefit column is narrower (35mm) to give data columns more room
         if num_cols > 1:
-            data_w = 220 / (num_cols - 1)
-            col_widths = [50] + [data_w] * (num_cols - 1)
+            benefit_col_w = 35
+            remaining_space = 240  # Total usable width is ~275mm
+            data_col_w = remaining_space / (num_cols - 1)
+            col_widths = [benefit_col_w] + [data_col_w] * (num_cols - 1)
         else:
             col_widths = [270]
 
-        # pdf.table handles the "Out-of-Network" wrapping and row height perfectly
-        with pdf.table(width=270, col_widths=col_widths, text_align="CENTER") as table:
+        # Generate Table with automatic text wrapping
+        with pdf.table(
+            width=275, col_widths=col_widths, text_align="CENTER", line_height=6
+        ) as table:
             for data_row in table_data:
                 row = table.row()
                 for cell_value in data_row:
                     row.cell(str(cell_value))
 
-        # 4. THE BYTEARRAY FIX
-        # Convert bytearray to bytes so FastAPI doesn't try to .encode() it
+        # 4. OUTPUT PROCESSING
         pdf_raw = pdf.output()
         pdf_bytes = bytes(pdf_raw)
 

@@ -110,6 +110,9 @@ def query_insurance_benefits(
     return get_plan_data_from_disk(year, plan_type, plan_tier, topic.lower())
 
 
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
+
 # @mcp.tool()
 # def query_insurance_benefits(
 #     year: int | None = None,
@@ -173,7 +176,3 @@ def query_insurance_benefits(
 #         combined_results += f"\n--- {r_year} {r_tier} {r_type} ---\n{page_context}\n"
 
 #     return combined_results
-
-
-if __name__ == "__main__":
-    mcp.run(transport="stdio")

@@ -141,9 +141,10 @@ def get_smart_keywords(text):
 
 def generate_sub_index(md_content, sub_index_path, LOCAL_MODEL="llama3"):
     sub_index = []
-    chunk_size = 4000
+    chunk_size = 2000
+    overlap = 300
     final_chunks = [
-        md_content[i : i + chunk_size] for i in range(0, len(md_content), chunk_size)
+        md_content[i : i + chunk_size] for i in range(0, len(md_content), chunk_size - overlap)
     ]
     is_massive = len(md_content) > 10000
 

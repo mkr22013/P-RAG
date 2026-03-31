@@ -17,22 +17,43 @@ def resolve_insurance_topic(query_words, full_query_text):
     """SINGLE SOURCE OF TRUTH: Maps keywords to our specific index topics."""
     query_lower = full_query_text.lower()
 
+    # 1. DEDUCTIBLES
     if any(
         w in query_words
         for w in ["deductible", "deductibles", "out-of-pocket", "oop", "limit"]
     ):
         return "deductible"
-    if any(
-        w in query_words for w in ["emergency", "er", "urgent", "ambulance", "room"]
+
+    # 2. EMERGENCY & AMBULANCE (Surgical Match)
+    # \ber\b ensures 'ER' is a standalone word. We also check for 'room'.
+    if (
+        re.search(r"\ber\b", query_lower)
+        or "emergency" in query_lower
+        or "ambulance" in query_words
+        or "room" in query_words
     ):
+        # If 'urgent' is also present, we pivot to Urgent Care topic
+        if "urgent" in query_words:
+            return "urgent"
         return "emergency"
+
+    # 3. URGENT CARE (Dedicated Topic)
+    if any(w in query_words for w in ["urgent", "clinic", "after-hours"]):
+        return "urgent"
+
+    # 4. IMAGING
     if any(
         w in query_words for w in ["xray", "x-ray", "imaging", "mri", "scan", "blood"]
     ):
         return "imaging"
 
+    # 5. DENTAL & VISION
     if any(w in query_words for w in ["dental", "ortho", "braces"]):
         return "orthodontia"
+    if any(w in query_words for w in ["vision", "eye", "glasses"]):
+        return "vision"
+
+    # 6. PRIMARY & SPECIALIST
     if (
         any(
             w in query_words
@@ -44,7 +65,7 @@ def resolve_insurance_topic(query_words, full_query_text):
             return "specialist"
         return "primary"
 
-    return "benefit"  # Default fallback
+    return "benefit"
 
 
 def lock_plan_metadata(found_years, detected_type, detected_tier):

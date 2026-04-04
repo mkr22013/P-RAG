@@ -178,7 +178,6 @@ def lock_plan_metadata(found_years, detected_type, detected_tier):
 def generate_ironclad_instruction(
     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
 ):
-    # DYNAMIC FORBIDDEN LIST (Generic Sub-string Matching)
     forbidden_map = {
         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy",
@@ -187,39 +186,32 @@ def generate_ironclad_instruction(
         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
     }
     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-    # STEP 4 SCOPE LOCK: Strictly define if mirroring is allowed
     mirror_allowed = "TRUE" if "emergency" in p_topic.lower() else "FALSE"
-    print(
-        f"[*] Generated instruction with topic='{p_topic}', erase_list='{erase_list}', mirror_allowed='{mirror_allowed}'"
-    )
 
     return (
         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-        "--- STAGE 1: THE ARCHITECTURAL ANCHOR (ZERO TOLERANCE) ---\n"
-        f"1. HEADER TEMPLATE: You MUST strictly use this exact horizontal map for your columns:\n{header_line}\n"
-        "2. HORIZONTAL MAPPING: You are strictly FORBIDDEN from creating a separate row for 'Out-of-network'. "
-        "Every In-Network and Out-of-Network value MUST be on the SAME horizontal line as the benefit name."
-        "You must use BENEFIT as the only entry in the first column. Do NOT create separate rows for sub-benefits (e.g., MRI vs X-ray). "
-        "--- STAGE 2: THE SURGICAL ERASER (FILTERING) ---\n"
-        f"1. Physically DELETE any row containing forbidden words: {erase_list}. "
-        f"Show ONLY the row(s) exactly matching '{p_topic}'. showing anything from erase_list is considered as 100% SYSTEM FAILURE.\n\n"
-        "--- STAGE 3: EMERGENCY RELATIONAL MIRROR (CONDITIONAL FIREWALL) ---\n"
+        "--- STAGE 1: THE ARCHITECTURAL ANCHOR ---\n"
+        f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+        f"2. TOPIC LOCK: You MUST show ONLY the benefit exactly matching '{p_topic}'.\n"
+        "3. HORIZONTAL MAPPING: Every In-Network and Out-of-Network value MUST be on the SAME horizontal line.\n\n"
+        "--- STAGE 2: THE DATA SANITIZER (NO LEAKAGE) ---\n"
+        f"1. GHOST WORDS: The following terms are GHOSTS. You are FORBIDDEN from typing them in any cell: {erase_list}.\n"
+        "2. If a row contains a ghost word, that row is NULL. Do NOT report it. Not even a fragment of it.\n"
+        "3. ABSOLUTE FILTER: If your output table contains any ghost word, it is a 100% SECURITY FAILURE.\n\n"
+        "--- STAGE 3: EMERGENCY RELATIONAL MIRROR ---\n"
         f"1. ALLOW MIRRORING STATUS: {mirror_allowed}\n"
-        f"2. MANDATORY LOGIC SWITCH: You MUST execute ONLY the rule below that matches the ALLOW MIRRORING STATUS.\n\n"
-        "   IF STATUS IS FALSE (Rule 2.1):\n"
-        "   - You are FORBIDDEN from mirroring. You MUST physically scan the In-Network & Out-of-Network fragment.\n"
-            - You must report AS IS In-Network values. Do NOT apply any corrections or assumptions.\n"
-        "   - If Out-of-Network is BLANK/MISSING, report 'Data Not Found'.\n"
-        "   - Otherwise, report the exact fragment value. Do NOT copy from In-Network.\n\n"
-        "   IF STATUS IS TRUE (Rule 2.2):\n"
-        "   - Physically scan the Out-of-Network fragment.\n"
-        "   - If it is blank or says 'Same as In-Network', copy the character string from the In-Network cell.\n"
-        "   - Mirroring is ONLY for life-saving emergency care or specified rows.\n\n"
+        "2. LOGIC SWITCH: Execute ONLY the rule matching the status above.\n\n"
+        "   IF ALLOW MIRRORING STATUS IS FALSE:\n"
+        "   - NO MIRRORING. Scan trailing lines for 'Not covered' or prices.\n"
+        "   - If 'Not covered' is visible, report it. If blank, use 'Data Not Found'.\n\n"
+        "   IF ALLOW MIRRORING STATUS IS TRUE:\n"
+        "   - If Out-of-Network is blank, copy the exact In-Network string.\n"
+        "   - Priority: Visible 'Not covered' strings always override mirroring.\n\n"
         "--- FINAL OUTPUT ARCHITECTURE ---\n"
         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-        "1. NO BLANKS. START WITH '|'. NO NARRATION. OUTPUT ONLY THE FINAL DATA ROW(S)."
+        "1. NO NARRATION. START WITH '|'. OUTPUT ONLY THE CLEANED DATA ROW."
     )
 
 
@@ -796,6 +788,7 @@ async def get_ai_response(query, history):
                 "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
             },
         ]
+        print(f"[*] master data sent to LLM: {master_data_string}")
 
         final_resp = ollama.chat(
             model=LOCAL_MODEL,

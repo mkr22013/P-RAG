@@ -28,6 +28,7 @@ async def chat_endpoint(prompt: str = Form(...), history: str = Form("[]")):
     try:
         # Convert the history string from React back into a list
         history_list = json.loads(history)
+        print (f"[*] Received chat request with prompt: {prompt} and history: {history_list}")
         answer = await get_ai_response(prompt, history_list)
         return {"answer": answer}
     except Exception as e:

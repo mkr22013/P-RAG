@@ -33,6 +33,47 @@ def get_available_plans() -> str:
         return f"DISCOVERY ERROR: {str(e)}"
 
 
+def _fetch_tiers_list(year, plan_type):
+    """Internal helper to get a clean list of tiers."""
+    try:
+        # 1. CRITICAL: Ensure year is an integer for SQLite comparison
+        # This handles cases where year might be passed as "2025" (str)
+        clean_year = int(year)
+
+        with sqlite3.connect(DB_PATH) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT DISTINCT plan_tier FROM master_index WHERE year = ? AND LOWER(plan_type) = LOWER(?) ORDER BY plan_tier",
+                (clean_year, plan_type),
+            )
+
+            # 2. Extract first element of each tuple: ('Silver',) -> 'Silver'
+            results = [row[0] for row in cursor.fetchall()]
+            print(f"[*] DB Query for {clean_year}/{plan_type} returned: {results}")
+            return results
+
+    except (ValueError, TypeError) as e:
+        print(f"[*] Input Error: Year '{year}' is not a valid number: {e}")
+        return []
+    except Exception as e:
+        print(f"[*] DB Error: {e}")
+        return []
+
+
+@mcp.tool()
+def get_available_tiers(year, plan_type) -> str:
+    """
+    DISCOVERY TOOL: Returns a unique list of all Plan Types, Tiers, and Years.
+    """
+    print(f"[*] Tool calling for Year={year}, Type='{plan_type}'")
+    tiers = _fetch_tiers_list(year, plan_type)
+
+    if not tiers:
+        return f"DATABASE INFO: No tiers found for {plan_type} in {year}."
+
+    return f"DATA SOURCE SCHEMA (Tier): {tiers}"
+
+
 # ---(LRU: Least Recently Used) --- python in built memory caching decorator.
 # This keeps the last 128 unique plan lookups in RAM across the entire session.
 # It is 100% thread-safe and prevents the 'Triple Fetch' bug.

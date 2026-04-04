@@ -5,13 +5,15 @@
         "keywords": [
             "pcp",
             "specialist",
+            "innetwork",
+            "outofnetwork",
             "copay",
             "deductible",
             "medical",
-            "individual",
-            "primary",
-            "physician"
+            "premera",
+            "network",
+            "individual"
         ],
-        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlan Year: 2024 Plan Type: Medical Tier: Gold Topic: Annual Deductible The individual deductible for the 2024 Gold Medical Plan is $500. The family deductible for the 2024 Gold Medical Plan is $1000. Primary Care Physician (PCP) co-pay is $25. Specialist Physician co-pay is $50."
+        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlan Year: 2024\n\nPlan Name: 2024 Premera Gold Medical (PPO)\n\nTier: Gold\n\nBenefit | In-Network | Out-of-Network\n\nAnnual Deductible | $500 Individual / $1,000 Family | Data Not Found\n\nPrimary Care Physician (PCP)I $25 copay | Data Not Found\n\nSpecialist Physician| $50 copay | Data Not Found\n\n\u4e00\n\nThe individual deductible for the 2024Gold Medical Plan is $500.\n\nThe family deductible for the 2024 Gold Medical Plan is $1,000."
     }
 ]

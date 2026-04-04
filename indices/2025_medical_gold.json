@@ -5,15 +5,15 @@
         "keywords": [
             "pcp",
             "specialist",
+            "innetwork",
+            "outofnetwork",
             "copay",
             "deductible",
             "medical",
             "planyear",
-            "individual",
-            "2025gold",
-            "primary",
-            "physician"
+            "premera",
+            "network"
         ],
-        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlanYear:2025 Plan Type: Medical Tier: Gold Topic: Annual Deductible The individual deductible for the 2025Gold Medical Plan is $750. The family deductible for the 2025 Gold Medical Plan is $1500. Primary Care Physician (PCP) co-pay is $35. Specialist Physician co-pay is $60."
+        "content": "## Official Document: Medical\\_Gold.pdf\n\nPlanYear:2025\n\nPlan Name: 2025 Premera Gold Medical (PPO)\n\nTier: Gold\n\nBenefit | In-Network | Out-of-Network\n\nAnnual Deductible | $750 Individual / $1,500 Family | Data Not Found\n\nPrimary Care Physician (PCP)I $35 copay | Data Not Found\n\nSpecialist Physician| $60 copay | Data Not Found\n\n\u4e00\n\nThe individual deductible for the 2025Gold MedicalPlan is $750. The family deductible for the 2025 Gold Medical Plan is $1,500."
     }
 ]

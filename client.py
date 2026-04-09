@@ -41,10 +41,11 @@ def resolve_insurance_topic(query_words, full_query_text):
     if any(w in query_words for w in ["urgent", "clinic", "after-hours"]):
         return "urgent"
 
-    # 4. IMAGING
-    if any(
-        w in query_words for w in ["xray", "x-ray", "imaging", "mri", "scan", "blood"]
-    ):
+    # 4. IMAGING / DIAGNOSTIC (Splitting the logic)
+    if any(w in query_words for w in ["xray", "x-ray", "blood", "diagnostic"]):
+        return "diagnostic"
+
+    if any(w in query_words for w in ["mri", "pet", "scan", "imaging"]):
         return "imaging"
 
     # 5. DENTAL & VISION
@@ -66,6 +67,81 @@ def resolve_insurance_topic(query_words, full_query_text):
         return "primary"
 
     return "benefit"
+
+
+import re
+
+
+def squeeze_insurance_data(raw_text):
+    if not raw_text:
+        return ""
+
+    # 1. DELETE THE BARRIERS: Remove those '---' headers and empty pipe fragments
+    # This specifically removes the lines splitting your rows in the logs.
+    text = re.sub(r"\|? ---.*?--- \|?", " ", raw_text)
+    text = re.sub(r"\[SECTION:.*?\]|##.*?|&amp;", " ", text)
+    text = re.sub(r"\|\s*\|\s*\||\|\s*\|", " | ", text)  # Clean double/triple pipes
+
+    # 2. TOKENIZE: Split into clean lines
+    lines = text.split("\n")
+    lines = [line.strip() for line in lines if line.strip()]
+
+    stitched_lines = []
+    i = 0
+    while i < len(lines):
+        curr = lines[i]
+
+        # 3. FRAGMENT VACUUM: If a line has no numeric data, look ahead.
+        if not re.search(r"\d|%", curr) and i + 1 < len(lines):
+            lookahead = ""
+            # Scan the next 2 lines to find the cost info ($ or %)
+            for j in range(1, 3):
+                if i + j < len(lines) and re.search(r"\d|%", lines[i + j]):
+                    lookahead = lines[i + j]
+                    i += j
+                    break
+
+            if lookahead:
+                combined = f"{curr} | {lookahead}"
+                combined = combined.replace(
+                    "Freestanding center:", " || Freestanding center:"
+                )
+                stitched_lines.append(f"| {re.sub(r'\s{2,}', ' ', combined)} |")
+            else:
+                stitched_lines.append(f"| {curr} |")
+        else:
+            curr = curr.replace("Freestanding center:", " || Freestanding center:")
+            stitched_lines.append(f"| {re.sub(r'\s{2,}', ' ', curr)} |")
+        i += 1
+
+    return "\n".join(stitched_lines)
+
+
+# def squeeze_insurance_data(raw_text):
+#     if not raw_text:
+#         return ""
+
+#     # 1. Standardize spacing: Replace tabs and multiple newlines with single spaces
+#     # but keep the primary line breaks for each benefit
+#     lines = raw_text.split("\n")
+#     cleaned_lines = []
+
+#     for line in lines:
+#         # Skip empty lines or purely decorative separator lines
+#         if not line.strip() or "-------" in line:
+#             continue
+
+#         # 2. Collapse massive whitespace (4+ spaces) into a single pipe separator
+#         # This brings the Out-of-Network values closer to the In-Network values
+#         line = re.sub(r"\s{4,}", " | [OON_ANCHOR] | ", line)
+
+#         # 3. Remove leading/trailing pipes and extra spaces
+#         line = line.strip().strip("|").strip()
+
+#         if line:
+#             cleaned_lines.append(f"| {line} |")
+
+#     return "\n".join(cleaned_lines)
 
 
 def lock_plan_metadata(found_years, detected_type, detected_tier):
@@ -104,215 +180,179 @@ def lock_plan_metadata(found_years, detected_type, detected_tier):
     return valid_years or found_years, valid_type, valid_tier
 
 
-# def get_available_tiersFromDB(year, plan_type):
-#     """
-#     Infer the plan tier from the available plans schema for a given year and type.
-#     """
-#     from server import get_available_plans
-#     import ast
-
-#     raw_schema = _fetch_tiers_list(year, plan_type)
-#     if "DATABASE INFO" in raw_schema:
-#         return None
-
-#     try:
-#         schema_data = ast.literal_eval(
-#             raw_schema.replace("DATA SOURCE SCHEMA (Year, Type, Tier): ", "")
-#         )
-#     except Exception:
-#         return None
-
-#     type_lower = str(plan_type or "").lower()
-#     for y, t, tr in schema_data:
-#         if str(y) == str(year) and str(t).lower() == type_lower:
-#             return tr
-
-#     return None
-
-# # GOLDEN version with 6 PROMPT working
-# def generate_ironclad_instruction(
-#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-# ):
-#     # DYNAMIC FORBIDDEN LIST (Generic Sub-string Matching)
-#     forbidden_map = {
-#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy",
-#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
-#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
-#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
-#     }
-#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-#     # STEP 4 SCOPE LOCK: Strictly define if mirroring is allowed
-#     mirror_allowed = "TRUE" if "emergency" in p_topic.lower() else "FALSE"
-
-#     return (
-#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
-#         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (ZERO TOLERANCE) ---\n"
-#         f"1. HEADER TEMPLATE: You MUST strictly use this exact horizontal map for your columns:\n{header_line}\n"
-#         "2. HORIZONTAL MAPPING: You are strictly FORBIDDEN from creating a separate row for 'Out-of-network'. "
-#         "Every In-Network and Out-of-Network value MUST be on the SAME horizontal line as the benefit name."
-#         "You must use BENEFIT as the only entry in the first column. Do NOT create separate rows for sub-benefits (e.g., MRI vs X-ray). "
-#         # "--- STAGE 2: In-Network & Out-of-Network Rule for topic emergency (MANDATORY) ---\n"
-#         # f"1. APPLY THIS RULE ONLY WHEN {p_topic.lower()} IS NOT 'emergency': For EVERY column in your header, scan the literal 'In-Network' & 'Out-of-Network' strings:\n"
-#         # "   - In-Network MUST be same as shown in the master list. You Must not apply any other values.\n"
-#         # "   - Out-of-Network MUST be 'Data Not Found' if missing else 'Not Covered'\n"
-#         # "Failing to distinguish between In-Network and Out-of-Network values is a 100% SYSTEM FAILURE.\n\n"
-#         "--- STAGE 2: THE SURGICAL ERASER (FILTERING) ---\n"
-#         f"1. Physically DELETE any row containing forbidden words: {erase_list}. "
-#         f"Show ONLY the row(s) exactly matching '{p_topic}'. showing any other topic listed in erase_list is considered as a SYSTEM FAILURE\n\n"
-#         "--- STAGE 3: EMERGENCY RELATIONAL MIRROR (CONDITIONAL FIREWALL) ---\n"
-#         f"1. ALLOW MIRRORING: {mirror_allowed}\n"
-#         "2. LOGIC: If 'ALLOW MIRRORING' is FALSE, you are FORBIDDEN from mirroring columns. "
-#         "If 'ALLOW MIRRORING' is TRUE, you MUST physically scan the "
-#         "Out-of-Network fragment. If it is blank or says 'Same as In-Network', copy the "
-#         "character string from the In-Network cell. Mirroring is ONLY for life-saving emergency care.\n\n"
-#         "--- FINAL OUTPUT ARCHITECTURE ---\n"
-#         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-#         "1. NO BLANKS. START WITH '|'. NO NARRATION. OUTPUT ONLY THE FINAL DATA ROW(S)."
-#     )
-
-
-# GOLDEN version with 6 PROMPT working
 def generate_ironclad_instruction(
     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
 ):
+    # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
     forbidden_map = {
-        "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-        "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy",
-        "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
-        "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
-        "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+        "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency, ER, Urgent care",
+        "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
+        "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
+        "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
+        "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
+        "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
     }
     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-    mirror_allowed = "TRUE" if "emergency" in p_topic.lower() else "FALSE"
 
     return (
         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-        "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
-        "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-        "--- STAGE 1: THE ARCHITECTURAL ANCHOR ---\n"
+        "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+        "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+        "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
-        f"2. TOPIC LOCK: You MUST show ONLY the benefit exactly matching '{p_topic}'.\n"
-        "3. HORIZONTAL MAPPING: Every In-Network and Out-of-Network value MUST be on the SAME horizontal line.\n\n"
-        "--- STAGE 2: THE DATA SANITIZER (NO LEAKAGE) ---\n"
-        f"1. GHOST WORDS: The following terms are GHOSTS. You are FORBIDDEN from typing them in any cell: {erase_list}.\n"
-        "2. If a row contains a ghost word, that row is NULL. Do NOT report it. Not even a fragment of it.\n"
-        "3. ABSOLUTE FILTER: If your output table contains any ghost word, it is a 100% SECURITY FAILURE.\n\n"
-        "--- STAGE 3: EMERGENCY RELATIONAL MIRROR ---\n"
-        f"1. ALLOW MIRRORING STATUS: {mirror_allowed}\n"
-        "2. LOGIC SWITCH: Execute ONLY the rule matching the status above.\n\n"
-        "   IF ALLOW MIRRORING STATUS IS FALSE:\n"
-        "   - NO MIRRORING. Scan trailing lines for 'Not covered' or prices.\n"
-        "   - If 'Not covered' is visible, report it. If blank, use 'Data Not Found'.\n\n"
-        "   IF ALLOW MIRRORING STATUS IS TRUE:\n"
-        "   - If Out-of-Network is blank, copy the exact In-Network string.\n"
-        "   - Priority: Visible 'Not covered' strings always override mirroring.\n\n"
-        "--- FINAL OUTPUT ARCHITECTURE ---\n"
-        f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-        "1. NO NARRATION. START WITH '|'. OUTPUT ONLY THE CLEANED DATA ROW."
+        f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
+        "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+        "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+        f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+        "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+        "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
+        "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
+        "   - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
+        f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table.\n"
+        "2. **OON BOOLEAN STRING RULE (URGENT CARE FIX)**: If the OON segment physically contains >15 characters OR contains the words 'urgent' or 'clinic', it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You are FORBIDDEN from summarizing. You MUST capture and report every character in that segment exactly (e.g., include both Hospital-based and Freestanding center details).\n"
+        "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
+        "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
+        "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
+        "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+        "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n\n"
+        "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+        "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+        f"{header_line}\n"
+        f"{separator_line}\n"
+        "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+        "3. YOU MUST LIST ALL SEVEN RULES (1-7) FROM STAGE 3. SPECIFICALLY CONFIRM 'OON BOOLEAN STRING RULE' WAS USED.\n"
+        "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 7-RULE AUDIT LOG."
     )
 
 
-# # BELOW 6 PROMPTS WORKING
-# # 1. Create a table comparing the individual annual deductible for the 2024 Gold Medical, 2025 Gold Medical, and 2026 Premera Gold HMO plans.
-# # 2. In the 2026 Premera Gold HMO, what is my cost for an X-ray if I stay In-Network versus if I go Out-of-Network?
-# # 3. Compare my specialist copay between the 2024 Gold Medical plan and the 2026 Premera Gold HMO. Please show the result in a Markdown table.
-# # 4. Compare 2024 Gold vs 2026 Premera Gold deductibles.
-# # 5. What are the dental benefits for my 2025 plan?
-# # 6. What are the benefits for 'Emergency Room' services in the 2026 Premera Gold HMO? Are there any specific copays or coinsurance?
-# def generate_ironclad_instruction(
+## 9 prompts working out of 10 - Urgent care out of network is wrong - We need to add a rule that if the OON segment contains the word 'urgent' or 'clinic', it cannot be 'Not covered' and we have to pull the full string.
+## def generate_ironclad_instruction(
 #     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
 # ):
-#     # DYNAMIC FORBIDDEN LIST (Generic Sub-string Matching)
+#     # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
 #     forbidden_map = {
-#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy",
-#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
-#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
-#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+#         "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
+#         "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
 #     }
 #     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-#     # STEP 4 SCOPE LOCK: Strictly define if mirroring is allowed
-#     mirror_allowed = "TRUE" if "emergency" in p_topic.lower() else "FALSE"
 
 #     return (
 #         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
-#         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (ZERO TOLERANCE) ---\n"
-#         f"1. HEADER TEMPLATE: You MUST strictly use this exact horizontal map for your columns:\n{header_line}\n"
-#         "2. HORIZONTAL MAPPING: You are strictly FORBIDDEN from creating a separate row for 'Out-of-network'. "
-#         "Every In-Network and Out-of-Network value MUST be on the SAME horizontal line as the benefit name."
-#         "You must use BENEFIT as the only entry in the first column. Do NOT create separate rows for sub-benefits (e.g., MRI vs X-ray). "
-#         "--- STAGE 2: In-Network & Out-of-Network Rule for topic emergency (MANDATORY) ---\n"
-#         f"1. if {p_topic.lower()} CONTAINS 'emergency': For EVERY column in your header, scan the literal 'Plan Name' string:\n"
-#         "   - In-Network MUST be same as shown in the master list. You Must not apply any other values.\n"
-#         "   - Out-of-Network MUST be 'Data Not Found' if missing else 'Not Covered'\n"
-#         "Failing to distinguish between In-Network and Out-of-Network values is a 100% SYSTEM FAILURE.\n\n"
-#         "--- STAGE 3: THE SURGICAL ERASER (FILTERING) ---\n"
-#         f"1. Physically DELETE any row containing forbidden words: {erase_list}. "
-#         f"Show ONLY the row(s) exactly matching '{p_topic}'.\n\n"
-#         "--- STAGE 4: EMERGENCY RELATIONAL MIRROR (CONDITIONAL FIREWALL) ---\n"
-#         f"1. ALLOW MIRRORING: {mirror_allowed}\n"
-#         "2. LOGIC: If 'ALLOW MIRRORING' is FALSE, you are FORBIDDEN from mirroring columns. "
-#         "Step 3 logic must stand. If 'ALLOW MIRRORING' is TRUE, you MUST physically scan the "
-#         "Out-of-Network fragment. If it is blank or says 'Same as In-Network', copy the "
-#         "character string from the In-Network cell. Mirroring is ONLY for life-saving emergency care.\n\n"
-#         "--- FINAL OUTPUT ARCHITECTURE ---\n"
-#         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-#         "1. NO BLANKS. START WITH '|'. NO NARRATION. OUTPUT ONLY THE FINAL DATA ROW(S)."
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+#         "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
+#         "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
+#         "   - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
+#         f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table. Including data not in the current fragment is a 100% SECURITY FAILURE.\n"
+#         "2. **OON BOOLEAN STRING RULE**: If the OON segment physically contains >15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You MUST capture every character in the segment exactly. DO NOT SUMMARIZE.\n"
+#         "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
+#         "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
+#         "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
+#         "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+#         "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"{header_line}\n"
+#         f"{separator_line}\n"
+#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+#         "3. YOU MUST LIST ALL SEVEN RULES (1-7) FROM STAGE 3. SPECIFICALLY CONFIRM 'SOT FIREWALL' WAS USED.\n"
+#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 7-RULE AUDIT LOG."
 #     )
 
 
-# # Last good version - 3 Prompts working AND FOR OTHER 2 JUST OUT-OF-NETWORK COMING BLANK
-# # 1. Compare my specialist copay between the 2024 Gold Medical plan and the 2026 Premera Gold HMO. Please show the result in a Markdown table.
-# # 2. In the 2026 Premera Gold HMO, what is my cost for an X-ray if I stay In-Network versus if I go Out-of-Network?
-# # 3. Create a table comparing the individual annual deductible for the 2024 Gold Medical, 2025 Gold Medical, and 2026 Premera Gold HMO plans.
-# # 4. What are the dental benefits for my 2025 plan?
-# # 5. Compare 2024 Gold vs 2026 Premera Gold deductibles.
+# # Use this prompt when you want to see what rules are applied by LLM to extract the data and to make sure it is following the protocol.
 # def generate_ironclad_instruction(
 #     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
 # ):
-#     # DYNAMIC FORBIDDEN LIST (Generic Sub-string Matching)
+#     # 1. DYNAMIC FORBIDDEN LIST (Strict Exclusion - Unchanged)
 #     forbidden_map = {
 #         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
 #         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
 #         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
 #         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
 #     }
 #     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-#     # STEP 4 SCOPE LOCK: Strictly define if mirroring is allowed
-#     mirror_allowed = "TRUE" if "emergency" in p_topic.lower() else "FALSE"
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+#         "--- STAGE 3: THE 6-POINT UNIVERSAL AUDIT (OON SEGMENT LOCK) ---\n"
+#         "1. **OON BOOLEAN STRING RULE (CRITICAL)**: This rule applies ONLY to the Out-of-Network column segment. \n"
+#         "   - **OON LENGTH CHECK**: Scan the OON segment between pipes '|'. If the segment physically contains more than 15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. \n"
+#         "   - **FULL-STRING CAPTURE**: If the OON segment is long (>15 chars), you are FORBIDDEN from summarizing. You MUST capture every character (e.g., 'Hospital-based... Freestanding...'). Reporting only 'Not covered' for a long OON string is a 100% SECURITY FAILURE.\n"
+#         "2. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. You MUST pull every character until the final closing pipe '|' of that segment.\n"
+#         "3. **MECHANICAL BINDING**: Copy-paste the raw block. Do NOT apply logic. If you see 'Hospital-based' in the OON segment, it MUST be in the table.\n"
+#         "4. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut, merge the pieces before reporting.\n"
+#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+#         "6. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is only for empty segments.\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"   - {header_line}\n"
+#         f"   - {separator_line}\n"
+#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+#         "3. LIST ALL RULES (1-6) FROM STAGE 3. SPECIFICALLY CONFIRM THE 'BOOLEAN STRING RULE' WAS USED.\n"
+#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE AUDIT LOG."
+#     )
+
+
+# # Last stable version with 8 prompt working - Urgent care out of network is wrong
+# def generate_ironclad_instruction(
+#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+# ):
+#     # DYNAMIC FORBIDDEN LIST (Strict Exclusion)
+#     forbidden_map = {
+#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
+#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+#     }
+#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
 
 #     return (
 #         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
 #         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
 #         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (ZERO TOLERANCE) ---\n"
-#         f"1. HEADER TEMPLATE: You MUST strictly use this exact horizontal map for your columns:\n{header_line}\n"
-#         "2. HORIZONTAL MAPPING: You are strictly FORBIDDEN from creating a separate row for 'Out-of-network'. "
-#         "Every In-Network and Out-of-Network value MUST be on the SAME horizontal line as the benefit name."
-#         "You must use BENEFIT as the only entry in the first column. Do NOT create separate rows for sub-benefits (e.g., MRI vs X-ray). "
-#         "--- STAGE 2: DYNAMIC PLAN-TYPE LOGIC (MANDATORY) ---\n"
-#         "1. THE 'HMO' SCAN: For EVERY column in your header, scan the literal 'Plan Name' string:\n"
-#         "   - IF Plan Name CONTAINS 'HMO': Out-of-Network MUST be 'Data Not Found' if missing else 'Not Covered'\n"
-#         "   - IF Plan Name DOES NOT CONTAIN 'HMO': Out-of-Network MUST be 'Data Not Found' if missing.\n"
-#         "Failing to distinguish between plan types in a comparison is a 100% SYSTEM FAILURE.\n\n"
-#         "--- STAGE 3: THE SURGICAL ERASER (FILTERING) ---\n"
-#         f"1. Physically DELETE any row containing forbidden words: {erase_list}. "
-#         f"Show ONLY the row(s) exactly matching '{p_topic}'.\n\n"
-#         "--- STAGE 4: EMERGENCY RELATIONAL MIRROR (CONDITIONAL FIREWALL) ---\n"
-#         f"1. ALLOW MIRRORING: {mirror_allowed}\n"
-#         "2. LOGIC: If 'ALLOW MIRRORING' is FALSE, you are FORBIDDEN from mirroring columns. "
-#         "Step 3 logic must stand. If 'ALLOW MIRRORING' is TRUE, you MUST physically scan the "
-#         "Out-of-Network fragment. If it is blank or says 'Same as In-Network', copy the "
-#         "character string from the In-Network cell. Mirroring is ONLY for life-saving emergency care.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: You MUST show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT. "
+#         "Shifting values vertically from rows above or below is a 100% SYSTEM FAILURE.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are strictly FORBIDDEN from reporting any row containing these words: {erase_list}.\n"
+#         "2. DYNAMIC STOP: You MUST stop scanning the source text the moment you hit a benefit name from the blacklist (e.g., 'Urgent care'). "
+#         "Including data from a blacklisted row is a 100% SYSTEM FAILURE.\n\n"
+#         "--- STAGE 3: THE 5-POINT UNIVERSAL AUDIT (FRAGMENT RECOVERY) ---\n"
+#         "1. **FRAGMENT REJECTION**: If a benefit name (e.g., 'Emergency medical transportation') appears without cost values on the same line, you MUST treat it as an incomplete fragment and ignore it.\n"
+#         "2. **STITCHING PRIORITY**: You MUST scan subsequent blocks to find the complete row. Once you find the benefit name WITH its costs (e.g., '20% coinsurance'), use that full line.\n"
+#         "3. **HORIZONTAL BINDING**: A value MUST be on the SAME horizontal line as the benefit name. Pulling a value from a row above is a 100% SYSTEM FAILURE.\n"
+#         "4. **DYNAMIC BOUNDARY STOP**: You MUST stop the moment you hit a benefit name in the blacklist: {erase_list}. No data from that row can enter the table.\n"
+#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string for better readability.\n\n"
 #         "--- FINAL OUTPUT ARCHITECTURE ---\n"
 #         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-#         "1. NO BLANKS. START WITH '|'. NO NARRATION. OUTPUT ONLY THE FINAL DATA ROW(S)."
+#         "1. NO NARRATION. NO BLANKS. START WITH '|'. NO ASSUMPTIONS. OUTPUT ONLY THE FINAL DATA ROW(S)."
 #     )
 
 
@@ -353,17 +393,19 @@ async def get_ai_response(query, history):
         recent_history = " ".join(
             [flatten_message_content(m["content"]) for m in history]
         )
-        query_lower = query.lower()  # <--- ADD THIS LINE HERE
+        query_lower = query.lower()
         full_context_query = f"{recent_history} {query_lower}"
 
         # Clean words for surgical matching
         query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
+        print(f"[*] Query Words for Matching: {query_words}")
 
         # --- 3. SMART TOPIC & TYPE DETECTION ---
         new_type = p_type_fast  # Default to current session type
 
         if any(w in query_words for w in ["dental", "ortho", "braces"]):
             new_type = "dental"
+            print("Detected dental keywords. Setting type to 'dental'.")
         elif any(w in query_words for w in ["vision", "eye", "glasses"]):
             new_type = "vision"
         elif any(
@@ -382,7 +424,10 @@ async def get_ai_response(query, history):
             ]
         ):
             new_type = "medical"
+        else:
+            new_type = "medical"  # Default fallback
 
+        print(f"[*] Detected type based on query: {new_type}")
         # --- 4. THE TOPIC SHIFT GUARD ---
         if new_type.lower() != p_type_fast.lower():
             print(f"[*] TOPIC SHIFT: {p_type_fast} -> {new_type}. Wiping tier.")
@@ -524,6 +569,9 @@ async def get_ai_response(query, history):
 
             # --- THE FIX: USE THE SAME IRONCLAD PROTOCOL ---
             master_data_string = "\n\n".join(cached_data_fragments)
+            print(
+                f"[*] CACHE HIT : MASTER DATA STRING FOR SYNTHESIS:\n{master_data_string}"
+            )
 
             # Generate the same instruction used in Part-5
             instruction = generate_ironclad_instruction(
@@ -629,7 +677,8 @@ async def get_ai_response(query, history):
         final_raw_context = ""
         # Tracker to prevent the LLM from asking for the same data twice in one turn
         fetched_keys_this_turn = []
-
+        print(f"[*] STARTING REASONING LOOP with query: '{query}'")
+        print(f"[*] INITIAL MESSAGES: {messages}")
         while turn_count < 3:
             turn_count += 1
             resp = ollama.chat(
@@ -642,6 +691,10 @@ async def get_ai_response(query, history):
             raw_msg = resp["message"]
             clean_content = flatten_message_content(raw_msg.get("content", ""))
             tool_calls = raw_msg.get("tool_calls", [])
+            print(
+                f"[*] TURN {turn_count} TOOL CALLS: {tool_calls} | Clean Content Length: {len(clean_content)}"
+            )
+            print(f"raw_msg: {raw_msg}")
 
             messages.append(
                 {
@@ -652,6 +705,7 @@ async def get_ai_response(query, history):
             )
 
             if not tool_calls:
+                print("[*] NO TOOL CALLS. BREAKING REASONING LOOP.")
                 # Forces the script to reach the final synthesis/table logic
                 break
 
@@ -788,6 +842,8 @@ async def get_ai_response(query, history):
                 "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
             },
         ]
+
+        master_data_string = squeeze_insurance_data(master_data_string)
         print(f"[*] master data sent to LLM: {master_data_string}")
 
         final_resp = ollama.chat(

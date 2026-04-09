@@ -132,3 +132,7 @@ Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to e
 8. Show me my urgent care benefits
 
 9. Compare my 2024 and 2026 PCP copays.
+
+10. I want to know about 2026 medical urgent care benefit.
+
+11. what are my imaging - CT Scan benefits

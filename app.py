@@ -1,6 +1,6 @@
 import streamlit as st
 import asyncio
-from client import get_ai_response
+from client_old import get_ai_response
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Insurance Policy Assistant", page_icon="🏢", layout="centered")

@@ -1,0 +1,3252 @@
+[
+    {
+        "topic": "Acupuncture \u2014 Office and Clinic Visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Acupuncture",
+            "service": "Office and Clinic Visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "acupuncture",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Acupuncture \u2014 Visits outside an office setting",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Acupuncture",
+            "service": "Visits outside an office setting",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "acupuncture",
+            "service",
+            "outside",
+            "setting",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Allergy Testing And Treatment",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Allergy Testing And Treatment",
+            "service": "Allergy Testing And Treatment",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "allergy",
+            "testing",
+            "treatment",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Ambulance",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Ambulance",
+            "service": "Ambulance",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "ambulance",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Blood Products and Services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Blood Products and Services",
+            "service": "Blood Products and Services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "products",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Cellular Immunotherapy And Gene Therapy",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Cellular Immunotherapy And Gene Therapy",
+            "service": "Cellular Immunotherapy And Gene Therapy",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "cellular",
+            "immunotherapy",
+            "therapy",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Chemotherapy and Radiation Therapy Professional and facility services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Chemotherapy and Radiation Therapy Professional and facility services",
+            "service": "Chemotherapy and Radiation Therapy Professional and facility services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "chemotherapy",
+            "radiation",
+            "therapy",
+            "professional",
+            "facility",
+            "services",
+            "service",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Clinical Trials Covers routine patient care during the trial",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Clinical Trials Covers routine patient care during the trial",
+            "service": "Clinical Trials Covers routine patient care during the trial",
+            "in_network": "Covered as any other service",
+            "out_of_network": "Covered as any other service",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "clinical",
+            "routine",
+            "patient",
+            "service",
+            "in_network",
+            "covered",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Dental Injury and Facility Anesthesia \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dental Injury and Facility Anesthesia",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "facility",
+            "anesthesia",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Dental Injury and Facility Anesthesia \u2014 Outpatient surgery center",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dental Injury and Facility Anesthesia",
+            "service": "Outpatient surgery center",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "facility",
+            "anesthesia",
+            "service",
+            "outpatient",
+            "surgery",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Dental Injury and Facility Anesthesia \u2014 Anesthesiologist",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dental Injury and Facility Anesthesia",
+            "service": "Anesthesiologist",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "dental",
+            "facility",
+            "anesthesia",
+            "service",
+            "anesthesiologist",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Dental Injury and Facility Anesthesia \u2014 Exams to determine treatment needed",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dental Injury and Facility Anesthesia",
+            "service": "Exams to determine treatment needed",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "dental",
+            "facility",
+            "anesthesia",
+            "service",
+            "determine",
+            "treatment"
+        ]
+    },
+    {
+        "topic": "Dental Injury and Facility Anesthesia \u2014 Treatment",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dental Injury and Facility Anesthesia",
+            "service": "Treatment",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "facility",
+            "anesthesia",
+            "service",
+            "treatment",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Basic diagnostic images and scans",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms",
+            "service": "Basic diagnostic images and scans",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "imaging",
+            "diagnostic",
+            "medical",
+            "conditions",
+            "ymptoms",
+            "service",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Major diagnostic images and scans",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms",
+            "service": "Major diagnostic images and scans",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "imaging",
+            "diagnostic",
+            "medical",
+            "conditions",
+            "ymptoms",
+            "service",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Diagnostic and supplemental breast exams No charge on certain laboratory services that are provided by a Kinwell clinic. Please call customer service for more information.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms",
+            "service": "Diagnostic and supplemental breast exams No charge on certain laboratory services that are provided by a Kinwell clinic. Please call customer service for more information.",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "imaging",
+            "diagnostic",
+            "mental-health",
+            "medical",
+            "conditions",
+            "ymptoms",
+            "service",
+            "supplemental"
+        ]
+    },
+    {
+        "topic": "Dialysis \u2014 During Medicare's waiting period",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dialysis",
+            "service": "During Medicare's waiting period",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dialysis",
+            "service",
+            "medicare",
+            "waiting",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Dialysis \u2014 After Medicare's waiting period",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Dialysis",
+            "service": "After Medicare's waiting period",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "dialysis",
+            "service",
+            "medicare",
+            "waiting",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Electronic Visits (E-visits)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Electronic Visits (E-visits)",
+            "service": "Electronic Visits (E-visits)",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "electronic",
+            "service",
+            "in_network",
+            "out_of_network",
+            "covered",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Emergency Room \u2014 Facility charges",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Emergency Room",
+            "service": "Facility charges",
+            "in_network": "$350 copay per visit, then deductible, then 20% coinsurance",
+            "out_of_network": "$350 copay per visit, then deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "emergency",
+            "service",
+            "facility",
+            "charges",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Emergency Room \u2014 Professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Emergency Room",
+            "service": "Professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "emergency",
+            "service",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Foot Care \u2014 In an office or clinic",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Foot Care",
+            "service": "In an office or clinic",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Foot Care \u2014 All other settings",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Foot Care",
+            "service": "All other settings",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "service",
+            "settings",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Gender Affirming Care \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Gender Affirming Care",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "affirming",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Gender Affirming Care \u2014 Other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Gender Affirming Care",
+            "service": "Other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "affirming",
+            "service",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Gender Affirming Care \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Gender Affirming Care",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "affirming",
+            "service",
+            "inpatient",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hearing Care For hearing loss, often due to age or noise exposure. \u2014 Hearing Exams Limit each calendar year: 1 exam/test (Copay does not apply to a separate visit for testing. Your copay does not count toward your out-of-pocket maximum.)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hearing Care For hearing loss, often due to age or noise exposure.",
+            "service": "Hearing Exams Limit each calendar year: 1 exam/test (Copay does not apply to a separate visit for testing. Your copay does not count toward your out-of-pocket maximum.)",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "hearing",
+            "exposure",
+            "service",
+            "calendar",
+            "separate",
+            "testing",
+            "maximum"
+        ]
+    },
+    {
+        "topic": "Hearing Care For hearing loss, often due to age or noise exposure. \u2014 Hearing Hardware",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hearing Care For hearing loss, often due to age or noise exposure.",
+            "service": "Hearing Hardware",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "hearing",
+            "exposure",
+            "service",
+            "hardware",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hearing Care For hearing loss, often due to age or noise exposure. \u2014 Limit $3,000 per ear with hearing loss every 36 months",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hearing Care For hearing loss, often due to age or noise exposure.",
+            "service": "Limit $3,000 per ear with hearing loss every 36 months",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "hearing",
+            "exposure",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Home Health Care calendar year visit limit: 130 visits \u2014 Home visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Home Health Care calendar year visit limit: 130 visits",
+            "service": "Home visits",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "calendar",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Home Health Care calendar year visit limit: 130 visits \u2014 Prescription drugs billed by the home health agency",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Home Health Care calendar year visit limit: 130 visits",
+            "service": "Prescription drugs billed by the home health agency",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "pharmacy",
+            "calendar",
+            "service",
+            "prescription",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Sales tax for covered items",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies",
+            "service": "Sales tax for covered items",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "medical",
+            "equipment",
+            "orthotics",
+            "prosthetics",
+            "supplies",
+            "service",
+            "covered"
+        ]
+    },
+    {
+        "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Foot orthotics and therapeutic shoes; calendar year limit: None",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies",
+            "service": "Foot orthotics and therapeutic shoes; calendar year limit: None",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "medical",
+            "equipment",
+            "orthotics",
+            "prosthetics",
+            "supplies",
+            "service",
+            "therapeutic"
+        ]
+    },
+    {
+        "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Breast pumps",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies",
+            "service": "Breast pumps",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "dental",
+            "medical",
+            "equipment",
+            "orthotics",
+            "prosthetics",
+            "supplies",
+            "service",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospice",
+            "lifetime",
+            "terminal",
+            "illness",
+            "inpatient",
+            "unlimited",
+            "respite",
+            "service"
+        ]
+    },
+    {
+        "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Home and respite care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max",
+            "service": "Home and respite care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospice",
+            "lifetime",
+            "terminal",
+            "illness",
+            "inpatient",
+            "unlimited",
+            "respite",
+            "service"
+        ]
+    },
+    {
+        "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Prescription drugs billed by the hospice",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max",
+            "service": "Prescription drugs billed by the hospice",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "pharmacy",
+            "hospice",
+            "lifetime",
+            "terminal",
+            "illness",
+            "inpatient",
+            "unlimited",
+            "respite"
+        ]
+    },
+    {
+        "topic": "Hospital \u2014 Inpatient Care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Inpatient Care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospital",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hospital \u2014 Professional",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Professional",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospital",
+            "service",
+            "professional",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hospital \u2014 Facility",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Facility",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospital",
+            "service",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hospital \u2014 Outpatient Care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Outpatient Care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospital",
+            "service",
+            "outpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Hospital \u2014 Professional*",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Professional*",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "hospital",
+            "service",
+            "professional",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Infusion Therapy",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Infusion Therapy",
+            "service": "Infusion Therapy",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "infusion",
+            "therapy",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Mastectomy and Breast Reconstruction \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mastectomy and Breast Reconstruction",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "mastectomy",
+            "reconstruction",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics"
+        ]
+    },
+    {
+        "topic": "Mastectomy and Breast Reconstruction \u2014 Surgery and other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mastectomy and Breast Reconstruction",
+            "service": "Surgery and other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mastectomy",
+            "reconstruction",
+            "service",
+            "surgery",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Mastectomy and Breast Reconstruction \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mastectomy and Breast Reconstruction",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mastectomy",
+            "reconstruction",
+            "service",
+            "inpatient",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Maternity Care \u2014 Professional care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Maternity Care",
+            "service": "Professional care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "maternity",
+            "service",
+            "professional",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Maternity Care \u2014 Inpatient hospital, birthing centers and short-stay hospitals",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Maternity Care",
+            "service": "Inpatient hospital, birthing centers and short-stay hospitals",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "maternity",
+            "service",
+            "inpatient",
+            "hospital",
+            "birthing",
+            "centers",
+            "hospitals",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Maternity Care \u2014 Abortion",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Maternity Care",
+            "service": "Abortion",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "maternity",
+            "service",
+            "abortion",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Foods",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Foods",
+            "service": "Medical Foods",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2014 For transplants: limit per transplant: $7,500",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation",
+            "service": "For transplants: limit per transplant: $7,500",
+            "in_network": "Deductible, then 0% coinsurance",
+            "out_of_network": "Deductible, then 0% coinsurance Not applicable",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "transportation",
+            "service",
+            "transplants",
+            "transplant",
+            "in_network",
+            "out_of_network",
+            "applicable"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2014 To/from a Premera Designated Center of Excellence",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation",
+            "service": "To/from a Premera Designated Center of Excellence",
+            "in_network": "No charge",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "service",
+            "premera",
+            "designated",
+            "excellence",
+            "in_network",
+            "out_of_network",
+            "covered",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2014 To/from other providers",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation",
+            "service": "To/from other providers",
+            "in_network": "Not covered",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "service",
+            "providers",
+            "in_network",
+            "covered",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2014 For cellular immunotherapy and gene therapy: $7,500 per episode of care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation",
+            "service": "For cellular immunotherapy and gene therapy: $7,500 per episode of care",
+            "in_network": "No charge",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "service",
+            "cellular",
+            "immunotherapy",
+            "therapy",
+            "episode",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2013 State Restricted Care \u2014 To/from provider for abortion services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation \u2013 State Restricted Care",
+            "service": "To/from provider for abortion services",
+            "in_network": "No charge",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "restricted",
+            "service",
+            "provider",
+            "abortion",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2013 State Restricted Care \u2014 To/from provider for gender affirming care services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation \u2013 State Restricted Care",
+            "service": "To/from provider for gender affirming care services",
+            "in_network": "No charge",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "restricted",
+            "service",
+            "provider",
+            "affirming",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2013 State Restricted Care \u2014 Plan year/Calendar year limit:",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation \u2013 State Restricted Care",
+            "service": "Plan year/Calendar year limit:",
+            "in_network": "No charge",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "restricted",
+            "service",
+            "calendar",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Transportation \u2013 State Restricted Care \u2014 $4,000",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Transportation \u2013 State Restricted Care",
+            "service": "$4,000",
+            "in_network": "No charge",
+            "out_of_network": "No charge",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "medical",
+            "transportation",
+            "restricted",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Air travel: 1 round trip per episode",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Travel Support Alaska Employees And Dependents",
+            "service": "Air travel: 1 round trip per episode",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "support",
+            "employees",
+            "dependents",
+            "service",
+            "episode",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Ferry",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Travel Support Alaska Employees And Dependents",
+            "service": "Ferry",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "support",
+            "employees",
+            "dependents",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Lodging",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Travel Support Alaska Employees And Dependents",
+            "service": "Lodging",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "support",
+            "employees",
+            "dependents",
+            "service",
+            "lodging",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Surface transport and parking Travel and lodging are covered up to the IRS limitations. Prior approval required.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Travel Support Alaska Employees And Dependents",
+            "service": "Surface transport and parking Travel and lodging are covered up to the IRS limitations. Prior approval required.",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "medical",
+            "support",
+            "employees",
+            "dependents",
+            "service",
+            "surface",
+            "transport",
+            "parking"
+        ]
+    },
+    {
+        "topic": "Mental Health Care \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mental Health Care",
+            "service": "Office and clinic visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Mental Health Care \u2014 Other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mental Health Care",
+            "service": "Other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "service",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Mental Health Care \u2014 Inpatient and residential facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mental Health Care",
+            "service": "Inpatient and residential facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "service",
+            "inpatient",
+            "residential",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Mental Health Care \u2014 Outpatient facility care No charge on certain services provided by a Kinwell Clinic. Please call customer service for more information.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mental Health Care",
+            "service": "Outpatient facility care No charge on certain services provided by a Kinwell Clinic. Please call customer service for more information.",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "service",
+            "outpatient",
+            "facility",
+            "certain",
+            "services",
+            "provided",
+            "kinwell"
+        ]
+    },
+    {
+        "topic": "Naturopathy Services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Naturopathy Services",
+            "service": "Naturopathy Services",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "naturopathy",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Neurodevelopmental (Habilitation) Therapy",
+            "service": "Office and clinic visits",
+            "in_network": "$40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "neurodevelopmental",
+            "habilitation",
+            "therapy",
+            "service",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Other outpatient services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Neurodevelopmental (Habilitation) Therapy",
+            "service": "Other outpatient services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "neurodevelopmental",
+            "habilitation",
+            "therapy",
+            "service",
+            "outpatient",
+            "services",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Inpatient care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Neurodevelopmental (Habilitation) Therapy",
+            "service": "Inpatient care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "neurodevelopmental",
+            "habilitation",
+            "therapy",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Newborn Care \u2014 Inpatient care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Newborn Care",
+            "service": "Inpatient care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "newborn",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Newborn Care \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Newborn Care",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "newborn",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Newborn Care \u2014 Other outpatient services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Newborn Care",
+            "service": "Other outpatient services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "newborn",
+            "service",
+            "outpatient",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Premera-Designated Centers Of Excellence Program",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Premera-Designated Centers Of Excellence Program",
+            "service": "Premera-Designated Centers Of Excellence Program",
+            "in_network": "No charge",
+            "out_of_network": "Not applicable Not applicable",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "premera",
+            "designated",
+            "centers",
+            "excellence",
+            "program",
+            "service",
+            "in_network",
+            "out_of_network",
+            "applicable",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred Generic drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Preferred Generic drugs",
+            "in_network": "$25 copay",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "generic",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred brand name drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Preferred brand name drugs",
+            "in_network": "$45 copay",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred generic and brand name drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Non-preferred generic and brand name drugs",
+            "in_network": "20% of the allowed amount up to a",
+            "out_of_network": "Not covered Out-Of-Network Mail-Order Pharmacy",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "out-of-network",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "generic",
+            "in_network",
+            "allowed",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred Generic drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Preferred Generic drugs",
+            "in_network": "$250 maximum per drug In-Network Mail-Order Pharmacy",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "in-network",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "generic",
+            "in_network",
+            "maximum",
+            "network"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred brand name drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Preferred brand name drugs",
+            "in_network": "$50 copay",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered.",
+            "in_network": "$90 copay",
+            "out_of_network": "Not covered Out-Of-Network Specialty Pharmacy",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "out-of-network",
+            "copay",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "generic",
+            "specialty",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred specialty drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Preferred specialty drugs",
+            "in_network": "20% of the allowed amount up to a",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "specialty",
+            "in_network",
+            "allowed",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred specialty drugs PV Core Preventive Drugs Generic and brand-name drugs Exceptions",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Non-preferred specialty drugs PV Core Preventive Drugs Generic and brand-name drugs Exceptions",
+            "in_network": "$500 maximum per drug In-Network Specialty Pharmacy",
+            "out_of_network": "Not covered Out-Of-Network Retail or Mail-Order Pharmacy",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "in-network",
+            "out-of-network",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "preferred",
+            "specialty",
+            "preventive",
+            "generic"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Needles and syringes purchased with diabetic drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Needles and syringes purchased with diabetic drugs",
+            "in_network": "$70 copay",
+            "out_of_network": "No charge Out-Of-Network Retail Pharmacy",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "out-of-network",
+            "copay",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "needles",
+            "syringes",
+            "purchased",
+            "diabetic"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Certain prescription drugs and generic over-the-counter drugs to break a nicotine habit",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Certain prescription drugs and generic over-the-counter drugs to break a nicotine habit",
+            "in_network": "20% of the allowed amount up to a",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "certain",
+            "generic",
+            "counter",
+            "nicotine",
+            "in_network",
+            "allowed"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Drugs on the Affordable Care Act's preventive drug list",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Drugs on the Affordable Care Act's preventive drug list",
+            "in_network": "No charge",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "affordable",
+            "preventive",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Oral chemotherapy drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Oral chemotherapy drugs",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "chemotherapy",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Contraceptive drugs, devices and supplies (prescription and over- the-counter). Includes emergency contraceptive.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs",
+            "service": "Contraceptive drugs, devices and supplies (prescription and over- the-counter). Includes emergency contraceptive.",
+            "in_network": "No charge",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "emergency",
+            "pharmacy",
+            "prescription",
+            "covered",
+            "service",
+            "contraceptive",
+            "devices",
+            "supplies",
+            "counter",
+            "includes"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Preventive exams, including vision and oral health screening for members under 19, diabetes and depression screening",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Preventive exams, including vision and oral health screening for members under 19, diabetes and depression screening",
+            "in_network": "No charge",
+            "out_of_network": "40% coinsurance, deductible waived",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "vision",
+            "preventive",
+            "service",
+            "including",
+            "screening",
+            "members",
+            "diabetes",
+            "depression"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Fall prevention",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Fall prevention",
+            "in_network": "No charge",
+            "out_of_network": "40% coinsurance, deductible waived",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "prevention",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Immunizations in the provider's office",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Immunizations in the provider's office",
+            "in_network": "No charge",
+            "out_of_network": "40% coinsurance, deductible waived",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "immunizations",
+            "provider",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Flu shots and other seasonal immunizations at a pharmacy or mass immunizer location",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Flu shots and other seasonal immunizations at a pharmacy or mass immunizer location",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pharmacy",
+            "preventive",
+            "service",
+            "seasonal",
+            "immunizations",
+            "immunizer",
+            "location",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Travel immunizations at a travel clinic or county health department",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Travel immunizations at a travel clinic or county health department",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "preventive",
+            "service",
+            "immunizations",
+            "department",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Diabetes health education",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Diabetes health education",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "preventive",
+            "service",
+            "diabetes",
+            "education",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Health education and training (outpatient)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Health education and training (outpatient)",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "preventive",
+            "service",
+            "education",
+            "training",
+            "outpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Nicotine habit-breaking programs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Nicotine habit-breaking programs",
+            "in_network": "No charge",
+            "out_of_network": "No cost-shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "preventive",
+            "service",
+            "nicotine",
+            "breaking",
+            "programs",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Nutritional counseling and therapy",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Nutritional counseling and therapy",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "nutritional",
+            "counseling",
+            "therapy",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Pregnant member\u2019s care (includes breast-feeding support and post-partum depression screening)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Pregnant member\u2019s care (includes breast-feeding support and post-partum depression screening)",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "pregnant",
+            "includes",
+            "feeding",
+            "support",
+            "depression",
+            "screening"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Screening tests (includes prostate and cervical cancer screening)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Screening tests (includes prostate and cervical cancer screening)",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "screening",
+            "includes",
+            "prostate",
+            "cervical",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Screening mammograms",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Screening mammograms",
+            "in_network": "No charge",
+            "out_of_network": "40% coinsurance, deductible waived",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "screening",
+            "mammograms",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Colorectal cancer screening",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Colorectal cancer screening",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "colorectal",
+            "screening",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive Care \u2014 Contraceptive and sterilization.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Preventive Care",
+            "service": "Contraceptive and sterilization.",
+            "in_network": "No charge",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "preventive",
+            "service",
+            "contraceptive",
+            "sterilization",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Professional Visits and Services \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Professional Visits and Services",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "professional",
+            "services",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics"
+        ]
+    },
+    {
+        "topic": "Professional Visits and Services \u2014 Other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Professional Visits and Services",
+            "service": "Other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "professional",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Psychological and Neuropsychological Testing",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Psychological and Neuropsychological Testing",
+            "service": "Psychological and Neuropsychological Testing",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "psychological",
+            "neuropsychological",
+            "testing",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Rehabilitation Therapy \u2014 Outpatient Care rehabilitation programs, or similar programs for cancer or other chronic conditions.",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Rehabilitation Therapy",
+            "service": "Outpatient Care rehabilitation programs, or similar programs for cancer or other chronic conditions.",
+            "in_network": "$40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "therapy",
+            "rehabilitation",
+            "service",
+            "outpatient",
+            "programs",
+            "similar",
+            "chronic"
+        ]
+    },
+    {
+        "topic": "Rehabilitation Therapy \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Rehabilitation Therapy",
+            "service": "Office and clinic visits",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "therapy",
+            "rehabilitation",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Rehabilitation Therapy \u2014 Other outpatient services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Rehabilitation Therapy",
+            "service": "Other outpatient services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "therapy",
+            "rehabilitation",
+            "service",
+            "outpatient",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Rehabilitation Therapy \u2014 Inpatient Care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Rehabilitation Therapy",
+            "service": "Inpatient Care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "therapy",
+            "rehabilitation",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Skilled Nursing Facility Care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Skilled Nursing Facility Care",
+            "service": "Skilled Nursing Facility Care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "skilled",
+            "nursing",
+            "facility",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Spinal and Other Manipulations",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Spinal and Other Manipulations",
+            "service": "Spinal and Other Manipulations",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "manipulations",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Substance Use Disorder \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Substance Use Disorder",
+            "service": "Office and clinic visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "substance",
+            "disorder",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Substance Use Disorder \u2014 Other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Substance Use Disorder",
+            "service": "Other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "substance",
+            "disorder",
+            "service",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Substance Use Disorder \u2014 Inpatient and residential facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Substance Use Disorder",
+            "service": "Inpatient and residential facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "substance",
+            "disorder",
+            "service",
+            "inpatient",
+            "residential",
+            "facility",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Substance Use Disorder \u2014 Outpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Substance Use Disorder",
+            "service": "Outpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "substance",
+            "disorder",
+            "service",
+            "outpatient",
+            "facility",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Surgery (includes anesthesia and blood transfusions) See the Hospital and Surgical Center Care \u2013 Outpatient benefits for facility charges. \u2014 Vasectomy",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Surgery (includes anesthesia and blood transfusions) See the Hospital and Surgical Center Care \u2013 Outpatient benefits for facility charges.",
+            "service": "Vasectomy",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "surgery",
+            "includes",
+            "anesthesia",
+            "transfusions",
+            "hospital",
+            "surgical",
+            "outpatient",
+            "benefits"
+        ]
+    },
+    {
+        "topic": "Surgical Center Care \u2013 Outpatient",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Surgical Center Care \u2013 Outpatient",
+            "service": "Surgical Center Care \u2013 Outpatient",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "surgical",
+            "outpatient",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Temporomandibular Joint Disorders (TMJ) Care",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "coinsurance",
+            "temporomandibular",
+            "disorders",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics"
+        ]
+    },
+    {
+        "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Temporomandibular Joint Disorders (TMJ) Care",
+            "service": "Other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "temporomandibular",
+            "disorders",
+            "service",
+            "professional",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Temporomandibular Joint Disorders (TMJ) Care",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "temporomandibular",
+            "disorders",
+            "service",
+            "inpatient",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Therapeutic Injections",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Therapeutic Injections",
+            "service": "Therapeutic Injections",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "therapeutic",
+            "injections",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Transplants (Includes donor search and donation costs.) \u2014 Inpatient facility care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Transplants (Includes donor search and donation costs.)",
+            "service": "Inpatient facility care",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Not covered*",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "transplants",
+            "includes",
+            "donation",
+            "service",
+            "inpatient",
+            "facility",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Transplants (Includes donor search and donation costs.) \u2014 Office and clinic visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Transplants (Includes donor search and donation costs.)",
+            "service": "Office and clinic visits",
+            "in_network": "Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived",
+            "out_of_network": "Not covered*",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "specialist",
+            "copay",
+            "deductible",
+            "transplants",
+            "includes",
+            "donation",
+            "service",
+            "in_network",
+            "kinwell",
+            "clinics"
+        ]
+    },
+    {
+        "topic": "Transplants (Includes donor search and donation costs.) \u2014 Surgery and other professional services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Transplants (Includes donor search and donation costs.)",
+            "service": "Surgery and other professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Not covered*",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "transplants",
+            "includes",
+            "donation",
+            "service",
+            "surgery",
+            "professional",
+            "services",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.) \u2014 Freestanding urgent care centers",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.)",
+            "service": "Freestanding urgent care centers",
+            "in_network": "$35 copay per visit, deductible waived",
+            "out_of_network": "Deductible, then 40% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "urgent-care",
+            "imaging",
+            "diagnostic",
+            "services",
+            "received",
+            "facility",
+            "charges"
+        ]
+    },
+    {
+        "topic": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.) \u2014 Urgent care centers attached to or part of a hospital",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.)",
+            "service": "Urgent care centers attached to or part of a hospital",
+            "in_network": "$350 copay per visit, then deductible, then 20% coinsurance",
+            "out_of_network": "$350 copay per visit, then deductible, then 20% coinsurance",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "urgent-care",
+            "imaging",
+            "diagnostic",
+            "services",
+            "received",
+            "facility",
+            "charges"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual general medical visits with Premera-designated virtual care provider (telephone and online- based)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Virtual general medical visits with Premera-designated virtual care provider (telephone and online- based)",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating",
+            "provider"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual general medical visits with Premera-designated virtual primary care provider (text message-based)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Virtual general medical visits with Premera-designated virtual primary care provider (text message-based)",
+            "in_network": "No charge",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "pcp",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating",
+            "provider",
+            "diagnoses"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual mental health visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Virtual mental health visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "mental-health",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual substance use disorder visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Virtual substance use disorder visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "mental-health",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual rehabilitative care visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Virtual rehabilitative care visits",
+            "in_network": "$40 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "therapy",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating"
+        ]
+    },
+    {
+        "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Behavioral/Mental health visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment.",
+            "service": "Behavioral/Mental health visits",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "Not covered",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "mental-health",
+            "virtual",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating"
+        ]
+    },
+    {
+        "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 Members 19 or older (exam copay does not count toward your out-of-pocket maximum)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Exams Calendar year limit: one complete exam.",
+            "service": "Members 19 or older (exam copay does not count toward your out-of-pocket maximum)",
+            "in_network": "$25 copay per visit, deductible waived",
+            "out_of_network": "$25 copay per visit, deductible waived",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "vision",
+            "calendar",
+            "complete",
+            "service",
+            "members",
+            "maximum",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 Members younger than 19 Also covered is 1 comprehensive low vision exam and 4 follow-up visits in a 5-calendar year period as needed. Vision Hardware",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Exams Calendar year limit: one complete exam.",
+            "service": "Members younger than 19 Also covered is 1 comprehensive low vision exam and 4 follow-up visits in a 5-calendar year period as needed. Vision Hardware",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "calendar",
+            "complete",
+            "service",
+            "members",
+            "younger",
+            "covered",
+            "comprehensive",
+            "hardware",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 And Older Limit per calendar year: $400",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Exams Calendar year limit: one complete exam.",
+            "service": "And Older Limit per calendar year: $400",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "calendar",
+            "complete",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Eyeglass (frames) Limit: 1 pair per member per",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Eyeglass (frames) Limit: 1 pair per member per",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "eyeglass",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Eyeglass or contact lenses. Limit: 1 pair of eyeglass lenses or a 12 month supply of contact lenses per member each",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Eyeglass or contact lenses. Limit: 1 pair of eyeglass lenses or a 12 month supply of contact lenses per member each",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "eyeglass",
+            "contact",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Contact lenses or glasses required for medical reasons",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Contact lenses or glasses required for medical reasons",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "contact",
+            "glasses",
+            "required",
+            "medical",
+            "reasons",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Low vision devices, high power glasses, magnifiers and telescopes when medically necessary",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Low vision devices, high power glasses, magnifiers and telescopes when medically necessary",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "devices",
+            "glasses",
+            "magnifiers",
+            "telescopes",
+            "medically",
+            "necessary"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Scratch resistant coating",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Scratch resistant coating",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "scratch",
+            "resistant",
+            "coating",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Vision Hardware For Members Under 19 \u2014 Polycarbonate lenses",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Hardware For Members Under 19",
+            "service": "Polycarbonate lenses",
+            "in_network": "No charge",
+            "out_of_network": "No cost shares",
+            "limitations": "Data not found"
+        },
+        "keywords": [
+            "vision",
+            "hardware",
+            "members",
+            "service",
+            "polycarbonate",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    }
+]

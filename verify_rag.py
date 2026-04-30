@@ -32,7 +32,7 @@ def verify_system_integrity(db_path="insurance_index.db"):
 
         # 3. Data & Linkage Audit
         cursor.execute(
-            "SELECT id, year, plan_type, plan_tier, pdf_path, sub_index_path FROM master_index"
+            "SELECT id, year, plan_type, plan_tier, product_line, variant, network, pdf_path, sub_index_path FROM master_index"
         )
         rows = cursor.fetchall()
 

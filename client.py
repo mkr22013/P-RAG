@@ -1,4 +1,5 @@
-import os, ollama, re
+import os, ollama, re, json
+
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -8,352 +9,258 @@ LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
 # --- GLOBAL RAM CACHE (Persistent for the session) ---
 TOOL_RESULT_CACHE = {}
 # --- GLOBAL SESSION STATE ---
-p_type_fast = "medical"
-p_tier_fast = "gold"  # Default starting point
 CURRENT_YEAR_INT = datetime.now().year
+last_type_global = None
 
 
 def resolve_insurance_topic(query_words, full_query_text):
     """SINGLE SOURCE OF TRUTH: Maps keywords to our specific index topics."""
+    topics = []
     query_lower = full_query_text.lower()
 
-    # 1. DEDUCTIBLES
+    # 1. DEDUCTIBLES/oop (Keyword Match)
     if any(
         w in query_words
-        for w in ["deductible", "deductibles", "out-of-pocket", "oop", "limit"]
+        for w in [
+            "deductible",
+            "deductibles",
+            "limit",
+            "oop",
+            "out-of-pocket",
+            "coinsurance",
+        ]
     ):
-        return "deductible"
+        if (
+            "pocket" in query_lower
+            or "oop" in query_lower
+            or "out-of-pocket" in query_lower
+            or "out of pocket" in query_lower
+        ):
+            topics.append("out-of-pocket")
+        else:
+            topics.append("deductible")
 
     # 2. EMERGENCY & AMBULANCE (Surgical Match)
     # \ber\b ensures 'ER' is a standalone word. We also check for 'room'.
-    if (
+    # =========================================================
+    # 🔥 EMERGENCY vs URGENT (PRIORITY FIX)
+    # =========================================================
+
+    # URGENT CARE → higher priority
+    if any(w in query_words for w in ["urgent", "afterhours", "after-hours"]):
+        topics.append("urgent care")
+
+    # EMERGENCY → only if urgent NOT present
+    elif (
         re.search(r"\ber\b", query_lower)
         or "emergency" in query_lower
         or "ambulance" in query_words
-        or "room" in query_words
+        or ("room" in query_words and "emergency" in query_lower)
     ):
-        # If 'urgent' is also present, we pivot to Urgent Care topic
-        if "urgent" in query_words:
-            return "urgent"
-        return "emergency"
-
-    # 3. URGENT CARE (Dedicated Topic)
-    if any(w in query_words for w in ["urgent", "clinic", "after-hours"]):
-        return "urgent"
+        topics.append("emergency")
 
     # 4. IMAGING / DIAGNOSTIC (Splitting the logic)
     if any(w in query_words for w in ["xray", "x-ray", "blood", "diagnostic"]):
-        return "diagnostic"
+        topics.append("diagnostic")
 
-    if any(w in query_words for w in ["mri", "pet", "scan", "imaging"]):
-        return "imaging"
+    if any(w in query_words for w in ["mri", "pet", "scan", "imaging", "ct"]):
+        topics.append("imaging")
 
-    # 5. DENTAL & VISION
+    # 5. NETWORK & PROVIDER (Network is a common topic that doesn't fit neatly into the others)
+    if any(
+        w in query_words for w in ["network", "provider", "pay less", "balance-billing"]
+    ):
+        topics.append("network")
+
+    # 6. DENTAL & VISION
     if any(w in query_words for w in ["dental", "ortho", "braces"]):
-        return "orthodontia"
+        topics.append("orthodontia")
     if any(w in query_words for w in ["vision", "eye", "glasses"]):
-        return "vision"
+        topics.append("vision")
 
-    # 6. PRIMARY & SPECIALIST
+    # 7. PRIMARY & SPECIALIST
+    # PRIMARY / PCP
     if (
-        any(
-            w in query_words
-            for w in ["pcp", "primary", "doctor", "physician", "copay", "specialist"]
-        )
+        any(w in query_words for w in ["pcp", "primary", "physician"])
         or "primary care" in query_lower
     ):
-        if "specialist" in query_words:
-            return "specialist"
-        return "primary"
+        topics.append("primary care provider")
 
-    return "benefit"
+    # SPECIALIST
+    if "specialist" in query_words:
+        topics.append("specialist")
+
+    # 8. MENTAL HEALTH & SUBSTANCE ABUSE
+    if any(
+        w in query_words
+        for w in ["mental", "behavioral", "substance", "abuse", "psychiatrist"]
+    ):
+        topics.append("mental-health")
+
+    # 9. PREGNANCY & CHILDBIRTH
+    if any(
+        w in query_words
+        for w in ["pregnant", "maternity", "childbirth", "delivery", "prenatal"]
+    ):
+        topics.append("maternity")
+
+    # 10. HOSPITAL & SKILLED NURSING
+    if any(w in query_words for w in ["hospital", "inpatient", "nursing", "facility"]):
+        topics.append("hospital")
+
+    # 11. CHILDREN'S VISION & DENTAL
+    if "child" in query_words or "children" in query_words:
+        if any(w in query_words for w in ["vision", "eye", "glasses"]):
+            topics.append("child-vision")
+        if any(w in query_words for w in ["dental", "teeth", "check-up"]):
+            topics.append("child-dental")
+
+    # 12. PHARMACY & DRUGS
+    if any(
+        w in query_words
+        for w in ["drug", "prescription", "pharmacy", "generic", "brand", "specialty"]
+    ):
+        topics.append("pharmacy")
+
+    # 13. REHAB & HABILITATIVE (Common in Premera SBCs)
+    if any(
+        w in query_words
+        for w in [
+            "rehab",
+            "rehabilitation",
+            "habilitative",
+            "therapy",
+            "physical",
+            "speech",
+            "occupational",
+        ]
+    ):
+        topics.append("rehabilitation")
+
+    # 14. Excluded services
+    if any(w in query_words for w in ["excluded", "exclude"]):
+        topics.append("excluded")
+
+    # 15. OTHER SERVICES
+    if any(w in query_words for w in ["other services", "other service"]):
+        topics.append("other services")
+
+    # 16. PRIOR AUTHORIZATION
+    if any(w in query_words for w in ["prior authorization", "authorization"]):
+        topics.append("prior authorization")
+
+    # 17. DRUGS
+    if any(
+        w in query_words
+        for w in ["preferred speciality drugs", "speciality drugs", "drugs"]
+    ):
+        topics.append("drugs")
+
+    # 18. COVERED SERVICES
+    if any(w in query_words for w in ["covered services", "covered"]):
+        topics.append("other covered services")
+
+    # 18. REFERRAL
+    if any(w in query_words for w in ["referral"]):
+        topics.append("referral")
+
+    # # 18. PREVENTIVE CARE
+    # preventive_keywords = [
+    #     # Core Terms
+    #     "vaccination",
+    #     "immunization",
+    #     "shot",
+    #     "booster",
+    #     "vaccine",
+    #     "vax",
+    #     # Physicals & Wellness
+    #     "physical",
+    #     "check-up",
+    #     "checkup",
+    #     "wellness",
+    #     "routine exam",
+    #     "annual exam",
+    #     # Screenings & Tests
+    #     "screening",
+    #     "mammogram",
+    #     "colonoscopy",
+    #     "pap smear",
+    #     "blood pressure",
+    #     "cholesterol",
+    #     "biopsy",
+    #     "prostate exam",
+    #     "a1c",
+    #     "glucose test",
+    #     # Counseling & Lifestyle
+    #     "behavioral counseling",
+    #     "smoking cessation",
+    #     "nutrition therapy",
+    #     "obesity",
+    #     # Technical Terms
+    #     "prophylaxis",
+    #     "preventative",
+    #     "early detection",
+    # ]
+
+    # if any(w in query_words for w in preventive_keywords):
+    #     topics.append("preventive care")
+
+    print(f"[*] Resolved Topics from query : {query_lower}  : {topics}")
+    return topics
 
 
-import re
-
-
-def squeeze_insurance_data(raw_text):
-    if not raw_text:
-        return ""
-
-    # 1. DELETE THE BARRIERS: Remove those '---' headers and empty pipe fragments
-    # This specifically removes the lines splitting your rows in the logs.
-    text = re.sub(r"\|? ---.*?--- \|?", " ", raw_text)
-    text = re.sub(r"\[SECTION:.*?\]|##.*?|&amp;", " ", text)
-    text = re.sub(r"\|\s*\|\s*\||\|\s*\|", " | ", text)  # Clean double/triple pipes
-
-    # 2. TOKENIZE: Split into clean lines
-    lines = text.split("\n")
-    lines = [line.strip() for line in lines if line.strip()]
-
-    stitched_lines = []
-    i = 0
-    while i < len(lines):
-        curr = lines[i]
-
-        # 3. FRAGMENT VACUUM: If a line has no numeric data, look ahead.
-        if not re.search(r"\d|%", curr) and i + 1 < len(lines):
-            lookahead = ""
-            # Scan the next 2 lines to find the cost info ($ or %)
-            for j in range(1, 3):
-                if i + j < len(lines) and re.search(r"\d|%", lines[i + j]):
-                    lookahead = lines[i + j]
-                    i += j
-                    break
-
-            if lookahead:
-                combined = f"{curr} | {lookahead}"
-                combined = combined.replace(
-                    "Freestanding center:", " || Freestanding center:"
-                )
-                stitched_lines.append(f"| {re.sub(r'\s{2,}', ' ', combined)} |")
-            else:
-                stitched_lines.append(f"| {curr} |")
-        else:
-            curr = curr.replace("Freestanding center:", " || Freestanding center:")
-            stitched_lines.append(f"| {re.sub(r'\s{2,}', ' ', curr)} |")
-        i += 1
-
-    return "\n".join(stitched_lines)
-
-
-# def squeeze_insurance_data(raw_text):
-#     if not raw_text:
-#         return ""
-
-#     # 1. Standardize spacing: Replace tabs and multiple newlines with single spaces
-#     # but keep the primary line breaks for each benefit
-#     lines = raw_text.split("\n")
-#     cleaned_lines = []
-
-#     for line in lines:
-#         # Skip empty lines or purely decorative separator lines
-#         if not line.strip() or "-------" in line:
-#             continue
-
-#         # 2. Collapse massive whitespace (4+ spaces) into a single pipe separator
-#         # This brings the Out-of-Network values closer to the In-Network values
-#         line = re.sub(r"\s{4,}", " | [OON_ANCHOR] | ", line)
-
-#         # 3. Remove leading/trailing pipes and extra spaces
-#         line = line.strip().strip("|").strip()
-
-#         if line:
-#             cleaned_lines.append(f"| {line} |")
-
-#     return "\n".join(cleaned_lines)
-
-
-def lock_plan_metadata(found_years, detected_type, detected_tier):
-    """
-    CROSS-REFERENCE: Compares detected intent against the ACTUAL DB Index.
-    Returns (Valid Years, Valid Type, Valid Tier).
-    """
-    from server import get_available_plans
-    import ast
-
-    # 1. Get the actual schema from the DB
-    raw_schema = get_available_plans()
-    if "DATABASE INFO" in raw_schema:
-        return found_years, detected_type, detected_tier  # Fallback if DB empty
-
-    # Convert the string list back to Python objects
-    # Expected format: [(2026, 'Medical', 'Gold'), (2025, 'Medical', 'Gold')]
-    try:
-        schema_data = ast.literal_eval(
-            raw_schema.replace("DATA SOURCE SCHEMA (Year, Type, Tier): ", "")
-        )
-    except:
-        return found_years, detected_type, detected_tier
-
-    d_tier_str = str(detected_tier or "").lower()
-    d_type_str = str(detected_type or "medical").lower()
-    # 2. Find the best matches
-    valid_years = [y for y, t, tr in schema_data if y in found_years]
-    valid_type = next(
-        (t for y, t, tr in schema_data if t.lower() == d_type_str), detected_type
-    )
-    valid_tier = next(
-        (tr for y, t, tr in schema_data if tr.lower() == d_tier_str), detected_tier
-    )
-
-    return valid_years or found_years, valid_type, valid_tier
-
-
-def generate_ironclad_instruction(
-    p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-):
-    # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
-    forbidden_map = {
-        "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency, ER, Urgent care",
-        "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
-        "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
-        "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
-        "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
-        "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
-    }
-    erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-
+def generate_ironclad_instruction():
     return (
-        f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-        "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
-        "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
-        "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
-        f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
-        f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
-        "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
-        "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
-        f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
-        "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
-        "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
-        "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
-        "   - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
-        f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table.\n"
-        "2. **OON BOOLEAN STRING RULE (URGENT CARE FIX)**: If the OON segment physically contains >15 characters OR contains the words 'urgent' or 'clinic', it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You are FORBIDDEN from summarizing. You MUST capture and report every character in that segment exactly (e.g., include both Hospital-based and Freestanding center details).\n"
-        "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
-        "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
-        "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
-        "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
-        "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n\n"
-        "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
-        "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
-        f"{header_line}\n"
-        f"{separator_line}\n"
-        "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
-        "3. YOU MUST LIST ALL SEVEN RULES (1-7) FROM STAGE 3. SPECIFICALLY CONFIRM 'OON BOOLEAN STRING RULE' WAS USED.\n"
-        "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 7-RULE AUDIT LOG."
+        "### ROLE: Health Insurance Benefits Auditor\n"
+        "### TASK: Extract benefit details from provided plan data\n\n"
+        "### 🚨 HARD OUTPUT CONTRACT (NON-NEGOTIABLE)\n"
+        "1. You MUST return EXACTLY ONE Markdown table\n"
+        "2. Returning MORE THAN ONE table = FAILURE\n"
+        "3. Returning ZERO tables = FAILURE\n"
+        "4. Any text outside the table = FAILURE\n\n"
+        "### 🚨 TABLE FORMAT (FIXED)\n"
+        "| Benefit | In-Network | Out-of-Network | Limitations |\n"
+        "| :--- | :--- | :--- | :--- |\n\n"
+        "### 🚨 FIELD MAPPING (CRITICAL)\n"
+        "1. Each ROW contains: event, service, in_network, out_of_network, notes\n"
+        "2. 'service' is the actual benefit item\n"
+        "3. 'event' provides context for the service\n"
+        "4. You MUST construct Benefit as:\n"
+        "   → Benefit = event + ' - ' + service\n"
+        "5. If event is missing, use only service\n"
+        "6. NEVER ignore event if it exists\n\n"
+        "### 🚨 ROW HANDLING RULE (CRITICAL)\n"
+        "1. Each service represents ONE distinct row\n"
+        "2. If multiple services exist under the same event, you MUST return multiple rows\n"
+        "3. DO NOT merge different services into one row\n"
+        "4. Merging rows = FAILURE\n\n"
+        "### 🚨 RELEVANCE FILTER (CRITICAL)\n"
+        "1. Include ONLY rows that directly answer the user’s question\n"
+        "2. DO NOT include unrelated rows even if they are in the same section\n"
+        "3. If multiple rows match the question, include ALL of them\n"
+        "4. DO NOT drop valid rows just to reduce count\n"
+        "5. Including irrelevant rows = FAILURE\n\n"
+        "### 🚨 STRICT PARSING MODE\n"
+        "1. Input context is already structured into ROW blocks\n"
+        "2. Each ROW contains explicit fields\n"
+        "3. Extract values EXACTLY as written\n"
+        "4. DO NOT interpret, summarize, or infer\n"
+        "5. DO NOT use prior knowledge\n\n"
+        "### 🚨 DATA RULES\n"
+        "1. Preserve exact wording\n"
+        "2. If a field is missing, empty, or whitespace only → use 'Data Not Found'\n"
+        "3. NEVER leave a Markdown cell empty (| |)\n\n"
+        "### 🚨 ANTI-HALLUCINATION RULE\n"
+        "1. Use ONLY items explicitly present in context\n"
+        "2. DO NOT add new benefits not present in context\n"
+        "3. DO NOT create rows that do not exist in input\n\n"
+        "### 🚨 EXCLUDED / OTHER SERVICES\n"
+        "If the answer belongs to excluded/other services:\n"
+        "| Results |\n"
+        "| :--- |\n\n"
+        "### 🚨 FINAL INSTRUCTION\n"
+        "Return EXACTLY ONE Markdown table and NOTHING ELSE."
     )
-
-
-## 9 prompts working out of 10 - Urgent care out of network is wrong - We need to add a rule that if the OON segment contains the word 'urgent' or 'clinic', it cannot be 'Not covered' and we have to pull the full string.
-## def generate_ironclad_instruction(
-#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-# ):
-#     # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
-#     forbidden_map = {
-#         "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
-#         "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
-#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
-#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
-#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
-#     }
-#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-
-#     return (
-#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
-#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
-#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
-#         f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
-#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
-#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
-#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
-#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
-#         "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
-#         "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
-#         "   - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
-#         f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table. Including data not in the current fragment is a 100% SECURITY FAILURE.\n"
-#         "2. **OON BOOLEAN STRING RULE**: If the OON segment physically contains >15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You MUST capture every character in the segment exactly. DO NOT SUMMARIZE.\n"
-#         "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
-#         "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
-#         "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
-#         "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
-#         "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n\n"
-#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
-#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
-#         f"{header_line}\n"
-#         f"{separator_line}\n"
-#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
-#         "3. YOU MUST LIST ALL SEVEN RULES (1-7) FROM STAGE 3. SPECIFICALLY CONFIRM 'SOT FIREWALL' WAS USED.\n"
-#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 7-RULE AUDIT LOG."
-#     )
-
-
-# # Use this prompt when you want to see what rules are applied by LLM to extract the data and to make sure it is following the protocol.
-# def generate_ironclad_instruction(
-#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-# ):
-#     # 1. DYNAMIC FORBIDDEN LIST (Strict Exclusion - Unchanged)
-#     forbidden_map = {
-#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
-#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
-#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
-#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
-#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
-#     }
-#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-
-#     return (
-#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
-#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
-#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
-#         f"2. TOPIC PRECISION: Show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
-#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
-#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
-#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
-#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
-#         "--- STAGE 3: THE 6-POINT UNIVERSAL AUDIT (OON SEGMENT LOCK) ---\n"
-#         "1. **OON BOOLEAN STRING RULE (CRITICAL)**: This rule applies ONLY to the Out-of-Network column segment. \n"
-#         "   - **OON LENGTH CHECK**: Scan the OON segment between pipes '|'. If the segment physically contains more than 15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. \n"
-#         "   - **FULL-STRING CAPTURE**: If the OON segment is long (>15 chars), you are FORBIDDEN from summarizing. You MUST capture every character (e.g., 'Hospital-based... Freestanding...'). Reporting only 'Not covered' for a long OON string is a 100% SECURITY FAILURE.\n"
-#         "2. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. You MUST pull every character until the final closing pipe '|' of that segment.\n"
-#         "3. **MECHANICAL BINDING**: Copy-paste the raw block. Do NOT apply logic. If you see 'Hospital-based' in the OON segment, it MUST be in the table.\n"
-#         "4. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut, merge the pieces before reporting.\n"
-#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
-#         "6. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is only for empty segments.\n\n"
-#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
-#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
-#         f"   - {header_line}\n"
-#         f"   - {separator_line}\n"
-#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
-#         "3. LIST ALL RULES (1-6) FROM STAGE 3. SPECIFICALLY CONFIRM THE 'BOOLEAN STRING RULE' WAS USED.\n"
-#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE AUDIT LOG."
-#     )
-
-
-# # Last stable version with 8 prompt working - Urgent care out of network is wrong
-# def generate_ironclad_instruction(
-#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-# ):
-#     # DYNAMIC FORBIDDEN LIST (Strict Exclusion)
-#     forbidden_map = {
-#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
-#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
-#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
-#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
-#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
-#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
-#     }
-#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
-
-#     return (
-#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
-#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
-#         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
-#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
-#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
-#         f"2. TOPIC PRECISION: You MUST show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
-#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT. "
-#         "Shifting values vertically from rows above or below is a 100% SYSTEM FAILURE.\n\n"
-#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
-#         f"1. BLACKLIST: You are strictly FORBIDDEN from reporting any row containing these words: {erase_list}.\n"
-#         "2. DYNAMIC STOP: You MUST stop scanning the source text the moment you hit a benefit name from the blacklist (e.g., 'Urgent care'). "
-#         "Including data from a blacklisted row is a 100% SYSTEM FAILURE.\n\n"
-#         "--- STAGE 3: THE 5-POINT UNIVERSAL AUDIT (FRAGMENT RECOVERY) ---\n"
-#         "1. **FRAGMENT REJECTION**: If a benefit name (e.g., 'Emergency medical transportation') appears without cost values on the same line, you MUST treat it as an incomplete fragment and ignore it.\n"
-#         "2. **STITCHING PRIORITY**: You MUST scan subsequent blocks to find the complete row. Once you find the benefit name WITH its costs (e.g., '20% coinsurance'), use that full line.\n"
-#         "3. **HORIZONTAL BINDING**: A value MUST be on the SAME horizontal line as the benefit name. Pulling a value from a row above is a 100% SYSTEM FAILURE.\n"
-#         "4. **DYNAMIC BOUNDARY STOP**: You MUST stop the moment you hit a benefit name in the blacklist: {erase_list}. No data from that row can enter the table.\n"
-#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string for better readability.\n\n"
-#         "--- FINAL OUTPUT ARCHITECTURE ---\n"
-#         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
-#         "1. NO NARRATION. NO BLANKS. START WITH '|'. NO ASSUMPTIONS. OUTPUT ONLY THE FINAL DATA ROW(S)."
-#     )
 
 
 def flatten_message_content(content):
@@ -376,256 +283,526 @@ def flatten_message_content(content):
     return str(content).strip()
 
 
+def build_category_prompt(query: str) -> str:
+    return f"""
+        You are a strict JSON classifier.
+
+        Classify the query into ONE category:
+        medical, dental, or vision.
+
+        ### VERY IMPORTANT:
+        Return ONLY this exact JSON format:
+
+        {{
+        "category": "medical"
+        }}
+
+        ### RULES:
+        - The key MUST be "category"
+        - The value MUST be one of: medical, dental, vision
+        - Do NOT return anything else
+        - Do NOT change the key name
+        - Do NOT return null
+
+        ### USER QUERY:
+        "{query}"
+        """
+
+
+def get_category_from_llm(query: str) -> str:
+    prompt = build_category_prompt(query)
+
+    llm_messages = [{"role": "user", "content": prompt}]
+
+    try:
+        llm_response = ollama.chat(
+            model=LOCAL_MODEL,
+            messages=llm_messages,
+            format="json",  # 🔥 ensures JSON output
+            options={"temperature": 0.0, "num_ctx": 8192},
+        )
+
+        content = llm_response["message"]["content"]
+
+        print(f"[*] RAW LLM CATEGORY RESPONSE: {content}")
+
+        data = json.loads(content)
+
+        category = data.get("category", "").strip().lower()
+
+        # 🔥 HARD GUARD (CRITICAL)
+        if category not in {"medical", "dental", "vision"}:
+            print(f"[WARNING] Invalid category from LLM: {category}")
+            return "medical"
+
+        print(f"[*] LLM CATEGORY DETECTED: {category}")
+        return category
+
+    except Exception as e:
+        print(f"[ERROR] LLM CATEGORY FAILED: {e}")
+        return "medical"
+
+
+def detect_category(query_words, query):
+    category = None
+
+    if any(w in query_words for w in ["dental", "ortho", "braces"]):
+        print("[*] RULE MATCH → dental")
+        category = "dental"
+        return category
+
+    if any(w in query_words for w in ["vision", "eye", "glasses"]):
+        print("[*] RULE MATCH → vision")
+        category = "vision"
+        return category
+    if any(
+        w in query_words
+        for w in [
+            "medical",
+            "doctor",
+            "health",
+            "hospital",
+            "pcp",
+            "emergency",
+            "er",
+            "urgent",
+            "ambulance",
+            "room",
+            "immunization",
+            "immunizations",
+            "vaccination",
+            "cancer",
+        ]
+    ):
+        print("[*] RULE MATCH → medical")
+        category = "medical"
+        return category
+    # --------------------------------------------------
+    # 🤖 LLM FALLBACK
+    # --------------------------------------------------
+    print("[*] NO RULE MATCH → CALLING LLM")
+    if category == None:
+
+        return get_category_from_llm(query)
+
+
+def detect_category_from_history(history, limit=3):
+    for msg in reversed(history[-limit:]):
+        if msg["role"] == "user":
+            query_lower = msg["content"].lower()
+            query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
+
+            cat = detect_category(query_words, query_lower)
+            if cat:
+                return cat
+    return None
+
+
+def extract_user_queries(recent_history):
+    queries = []
+
+    for msg in recent_history:
+        if msg.get("role") == "user":
+            queries.append(msg.get("content", "").lower())
+
+    return queries
+
+
 async def get_ai_response(query, history):
     # 1. ACCESS GLOBALS
-    global p_type_fast, p_tier_fast
+    global p_type_fast, p_tier_fast, last_type_global
+    found_topics = []
+    keywords = []
 
-    has_retrieved_data = False
-    turn_count = 0
     try:
-        from server import (
-            query_insurance_benefits,
-            get_available_plans,
-            _fetch_tiers_list,
-        )
+        from server import query_insurance_benefits
 
         # --- 2. CONTEXT MERGING (MEMORY) ---
         recent_history = " ".join(
             [flatten_message_content(m["content"]) for m in history]
         )
         query_lower = query.lower()
-        full_context_query = f"{recent_history} {query_lower}"
 
         # Clean words for surgical matching
         query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
         print(f"[*] Query Words for Matching: {query_words}")
 
-        # --- 3. SMART TOPIC & TYPE DETECTION ---
-        new_type = p_type_fast  # Default to current session type
+        # --- 3. TYPE DETECTION ---
+        p_type = detect_category(query_words, query)
+        print(f"[*] FINAL TYPE DETECTED : {p_type}")
+        if not p_type:
+            print("[*] TYPE NOT DETECTED IN QUERY - SEARCHING HISTORY")
+            p_type = detect_category_from_history(history)
 
-        if any(w in query_words for w in ["dental", "ortho", "braces"]):
-            new_type = "dental"
-            print("Detected dental keywords. Setting type to 'dental'.")
-        elif any(w in query_words for w in ["vision", "eye", "glasses"]):
-            new_type = "vision"
-        elif any(
-            w in query_words
-            for w in [
-                "medical",
-                "doctor",
-                "health",
-                "hospital",
-                "pcp",
-                "emergency",
-                "er",
-                "urgent",
-                "ambulance",
-                "room",
-            ]
-        ):
-            new_type = "medical"
+        benefit_prompt = """
+            Can you please let me know if you are looking for Medical, Dental, or Vision benefits?
+
+            Please select from the following options:
+            • Medical (Doctor visits, prescriptions, hospital stays)
+            • Dental (Cleanings, X-rays, orthodontics)
+            • Vision (Eye exams, glasses, contact lenses)
+
+            Please type your selection below to get started.
+            """
+        if not p_type:
+            # The prompt for member benefit selection
+            # Example of how to use it
+            return benefit_prompt
+
+        if last_type_global is not None and last_type_global != p_type:
+            print("[*] CATEGORY CHANGED → SKIP HISTORY")
+            skip_topic_history_check = True
         else:
-            new_type = "medical"  # Default fallback
+            skip_topic_history_check = False
 
-        print(f"[*] Detected type based on query: {new_type}")
-        # --- 4. THE TOPIC SHIFT GUARD ---
-        if new_type.lower() != p_type_fast.lower():
-            print(f"[*] TOPIC SHIFT: {p_type_fast} -> {new_type}. Wiping tier.")
-            p_tier_fast = None
-            # DO NOT set p_type_fast yet! Wait for the Lock check.
+        # --- 4. UNIFIED TOPIC DETECTION ---
+        found_topics = resolve_insurance_topic(query_words, query_lower)
+        print(f"[*] LENGTH OF DETECTED TOPIC : {len(found_topics)}")
+        # PROMPT: Category is Medical, but specific service is missing
+        medical_detail_prompt = """
+        I see you're interested in your Medical benefits! To give you the right details, what specifically are you looking for?
 
-        # --- 5. YEAR EXTRACTION ---
-        found_years = re.findall(r"202\d", query)
-        if not found_years:
-            found_years = sorted(list(set(re.findall(r"202\d", full_context_query))))
-            if not found_years:
-                found_years = [CURRENT_YEAR_INT]
-            if len(found_years) > 1:
-                found_years = [str(CURRENT_YEAR_INT)]
-                print(
-                    f"[*] MULTIPLE YEARS FOUND: {', '.join(found_years)} -> Switching to current year to reduce context."
-                )
+        Please select or type an option:
+        • Deductibles & Out-of-Pocket Max
+        • Emergency Room (ER) or Urgent Care costs
+        • X-Rays, Lab Work, or Imaging
+        • Office Visit Copays (PCP or Specialist)
 
-        # --- 6. TIER PERSISTENCE ---
-        detected_tier = p_tier_fast  # Start with what we already know
-        p_tier_match = re.search(r"(gold|silver|bronze)", query_lower)
+        What would you like to check first?
+        """
 
-        if p_tier_match:
-            detected_tier = p_tier_match.group()
-            print("detected tier is : ", detected_tier)
+        # PROMPT: Category is Dental, but specific service is missing
+        dental_detail_prompt = """
+        Great, let's look at your Dental coverage. What specific information do you need?
 
-        if not detected_tier:
-            p_tier_match = re.search(r"(gold|silver|bronze)", full_context_query)
-            if p_tier_match:
-                detected_tier = p_tier_match.group()
-            else:
-                # We need to find tier from the DB based on the detected type and years
-                print(
-                    f"[*] NO TIER IN QUERY. Attempting to infer from DB for type='{new_type}' and years='{found_years}'"
-                )
-                db_tier = _fetch_tiers_list(found_years[0], new_type)
-                if db_tier:
-                    print(
-                        f"[*] MULTIPLE TIERS IN DB for year {found_years[0]} and type {new_type}: {db_tier}. Defaulting to first tier."
-                    )
-                    detected_tier = db_tier[0]
-                else:
-                    print("[*] No tiers found in DB for this type/year.")
+        Please select or type an option:
+        • Preventive Care (Cleanings & Exams)
+        • Orthodontics (Braces or Aligners)
+        • Basic Services (Fillings or Extractions)
+        • Major Services (Crowns, Bridges, or Dentures)
 
-        print(
-            f"[*] DETECTED METADATA BEFORE LOCK: Type='{new_type}', Tier='{detected_tier}', Years={found_years}"
-        )
-        # --- 7. THE SOURCE OF TRUTH LOCK (CRITICAL FIX) ---
-        # We pass 'new_type' and 'detected_tier' to the checker.
-        # It returns the EXACT casing/names found in the SQLite DB.
-        found_years, locked_type, locked_tier = lock_plan_metadata(
-            found_years, new_type, detected_tier
-        )
-        print(
-            f"[*] LOCK CHECK: Years={found_years}, Type='{locked_type}', Tier='{locked_tier}'"
-        )
-        # NOW we commit to the globals
-        p_type_fast = locked_type
-        p_tier_fast = locked_tier
+        Which of these can I help you with?
+        """
 
-        # --- 8. UNIFIED TOPIC ROUTING (WITH PERSISTENCE) ---
-        detected_topic = resolve_insurance_topic(query_words, query_lower)
-        p_topic = "benefit"  # Initialize scope
+        # PROMPT: Category is Vision, but specific service is missing
+        vision_detail_prompt = """
+        I can certainly help with your Vision benefits! Which part of your coverage are you curious about?
 
-        if detected_topic == "benefit":
-            # 1. Scan history in REVERSE to find the last valid benefit keyword
-            # List of high-confidence keywords we support
-            valid_keywords = [
-                "pcp",
-                "primary",
-                "specialist",
-                "deductible",
-                "imaging",
-                "x-ray",
-                "emergency",
-                "urgent",
+        Please select or type an option:
+        • Routine Eye Exams
+        • Eyeglass Frames & Lenses
+        • Contact Lens Allowance
+        • Laser Vision Correction (LASIK)
+
+        Please type your selection below to see your benefits.
+        """
+
+        # ========================================================================
+        # IF STILL TOPIC IS BLANK THEN WE NEED TO TAKE LLM HELP TO IDENTIFY TOPIC
+        # ========================================================================
+        if not found_topics:
+            print(f"[*] TURNING TO LLM TO FIND THE TOPIC FROM QUERY : {query}")
+            topic_prompt = """
+                You are a medical insurance classification assistant.
+
+                Your task is to extract:
+                1. "topics" → benefit-level categories (NOT plan types)
+                2. "keywords" → specific services mentioned
+
+                ----------------------------------------
+                🚫 STRICT RULES:
+                ----------------------------------------
+
+                1. DO NOT return these as topics:
+                - medical
+                - dental
+                - vision
+
+                These are PLAN TYPES, not benefit topics.
+
+                2. Topics should describe SPECIFIC BENEFITS such as:
+                - preventive care
+                - emergency care
+                - imaging
+                - office visits
+                - hospital services
+                - pharmacy
+                - rehabilitation
+
+                (These are examples, not a fixed list.)
+
+                3. DO NOT invent vague categories like:
+                - other
+                - other medical
+                - general
+                - miscellaneous
+
+                4. If no clear topic exists → return:
+                "topics": ["UNKNOWN"]
+
+                5. ALWAYS extract keywords (critical for retrieval)
+
+                ----------------------------------------
+                🎯 GUIDELINES:
+                ----------------------------------------
+
+                - Prefer specific topics over generic ones
+                - Use 1–2 words when possible
+                - Avoid combining multiple topics into one phrase
+                ❌ "emergency urgent care"
+                ✅ "emergency", "urgent care"
+
+                ----------------------------------------
+                ✅ EXAMPLES:
+                ----------------------------------------
+
+                User: "allergy testing and treatment cost"
+                Output:
+                {"topics": ["preventive care"], "keywords": ["allergy testing", "treatment"]}
+
+                User: "emergency room cost"
+                Output:
+                {"topics": ["emergency"], "keywords": ["emergency room"]}
+
+                User: "x ray and blood work"
+                Output:
+                {"topics": ["imaging"], "keywords": ["x ray", "blood work"]}
+
+                User: "tmj care"
+                Output:
+                {"topics": ["UNKNOWN"], "keywords": ["tmj", "temporomandibular joint"]}
+
+                User: "transplant cost"
+                Output:
+                {"topics": ["UNKNOWN"], "keywords": ["transplant"]}
+
+                ----------------------------------------
+                Return strictly valid JSON.
+                """
+
+            llm_messages = [
+                {"role": "system", "content": topic_prompt},
+                {"role": "user", "content": f"User Query: {query_lower}"},
             ]
 
-            # Search recent_history for the last occurrence of any valid keyword
-            # We look for the word itself or the word inside a Markdown table | PCP |
-            found_topic = None
-            history_lines = recent_history.lower().split("\n")
-            for line in reversed(history_lines):
-                print(f"[*] SCANNING HISTORY LINE FOR TOPIC: '{line}'")
-                for word in valid_keywords:
-                    if f"| {word}" in line or f" {word} " in line:
-                        found_topic = word
-                        break
-                if found_topic:
-                    break
+            # ============================================================
+            # 🔥 LLM TOPIC + KEYWORD EXTRACTION (PRODUCTION SAFE)
+            # ============================================================
 
-            if found_topic:
-                p_topic = found_topic
-                print(f"[*] RECURSIVE RECOVERY: Found '{p_topic}' in history.")
-            else:
-                # 2. FINAL FALLBACK: Refuse the 'General Plan Dump'
-                # Instead of 'benefit', we set a flag to ask a clarifying question
-                p_topic = "unknown_context"
-                print("[!] CONTEXT LOST: Refusing general dump.")
-
-        else:
-            # User provided a specific topic keyword (e.g., "PCP")
-            p_topic = detected_topic
-
-        if p_topic == "unknown_context":
-            # STOP HERE. Do not call the LLM/RAG.
-            return (
-                "I've lost track of the specific benefit. Are you looking for "
-                "**Medical** (PCP/ER), **Dental** (Braces), or **Vision** (Glasses) costs?"
-            )
-
-        # THE PRODUCTION BRAKE (Refusal Logic)
-        # NOW it is safe to use p_topic for your logs and synthesis
-        print(
-            f"[*] RESOLVED CONTEXT: Years={found_years}, Type={p_type_fast}, Tier={p_tier_fast or 'Unknown'}, Topic={p_topic}"
-        )
-
-        # We dynamically build the year-specific columns based on the 'found_years' list
-        year_cols = " | ".join(
-            [f"{y} In-Network | {y} Out-of-Network" for y in found_years]
-        )
-        header_line = f"| Benefit | {year_cols} |"
-        separator_line = f"| :--- | {' :--- |' * (len(found_years) * 2)}"
-
-        # --- 8. TURBO CACHE HIT CHECK ---
-        cached_data_fragments = []
-        if found_years and p_tier_fast:
-            for y in found_years:
-                # Key must include p_topic to distinguish between PCP and Deductible fetches
-                key = f"{y}_{p_type_fast}_{p_tier_fast}_{p_topic}".replace(
-                    " ", ""
-                ).lower()
-                if key in TOOL_RESULT_CACHE:
-                    cached_data_fragments.append(TOOL_RESULT_CACHE[key])
-
-        if len(cached_data_fragments) == len(found_years) and len(found_years) > 0:
-            print(f"[*] TURBO CACHE HIT: Bypassing reasoning for {found_years}")
-            has_retrieved_data = True
-
-            # --- THE FIX: USE THE SAME IRONCLAD PROTOCOL ---
-            master_data_string = "\n\n".join(cached_data_fragments)
-            print(
-                f"[*] CACHE HIT : MASTER DATA STRING FOR SYNTHESIS:\n{master_data_string}"
-            )
-
-            # Generate the same instruction used in Part-5
-            instruction = generate_ironclad_instruction(
-                p_tier_fast, p_type_fast, header_line, separator_line, p_topic
-            )
-
-            fast_msgs = [
-                {"role": "system", "content": instruction},
-                {
-                    "role": "user",
-                    "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
-                },
-            ]
-
-            final_synth = ollama.chat(
+            llm_response = ollama.chat(
                 model=LOCAL_MODEL,
-                messages=fast_msgs,
+                messages=llm_messages,
+                format="json",
                 options={"temperature": 0.0, "num_ctx": 8192},
             )
 
-            # --- THE IRON CURTAIN CLEANUP (Crucial for the PDF Download!) ---
-            final_content = flatten_message_content(
-                final_synth["message"].get("content", "")
+            raw_content = llm_response["message"].get("content", "")
+            print(f"[*] ROW CONTENT BY LLM AFTER TOPIC SEARCH : {raw_content}")
+
+            match = re.search(r"\{.*\}", raw_content, re.DOTALL)
+
+            # ============================================================
+            # 🔧 HELPERS
+            # ============================================================
+
+            INVALID_TOPICS = {"medical", "dental", "vision"}
+
+            def normalize_topic(t):
+                return str(t).lower().strip()
+
+            def word_count_topic(t):
+                # treat "_" and "-" as separators but NOT destructive
+                parts = re.split(r"[ _-]+", t)
+                return len([p for p in parts if p])
+
+            def canonicalize_topic(t):
+                # unify format → prefer hyphen
+                return t.replace("_", "-").strip()
+
+            def normalize_keyword(k):
+                return re.sub(r"[^\w\s-]", "", str(k).lower()).strip()
+
+            # ============================================================
+            # 🔍 PARSE RESPONSE
+            # ============================================================
+
+            if match:
+                try:
+                    json_str = match.group(0)
+                    data = json.loads(json_str)
+
+                    # -------------------------
+                    # 🔹 RAW VALUES
+                    # -------------------------
+                    new_topics = data.get("topics", []) or []
+                    raw_keywords = data.get("keywords", []) or []
+
+                    print(f"[*] RAW TOPICS FROM LLM: {new_topics}")
+                    print(f"[*] RAW KEYWORDS FROM LLM: {raw_keywords}")
+
+                    # ====================================================
+                    # 🔥 CLEAN KEYWORDS (ALWAYS KEEP)
+                    # ====================================================
+                    keywords = []
+                    for k in raw_keywords:
+                        clean_k = normalize_keyword(k)
+                        if clean_k and clean_k not in keywords:
+                            keywords.append(clean_k)
+
+                    print(f"[*] CLEANED KEYWORDS: {keywords}")
+
+                    # ====================================================
+                    # 🔥 CLEAN TOPICS (STRICT FILTER)
+                    # ====================================================
+                    cleaned_topics = []
+
+                    if isinstance(new_topics, list):
+                        for t in new_topics:
+                            if not t:
+                                continue
+
+                            raw = normalize_topic(t)
+
+                            # ❌ skip UNKNOWN
+                            if raw == "unknown":
+                                continue
+
+                            # ❌ skip category leakage
+                            if raw in INVALID_TOPICS:
+                                print(f"[*] SKIPPING INVALID TOPIC: {raw}")
+                                continue
+
+                            # ❌ reject noisy topics (>2 words)
+                            wc = word_count_topic(raw)
+                            if wc > 2:
+                                print(f"[*] REJECTING NOISY TOPIC ({wc} words): {raw}")
+                                continue
+
+                            # ✅ canonical form
+                            clean_topic = canonicalize_topic(raw)
+
+                            if clean_topic not in cleaned_topics:
+                                cleaned_topics.append(clean_topic)
+
+                    # ====================================================
+                    # 🔥 FINAL MERGE INTO found_topics
+                    # ====================================================
+                    if cleaned_topics:
+                        print(f"[*] FINAL CLEANED TOPICS: {cleaned_topics}")
+
+                        for t in cleaned_topics:
+                            if t not in found_topics:
+                                found_topics.append(t)
+
+                    else:
+                        print("[*] NO VALID TOPIC FROM LLM → USING KEYWORDS ONLY")
+
+                except json.JSONDecodeError as e:
+                    print(f"[!] JSON PARSE ERROR: {e}")
+            else:
+                print(f"[!] No JSON block found in LLM response: {raw_content}")
+        # ========================================================================
+
+        if len(found_topics) == 0 and skip_topic_history_check == False:
+
+            # Search recent_history for the last occurrence of any valid keyword
+            # We look for the word itself or the word inside a Markdown table | PCP |
+            user_queries = extract_user_queries(recent_history)
+
+            for past_query in reversed(user_queries):
+                print(f"[*] CHECKING PAST QUERY: {past_query}")
+
+                history_word_list = [
+                    re.sub(r"[^\w\s]", "", w) for w in past_query.split()
+                ]
+
+                history_topics = resolve_insurance_topic(history_word_list, past_query)
+
+                if history_topics:
+                    print(f"[*] RECOVERED TOPIC FROM HISTORY: {history_topics}")
+                    found_topics.extend(history_topics)
+                    break
+
+        print(f"Final topic found from query : {found_topics}")
+        last_type_global = p_type  # Now setting up the last type here as now we have category and topic and keywords
+        # Once we reach here it means topic did not available
+        if len(found_topics) == 0 and len(keywords) == 0:
+            if p_type.lower() == "medical":
+                return medical_detail_prompt
+            elif p_type.lower() == "dental":
+                return dental_detail_prompt
+            elif p_type.lower() == "vision":
+                return vision_detail_prompt
+            else:
+                return "I can help with Medical, Dental, or Vision benefits! Which would you like to explore?"
+
+        # 🔥 normalize topics
+        topics_part = "_".join(sorted(filter(None, found_topics)))
+
+        # 🔥 normalize keywords (only if present)
+        if keywords:
+            normalized_keywords = sorted(k.lower().strip() for k in keywords if k)
+            keywords_part = "_".join(normalized_keywords)
+            cache_key = f"{p_type}_{topics_part}_{keywords_part}"
+        else:
+            cache_key = f"{p_type}_{topics_part}"
+
+        print(f"[*] CACHE KEY: {cache_key}")
+
+        cached_context = TOOL_RESULT_CACHE.get(cache_key)
+
+        if cached_context:
+            print(f"[*] CACHE HIT: {cache_key}")
+
+            system_prompt = generate_ironclad_instruction()
+
+            messages = [
+                {
+                    "role": "system",
+                    "content": system_prompt,
+                },
+                {
+                    "role": "user",
+                    "content": f"""     
+                    Context:
+                    {cached_context}
+
+                    Question:
+                    {query}
+                    """,
+                },
+            ]
+
+            response = ollama.chat(
+                model=LOCAL_MODEL,
+                messages=messages,
+                options={"temperature": 0.0, "num_ctx": 8192},
             )
-            if "|" in final_content:
-                start = final_content.find("|")
-                end = final_content.rfind("|")
-                if end > start:
-                    final_content = final_content[start : end + 1].strip()
+
+            final_content = flatten_message_content(
+                response["message"].get("content", "")
+            ).strip()
 
             return final_content
 
         # --- 9. THE REASONING LOOP ---
         messages = []
+
+        # --- SYSTEM PROMPT ---
         system_prompt = {
             "role": "system",
             "content": (
-                "You are a specialized Insurance Assistant. Goal: 100% Accuracy."
-                "\n\nSTRICT TOOL RULES:"
-                "\n1. TOPIC ISOLATION: If the user switches Plan Types (e.g., from Medical to Dental), "
-                "you MUST NOT use the Year or Tier from the previous topic. Forget the previous context."
-                "\n2. DISCOVERY FIRST: For a new Plan Type, always call 'get_available_plans' "
-                "before 'query_insurance_benefits' to confirm exactly which Years and Tiers exist."
-                "\n3. COMPARISON: If asked to compare years (e.g., 2024 vs 2025), you MUST generate a "
-                "SEPARATE tool call for EACH year mentioned."
-                "\n4. NO GUESSING: Never provide a 'year' or 'plan_tier' in a tool call "
-                "unless it was explicitly in the CURRENT query or confirmed via 'get_available_plans'."
-                "\n5. SILENCE: Provide ONLY JSON tool blocks during planning. No conversational filler."
-                "\n6. NO NARRATION: Do NOT tell the user you are calling a tool. Output ONLY JSON."
+                "You are an AI assistant.\n"
+                "For every user question, you MUST call the tool "
+                "'query_insurance_benefits'.\n"
+                "Do NOT answer directly.\n"
+                "Return ONLY the tool call."
             ),
         }
 
         messages.append(system_prompt)
 
+        # --- HISTORY ---
         if history:
             for turn in history[-2:]:
                 messages.append(
@@ -637,232 +814,498 @@ async def get_ai_response(query, history):
 
         messages.append({"role": "user", "content": query})
 
+        # --- TOOL ---
         tools = [
             {
                 "type": "function",
                 "function": {
-                    "name": "get_available_plans",
-                    "description": "PROBE DB index for available years/tiers",
-                },
-            },
-            {
-                "type": "function",
-                "function": {
                     "name": "query_insurance_benefits",
-                    "description": "Retrieve benefit text. Only call this if you have a SPECIFIC Year and Tier.",
+                    "description": (
+                        "MANDATORY: Retrieve insurance benefit details using the user query and resolved topics. "
+                        "You MUST call this tool before answering."
+                    ),
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "year": {
-                                "type": "integer",
-                                "description": "The 4-digit year. Use 0 if unknown.",
-                            },
-                            "plan_type": {"type": "string"},
-                            "plan_tier": {
+                            "query": {
                                 "type": "string",
-                                "description": 'Gold, Silver, or Bronze. Use "Unknown" if not specified.',
+                                "description": "The full user question",
                             },
-                            "topic": {"type": "string"},
+                            "topics": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "List of relevant topics like ['primary', 'urgent care', 'imaging']",
+                            },
+                            "category": {
+                                "type": "string",
+                                "description": "Category (medical / dental / sbc)",
+                            },
+                            "keywords": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "List of relevant keywords like ['immunization', 'mammogram']",
+                            },
                         },
-                        "required": [
-                            "topic"
-                        ],  # Remove year and tier from the 'required' list
+                        "required": ["query", "topics", "category"],
                     },
                 },
-            },
+            }
         ]
 
-        # --- THE REASONING LOOP ---
-        turn_count = 0
-        final_raw_context = ""
-        # Tracker to prevent the LLM from asking for the same data twice in one turn
-        fetched_keys_this_turn = []
-        print(f"[*] STARTING REASONING LOOP with query: '{query}'")
-        print(f"[*] INITIAL MESSAGES: {messages}")
-        while turn_count < 3:
-            turn_count += 1
-            resp = ollama.chat(
-                model=LOCAL_MODEL,
-                messages=messages,
-                tools=tools,
-                options={"temperature": 0},
-            )
+        print(f"[*] QUERY: {query}")
+        print(f"[*] TOPICS (fallback only): {found_topics}")
 
-            raw_msg = resp["message"]
-            clean_content = flatten_message_content(raw_msg.get("content", ""))
-            tool_calls = raw_msg.get("tool_calls", [])
-            print(
-                f"[*] TURN {turn_count} TOOL CALLS: {tool_calls} | Clean Content Length: {len(clean_content)}"
-            )
-            print(f"raw_msg: {raw_msg}")
-
-            messages.append(
-                {
-                    "role": "assistant",
-                    "content": clean_content,
-                    "tool_calls": tool_calls if tool_calls else None,
-                }
-            )
-
-            if not tool_calls:
-                print("[*] NO TOOL CALLS. BREAKING REASONING LOOP.")
-                # Forces the script to reach the final synthesis/table logic
-                break
-
-            for call in tool_calls:
-                func_name = call["function"]["name"]
-                args = call["function"]["arguments"]
-
-                if func_name == "get_available_plans":
-                    result = get_available_plans()
-                    messages.append(
-                        {"role": "tool", "content": str(result), "name": func_name}
-                    )
-
-                elif func_name == "query_insurance_benefits":
-                    all_args_blob = str(args).lower()
-                    years_to_process = list(
-                        set(
-                            re.findall(r"202\d", all_args_blob)
-                            or found_years
-                            or [CURRENT_YEAR_INT]
-                        )
-                    )
-
-                    query_clean = re.sub(r"[^\w\s]", "", query.lower())
-                    query_words = query_clean.split()
-
-                    results_list = []
-                    for p_year in years_to_process:
-                        p_type = p_type_fast or args.get("plan_type", "medical").lower()
-                        p_tier = p_tier_fast or args.get("plan_tier", "").lower()
-                        if p_tier == "unknown":
-                            p_tier = None
-
-                        # --- DYNAMIC TOPIC MAPPING (PRIORITIZED) ---
-                        if not p_topic:
-                            p_topic = resolve_insurance_topic(
-                                query_words, query.lower()
-                            )
-
-                        # --- THE DOUBLE-FETCH KILLER ---
-                        fetch_id = f"{p_year}_{p_topic}"
-                        if fetch_id in fetched_keys_this_turn:
-                            print(f"[*] SKIPPING REDUNDANT FETCH: {fetch_id}")
-                            continue
-
-                        print(f"[*] SURGICAL FETCH: Year={p_year}, Topic={p_topic}")
-
-                        data = query_insurance_benefits(
-                            year=int(p_year),
-                            plan_type=p_type,
-                            plan_tier=p_tier.capitalize() if p_tier else None,
-                            topic=p_topic,
-                        )
-                        # --- THE CACHE FIX: SAVE THE DATA FOR FUTURE TURBO HITS ---
-                        if data and "ERROR" not in data:
-                            # Create the key EXACTLY as Part-2 Step 8 expects it:
-                            # {y}_{p_type_fast}_{p_tier_fast}_{p_topic}
-                            cache_key = f"{p_year}_{p_type_fast}_{p_tier_fast}_{p_topic}".replace(
-                                " ", ""
-                            ).lower()
-                            TOOL_RESULT_CACHE[cache_key] = data
-                            print(f"[*] CACHE SAVED: {cache_key}")
-
-                        results_list.append(data)
-                        # Mark this combination as "done" for this turn
-                        fetched_keys_this_turn.append(fetch_id)
-
-                    if results_list:
-                        final_raw_context = "\n\n".join(results_list)
-                        messages.append(
-                            {
-                                "role": "tool",
-                                "content": final_raw_context,
-                                "name": func_name,
-                            }
-                        )
-                        has_retrieved_data = True
-
-        # --- THE HARD STOP TRIGGER (ADD THIS HERE) ---
-        # This check looks at BOTH the new retrieved data AND the cache.
-        if not has_retrieved_data and not cached_data_fragments:
-            print(f"[*] NO DATA FOUND: Asking for clarification for {p_topic}")
-
-            # Instead of returning a hard string, we give the LLM a 'Clarification' persona
-            clarification_msgs = [
-                {
-                    "role": "system",
-                    "content": "You are an Insurance Assistant. You found NO data for the requested topic. Ask the user politely which Year or Plan Tier they are interested in. Mention that you have 2024, 2025, and 2026 data available.",
-                },
-                {
-                    "role": "user",
-                    "content": f"I couldn't find {p_topic} info. Help the user narrow it down. Original query: {query}",
-                },
-            ]
-
-            resp = ollama.chat(model=LOCAL_MODEL, messages=clarification_msgs)
-            return flatten_message_content(resp["message"].get("content", ""))
-        # --- THE FINAL SAFETY NET (STABILITY & SYNONYM FIX) ---
-
-        print("\n" + "=" * 60)
-        print("[*] DIAGNOSTIC: DATA PASSED TO LLM")
-        print(f"[*] SYNTHESIZING: {p_tier_fast} {p_type_fast} - Topic: {p_topic}")
-
-        # 10. DATA CONSOLIDATION (Clean & Deduplicated)
-        # Combine fragments from both the 'Reasoning Loop' and the 'Turbo Cache'
-        all_data_segments = []
-        reasoning_data = [
-            str(m["content"]) for m in messages if m.get("role") == "tool"
-        ]
-        if reasoning_data:
-            all_data_segments.extend(reasoning_data)
-        if cached_data_fragments:
-            all_data_segments.extend(cached_data_fragments)
-
-        # Deduplicate while preserving order (important for multi-year context)
-        unique_segments = []
-        for seg in all_data_segments:
-            if seg not in unique_segments:
-                unique_segments.append(seg)
-        master_data_string = "\n\n".join(unique_segments)
-
-        # 11. THE PREMERA-SPECIFIC PROTOCOL
-        # We use f-strings to inject the 'LOCKED' variables directly into the prompt.
-        # --- THE FLUID COMPARISON PROTOCOL ---
-        instruction = generate_ironclad_instruction(
-            p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+        # ============================================================
+        # STEP 1 — TOOL CALL
+        # ============================================================
+        resp = ollama.chat(
+            model=LOCAL_MODEL,
+            messages=messages,
+            tools=tools,
+            options={"temperature": 0},
         )
 
-        # 12. FINAL SYNTHESIS CALL
+        msg = resp["message"]
+        tool_calls = msg.get("tool_calls", [])
+
+        tool_result = None
+
+        # ============================================================
+        # STEP 2 — EXECUTE TOOL
+        # ============================================================
+        # Ensure keywords exists (from your LLM detection block). Default to empty list if not.
+        if tool_calls:
+            tool = tool_calls[0]
+            function_name = tool["function"]["name"]
+            arguments = tool["function"]["arguments"]
+
+            print(f"[TOOL CALL]: {function_name} | {found_topics} | {p_type}")
+
+            try:
+                if function_name == "query_insurance_benefits":
+                    tool_result = query_insurance_benefits(
+                        query=arguments.get("query", query),
+                        topics=found_topics,  # 🔥 FORCE FROM BACKEND
+                        category=p_type,
+                        keywords=keywords,
+                    )
+                print(
+                    f"[*] TOOL RESULT after calling query_insurance_benefits : {tool_result}"
+                )
+            except Exception as e:
+                print(f"[!] TOOL FAILURE: {e}")
+                tool_result = "RETRIEVAL ERROR"
+
+        else:
+            print("[!] No tool call — forcing retrieval")
+
+            try:
+                tool_result = query_insurance_benefits(
+                    query=query, topics=found_topics, category=p_type, keywords=keywords
+                )
+            except Exception as e:
+                print(f"[!] TOOL FAILURE: {e}")
+                tool_result = "RETRIEVAL ERROR"
+
+        # ============================================================
+        # STEP 3 — KEYWORD FILTERING (HEADER-AWARE)
+        # ============================================================
+        if tool_result and tool_result != "RETRIEVAL ERROR" and keywords:
+            # Split by double newline to get items and section headers
+            chunks = tool_result.split("\n\n")
+
+            filtered_chunks = []
+            for c in chunks:
+                # 1. ALWAYS keep headers (lines starting with #)
+                if c.strip().startswith("#"):
+                    filtered_chunks.append(c)
+                    continue
+
+                # 2. Keep chunks that match keywords
+                if any(k.lower() in c.lower() for k in keywords):
+                    filtered_chunks.append(c)
+
+            # 3. Only update tool_result if we found actual matches (not just headers)
+            # We check if there is at least one non-header chunk
+            has_content = any(not c.strip().startswith("#") for c in filtered_chunks)
+
+            if has_content:
+                tool_result = "\n\n".join(filtered_chunks)
+            else:
+                print(
+                    "[*] No keyword matches found; keeping original content to avoid losing headers."
+                )
+
+        # ============================================================
+        # 🔥 STEP 4 — CLEAN CONTEXT (CRITICAL)
+        # ============================================================
+        def trim_context(text, max_chars=8000):
+            if not text:
+                return ""
+
+            if len(text) <= max_chars:
+                return text
+
+            cut = text[:max_chars]
+            last_break = cut.rfind("\n\n")
+
+            if last_break != -1:
+                return cut[:last_break]
+
+            return cut
+
+        # ============================================================
+        # STEP 5 — FINAL ANSWER (NO TOOLS)
+        # ============================================================
+
+        # 🔥 CLEAN CONTEXT (single trim only)
+        clean_context = trim_context(tool_result or "", 8000)
+        print(f"[*] CLEAN CONTEXT FOR FINAL PROCESSING : {clean_context}")
+
+        # ============================================================
+        # STEP 6 — SETUP THE CACHE
+        # ============================================================
+        # After getting clean context store the value in cache
+        TOOL_RESULT_CACHE[cache_key] = clean_context
+        sections = []
+
+        if "### SECTION: QA" in clean_context:
+            sections.append("qa")
+
+        if "### SECTION: COST" in clean_context:
+            sections.append("cost")
+
+        if "### SECTION: EXCLUDED" in clean_context:
+            sections.append("excluded")
+
+        print(f"[*] DETECTED SECTIONS: {sections}")
+
+        # --------------------------------------------------------
+        # 🔥 MULTI-SECTION → LLM
+        # --------------------------------------------------------
+        if len(sections) > 1:
+            print("[*] MULTI SECTION → USING LLM")
+
+        # --------------------------------------------------------
+        # 🔥 SINGLE SECTION → OPTIMIZE
+        # --------------------------------------------------------
+        elif len(sections) == 1:
+            if sections[0] == "cost":
+
+                def build_cost_table(
+                    context: str, user_query: str, keywords: list
+                ) -> str:
+
+                    rows = []
+
+                    # -------------------------------
+                    # 🔹 Extract rows
+                    # -------------------------------
+                    items = re.split(r"Item \d+:", context)
+
+                    for item in items:
+                        item = item.strip()
+                        if not item:
+                            continue
+
+                        json_match = re.search(r"\{.*\}", item, re.DOTALL)
+                        if not json_match:
+                            continue
+
+                        try:
+                            data = json.loads(json_match.group(0))
+                        except Exception:
+                            continue
+
+                        event = data.get("event", "")
+                        service = data.get("service", "")
+                        in_net = data.get("in_network", "")
+                        out_net = data.get("out_of_network", "")
+                        limitation = data.get("notes") or "Data Not Found"
+
+                        rows.append((event, service, in_net, out_net, limitation))
+
+                    if not rows:
+                        return "No relevant cost information found."
+
+                    # -------------------------------
+                    # 🔥 NOISE DETECTION
+                    # -------------------------------
+                    MAX_SAFE_ROWS = 10  # 🔥 tune: 5–8 works best
+
+                    if len(rows) > MAX_SAFE_ROWS:
+                        print("[*] TOO MANY ROWS → FALLBACK TO LLM")
+                        return "__USE_LLM__"  # ✅ FIXED (no break)
+
+                    # -------------------------------
+                    # 🔹 NORMALIZATION
+                    # -------------------------------
+                    def norm(text):
+                        return re.sub(r"\s+", " ", str(text).lower())
+
+                    def soft_match(term, text):
+                        if term in text:
+                            return True
+                        if term.endswith("s") and term[:-1] in text:
+                            return True
+                        if (term + "s") in text:
+                            return True
+                        return False
+
+                    # -------------------------------
+                    # 🔹 BUILD SEARCH TERMS
+                    # -------------------------------
+                    query_words = [
+                        w.lower() for w in re.split(r"\W+", user_query) if len(w) > 2
+                    ]
+
+                    STOP_WORDS = {
+                        "show",
+                        "me",
+                        "you",
+                        "can",
+                        "cost",
+                        "what",
+                        "are",
+                        "is",
+                        "the",
+                        "for",
+                        "all",
+                    }
+
+                    WEAK_WORDS = {
+                        "treatment",
+                        "service",
+                        "services",
+                        "care",
+                        "visit",
+                        "procedure",
+                        "therapy",
+                        "exam",
+                        "test",
+                        "program",
+                        "programs",
+                        "cost",
+                        "benefit",
+                        "coverage",
+                    }
+
+                    strong_terms = [
+                        w
+                        for w in query_words
+                        if w not in STOP_WORDS and w not in WEAK_WORDS
+                    ]
+
+                    # include keyword parts
+                    if keywords:
+                        for k in keywords:
+                            for part in re.split(r"\W+", k.lower()):
+                                if part and part not in WEAK_WORDS:
+                                    strong_terms.append(part)
+
+                    # fallback
+                    if not strong_terms:
+                        strong_terms = query_words
+
+                    strong_terms = list(set(strong_terms))
+
+                    # 🔥 FULL PHRASE (VERY IMPORTANT)
+                    query_phrase = " ".join(strong_terms)
+
+                    # -------------------------------
+                    # 🔥 GROUP BY EVENT
+                    # -------------------------------
+                    event_groups = {}
+
+                    for r in rows:
+                        event = norm(r[0])
+                        event_groups.setdefault(event, []).append(r)
+
+                    # -------------------------------
+                    # 🔥 SCORE EVENTS (IMPROVED)
+                    # -------------------------------
+                    event_scores = []
+
+                    for event, group_rows in event_groups.items():
+                        score = 0
+
+                        event_text = norm(event)
+
+                        # =====================================================
+                        # 🔥 PRIORITY 0: EXACT PHRASE MATCH (GAME CHANGER)
+                        # =====================================================
+                        if query_phrase:
+                            for r in group_rows:
+                                full_text = norm(" ".join(r))
+                                if query_phrase in full_text:
+                                    score += 500  # 🚀 strongest signal
+                                    break
+
+                        # =====================================================
+                        # 🔥 PRIORITY 1: EVENT MATCH
+                        # =====================================================
+                        for term in strong_terms:
+                            if soft_match(term, event_text):
+                                score += 200
+
+                        # =====================================================
+                        # 🔥 PRIORITY 2: SERVICE MATCH
+                        # =====================================================
+                        for r in group_rows:
+                            service_text = norm(r[1])
+                            for term in strong_terms:
+                                if soft_match(term, service_text):
+                                    score += 80
+
+                        # =====================================================
+                        # 🔹 PRIORITY 3: GENERAL MATCH
+                        # =====================================================
+                        for r in group_rows:
+                            full_text = norm(" ".join(r))
+                            for term in strong_terms:
+                                if soft_match(term, full_text):
+                                    score += 10
+
+                        if score > 0:
+                            event_scores.append((score, event, group_rows))
+
+                    # -------------------------------
+                    # 🔥 SELECT BEST EVENT ONLY
+                    # -------------------------------
+                    if event_scores:
+                        event_scores.sort(key=lambda x: x[0], reverse=True)
+                        best_rows = event_scores[0][2]
+                    else:
+                        best_rows = rows  # fallback
+
+                    # -------------------------------
+                    # 🔥 FINAL LIMITING
+                    # -------------------------------
+                    query_lower = user_query.lower()
+
+                    is_list_query = any(
+                        w in query_lower for w in ["all", "list", "which", "show me"]
+                    )
+
+                    if is_list_query:
+                        final_rows = best_rows[:10]
+                    else:
+                        final_rows = best_rows  # 🔥 keep full event
+
+                    # -------------------------------
+                    # 🧾 BUILD TABLE
+                    # -------------------------------
+                    table = "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n"
+                    table += "| :--- | :--- | :--- | :--- | :--- |\n"
+
+                    for e, s, i, o, l in final_rows:
+                        table += f"| {e} | {s} | {i} | {o} | {l} |\n"
+
+                    return table
+
+                print("[*] COST DETECTED → TRYING PARSER")
+
+                final_answer = build_cost_table(clean_context, query, keywords)
+
+                # ✅ FIXED HANDLING
+                if final_answer == "__USE_LLM__":
+                    print("[*] SWITCHING TO LLM DUE TO NOISE")
+
+                elif final_answer:
+                    print("[*] PARSER SUCCESS → RETURNING TABLE")
+                    return {"answer": final_answer}
+
+        # --------------------------------------------------------
+        # 🔥 FALLBACK
+        # --------------------------------------------------------
+        else:
+            print("[*] NO SECTION DETECTED → USING LLM")
+
+        print(f"[*] CLEAN CONTENT SENDING TO LLM : {clean_context}")
+        if clean_context.strip() == "":
+            print("[!] EMPTY CONTEXT → SKIPPING LLM")
+            return {"answer": "No relevant information found."}
+
         final_messages = [
-            {"role": "system", "content": instruction},
+            {
+                "role": "system",
+                "content": generate_ironclad_instruction(),  # 🔥 USE YOUR STRONG PROMPT
+            },
             {
                 "role": "user",
-                "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
+                "content": f"""
+        User Question:
+        {query}
+
+        Context:
+        {clean_context}
+        """,
             },
         ]
-
-        master_data_string = squeeze_insurance_data(master_data_string)
-        print(f"[*] master data sent to LLM: {master_data_string}")
 
         final_resp = ollama.chat(
             model=LOCAL_MODEL,
             messages=final_messages,
-            options={"temperature": 0.0, "num_ctx": 8192},
+            options={"temperature": 0},
         )
 
-        # 13. THE IRON CURTAIN (Final String Cleanup)
-        final_content = flatten_message_content(
-            final_resp["message"].get("content", "")
-        )
-        if "|" in final_content:
-            start_index = final_content.find("|")
-            end_index = final_content.rfind("|")
+        # ============================================================
+        # FINAL RESPONSE (STRICT CONTRACT WITH UI)
+        # ============================================================
+
+        msg = final_resp.get("message", {})
+
+        # 🔥 SAFELY EXTRACT CONTENT
+        if isinstance(msg, dict):
+            final_answer = msg.get("content", "")
+        else:
+            final_answer = str(msg)
+
+        # ============================================================
+        # 🔥 FORCE STRING (HARD GUARANTEE)
+        # ============================================================
+
+        if not isinstance(final_answer, str):
+            try:
+                final_answer = json.dumps(final_answer)
+            except Exception:
+                final_answer = str(final_answer)
+
+        final_answer = (final_answer or "").strip()
+
+        # ============================================================
+        # 🔥 IRON CURTAIN (KEEP — GOOD LOGIC)
+        # ============================================================
+
+        if "|" in final_answer:
+            start_index = final_answer.find("|")
+            end_index = final_answer.rfind("|")
+
             if end_index > start_index:
-                final_content = final_content[start_index : end_index + 1].strip()
+                final_answer = final_answer[start_index : end_index + 1].strip()
 
-        return final_content
+        # ============================================================
+        # 🔥 FALLBACK (ONLY IF EMPTY OR BAD OUTPUT)
+        # ============================================================
+        if not final_answer or "|" not in final_answer:
+            print("[!] BAD OR EMPTY FINAL ANSWER")
+
+            final_answer = "No relevant information found."
+        # ============================================================
+        # 🔥 FINAL SAFETY (ABSOLUTE GUARANTEE FOR UI)
+        # ============================================================
+
+        if not isinstance(final_answer, str):
+            final_answer = str(final_answer)
+
+        # 🔥 THIS IS THE MOST IMPORTANT LINE
+        final_answer = final_answer or "No data found."
+
+        print(f"[FINAL ANSWER TYPE]: {type(final_answer)}")
+        print(f"[FINAL ANSWER LENGTH]: {len(final_answer)}")
+        print(f"Final answer = {final_answer[:500]}")
+
+        return {"answer": final_answer}
 
     except Exception as e:
         print(f"❌ SYNTHESIS ERROR: {e}")

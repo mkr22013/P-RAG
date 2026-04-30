@@ -10,36 +10,36 @@ Parallel Comparison: The agentic "Brain" can autonomously trigger multiple searc
 🛠️ Project Structure
 text
 /my-secure-rag/
-├── .env                       # Local configuration (Paths & Model)
-├── create_test_docs.py        # 1. Generates dummy insurance PDFs for testing
-├── indexer.py                 # 2. Builds the "Surgical" JSON maps
-├── server.py                  # 3. The Secure Tool (MCP Server)
-├── client.py                  # 4. The Agentic Logic (Ollama Bridge)
-├── app.py                     # 5. The Gradio Web Interface
-├── docs/                      # Source PDF Folder (Organized by Year)
-└── indices/                   # Generated JSON Maps
+├── .env # Local configuration (Paths & Model)
+├── create_test_docs.py # 1. Generates dummy insurance PDFs for testing
+├── indexer.py # 2. Builds the "Surgical" JSON maps
+├── server.py # 3. The Secure Tool (MCP Server)
+├── client.py # 4. The Agentic Logic (Ollama Bridge)
+├── app.py # 5. The Gradio Web Interface
+├── docs/ # Source PDF Folder (Organized by Year)
+└── indices/ # Generated JSON Maps
 
 🚀 Setup Instructions
 
 1. Prerequisites
-Python 3.10+ installed.
-Ollama Desktop installed and running (ollama.com).
-Model: Download the tool-capable model:
-bash
-ollama pull llama3.1
+   Python 3.10+ installed.
+   Ollama Desktop installed and running (ollama.com).
+   Model: Download the tool-capable model:
+   bash
+   ollama pull llama3.1
 
 2. Installation
-Install the required Python libraries:
-bash
-pip install fastmcp pypdf ollama gradio python-dotenv reportlab mcp
+   Install the required Python libraries:
+   bash
+   pip install fastmcp pypdf ollama gradio python-dotenv reportlab mcp
 
 3. Configuration (.env)
-Create a .env file in the root folder with the following:
-env
-DOC_BASE_DIR="./docs"
-INDEX_OUTPUT_DIR="./indices"
-MASTER_INDEX_FILE="master_metadata.json"
-OLLAMA_MODEL="llama3.1"
+   Create a .env file in the root folder with the following:
+   env
+   DOC_BASE_DIR="./docs"
+   INDEX_OUTPUT_DIR="./indices"
+   MASTER_INDEX_FILE="master_metadata.json"
+   OLLAMA_MODEL="llama3.1"
 
 📖 Execution Sequence
 Step 1: Create Test Documents
@@ -72,49 +72,49 @@ No Embedding DB: Avoids the "Black Box" of vector databases. You can read the JS
 Audit Log: Every file access is triggered by a specific Python function, which can be easily logged for compliance.
 
 🛠️ Troubleshooting & FAQ
+
 1. "TaskGroup" or Connection Errors
-Symptoms: The Web UI shows System Error: unhandled errors in a TaskGroup or a connection timeout.
-Cause: Windows "Pipes" are blocking the communication between the Client and the Server scripts.
-Solution:
-Ensure the SERVER_PATH in client.py is an absolute path (e.g., C:\AI\server.py).
-Check that server.py has zero print() statements. MCP uses the terminal's "Standard Output" to send data; any extra text will "pollute" the connection and cause a crash.
-Restart the Ollama Desktop App to clear any hung background processes.
+   Symptoms: The Web UI shows System Error: unhandled errors in a TaskGroup or a connection timeout.
+   Cause: Windows "Pipes" are blocking the communication between the Client and the Server scripts.
+   Solution:
+   Ensure the SERVER_PATH in client.py is an absolute path (e.g., C:\AI\server.py).
+   Check that server.py has zero print() statements. MCP uses the terminal's "Standard Output" to send data; any extra text will "pollute" the connection and cause a crash.
+   Restart the Ollama Desktop App to clear any hung background processes.
 
 2. "Ollama: Term not recognized"
-Symptoms: You try to run ollama pull and the terminal says it cannot find the command.
-Cause: Ollama was installed but not added to your Windows System PATH.
-Solution:
-Close and Restart VS Code (this refreshes the terminal's environment).
-If it still fails, use the full path in the terminal: & "$env:LOCALAPPDATA\ollama\ollama.exe" pull llama3.1.
+   Symptoms: You try to run ollama pull and the terminal says it cannot find the command.
+   Cause: Ollama was installed but not added to your Windows System PATH.
+   Solution:
+   Close and Restart VS Code (this refreshes the terminal's environment).
+   If it still fails, use the full path in the terminal: & "$env:LOCALAPPDATA\ollama\ollama.exe" pull llama3.1.
 
 3. "Error 400: Model does not support tools"
-Symptoms: The UI says status code: 400 when you ask a question.
-Cause: You are using the original llama3 model, which cannot handle "Surgical" tool calling.
-Solution: Update your .env to OLLAMA_MODEL="llama3.1" and ensure you have run ollama pull llama3.1.
+   Symptoms: The UI says status code: 400 when you ask a question.
+   Cause: You are using the original llama3 model, which cannot handle "Surgical" tool calling.
+   Solution: Update your .env to OLLAMA_MODEL="llama3.1" and ensure you have run ollama pull llama3.1.
 
 4. Indexer Fails to Create JSON Files
-Symptoms: master_metadata.json is empty or the indices/ folder has no files.
-Cause: The local LLM is failing to return valid JSON during the "Reasoning" step.
-Solution:
-Check that the Ollama App is open and active in your taskbar.
-Delete the empty master_metadata.json and try running python indexer.py again. It should show [*] Indexing Page-by-Page... for each PDF.
+   Symptoms: master_metadata.json is empty or the indices/ folder has no files.
+   Cause: The local LLM is failing to return valid JSON during the "Reasoning" step.
+   Solution:
+   Check that the Ollama App is open and active in your taskbar.
+   Delete the empty master_metadata.json and try running python indexer.py again. It should show [*] Indexing Page-by-Page... for each PDF.
 
 5. "ModuleNotFoundError: pypdf" (or others)
-Symptoms: You run a script and it says a library is missing, even after pip install.
-Cause: VS Code is using a different Python "Interpreter" than the one where you installed the libraries.
-Solution:
-Press Ctrl + Shift + P in VS Code.
-Type "Python: Select Interpreter".
-Choose the one marked "Recommended" or the one that matches your python --version in the terminal.
+   Symptoms: You run a script and it says a library is missing, even after pip install.
+   Cause: VS Code is using a different Python "Interpreter" than the one where you installed the libraries.
+   Solution:
+   Press Ctrl + Shift + P in VS Code.
+   Type "Python: Select Interpreter".
+   Choose the one marked "Recommended" or the one that matches your python --version in the terminal.
 
 🔒 Security Best Practices for Production
 Firewall: Ensure the Gradio UI (port 7860) is only accessible within your company VPN.
 Audit Logging: The server.py can be updated to write every query_insurance_benefits call to a secure SQL database for compliance tracking.
 Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to ensure the AI can never accidentally modify or delete a policy document.
 
-
-
 #Prompt to check
+
 1. Compare my specialist copay between the 2024 Gold Medical plan and the 2026 Premera Gold HMO. Please show the result in a Markdown table.
 
 2. In the 2026 Premera Gold HMO, what is my cost for an X-ray if I stay In-Network versus if I go Out-of-Network?
@@ -136,3 +136,15 @@ Read-Only Docs: Set the ./docs folder to "Read-Only" for the Python process to e
 10. I want to know about 2026 medical urgent care benefit.
 
 11. what are my imaging - CT Scan benefits
+
+12. Show me my Out-of-Pocket limit for 2026 gold plan
+
+13. What is not included in the out–of–pocket limit?
+
+14. Will i pay less if i use a network provider?
+
+15. Do i need a referral to see a specialist?
+
+16. Compare the Imaging (CT/MRI) and Preferred Generic Drug costs for 2024, 2025, and 2026 Gold Medical.
+
+17. I have the 2026 Gold plan. What is my deductible and specialist copay? Also, tell me what my 2024 deductible was just so I can compare.

@@ -1,0 +1,2084 @@
+import os, ollama, re, ast
+from dotenv import load_dotenv
+from datetime import datetime
+
+from torch import parse_schema
+
+load_dotenv()
+LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
+
+# --- GLOBAL RAM CACHE (Persistent for the session) ---
+TOOL_RESULT_CACHE = {}
+# --- GLOBAL SESSION STATE ---
+p_type_fast = "medical"
+p_tier_fast = "gold"  # Default starting point
+CURRENT_YEAR_INT = datetime.now().year
+
+
+def resolve_insurance_topic(query_words, full_query_text):
+    """SINGLE SOURCE OF TRUTH: Maps keywords to our specific index topics."""
+    topics = []
+    query_lower = full_query_text.lower()
+
+    # 1. DEDUCTIBLES/oop (Keyword Match)
+    if any(
+        w in query_words
+        for w in ["deductible", "deductibles", "limit", "oop", "coinsurance"]
+    ):
+        if "pocket" in query_lower or "oop" in query_lower:
+            topics.append("out_of_pocket")
+        topics.append("deductible")
+
+    # 2. EMERGENCY & AMBULANCE (Surgical Match)
+    # \ber\b ensures 'ER' is a standalone word. We also check for 'room'.
+    if (
+        re.search(r"\ber\b", query_lower)
+        or "emergency" in query_lower
+        or "ambulance" in query_words
+        or "room" in query_words
+    ):
+        # If 'urgent' is also present, we pivot to Urgent Care topic
+        if "urgent" in query_words:
+            topics.append("urgent")
+        topics.append("emergency")
+
+    # 3. URGENT CARE (Dedicated Topic)
+    if any(w in query_words for w in ["urgent", "clinic", "after-hours"]):
+        topics.append("urgent")
+
+    # 4. IMAGING / DIAGNOSTIC (Splitting the logic)
+    if any(w in query_words for w in ["xray", "x-ray", "blood", "diagnostic"]):
+        topics.append("diagnostic")
+
+    if any(w in query_words for w in ["mri", "pet", "scan", "imaging", "ct"]):
+        topics.append("imaging")
+
+    # 5. NETWORK & PROVIDER (Network is a common topic that doesn't fit neatly into the others)
+    if any(
+        w in query_words for w in ["network", "provider", "pay less", "balance-billing"]
+    ):
+        topics.append("network")
+
+    # 6. DENTAL & VISION
+    if any(w in query_words for w in ["dental", "ortho", "braces"]):
+        topics.append("orthodontia")
+    if any(w in query_words for w in ["vision", "eye", "glasses"]):
+        topics.append("vision")
+
+    # 7. PRIMARY & SPECIALIST
+    if (
+        any(
+            w in query_words
+            for w in ["pcp", "primary", "doctor", "physician", "copay", "specialist"]
+        )
+        or "primary care" in query_lower
+    ):
+        if "specialist" in query_words:
+            topics.append("specialist")
+        topics.append("primary")
+
+    # 8. MENTAL HEALTH & SUBSTANCE ABUSE
+    if any(
+        w in query_words
+        for w in ["mental", "behavioral", "substance", "abuse", "psychiatrist"]
+    ):
+        topics.append("mental-health")
+
+    # 9. PREGNANCY & CHILDBIRTH
+    if any(
+        w in query_words
+        for w in ["pregnant", "maternity", "childbirth", "delivery", "prenatal"]
+    ):
+        topics.append("maternity")
+
+    # 10. HOSPITAL & SKILLED NURSING
+    if any(w in query_words for w in ["hospital", "inpatient", "nursing", "facility"]):
+        topics.append("hospital")
+
+    # 11. CHILDREN'S VISION & DENTAL
+    if "child" in query_words or "children" in query_words:
+        if any(w in query_words for w in ["vision", "eye", "glasses"]):
+            topics.append("child-vision")
+        if any(w in query_words for w in ["dental", "teeth", "check-up"]):
+            topics.append("child-dental")
+
+    # 12. PHARMACY & DRUGS
+    if any(
+        w in query_words
+        for w in ["drug", "prescription", "pharmacy", "generic", "brand", "specialty"]
+    ):
+        topics.append("pharmacy")
+
+    # 13. REHAB & HABILITATIVE (Common in Premera SBCs)
+    if any(
+        w in query_words
+        for w in [
+            "rehab",
+            "rehabilitation",
+            "habilitative",
+            "therapy",
+            "physical",
+            "speech",
+            "occupational",
+        ]
+    ):
+        topics.append("rehabilitation")
+
+    print(f"[*] Resolved Topics from query : {query_lower}  : {topics}")
+    return topics if topics else ["benefit"]
+
+
+def squeeze_insurance_data(raw_text):
+    if not raw_text:
+        return ""
+
+    # 1. REMOVE URLs + junk
+    text = re.sub(r"https?://\S+|For more information.*|&amp;", " ", raw_text)
+
+    # 2. Normalize whitespace
+    text = text.replace("\t", " ")
+    text = re.sub(r"\s{2,}", " ", text)
+
+    # 🚨 3. STOP if already processed (PREVENT RECURSION)
+    if "[||]" in text:
+        already_structured = True
+    else:
+        already_structured = False
+
+    # 4. SBC flip fix
+    text = re.sub(r"(\$[\d,]+[^\?]+)\s+([^?]+\?)", r"\2 [||] \1", text)
+
+    # 5. Add structure ONLY if raw
+    if not already_structured:
+        text = re.sub(
+            r"([A-Za-z][A-Za-z\s]{2,}?)\s+(\$[\d,]+|[\d]+%|Not covered|No charge)",
+            r"\1 [||] \2",
+            text,
+            flags=re.IGNORECASE,
+        )
+
+    # 6. Normalize pipes ONCE
+    text = re.sub(r"\|+", "[||]", text)
+
+    # 7. HARD CLEAN recursive brackets (STRONG FIX)
+    for _ in range(3):
+        text = re.sub(r"\[\s*\[\s*", "[", text)
+        text = re.sub(r"\]\s*\]\s*", "]", text)
+
+    # 8. Remove duplicates
+    text = re.sub(r"(\[\|\|\]\s*){2,}", "[||] ", text)
+
+    # 9. Clean lines
+    lines = []
+    for line in text.split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+        lines.append(re.sub(r"\s{2,}", " ", line))
+
+    return "\n".join(lines).strip()
+
+
+def lock_plan_metadata(
+    found_years,
+    detected_type,
+    detected_tier,
+    detected_product=None,
+    detected_variant=None,
+    detected_network=None,
+):
+    """
+    SOT LOCK: Surgical identity matching against the 6-way Lock.
+    Ensures Sherwood HMO (2026) is prioritized over Standard PPO (2024/25).
+    """
+    from server import get_available_plans
+    import ast
+
+    raw_schema = get_available_plans()
+    if "DATABASE INFO" in raw_schema:
+        return (
+            found_years,
+            detected_type,
+            detected_tier,
+            "Standard",
+            "Standard",
+            "Standard Network",
+        )
+
+    try:
+        schema_data = ast.literal_eval(
+            raw_schema.replace(
+                "DATA SOURCE SCHEMA (Year, Type, Tier, Product, Variant, Network): ", ""
+            )
+        )
+    except Exception as e:
+        print(f"[*] SCHEMA PARSE ERROR: {e}")
+        return (
+            found_years,
+            detected_type,
+            detected_tier,
+            "Standard",
+            "Standard",
+            "Standard Network",
+        )
+
+    # 1. NORMALIZE TARGETS
+    # found_years might be ['2026'] or '2026', we need a single string for comparison
+    search_year = (
+        str(found_years[0]) if isinstance(found_years, list) else str(found_years)
+    )
+    d_type = str(detected_type or "Medical").lower()
+    d_tier = str(detected_tier or "Gold").lower()
+    d_net = str(detected_network or "").lower()
+    d_prod = str(detected_product or "").lower()
+
+    best_match = None
+
+    # 2. THE SURGICAL SEARCH
+    # We loop through all available plans to find the closest semantic match for this YEAR
+    for row in schema_data:
+        y, ty, tr, p, v, n = row
+
+        # Must match Year, Type (Medical/Dental), and Tier (Gold/Silver)
+        if str(y) == search_year and ty.lower() == d_type and tr.lower() == d_tier:
+
+            # IDENTITY HANDSHAKE: Match "HMO" to "Sherwood HMO" or vice-versa
+            # This prevents 2026 HMO data from using 2024 PPO defaults
+            net_match = (d_net in n.lower() or n.lower() in d_net) if d_net else True
+            prod_match = (
+                (d_prod in p.lower() or p.lower() in d_prod) if d_prod else True
+            )
+
+            if net_match and prod_match:
+                best_match = row
+                break
+
+    # 3. FALLBACK (If specific variant match fails, stay in the correct YEAR silo)
+    if not best_match:
+        print(
+            f"[*] Variant mismatch. Defaulting to first available {search_year} plan."
+        )
+        best_match = next(
+            (
+                r
+                for r in schema_data
+                if str(r[0]) == search_year
+                and r[1].lower() == d_type
+                and r[2].lower() == d_tier
+            ),
+            (search_year, d_type, d_tier, "Standard", "Standard", "Standard Network"),
+        )
+
+    _, ty, tr, p, v, n = best_match
+    print(f"[*] IDENTITY LOCKED: {search_year} | {ty} {tr} | {p} | {n}")
+
+    return (found_years, ty, tr, p, v, n)
+
+
+# Use this prompt when you want to see what rules are applied by LLM to extract the data and to make sure it is following the protocol.
+def generate_ironclad_instruction(
+    p_tier_fast,
+    p_type_fast,
+    header_line,
+    separator_line,
+    p_topic,
+    show_limitations=False,
+):
+    forbidden_map = {
+        "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
+        "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
+        "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
+        "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
+        "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+        "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+    }
+
+    # 🔥 HARD GUARD
+    if isinstance(p_topic, list):
+        p_topic = p_topic[0] if p_topic else ""
+
+    p_topic = str(p_topic).lower().strip()
+    erase_list = forbidden_map.get(p_topic, "unrelated benefits")
+
+    return (
+        f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+        "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+        "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+        "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+        f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+        f"2. TOPIC PRECISION: Show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
+        "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+        "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+        f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+        "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+        "--- STAGE 3: THE 6-POINT UNIVERSAL AUDIT (OON SEGMENT LOCK) ---\n"
+        "1. **OON BOOLEAN STRING RULE (CRITICAL)**:\n"
+        "   - If OON segment length >15 chars → MUST copy FULL string.\n"
+        "   - If OON segment is short → MUST NOT expand it.\n"
+        "   - 'Not covered' MUST remain EXACTLY 'Not covered'.\n"
+        "2. **GREEDY OON EXTRACTION**:\n"
+        "   - Extract ALL characters until the closing pipe '|'.\n"
+        "3. **MECHANICAL BINDING (NO THINKING)**:\n"
+        "   - Copy EXACT text. DO NOT interpret, infer, or rephrase.\n"
+        "4. **FRAGMENT STITCHING**:\n"
+        "   - Merge broken rows BEFORE extraction.\n"
+        "5. **LITERAL MATCHING**:\n"
+        "   - 'Same as In-Network' → copy INN value exactly.\n"
+        "6. **EVIDENCE PRIORITY**:\n"
+        "   - If ANY text exists → use it. No guessing.\n"
+        # 🔥🔥 THIS IS THE FIX
+        "7. **NO SEMANTIC EXPANSION RULE (ABSOLUTE)**:\n"
+        "   - You are FORBIDDEN from adding words not present in the pipe-separated data.\n"
+        "   - You may ONLY output text that exists BETWEEN '[||]' delimiters.\n"
+        "   - DO NOT reconstruct sentences.\n"
+        "   - DO NOT combine fragments across rows.\n"
+        "   - DO NOT explain 'Not covered'. Output EXACTLY 'Not covered'.\n"
+        "   - Any added wording = SECURITY FAILURE.\n\n"
+        "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+        "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+        f"   - {header_line}\n"
+        f"   - {separator_line}\n"
+        "2. MANDATORY COMPLETION: After the table, you MUST provide '### AUDIT RULES APPLIED'.\n"
+        "3. CONFIRM ALL RULES (1-7). Explicitly confirm BOOLEAN STRING RULE.\n"
+        "4. NO OTHER TEXT."
+    )
+
+
+def flatten_message_content(content):
+    """
+    NUCLEAR NORMALIZER: Forces any Ollama response (List, Dict, or None)
+    into a plain string to prevent Gradio/Streamlit/Pydantic validation errors.
+    """
+    if not content:
+        return ""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for item in content:
+            if isinstance(item, dict):
+                parts.append(item.get("text", str(item)))
+            else:
+                parts.append(str(item))
+        return " ".join(parts).strip()
+    return str(content).strip()
+
+
+def extract_topic_blocks(chunk, topic_keywords):
+    lines = chunk.split("[||]")
+
+    blocks = []
+    current_block = []
+
+    for line in lines:
+        l = line.strip()
+
+        # 🚀 start new block when topic keyword appears
+        if any(k in l.lower() for k in topic_keywords):
+            if current_block:
+                blocks.append(" [||] ".join(current_block))
+                current_block = []
+
+            current_block.append(l)
+            continue
+
+        # continue existing block
+        if current_block:
+            current_block.append(l)
+
+    if current_block:
+        blocks.append(" [||] ".join(current_block))
+
+    return blocks
+
+
+# 🔥 CENTRALIZED SYNONYMS (define once in file ideally)
+TOPIC_SYNONYMS = {
+    "imaging": ["imaging", "ct", "mri", "ctpet", "pet scan"],
+    # 🔥 diagnostic for consistency
+    "diagnostic": [
+        "diagnostic",
+        "xray",
+        "x-ray",
+        "x ray",
+        "diagnostic imaging",
+        "radiology",
+    ],
+    "pharmacy_generic": [
+        "generic",
+        "generic drug",
+        "preferred generic",
+        "generic medication",
+    ],
+    "pharmacy_preferred": [
+        "preferred drug",
+        "preferred brand",
+        "preferred medication",
+    ],
+    "pcp": ["pcp", "primary care", "physician"],
+    "specialist": ["specialist"],
+    "urgent care": ["urgent care"],
+    "emergency": ["emergency", "er"],
+    "deductible": ["deductible"],
+    "oop": ["out-of-pocket", "oop", "out of pocket"],
+}
+
+
+def get_topic_keywords(topic):
+    # ✅ Normalize topic safely
+    if isinstance(topic, list):
+        topic = topic[0]
+
+    topic = str(topic).lower().strip()
+
+    raw_keywords = TOPIC_SYNONYMS.get(topic, [topic])
+
+    # ✅ FLATTEN + CLEAN
+    flat_keywords = []
+
+    for k in raw_keywords:
+        if isinstance(k, list):
+            flat_keywords.extend([str(x) for x in k])
+        else:
+            flat_keywords.append(str(k))
+
+    print(
+        "✅ FINAL KEYWORDS:",
+        flat_keywords,
+        "| TYPES:",
+        [type(x) for x in flat_keywords],
+    )
+
+    return flat_keywords
+
+
+def matches_topic(first_col, topic_keywords):
+    try:
+        # ✅ FORCE STRING
+        first_col = str(first_col)
+
+        words = set(re.findall(r"\w+", first_col.lower()))
+
+        keyword_words = set()
+
+        for k in topic_keywords:
+            try:
+                if isinstance(k, list):
+                    for sub in k:
+                        keyword_words.update(str(sub).lower().split())
+                else:
+                    keyword_words.update(str(k).lower().split())
+            except Exception as e:
+                print("❌ KEYWORD ERROR:", k, "| TYPE:", type(k), "| ERROR:", e)
+
+        return bool(words & keyword_words)
+
+    except Exception as e:
+        print("❌ matches_topic FAILED:", e)
+        return False
+
+
+def parse_structured_rows(merged_topic_data, topic_keywords):
+    """
+    Robust state-machine parser for [||]-delimited insurance data
+    """
+
+    # 🔥 STEP 1: Normalize (kill all formatting noise)
+    stream = str(merged_topic_data).replace("\n", " ").replace("  ", " ").strip()
+
+    tokens = stream.split("[||]")
+
+    rows = []
+    buffer = []
+
+    def is_valid_cell(cell):
+        if not cell:
+            return False
+        cell = cell.strip().lower()
+
+        # 🚫 junk filters
+        if len(cell) < 2:
+            return False
+        if cell in {"none", "n/a"}:
+            return False
+
+        return True
+
+    def looks_like_cost(cell):
+        cell = cell.lower()
+        return (
+            "%" in cell
+            or "$" in cell
+            or "covered" in cell
+            or "not covered" in cell
+            or "no charge" in cell
+            or "coinsurance" in cell
+            or "copay" in cell
+        )
+
+    i = 0
+    while i < len(tokens):
+        cell = str(tokens[i]).strip()
+
+        if not is_valid_cell(cell):
+            i += 1
+            continue
+
+        buffer.append(cell)
+
+        # 🔥 STATE: Try forming a row when we have 3 cells
+        if len(buffer) >= 3:
+            benefit = buffer[0]
+            inn = buffer[1]
+            oon = buffer[2]
+
+            # ✅ HARD VALIDATION (this is the magic)
+            if (
+                matches_topic(benefit.lower(), topic_keywords)
+                and looks_like_cost(inn)
+                and looks_like_cost(oon)
+            ):
+                rows.append(f"{benefit} | {inn} | {oon}")
+                buffer = []
+            else:
+                # 🔥 SHIFT WINDOW (state machine behavior)
+                buffer.pop(0)
+
+        i += 1
+
+    return rows
+
+
+async def get_ai_response(query, history):
+    # 1. ACCESS GLOBALS
+    global p_type_fast, p_tier_fast
+    # # --- INITIALIZE SCOPES (Prevents 'Unbound' Errors) ---
+    found_years = [str(CURRENT_YEAR_INT)]  # Default to current year list
+    locked_type = p_type_fast
+    locked_tier = p_tier_fast
+    locked_product = "Standard"
+    locked_variant = "Standard"
+    locked_network = "Standard Network"
+    p_topic = "benefit"
+
+    has_retrieved_data = False
+    turn_count = 0
+    try:
+        from server import (
+            query_insurance_benefits,
+            get_available_plans,
+            get_available_tiers,
+        )
+
+        # --- 2. CONTEXT MERGING (MEMORY) ---
+        recent_history = " ".join(
+            [flatten_message_content(m["content"]) for m in history]
+        )
+        query_lower = query.lower()
+        full_context_query = f"{recent_history} {query_lower}"
+
+        # Clean words for surgical matching
+        query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
+        print(f"[*] Query Words for Matching: {query_words}")
+
+        # --- 3. SMART TOPIC & TYPE DETECTION ---
+        new_type = p_type_fast  # Default to current session type
+
+        if any(w in query_words for w in ["dental", "ortho", "braces"]):
+            new_type = "dental"
+            print("Detected dental keywords. Setting type to 'dental'.")
+        elif any(w in query_words for w in ["vision", "eye", "glasses"]):
+            new_type = "vision"
+        elif any(
+            w in query_words
+            for w in [
+                "medical",
+                "doctor",
+                "health",
+                "hospital",
+                "pcp",
+                "emergency",
+                "er",
+                "urgent",
+                "ambulance",
+                "room",
+            ]
+        ):
+            new_type = "medical"
+        else:
+            new_type = "medical"  # Default fallback
+
+        print(f"[*] Detected type based on query: {new_type}")
+
+        # Premera Variant Detection (94%, American Indian, HSA, etc.)
+        detected_variant = None
+        if "94" in query_lower:
+            detected_variant = "94"
+        elif "87" in query_lower:
+            detected_variant = "87"
+        elif "73" in query_lower:
+            detected_variant = "73"
+        elif "american indian" in query_lower or "native" in query_lower:
+            detected_variant = "American Indian"
+
+        # --- 4. THE TOPIC SHIFT GUARD ---
+        if new_type.lower() != p_type_fast.lower():
+            print(f"[*] TOPIC SHIFT: {p_type_fast} -> {new_type}. Wiping tier.")
+            p_tier_fast = None
+            # DO NOT set p_type_fast yet! Wait for the Lock check.
+
+        # --- 5. YEAR EXTRACTION ---
+        found_years = re.findall(r"202\d", query)
+        if not found_years:
+            # Fallback to history for year ONLY if query is vague
+            found_years = sorted(
+                list(set(re.findall(r"202\d", full_context_query)))
+            ) or [str(CURRENT_YEAR_INT)]
+            if len(found_years) > 1:
+                found_years = [str(CURRENT_YEAR_INT)]
+            print(
+                f"[*] MULTIPLE YEARS FOUND: {', '.join(found_years)} -> Switching to current year to reduce context."
+            )
+
+        # --- 6. TIER PERSISTENCE ---
+        detected_tier = p_tier_fast  # Start with what we already know
+        p_tier_match = re.search(r"(gold|silver|bronze)", query_lower)
+
+        if p_tier_match:
+            detected_tier = p_tier_match.group()
+        else:
+            # B. If NOT in query, ASK THE DB FIRST (Primary Source of Truth)
+            print(
+                f"[*] NO TIER IN QUERY. Querying DB for {new_type} in {found_years[0]}..."
+            )
+            db_opts = get_available_tiers(int(found_years[0]), new_type)
+
+            if "PLAN IDENTITIES" in db_opts:
+                # We found plans in the DB. Use the first one as our deterministic default.
+                # Example: [('Silver', 'EPO HSA', 'Standard', 'Individual Signature')]
+
+                try:
+                    # Parse the stringified list of tuples returned by the tool
+                    opts_list = ast.literal_eval(
+                        db_opts.replace(
+                            "AVAILABLE PLAN IDENTITIES (Tier, Product, Variant, Network): ",
+                            "",
+                        )
+                    )
+                    detected_tier = opts_list[0][0].capitalize()
+                    print(f"[*] TIER RESOLVED FROM DB: {detected_tier}")
+                except:
+                    detected_tier = None
+            else:
+                # C. Final Fallback: Only now check the history context
+                print("[*] DB EMPTY. Checking history for persistent tier...")
+                history_tier_match = re.search(
+                    r"(gold|silver|bronze)", recent_history.lower()
+                )
+                detected_tier = (
+                    history_tier_match.group().capitalize()
+                    if history_tier_match
+                    else p_tier_fast
+                )
+
+        # --- 6.1 & 7. DYNAMIC IDENTITY PROBE (PER YEAR) ---
+        # We replace the 'Global Lock' with a list of 'Identity Vaults' to handle unique networks
+        year_identity_vaults = []
+
+        try:
+            db_schema_raw = get_available_plans()
+            start_idx = db_schema_raw.find("[")
+            end_idx = db_schema_raw.rfind("]")
+            schema_list = ast.literal_eval(db_schema_raw[start_idx : end_idx + 1])
+        except Exception as e:
+            print(f"[*] Discovery Parse Error: {e}")
+            schema_list = []
+
+        for y in found_years:
+            # A. Discovery Probe for THIS specific year
+            y_detected_product = None
+            y_detected_network = None
+            y_detected_tier = detected_tier
+
+            # Filter DB schema for this specific year and type (Medical/Dental/etc)
+            year_plans = [
+                row
+                for row in schema_list
+                if str(row[0]) == str(y) and row[1].lower() == new_type.lower()
+            ]
+
+            # Priority 1: Match Product/Network from user query
+            for row in year_plans:
+                p_name, n_name = row[3], row[5]
+                if p_name.lower() in query_lower or n_name.lower() in query_lower:
+                    y_detected_product = p_name
+                    y_detected_network = n_name
+                    y_detected_tier = row[2]
+                    break
+
+            # Priority 2: Tier-based Defaulting
+            if not y_detected_product and y_detected_tier:
+                for row in year_plans:
+                    if row[2].lower() == y_detected_tier.lower():
+                        y_detected_product, y_detected_network = row[3], row[5]
+                        break
+
+            # Priority 3: Final Fallback
+            if not y_detected_product and year_plans:
+                y_detected_product, y_detected_network, y_detected_tier = (
+                    year_plans[0][3],
+                    year_plans[0][5],
+                    year_plans[0][2],
+                )
+
+            # B. LOCK THE IDENTITY FOR THIS YEAR
+            try:
+                (
+                    _,
+                    locked_type,
+                    locked_tier,
+                    locked_product,
+                    locked_variant,
+                    locked_network,
+                ) = lock_plan_metadata(
+                    [y],
+                    new_type,
+                    y_detected_tier,
+                    y_detected_product,
+                    detected_variant,
+                    y_detected_network,
+                )
+
+                # Store this unique identity silo
+                year_identity_vaults.append(
+                    {
+                        "year": y,
+                        "type": locked_type,
+                        "tier": locked_tier,
+                        "product": locked_product,
+                        "variant": locked_variant,
+                        "network": locked_network,
+                    }
+                )
+
+                # --- THE CRITICAL LOG FIX ---
+                # This proves each year is being handled independently
+                print(
+                    f"[*] RESOLVED CONTEXT [{y}]: Type={locked_type}, Tier={locked_tier}, Network={locked_network}"
+                )
+
+            except Exception as e:
+                print(f"[*] LOCK ERROR FOR {y}: {e}")
+
+        # C. Update Globals for Legacy Support (Uses the first year in the list)
+        if year_identity_vaults:
+            main_v = year_identity_vaults[0]
+            p_type_fast, p_tier_fast = main_v["type"], main_v["tier"]
+            locked_network = main_v["network"]
+            locked_product = main_v["product"]
+            locked_variant = main_v["variant"]
+
+        # # Update persistent session state
+        # p_type_fast = locked_type
+        # p_tier_fast = locked_tier
+
+        # --- 8. UNIFIED TOPIC ROUTING (WITH PERSISTENCE) ---
+        detected_topic = resolve_insurance_topic(query_words, query_lower)
+        p_topic = "benefit"  # Initialize scope
+
+        if detected_topic == "benefit":
+            # 1. Scan history in REVERSE to find the last valid benefit keyword
+            # List of high-confidence keywords we support
+            valid_keywords = [
+                "pcp",
+                "primary",
+                "specialist",
+                "deductible",
+                "imaging",
+                "x-ray",
+                "emergency",
+                "urgent",
+                "network",
+                "provider",
+                "limit",
+                "oop",
+                "mental",
+                "behavioral",
+                "pregnant",
+                "maternity",
+                "hospital",
+                "stay",
+                "child",
+                "vision",
+                "dental",
+            ]
+
+            # Search recent_history for the last occurrence of any valid keyword
+            # We look for the word itself or the word inside a Markdown table | PCP |
+            found_topic = None
+            clean_history = recent_history.lower()
+            history_lines = clean_history.split("\n")
+
+            for line in reversed(history_lines):
+                print(f"[*] SCANNING HISTORY LINE FOR TOPIC: '{line}'")
+                # Priority 1: Check for Table Headers (Strongest context signal)
+                # Matches: | PCP | or | Specialist |
+                for word in valid_keywords:
+                    if f"| {word}" in line or f" {word} " in line:
+                        found_topic = word
+                        break
+                if found_topic:
+                    break
+
+                # Priority 2: Check for standalone keywords in the text
+                for word in valid_keywords:
+                    if re.search(rf"\b{word}\b", line):
+                        found_topic = word
+                        break
+                if found_topic:
+                    break
+
+            if found_topic:
+                p_topic = found_topic
+                print(f"[*] RECURSIVE RECOVERY: Found '{p_topic}' in history.")
+            else:
+                # 2. FINAL FALLBACK: Refuse the 'General Plan Dump'
+                # Instead of 'benefit', we set a flag to ask a clarifying question
+                p_topic = "unknown_context"
+                print("[!] CONTEXT LOST: Refusing general dump.")
+
+        else:
+            # User provided a specific topic keyword (e.g., "PCP")
+            p_topic = detected_topic
+
+        if p_topic == "unknown_context":
+            # STOP HERE. Do not call the LLM/RAG.
+            return (
+                "I've lost track of the specific benefit. Are you looking for "
+                "**Medical** (PCP/ER), **Dental** (Braces), or **Vision** (Glasses) costs?"
+            )
+
+        # --- INSERT THE TABLE STRUCTURE CODE HERE ---
+        # --- 8.1 UNIVERSAL TABLE ARCHITECTURE ---
+        limit_words = ["limit", "rule", "exception", "auth", "referral", "note", "why"]
+        show_limitations = any(kw in query.lower() for kw in limit_words)
+
+        if isinstance(found_years, (int, str)):
+            found_years = [str(found_years)]
+        else:
+            found_years = [str(y) for y in found_years]
+
+        year_cols = " | ".join(
+            [f"{y} In-Network | {y} Out-of-Network" for y in found_years]
+        )
+
+        # Build strict header and separator
+        header_line = f"| Benefit | {year_cols} |"
+        separator_line = f"| :--- | {' :--- |' * (len(found_years) * 2)}"
+
+        if show_limitations:
+            header_line += " Limitations |"
+            separator_line += " :--- |"
+
+        print(
+            f"[*] TABLE STRUCTURE: {len(found_years)} Years | Show Limitations: {show_limitations}"
+        )
+
+        # --- 8. TURBO CACHE HIT CHECK ---
+        cached_data_fragments = []
+        if found_years and p_tier_fast:
+            for y in found_years:
+                # Key must include p_topic to distinguish between PCP and Deductible fetches
+                key = f"{y}_{p_type_fast}_{p_tier_fast}_{p_topic}".replace(
+                    " ", ""
+                ).lower()
+                if key in TOOL_RESULT_CACHE:
+                    cached_data_fragments.append(TOOL_RESULT_CACHE[key])
+
+        if len(cached_data_fragments) == len(found_years) and len(found_years) > 0:
+            print(f"[*] TURBO CACHE HIT: Bypassing reasoning for {found_years}")
+            has_retrieved_data = True
+
+            # --- THE FIX: USE THE SAME IRONCLAD PROTOCOL ---
+            master_data_string = "\n\n".join(cached_data_fragments)
+            print(
+                f"[*] CACHE HIT : MASTER DATA STRING FOR SYNTHESIS:\n{master_data_string}"
+            )
+
+            # Generate the same instruction used in Part-5
+            instruction = generate_ironclad_instruction(
+                p_tier_fast,
+                p_type_fast,
+                header_line,
+                separator_line,
+                p_topic,
+                show_limitations,
+            )
+
+            fast_msgs = [
+                {"role": "system", "content": instruction},
+                {
+                    "role": "user",
+                    "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
+                },
+            ]
+
+            final_synth = ollama.chat(
+                model=LOCAL_MODEL,
+                messages=fast_msgs,
+                options={"temperature": 0.0, "num_ctx": 8192},
+            )
+
+            # --- THE IRON CURTAIN CLEANUP (Crucial for the PDF Download!) ---
+            final_content = flatten_message_content(
+                final_synth["message"].get("content", "")
+            )
+            if "|" in final_content:
+                # Ensure we only capture the table and nothing else
+                lines = final_content.split("\n")
+                table_lines = [
+                    l.strip()
+                    for l in lines
+                    if l.strip().startswith("|") and l.strip().endswith("|")
+                ]
+
+                if (
+                    len(table_lines) >= 3
+                ):  # Must have Header, Separator, and at least 1 Data row
+                    final_content = "\n".join(table_lines)
+                else:
+                    # Fallback: find the first and last pipe if the split logic is too aggressive
+                    start = final_content.find("|")
+                    end = final_content.rfind("|")
+                    final_content = final_content[start : end + 1].strip()
+
+            return final_content
+
+        # --- 9. THE REASONING LOOP ---
+        messages = []
+        # client.py - Inside get_ai_response() Reasoning Loop
+        system_prompt = {
+            "role": "system",
+            "content": (
+                f"### SESSION CONTEXT: Plan {p_tier_fast} {p_type_fast} ({found_years}) | Network: {locked_network}.\n"
+                "### TOOL USAGE RULES:\n"
+                f"- Topics: {p_topic}\n"
+                "- Call 'query_insurance_benefits' for EACH year and EACH topic.\n"
+                "- Each call must include: year, topic, plan_tier.\n"
+                "- Do NOT repeat the same (year, topic) pair.\n"
+                "- After completing all tool calls, STOP and return the final table.\n"
+                "- Do NOT output JSON. Use actual tool calls.\n"
+                "- Output ONLY tool calls or the final table.\n"
+            ),
+        }
+
+        messages.append(system_prompt)
+
+        if history:
+            for turn in history[-2:]:
+                messages.append(
+                    {
+                        "role": turn.get("role", "user"),
+                        "content": flatten_message_content(turn.get("content", "")),
+                    }
+                )
+
+        messages.append({"role": "user", "content": query})
+
+        tools = [
+            {
+                "type": "function",
+                "function": {
+                    "name": "get_available_plans",
+                    "description": "PROBE DB index for available years/tiers",
+                },
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "query_insurance_benefits",
+                    "description": "Retrieve benefit text. Only call this if you have a SPECIFIC Year and Tier.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "year": {
+                                "type": "integer",
+                                "description": "The 4-digit year. Use 0 if unknown.",
+                            },
+                            "plan_type": {"type": "string"},
+                            "plan_tier": {
+                                "type": "string",
+                                "description": 'Gold, Silver, or Bronze. Use "Unknown" if not specified.',
+                            },
+                            "topic": {"type": "string"},
+                        },
+                        "required": [
+                            "topic"
+                        ],  # Remove year and tier from the 'required' list
+                    },
+                },
+            },
+        ]
+
+        # --- THE REASONING LOOP ---
+        turn_count = 0
+        final_raw_context = ""
+        # Tracker to prevent the LLM from asking for the same data twice in one turn
+        fetched_keys_this_turn = []
+        print(f"[*] STARTING REASONING LOOP with query: '{query}'")
+        print(f"[*] INITIAL MESSAGES: {messages}")
+        MAX_TURNS = 3  # Limiting the number of turns
+
+        while turn_count < MAX_TURNS:
+            turn_count += 1
+            try:
+                resp = ollama.chat(
+                    model=LOCAL_MODEL,
+                    messages=messages,
+                    tools=tools,
+                    options={"temperature": 0},
+                )
+
+                raw_msg = resp["message"]
+                clean_content = flatten_message_content(raw_msg.get("content", ""))
+                tool_calls = raw_msg.get("tool_calls", [])
+
+                # 🔥🔥🔥 FIX 4: ENFORCE COMPLETE TOOL CALL COVERAGE 🔥🔥🔥
+                if tool_calls:
+                    expected_calls = {
+                        (str(y), str(t).lower())
+                        for y in (found_years or [])
+                        for t in (p_topic if isinstance(p_topic, list) else [p_topic])
+                    }
+
+                    actual_calls = {
+                        (
+                            str(call["function"]["arguments"].get("year")),
+                            str(call["function"]["arguments"].get("topic")).lower(),
+                        )
+                        for call in tool_calls
+                    }
+
+                    missing_calls = expected_calls - actual_calls
+
+                    if missing_calls:
+                        print(f"[!] Missing tool calls detected: {missing_calls}")
+
+                        for y, t in missing_calls:
+                            tool_calls.append(
+                                {
+                                    "function": {
+                                        "name": "query_insurance_benefits",
+                                        "arguments": {
+                                            "year": y,
+                                            "topic": t,
+                                            "plan_tier": (
+                                                p_tier_fast.capitalize()
+                                                if p_tier_fast
+                                                else None
+                                            ),
+                                            "plan_type": p_type_fast,
+                                        },
+                                    }
+                                }
+                            )
+
+                        print(
+                            f"[+] Auto-added missing tool calls. Total now: {len(tool_calls)}"
+                        )
+
+                print(
+                    f"[*] TURN {turn_count} TOOL CALLS: {tool_calls} | Clean Content Length: {len(clean_content)}"
+                )
+                print(f"raw_msg: {raw_msg}")
+
+                messages.append(
+                    {
+                        "role": "assistant",
+                        "content": clean_content,
+                        "tool_calls": tool_calls if tool_calls else None,
+                    }
+                )
+
+                if not tool_calls:
+                    print("[*] NO TOOL CALLS. BREAKING REASONING LOOP.")
+                    # Forces the script to reach the final synthesis/table logic
+                    break
+
+            except Exception as e:
+                print(f"Error in turn {turn_count}: {e}")
+                break  # Explicitly break the loop in case of an error
+
+            # Normalize function
+            def _norm(t):
+                return str(t).lower().strip()
+
+            for call in tool_calls:
+                func_name = call["function"]["name"]
+                args = call["function"]["arguments"]
+
+                if func_name == "get_available_plans":
+                    result = get_available_plans()
+                    messages.append(
+                        {"role": "tool", "content": str(result), "name": func_name}
+                    )
+
+                elif func_name == "query_insurance_benefits":
+                    query_years = list(set(re.findall(r"202\d", query)))
+
+                    if query_years:
+                        years_to_process = query_years
+                    elif found_years:
+                        years_to_process = found_years
+                    else:
+                        all_args_blob = str(args).lower()
+                        years_to_process = list(
+                            set(re.findall(r"202\d", all_args_blob))
+                        ) or [CURRENT_YEAR_INT]
+
+                    query_clean = re.sub(r"[^\w\s]", "", query.lower())
+                    query_words = query_clean.split()
+
+                    results_list = []
+                    for p_year in years_to_process:
+                        vault = next(
+                            (
+                                v
+                                for v in year_identity_vaults
+                                if str(v["year"]) == str(p_year)
+                            ),
+                            None,
+                        )
+
+                        if vault:
+                            v_type = vault["type"]
+                            v_tier = vault["tier"]
+                            v_prod = vault["product"]
+                            v_vari = vault["variant"]
+                            v_net = vault["network"]
+                        else:
+                            # --- FIX: LOCK TYPE ---
+                            v_type = p_type_fast
+                            v_tier = p_tier_fast or args.get("plan_tier", "").lower()
+                            v_prod, v_vari, v_net = (
+                                locked_product,
+                                locked_variant,
+                                locked_network,
+                            )
+
+                        if v_tier == "unknown":
+                            v_tier = None
+
+                        # --- REMOVE normalize_topic usage for fetch ---
+                        # 🔥 FORCE ALL TOPICS FROM USER INTENT (NOT LLM TOOL CALL)
+                        # Normalize inputs FIRST
+                        p_topics = [
+                            _norm(t)
+                            for t in (
+                                p_topic if isinstance(p_topic, list) else [p_topic]
+                            )
+                            if t
+                        ]
+
+                        llm_requested_topic = args.get("topic")
+                        llm_topics = (
+                            llm_requested_topic
+                            if isinstance(llm_requested_topic, list)
+                            else [llm_requested_topic] if llm_requested_topic else []
+                        )
+                        llm_topics = [_norm(t) for t in llm_topics if t]
+
+                        # Choose dominant list
+                        primary = (
+                            p_topics if len(p_topics) >= len(llm_topics) else llm_topics
+                        )
+                        secondary = llm_topics if primary is p_topics else p_topics
+
+                        # ✅ TRUE SAFE MERGE (order-preserving + dedupe)
+                        seen = set()
+                        topics_to_process = []
+
+                        for t in primary + secondary:
+                            if t not in seen:
+                                seen.add(t)
+                                topics_to_process.append(t)
+
+                        # print(f"[*] TOPIC RESOLUTION → {topics_to_process}")
+                        # expected_calls = len(years_to_process) * len(topics_to_process)
+                        # print(
+                        #     f"[*] EXPECTED CALLS: {expected_calls} ({years_to_process} × {topics_to_process})"
+                        # )
+
+                        for topic in topics_to_process:
+                            topic = str(topic).lower().strip()
+
+                            fetch_id = f"{p_year}_{topic}"
+                            if fetch_id in fetched_keys_this_turn:
+                                continue
+
+                            print(
+                                f"[*] SURGICAL FETCH: Year={p_year}, Network={v_net}, Topic={topic}"
+                            )
+
+                            data = query_insurance_benefits(
+                                year=int(p_year),
+                                plan_type=v_type,
+                                plan_tier=v_tier.capitalize() if v_tier else None,
+                                topic=topic,  # ✅ ALWAYS STRING, SINGLE TOPIC
+                                product_line=v_prod,
+                                variant=v_vari,
+                                network=v_net,
+                            )
+
+                            vault_header = f"### [YEAR: {p_year}] [PLAN: {v_prod}] [NETWORK: {v_net}]"
+
+                            if data and "ERROR" not in data:
+                                cache_key = (
+                                    f"{p_year}_{v_type}_{v_tier}_{topic}".replace(
+                                        " ", ""
+                                    ).lower()
+                                )
+                                TOOL_RESULT_CACHE[cache_key] = data
+                                print(f"[*] CACHE SAVED: {cache_key}")
+
+                                data_with_walls = data.replace("|", " [||] ")
+                                data = f"{vault_header}\nSOURCE: Document Index\n```\n{data_with_walls}\n```"
+                            else:
+                                data = f"{vault_header}\nSTATUS: Data Not Found for this benefit in the {v_net}."
+
+                            results_list.append(data)
+                            fetched_keys_this_turn.append(fetch_id)
+
+                    if results_list:
+                        final_raw_context = "\n\n".join(results_list)
+                        messages.append(
+                            {
+                                "role": "tool",
+                                "content": final_raw_context,
+                                "name": func_name,
+                            }
+                        )
+                        has_retrieved_data = True
+
+        # --- THE HARD STOP TRIGGER (ADD THIS HERE) ---
+        # This check looks at BOTH the new retrieved data AND the cache.
+        if not has_retrieved_data and not cached_data_fragments:
+            print(f"[*] NO DATA FOUND: Asking for clarification for {p_topic}")
+
+            # Instead of returning a hard string, we give the LLM a 'Clarification' persona
+            clarification_msgs = [
+                {
+                    "role": "system",
+                    "content": "You are an Insurance Assistant. You found NO data for the requested topic. Ask the user politely which Year or Plan Tier they are interested in. Mention that you have 2024, 2025, and 2026 data available.",
+                },
+                {
+                    "role": "user",
+                    "content": f"I couldn't find {p_topic} info. Help the user narrow it down. Original query: {query}",
+                },
+            ]
+
+            resp = ollama.chat(model=LOCAL_MODEL, messages=clarification_msgs)
+            return flatten_message_content(resp["message"].get("content", ""))
+        # --- THE FINAL SAFETY NET (STABILITY & SYNONYM FIX) ---
+        print(
+            f"[*] Displying all tools response where role is tool: "
+            + str([m for m in messages if m.get("role") == "tool"])
+        )
+
+        print(f"[*] SYNTHESIZING: {p_tier_fast} {p_type_fast} - Topic: {p_topic}")
+
+        # --- 10. HYBRID DATA CONSOLIDATION (FIXED: topic + year isolation) ---
+        siloed_segments = []
+
+        active_topics = p_topic if isinstance(p_topic, list) else [p_topic]
+        active_topics = [str(t).lower().strip() for t in active_topics if t]
+        print(f"[*] ACTIVE TOPICS FOR CONSOLIDATION: {active_topics}")
+
+        unique_years = sorted(set(found_years))
+
+        # Main loop for processing each year and topic
+        for y in unique_years:
+            topic_fragments = []
+
+            for topic in active_topics:
+                matched_chunks = []
+                topic_keywords = get_topic_keywords(topic)
+                print("DEBUG topic_keywords:", topic_keywords, type(topic_keywords))
+
+                # Process messages for each topic and year
+                for m in messages:
+                    if m.get("role") != "tool":
+                        continue
+
+                    content_str = str(m.get("content", ""))
+
+                    year_pattern = re.compile(r"### \[YEAR:\s*(\d{4})\]")
+                    matches = list(year_pattern.finditer(content_str))
+
+                    for i, match in enumerate(matches):
+                        year_found = match.group(1)
+
+                        # ✅ HARD YEAR LOCK
+                        if year_found != str(y):
+                            continue
+
+                        start = match.start()
+                        end = (
+                            matches[i + 1].start()
+                            if i + 1 < len(matches)
+                            else len(content_str)
+                        )
+
+                        chunk = content_str[start:end].strip()
+
+                        # ✅ skip garbage
+                        if len(chunk) < 40:
+                            continue
+
+                        # ✅ STRICT TOPIC SEGMENTATION
+                        topic_blocks = extract_topic_blocks(chunk, topic_keywords)
+
+                        for tb in topic_blocks:
+                            if len(tb) > 40:
+                                matched_chunks.append(tb)
+
+                print(
+                    f"[*] Year {y} | Topic '{topic}' | Matched Chunks: {len(matched_chunks)}"
+                )
+
+                # ✅ DEDUPE (order-safe)
+                seen = set()
+                deduped_chunks = []
+                for c in matched_chunks:
+                    if c not in seen:
+                        seen.add(c)
+                        deduped_chunks.append(c)
+
+                # ================= CLEANING PIPELINE =================
+                if deduped_chunks:
+                    # ✅ ENSURE EVERYTHING IS STRING BEFORE JOIN
+                    safe_chunks = []
+                    for c in deduped_chunks:
+                        if isinstance(c, list):
+                            c = " ".join([str(x) for x in c])
+                        else:
+                            c = str(c)
+                        safe_chunks.append(c)
+
+                    merged_topic_data = "\n\n---\n\n".join(safe_chunks)
+                    print(f"Merged Normalized Data for Year {y}: {merged_topic_data}")
+
+                    # 🔥🔥 CRITICAL FIX: NORMALIZE TOPIC BEFORE USING
+                    if isinstance(topic, list):
+                        print("⚠️ TOPIC IS LIST:", topic)
+                        topic = topic[0] if topic else ""
+
+                    safe_topic = str(topic).lower().strip()
+                    print("✅ SAFE TOPIC:", safe_topic, "| TYPE:", type(safe_topic))
+
+                    topic_keywords = get_topic_keywords(topic)
+
+                    # 🔥 STRUCTURE PRESERVATION
+                    rows = []
+
+                    # for line in merged_topic_data.split("\n"):
+                    #     if not isinstance(line, str):
+                    #         print("❌ BAD LINE TYPE:", type(line), line)
+                    #         continue
+
+                    #     if "[||]" not in line:
+                    #         continue
+
+                    #     raw_parts = line.split("[||]")
+
+                    #     parts = []
+                    #     for p in raw_parts:
+                    #         # ✅ FORCE STRING + CLEAN
+                    #         if isinstance(p, list):
+                    #             p = " ".join([str(x) for x in p])
+                    #         else:
+                    #             p = str(p)
+
+                    #         p = p.strip()
+
+                    #         if p:
+                    #             parts.append(p)
+
+                    #     if len(parts) < 2:
+                    #         continue
+
+                    #     # 🔥 DEBUG BEFORE LOWER
+                    #     print("DEBUG parts[0] TYPE:", type(parts[0]), parts[0])
+                    #     print("DEBUG line TYPE:", type(line), line)
+
+                    #     try:
+                    #         first_col = str(parts[0]).lower()
+                    #     except Exception as e:
+                    #         print("❌ LOWER FAILED ON:", parts[0], "| ERROR:", e)
+                    #         continue
+
+                    #     if not matches_topic(first_col, topic_keywords):
+                    #         continue
+
+                    #     # 🔥 STRICT COLUMN LOCK (CORE FIX)
+                    #     if len(parts) >= 3:
+                    #         benefit = parts[0]
+                    #         in_network = parts[1]
+                    #         out_of_network = parts[2]
+
+                    #         # Optional normalization (safe, not hardcoding logic)
+                    #         if "not covered" in out_of_network.lower():
+                    #             out_of_network = "Not Covered"
+
+                    #         row = f"{benefit} | {in_network} | {out_of_network}"
+                    #         rows.append(row)
+                    rows = parse_structured_rows(merged_topic_data, topic_keywords)
+
+                    # ================= FALLBACK =================
+                    if not rows:
+                        cleaned = squeeze_insurance_data(merged_topic_data)
+                        fallback_rows = []
+
+                        for line in cleaned.split("\n"):
+                            if not isinstance(line, str):
+                                print("❌ BAD FALLBACK LINE TYPE:", type(line), line)
+                                continue
+
+                            try:
+                                line_lower = str(line).lower()
+                            except Exception as e:
+                                print("❌ FALLBACK LOWER FAILED:", line, "| ERROR:", e)
+                                continue
+
+                            if not matches_topic(line_lower, topic_keywords):
+                                continue
+
+                            if len(line.strip()) > 10:
+                                fallback_rows.append(line)
+
+                        rows = fallback_rows
+
+                    # ================= BASIC FILTER =================
+                    # filtered_lines = [
+                    #     l
+                    #     for l in rows
+                    #     if isinstance(l, str) and ("[||]" in l or "$" in l or "%" in l)
+                    # ]
+                    filtered_lines = rows
+                    # RELAXED fallback
+                    if len(filtered_lines) < 3:
+                        print(
+                            f"[*] RELAXED FILTER TRIGGERED for YEAR {y} | TOPIC {topic}"
+                        )
+                        filtered_lines = [
+                            l
+                            for l in rows
+                            if isinstance(l, str) and len(l.strip()) > 10
+                        ]
+
+                    clean_topic_data = (
+                        "\n".join(filtered_lines)
+                        if filtered_lines
+                        else "DATA NOT FOUND"
+                    )
+                else:
+                    clean_topic_data = "DATA NOT FOUND"
+
+                topic_fragments.append({"topic": topic, "data": clean_topic_data})
+
+                # ================= FINAL YEAR BLOCK =================
+                valid_fragments = [
+                    t for t in topic_fragments if t["data"] != "DATA NOT FOUND"
+                ]
+
+                if not valid_fragments:
+                    final_year_block = "DATA NOT FOUND. DO NOT INFER."
+                else:
+                    final_year_block = "\n\n".join(
+                        f"[TOPIC: {t['topic']}]\n{t['data']}" for t in valid_fragments
+                    )
+
+                siloed_segments.append(
+                    f"### START_YEAR_{y}\n{final_year_block.strip()}\n### END_YEAR_{y}"
+                )
+
+        # FINAL OUTPUT
+        master_data_string = "\n\n".join(siloed_segments)
+
+        # --- 11. THE PREMERA-SPECIFIC PROTOCOL ---
+        instruction = generate_ironclad_instruction(
+            p_tier_fast,
+            p_type_fast,
+            header_line,
+            separator_line,
+            p_topic,
+            show_limitations,
+        )
+
+        # --- 12. FINAL SYNTHESIS CALL ---
+        master_data_squeezed = squeeze_insurance_data(master_data_string)
+
+        print(f"[*] master data sent to LLM (SILOED FIXED):\n{master_data_squeezed}")
+
+        final_messages = [
+            {"role": "system", "content": instruction},
+            {
+                "role": "user",
+                "content": f"Master Data:\n{master_data_squeezed}\n\nOriginal Query: {query}",
+            },
+        ]
+
+        final_resp = ollama.chat(
+            model=LOCAL_MODEL,
+            messages=final_messages,
+            options={"temperature": 0.0, "num_ctx": 8192},
+        )
+
+        # --- 13. THE IRON CURTAIN (Final String Cleanup) ---
+        final_content = flatten_message_content(
+            final_resp["message"].get("content", "")
+        )
+
+        if "|" in final_content:
+            lines = final_content.split("\n")
+
+            table_lines = [
+                l.strip()
+                for l in lines
+                if l.strip().startswith("|") and l.strip().endswith("|")
+            ]
+
+            if len(table_lines) >= 3:
+                final_content = "\n".join(table_lines)
+            else:
+                start_index = final_content.find("|")
+                end_index = final_content.rfind("|")
+                if end_index > start_index:
+                    final_content = final_content[start_index : end_index + 1].strip()
+
+        return final_content
+
+    except Exception as e:
+        print(f"❌ SYNTHESIS ERROR: {e}")
+        return f"⚠️ Client Logic Error: {str(e)}"
+
+    # def generate_ironclad_instruction(
+
+
+#     p_tier, p_type, header_line, separator_line, p_topic, show_limitations
+# ):
+#     overflow_action = (
+#         f"move the entire sentence to the 'Limitations' column and prefix it with the year."
+#         if show_limitations
+#         else "DELETE the sentence. EXTRACT only the core price or status marker."
+#     )
+
+#     return f"""### ROLE: PREMERA BLUE CROSS Lead Administrative Auditor ({p_tier} {p_type}).
+#         ### AUDIT TARGET: {p_topic}
+#         ### MANDATORY: ONE SINGLE MARKDOWN TABLE. NO NARRATION.
+
+#         --- STAGE 1: SEMANTIC BINDING & ISOLATION ---
+#         1. TOPIC MATCHING (STRICT):
+#         Only extract rows where the benefit label EXACTLY matches or clearly corresponds to '{p_topic}'.
+#         IGNORE nearby rows even if they appear related.
+#         DO NOT merge multiple benefits into one row.
+
+#         2. VERTICAL SILOING:
+#         Data inside '### START_YEAR_XXXX' belongs ONLY to that specific year's column.
+
+#         3. DATA ISOLATION:
+#         If a specific year's vault does not contain a price for a benefit, you MUST write 'Information Not Available'.
+
+#         4. NO BRIDGING:
+#         Do NOT assume 2024 or 2025 costs are the same as 2026.
+
+#         5. NULL CONSTANT:
+#         If a vault says 'STATUS: Data Not Found', fill that year's column with 'Data Not Found'.
+
+#         --- STAGE 2: EXTRACTION & MAGNITUDE ---
+#         1. GRID ANCHORING:
+#         Master Data uses '[||]' as boundaries.
+
+#         2. MAGNITUDE GUARD:
+#         A Deductible is low ($500–$2,000). OOP is high ($8,000+). NEVER mix them.
+
+#         3. SENTENCE BAN:
+#         If a cost cell is a sentence, {overflow_action}
+
+#         4. ROW ISOLATION RULE:
+#         Each row must come from a SINGLE benefit line.
+#         DO NOT combine multiple benefit lines into one row.
+
+#         5. COVERAGE NORMALIZATION:
+#         If Out-of-Network says "Not covered", output EXACTLY: NOT COVERED.
+
+#         --- STAGE 3: THE 5-POINT UNIVERSAL AUDIT ---
+#         1. COLUMN INTEGRITY:
+#         Match this pipe count exactly: {header_line.count('|') - 1} columns.
+
+#         2. HORIZONTAL BINDING:
+#         Every cost MUST be bound to the benefit name on its IMMEDIATE LEFT.
+
+#         3. LITERAL TERMINOLOGY:
+#         - ALWAYS use EXACTLY: 'Data Not Found'
+#         - NEVER use 'Information Not Available'
+
+#         4. PRECISION TARGETING:
+#         Extract ONLY the row(s) matching '{p_topic}'.
+
+#         --- MULTI-TOPIC HANDLING ---
+#         If multiple topics are requested:
+#         - Create separate rows per topic
+#         - NEVER merge topics
+
+#         --- FINAL OUTPUT ARCHITECTURE ---
+#         {header_line}
+#         {separator_line}"""
+
+#     # 10. DATA CONSOLIDATION (Clean & Deduplicated)
+#     # Combine fragments from both the 'Reasoning Loop' and the 'Turbo Cache'
+#     all_data_segments = []
+#     reasoning_data = [
+#         str(m["content"]) for m in messages if m.get("role") == "tool"
+#     ]
+#     if reasoning_data:
+#         all_data_segments.extend(reasoning_data)
+#     if cached_data_fragments:
+#         all_data_segments.extend(cached_data_fragments)
+
+#     # Deduplicate while preserving order (important for multi-year context)
+#     unique_segments = []
+#     for seg in all_data_segments:
+#         if seg not in unique_segments:
+#             unique_segments.append(seg)
+#     master_data_string = "\n\n".join(unique_segments)
+
+#     # 11. THE PREMERA-SPECIFIC PROTOCOL
+#     # We use f-strings to inject the 'LOCKED' variables directly into the prompt.
+#     # --- THE FLUID COMPARISON PROTOCOL ---
+#     instruction = generate_ironclad_instruction(
+#         p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+#     )
+
+#     # 12. FINAL SYNTHESIS CALL
+#     final_messages = [
+#         {"role": "system", "content": instruction},
+#         {
+#             "role": "user",
+#             "content": f"Master Data:\n{master_data_string}\n\nOriginal Query: {query}",
+#         },
+#     ]
+
+#     master_data_string = squeeze_insurance_data(master_data_string)
+#     print(f"[*] master data sent to LLM: {master_data_string}")
+
+#     final_resp = ollama.chat(
+#         model=LOCAL_MODEL,
+#         messages=final_messages,
+#         options={"temperature": 0.0, "num_ctx": 8192},
+#     )
+
+#     # 13. THE IRON CURTAIN (Final String Cleanup)
+#     final_content = flatten_message_content(
+#         final_resp["message"].get("content", "")
+#     )
+#     if "|" in final_content:
+#         start_index = final_content.find("|")
+#         end_index = final_content.rfind("|")
+#         if end_index > start_index:
+#             final_content = final_content[start_index : end_index + 1].strip()
+
+#     return final_content
+
+# except Exception as e:
+#     print(f"❌ SYNTHESIS ERROR: {e}")
+#     return f"⚠️ Client Logic Error: {str(e)}"
+
+# def generate_ironclad_instruction(p_tier, p_type, header_line, separator_line, p_topic):
+
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier} {p_type}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n\n"
+#         "--- STAGE 2: THE STRUCTURAL COLUMN LOCK ---\n"
+#         "1. **COST ISOLATION**: Columns 'In-Network' and 'Out-of-Network' may ONLY contain numerical values ($, %), 'No charge', or 'Not covered'.\n"
+#         "2. **CONSTRAINT ISOLATION**: Any text containing 'Prior', 'Authorization', or 'Penalty' is NOT a cost. It MUST be moved to the 'Limitations' column.\n"
+#         "3. **HMO NEGATIVE SPACE**: For HMO plans, if the source data for Out-of-Network is empty or shows administrative text, you MUST report 'Not covered'.\n\n"
+#         "--- STAGE 3: THE 5-POINT UNIVERSAL AUDIT ---\n"
+#         "1. **SOT FIREWALL**: Use ONLY the provided fragments. Do NOT use terminology from history.\n"
+#         "2. **LITERAL TERMINOLOGY**: If the source says 'Data Not Found', use that. If it says 'Not covered', use that.\n"
+#         "3. **OON BOOLEAN STRING RULE**: If OON segment >15 characters, capture ALL characters. Do NOT summarize.\n"
+#         "4. **HORIZONTAL BINDING**: A cost MUST be bound to the benefit name on its IMMEDIATE LEFT.\n"
+#         "5. **COLUMN INTEGRITY**: Your table MUST have exactly the same number of columns as the Header Template.\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"{header_line}\n"
+#         f"{separator_line}\n"
+#         "2. AFTER THE TABLE, PROVIDE: '### AUDIT RULES APPLIED' (List Rules 1-5)."
+#     )
+
+
+# def generate_ironclad_instruction(
+#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+# ):
+#     # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
+#     forbidden_map = {
+#         "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency, ER, Urgent care",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
+#         "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+#     }
+#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+#         "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
+#         "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
+#         "    - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
+#         f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table.\n"
+#         "2. **OON BOOLEAN STRING RULE (URGENT CARE FIX)**: If the OON segment physically contains >15 characters OR contains the words 'urgent' or 'clinic', it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You are FORBIDDEN from summarizing. You MUST capture and report every character in that segment exactly (e.g., include both Hospital-based and Freestanding center details).\n"
+#         "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
+#         "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
+#         "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
+#         "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+#         "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n"
+#         "8. **YEAR-SPECIFIC TERMINOLOGY**: You must adapt Out-of-Network (OON) terminology based on the fragment year.\n"
+#         "   - **RULE**: For 2026 HMO plans, if the OON segment is empty or administrative, you MUST report 'Not covered'.\n"
+#         "   - **RULE**: For 2024/2025 PPO test plans, you MUST report 'Data Not Found'.\n"
+#         "   - **ISOLATION**: Do NOT allow terminology from the chat history to override the literal text of the current year's fragment.\n"
+#         "9. **STRICT KEYWORD ALIGNMENT**: You must prioritize values that match the user's specific benefit term.\n"
+#         "   - **RULE**: For 2024/2025 PPO test plans, you MUST report 'Data Not Found'.\n"
+#         "   - **RULE**: If the query is 'out-of-pocket limit', you are FORBIDDEN from reporting 'Deductible' values. Locate and report ONLY the row containing 'Out-of-Pocket Limit'. showing Deductible values is 100% system failure.\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"{header_line}\n"
+#         f"{separator_line}\n"
+#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+#         "3. YOU MUST LIST ALL NINE RULES (1-9) FROM STAGE 3. SPECIFICALLY CONFIRM 'OON BOOLEAN STRING RULE' WAS USED.\n"
+#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 9-RULE AUDIT LOG."
+#     )
+
+
+## 9 prompts working out of 10 - Urgent care out of network is wrong - We need to add a rule that if the OON segment contains the word 'urgent' or 'clinic', it cannot be 'Not covered' and we have to pull the full string.
+## def generate_ironclad_instruction(
+#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+# ):
+#     # 1. DYNAMIC FORBIDDEN LIST (Isolation Guard)
+#     forbidden_map = {
+#         "imaging": "Preventive, Pharmacy, Specialist, PCP, Primary, Emergency",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Urgent care",
+#         "emergency": "Urgent care, Specialist, PCP, Primary, Outpatient surgery, Hospital stay, Imaging",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER, Imaging",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging, Emergency",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+#     }
+#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+#         "--- STAGE 3: THE 7-POINT UNIVERSAL AUDIT (SECURITY FIRST) ---\n"
+#         "1. **MAPPING VALIDATION & SOT FIREWALL (CRITICAL)**: \n"
+#         "   - **OON VALIDATION**: If any text extracted for the Out-of-Network (OON) column explicitly contains the word 'In-network', you MUST reject it as a mapping error and report 'Data Not Found' for that OON cell.\n"
+#         f"   - **SOT FIREWALL**: The provided fragment is your ONLY Source of Truth. You are strictly FORBIDDEN from carrying over terminology or logic from previous prompts into a '{p_topic}' table. Including data not in the current fragment is a 100% SECURITY FAILURE.\n"
+#         "2. **OON BOOLEAN STRING RULE**: If the OON segment physically contains >15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. You MUST capture every character in the segment exactly. DO NOT SUMMARIZE.\n"
+#         "3. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. Pull every character until the final closing pipe '|'.\n"
+#         "4. **MECHANICAL BINDING**: Copy-paste the raw block exactly. Do NOT apply internal logic or 'guess' based on history.\n"
+#         "5. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut across lines, merge the pieces before reporting.\n"
+#         "6. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+#         "7. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is ONLY for empty segments (unless Rule 1 applies).\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"{header_line}\n"
+#         f"{separator_line}\n"
+#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+#         "3. YOU MUST LIST ALL SEVEN RULES (1-7) FROM STAGE 3. SPECIFICALLY CONFIRM 'SOT FIREWALL' WAS USED.\n"
+#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE FULL 7-RULE AUDIT LOG."
+#     )
+
+
+# # Use this prompt when you want to see what rules are applied by LLM to extract the data and to make sure it is following the protocol.
+# def generate_ironclad_instruction(
+#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+# ):
+#     # 1. DYNAMIC FORBIDDEN LIST (Strict Exclusion - Unchanged)
+#     forbidden_map = {
+#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
+#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+#     }
+#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE FOLLOWED BY AN AUDIT LOG.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS BEFORE THE TABLE.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: Show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are FORBIDDEN from reporting any row containing: {erase_list}.\n"
+#         "2. DYNAMIC STOP: Stop scanning the moment you hit a benefit name from the blacklist.\n\n"
+#         "--- STAGE 3: THE 6-POINT UNIVERSAL AUDIT (OON SEGMENT LOCK) ---\n"
+#         "1. **OON BOOLEAN STRING RULE (CRITICAL)**: This rule applies ONLY to the Out-of-Network column segment. \n"
+#         "   - **OON LENGTH CHECK**: Scan the OON segment between pipes '|'. If the segment physically contains more than 15 characters, it is MATHEMATICALLY IMPOSSIBLE for it to be only 'Not covered'. \n"
+#         "   - **FULL-STRING CAPTURE**: If the OON segment is long (>15 chars), you are FORBIDDEN from summarizing. You MUST capture every character (e.g., 'Hospital-based... Freestanding...'). Reporting only 'Not covered' for a long OON string is a 100% SECURITY FAILURE.\n"
+#         "2. **GREEDY OON EXTRACTION**: Do NOT stop your OON scan at the first keyword. You MUST pull every character until the final closing pipe '|' of that segment.\n"
+#         "3. **MECHANICAL BINDING**: Copy-paste the raw block. Do NOT apply logic. If you see 'Hospital-based' in the OON segment, it MUST be in the table.\n"
+#         "4. **FRAGMENT STITCHING**: Scan all blocks. If a row is cut, merge the pieces before reporting.\n"
+#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string.\n"
+#         "6. **EVIDENCE PRIORITY**: If text exists in the OON segment, use it. 'Data Not Found' is only for empty segments.\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE (MANDATORY COMPLETION) ---\n"
+#         "1. START IMMEDIATELY WITH THE MARKDOWN TABLE.\n"
+#         f"   - {header_line}\n"
+#         f"   - {separator_line}\n"
+#         "2. MANDATORY COMPLETION: After the table, you MUST provide a section titled '### AUDIT RULES APPLIED'.\n"
+#         "3. LIST ALL RULES (1-6) FROM STAGE 3. SPECIFICALLY CONFIRM THE 'BOOLEAN STRING RULE' WAS USED.\n"
+#         "4. NO OTHER TEXT. THE RESPONSE IS INCOMPLETE WITHOUT THE AUDIT LOG."
+#     )
+
+
+# # Last stable version with 8 prompt working - Urgent care out of network is wrong
+# def generate_ironclad_instruction(
+#     p_tier_fast, p_type_fast, header_line, separator_line, p_topic
+# ):
+#     # DYNAMIC FORBIDDEN LIST (Strict Exclusion)
+#     forbidden_map = {
+#         "imaging": "Preventive ($0), No charge, Pharmacy, Generic, Brand, Deductible, Specialist, PCP, Primary",
+#         "deductible": "Coinsurance, Specialist, PCP, Primary, Preventive, Imaging, ER, Pharmacy, Visit, Physician",
+#         "emergency": "Urgent, Specialist, PCP, Primary, Preventive, Surgery, Bariatric, Weight, Cosmetic",
+#         "primary": "Specialist, Preventive, Dental, Ortho, Deductible, ER",
+#         "specialist": "Primary, PCP, Preventive, Deductible, Imaging",
+#         "dental": "Medical, Vision, Pharmacy, Surgery, Hospital",
+#     }
+#     erase_list = forbidden_map.get(p_topic.lower(), "unrelated benefits")
+
+#     return (
+#         f"### ROLE: Lead Administrative Auditor ({p_tier_fast} {p_type_fast}).\n"
+#         "### MANDATORY: ONE SINGLE MARKDOWN TABLE ONLY. START IMMEDIATELY WITH '|'.\n"
+#         "### SILENCE: NO NARRATION, NO EXPLANATIONS. OUTPUT TABLE ONLY.\n\n"
+#         "--- STAGE 1: THE ARCHITECTURAL ANCHOR (HORIZONTAL LOCK) ---\n"
+#         f"1. HEADER TEMPLATE: Use ONLY this exact map:\n{header_line}\n"
+#         f"2. TOPIC PRECISION: You MUST show ONLY the benefit(s) exactly matching '{p_topic}'.\n"
+#         "3. HORIZONTAL BINDING: A cost value MUST be bound to the benefit name on its IMMEDIATE LEFT. "
+#         "Shifting values vertically from rows above or below is a 100% SYSTEM FAILURE.\n\n"
+#         "--- STAGE 2: THE SURGICAL ERASER (LITERAL KILL-SWITCH) ---\n"
+#         f"1. BLACKLIST: You are strictly FORBIDDEN from reporting any row containing these words: {erase_list}.\n"
+#         "2. DYNAMIC STOP: You MUST stop scanning the source text the moment you hit a benefit name from the blacklist (e.g., 'Urgent care'). "
+#         "Including data from a blacklisted row is a 100% SYSTEM FAILURE.\n\n"
+#         "--- STAGE 3: THE 5-POINT UNIVERSAL AUDIT (FRAGMENT RECOVERY) ---\n"
+#         "1. **FRAGMENT REJECTION**: If a benefit name (e.g., 'Emergency medical transportation') appears without cost values on the same line, you MUST treat it as an incomplete fragment and ignore it.\n"
+#         "2. **STITCHING PRIORITY**: You MUST scan subsequent blocks to find the complete row. Once you find the benefit name WITH its costs (e.g., '20% coinsurance'), use that full line.\n"
+#         "3. **HORIZONTAL BINDING**: A value MUST be on the SAME horizontal line as the benefit name. Pulling a value from a row above is a 100% SYSTEM FAILURE.\n"
+#         "4. **DYNAMIC BOUNDARY STOP**: You MUST stop the moment you hit a benefit name in the blacklist: {erase_list}. No data from that row can enter the table.\n"
+#         "5. **LITERAL MATCHING**: If the text says 'Same as In-Network', copy the In-Network string for better readability.\n\n"
+#         "--- FINAL OUTPUT ARCHITECTURE ---\n"
+#         f"HEADER TEMPLATE:\n{header_line}\n{separator_line}\n"
+#         "1. NO NARRATION. NO BLANKS. START WITH '|'. NO ASSUMPTIONS. OUTPUT ONLY THE FINAL DATA ROW(S)."
+#     )
+
+
+# def squeeze_insurance_data(raw_text):
+#     if not raw_text:
+#         return ""
+
+#     # 1. PROTECT MARKERS: Hide the vaults so they don't get cleaned
+#     text = raw_text.replace("# START_YEAR", "@@@START@@@")
+#     text = text.replace("# END_YEAR", "@@@END@@@")
+#     text = text.replace("[||]", "@@@WALL@@@")
+
+#     # 2. CLEAN NOISE: Use [^\n] instead of . to prevent deleting the whole document
+#     text = re.sub(r"https?://\S+", " ", text)
+#     text = re.sub(r"For more information[^\n]*", " ", text)
+#     text = re.sub(r"\|? ---[^\n]*--- \|?", " ", text)
+#     text = re.sub(r"\[SECTION:[^\n]*\]|##[^\n]*|&amp;", " ", text)
+
+#     # 3. FLATTEN: Turn pipes and tabs into spaces
+#     text = re.sub(r"\||\t|\s{2,}", " ", text)
+
+#     # 4. SMART FLIP: Fix 2026 reversed indexing
+#     text = re.sub(r"(\$[\d,]+[^\?]+)\s+([^?]+\?)", r"\2 @@@WALL@@@ \1", text)
+
+#     # 5. GEOMETRIC INJECTION: Re-insert walls based on data patterns
+#     text = re.sub(r"([a-zA-Z\s\(\)\-]{3,})\s+([\d\$%])", r"\1 @@@WALL@@@ \2", text)
+#     text = re.sub(
+#         r"([\d\$%][^@]*?)\s+(Not covered|No charge|None|Data Not Found)",
+#         r"\1 @@@WALL@@@ \2",
+#         text,
+#         flags=re.IGNORECASE,
+#     )
+
+#     # 6. RESTORE MARKERS
+#     text = text.replace("@@@START@@@", "\n# START_YEAR")
+#     text = text.replace("@@@END@@@", "\n# END_YEAR")
+#     text = text.replace("@@@WALL@@@", " [||] ")
+
+#     # 7. LINE PROCESSING: Using 'line' variable correctly
+#     raw_lines = text.split("\n")
+#     clean_lines = []
+#     for line in raw_lines:
+#         s_line = line.strip()
+#         if s_line:
+#             clean_lines.append(s_line)
+
+#     # 8. FINAL ASSEMBLY
+#     final_output = "\n".join(clean_lines).replace("[||] [||]", "[||]")
+#     return final_output.strip()
+
+
+# def squeeze_insurance_data(raw_text):
+#     if not raw_text:
+#         return ""
+
+#     # 1. Standardize spacing: Replace tabs and multiple newlines with single spaces
+#     # but keep the primary line breaks for each benefit
+#     lines = raw_text.split("\n")
+#     cleaned_lines = []
+
+#     for line in lines:
+#         # Skip empty lines or purely decorative separator lines
+#         if not line.strip() or "-------" in line:
+#             continue
+
+#         # 2. Collapse massive whitespace (4+ spaces) into a single pipe separator
+#         # This brings the Out-of-Network values closer to the In-Network values
+#         line = re.sub(r"\s{4,}", " | [OON_ANCHOR] | ", line)
+
+#         # 3. Remove leading/trailing pipes and extra spaces
+#         line = line.strip().strip("|").strip()
+
+#         if line:
+#             cleaned_lines.append(f"| {line} |")
+
+#     return "\n".join(cleaned_lines)
+
+
+# def lock_plan_metadata(
+#     found_years,
+#     detected_type,
+#     detected_tier,
+#     detected_product=None,
+#     detected_variant=None,
+#     detected_network=None,
+# ):
+#     """
+#     SOT LOCK: Matches user intent against the 6-way Identity Lock in the DB.
+#     Guarantees a 6-item tuple return to satisfy Python unpacking.
+#     """
+#     from server import get_available_plans
+#     import ast
+
+#     raw_schema = get_available_plans()
+
+#     # --- PATH 1: EMPTY DATABASE FALLBACK (6 Items) ---
+#     if "DATABASE INFO" in raw_schema:
+#         return (
+#             found_years,
+#             detected_type,
+#             detected_tier,
+#             detected_product or "Standard",
+#             detected_variant or "Standard",
+#             detected_network or "Standard Network",
+#         )
+
+#     try:
+#         # Schema format: (Year, Type, Tier, Product, Variant, Network)
+#         schema_data = ast.literal_eval(
+#             raw_schema.replace(
+#                 "DATA SOURCE SCHEMA (Year, Type, Tier, Product, Variant, Network): ", ""
+#             )
+#         )
+#     except Exception as e:
+#         print(f"[*] SCHEMA ERROR: {e}")
+#         # --- PATH 2: PARSE ERROR FALLBACK (6 Items) ---
+#         return (
+#             found_years,
+#             detected_type,
+#             detected_tier,
+#             detected_product or "Standard",
+#             detected_variant or "Standard",
+#             detected_network or "Standard Network",
+#         )
+
+#     # Normalize inputs for matching
+#     d_type = str(detected_type or "Medical").lower()
+#     d_tier = str(detected_tier or "Gold").lower()
+#     d_prod = str(detected_product or "").lower()
+#     d_vari = str(detected_variant or "").lower()
+#     d_net = str(detected_network or "").lower()
+
+#     # Match Plan Identity (The 6-Way Handshake)
+#     best_match = None
+#     for row in schema_data:
+#         y, ty, tr, p, v, n = row
+#         # Core Lock: Must match Type and Tier
+#         if ty.lower() == d_type and tr.lower() == d_tier:
+#             # If we have specific intent, prioritize the closest match
+#             if (
+#                 (d_prod in p.lower() or not d_prod)
+#                 and (d_vari in v.lower() or not d_vari)
+#                 and (d_net in n.lower() or not d_net)
+#             ):
+#                 best_match = row
+#                 break
+
+#     # --- PATH 3: NO SPECIFIC MATCH FALLBACK (6 Items) ---
+#     if not best_match:
+#         # Try to find ANY plan matching the Tier/Type, otherwise return detected info
+#         best_match = next(
+#             (
+#                 r
+#                 for r in schema_data
+#                 if r[1].lower() == d_type and r[2].lower() == d_tier
+#             ),
+#             (
+#                 None,
+#                 detected_type,
+#                 detected_tier,
+#                 "Standard",
+#                 "Standard",
+#                 "Standard Network",
+#             ),
+#         )
+
+#     # --- PATH 4: SUCCESSFUL LOCK (6 Items) ---
+#     # Unpack the best_match row (ignoring year since found_years is handled separately)
+#     _, ty, tr, p, v, n = best_match
+
+#     print(f"[*] IDENTITY LOCKED: {ty} {tr} | {p} | {v}")
+
+#     return (
+#         found_years,
+#         ty,  # locked_type
+#         tr,  # locked_tier
+#         p,  # locked_product
+#         v,  # locked_variant
+#         n,  # locked_network
+#     )

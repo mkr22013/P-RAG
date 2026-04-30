@@ -1,0 +1,888 @@
+[
+    {
+        "topic": "What is the overall deductible?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "What is the overall deductible?",
+            "answer": "Calendar year aggregate deductible. $1,750 Individual / $3,500 Family.",
+            "explanation": "Generally, you must pay all of the costs from providers up to the deductible amount before this plan begins to pay. If you have other family members on the policy, the overall family deductible must be met before the plan begins to pay."
+        },
+        "keywords": [
+            "deductible",
+            "question",
+            "overall",
+            "calendar",
+            "aggregate",
+            "individual",
+            "explanation",
+            "generally",
+            "providers",
+            "members"
+        ]
+    },
+    {
+        "topic": "Are there services covered before you meet your deductible?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "Are there services covered before you meet your deductible?",
+            "answer": "Yes. Does not apply to Preventive care and services listed below as \"No charge\"",
+            "explanation": "This plan covers some items and services even if you haven\u2019t yet met the deductible amount. But a copayment or coinsurance may apply. For example, this plan covers certain preventive services without cost-sharing and before you meet your deductible. See a list of covered preventive services at https://www.healthcare.gov/coverage/preventive-care-benefits/ ."
+        },
+        "keywords": [
+            "copay",
+            "deductible",
+            "coinsurance",
+            "question",
+            "services",
+            "covered",
+            "preventive",
+            "explanation",
+            "copayment",
+            "example"
+        ]
+    },
+    {
+        "topic": "Are there other deductibles for specific?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "Are there other deductibles for specific?",
+            "answer": "No.",
+            "explanation": "You don\u2019t have to meet deductibles for specific services."
+        },
+        "keywords": [
+            "deductible",
+            "question",
+            "deductibles",
+            "specific",
+            "explanation",
+            "services"
+        ]
+    },
+    {
+        "topic": "What is the out - of - pocket limit for this plan?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "What is the out - of - pocket limit for this plan?",
+            "answer": "In - network: $3,500 Individual / $7,000 Family, Out-of-network: Not Applicable",
+            "explanation": "The out - of- f- pocket limit is the most you could pay in a year for covered services. If you have other family members in this plan, the overall family out-of-pocket limit must be met."
+        },
+        "keywords": [
+            "out-of-network",
+            "question",
+            "network",
+            "individual",
+            "applicable",
+            "explanation",
+            "covered",
+            "services",
+            "members",
+            "overall"
+        ]
+    },
+    {
+        "topic": "What is not included in the out - of - pocket limit?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "What is not included in the out - of - pocket limit?",
+            "answer": "Premium , balance - billed charges, and health care this plan doesn't cover.",
+            "explanation": "Even though you pay these expenses, they don\u2019t count toward the out-of-pocket limit ."
+        },
+        "keywords": [
+            "question",
+            "included",
+            "premium",
+            "balance",
+            "charges",
+            "explanation",
+            "expenses"
+        ]
+    },
+    {
+        "topic": "Will you pay less if you use a network provider?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "Will you pay less if you use a network provider?",
+            "answer": "Yes. See www.premera.com or call 1-844 - 985 - 4160 for a list of network providers .",
+            "explanation": "This plan uses a provider network. You will pay less if you use a provider in the plan\u2019s network . You will pay the most if you use an out-of-network provider, and you might receive a bill from a provider for the difference between the provider\u2019s charge and what your plan pays (balance billing). Be aware your network provider might use an out-of-network provider for some services (such as lab work). Check with your provider before you get services."
+        },
+        "keywords": [
+            "out-of-network",
+            "question",
+            "network",
+            "provider",
+            "premera",
+            "providers",
+            "explanation",
+            "receive",
+            "difference",
+            "between"
+        ]
+    },
+    {
+        "topic": "Do you need a referral to see a specialist?",
+        "category": "qa",
+        "benefit_category": "medical",
+        "content": {
+            "question": "Do you need a referral to see a specialist?",
+            "answer": "No.",
+            "explanation": "You can see the specialist you choose without a referral ."
+        },
+        "keywords": [
+            "specialist",
+            "question",
+            "referral",
+            "explanation",
+            "without"
+        ]
+    },
+    {
+        "topic": "Primary care visit to treat an injury or illness",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you visit a health care provider\u2019s office or clinic",
+            "service": "Primary care visit to treat an injury or illness",
+            "in_network": "Kinwell: 0% coinsurance All Other: 20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Deductible applies."
+        },
+        "keywords": [
+            "pcp",
+            "deductible",
+            "coinsurance",
+            "provider",
+            "service",
+            "primary",
+            "illness",
+            "in_network",
+            "kinwell",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Specialist visit",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you visit a health care provider\u2019s office or clinic",
+            "service": "Specialist visit",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "None"
+        },
+        "keywords": [
+            "specialist",
+            "coinsurance",
+            "provider",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Preventive care/screening/ immunization",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you visit a health care provider\u2019s office or clinic",
+            "service": "Preventive care/screening/ immunization",
+            "in_network": "No charge",
+            "out_of_network": "40% coinsurance (deductible does not apply)",
+            "limitations": "You may have to pay for services that aren\u2019t preventive. Ask your provider if the services you need are preventive. Then check what your plan will pay for."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "provider",
+            "service",
+            "preventive",
+            "screening",
+            "immunization",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Diagnostic test (x-ray, blood work)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have a test",
+            "service": "Diagnostic test (x-ray, blood work)",
+            "in_network": "Kinwell: 0% coinsurance All Other: 20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Only certain Diagnostic tests qualify for 0% coinsurance at Kinwell Clinics. Deductible applies."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "diagnostic",
+            "service",
+            "in_network",
+            "kinwell",
+            "out_of_network",
+            "limitations",
+            "certain",
+            "qualify"
+        ]
+    },
+    {
+        "topic": "Imaging (CT/PET scans, MRIs)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have a test",
+            "service": "Imaging (CT/PET scans, MRIs)",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Prior authorization recommended for some outpatient imaging tests. Penalty for out-of\u0002 network: no penalty."
+        },
+        "keywords": [
+            "coinsurance",
+            "imaging",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations",
+            "authorization",
+            "recommended",
+            "outpatient",
+            "penalty"
+        ]
+    },
+    {
+        "topic": "Preferred generic drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need drugs to treat your illness or condition",
+            "service": "Preferred generic drugs",
+            "in_network": "20% coinsurance up to $75 maximum (retail), 20% coinsurance up to $150 maximum (mail)",
+            "out_of_network": "40% coinsurance (retail), Not covered (mail)",
+            "limitations": "Covers up to a 90 day supply (retail and mail). No charge for specific preventive drugs. Prior authorization recommended for some drugs . Medical deductible applies."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "illness",
+            "condition",
+            "service",
+            "preferred",
+            "generic",
+            "in_network",
+            "maximum",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Preferred brand drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need drugs to treat your illness or condition",
+            "service": "Preferred brand drugs",
+            "in_network": "20% coinsurance up to $125 maximum (retail), 20% coinsurance up to $250 maximum (mail)",
+            "out_of_network": "40% coinsurance (retail), Not covered (mail)",
+            "limitations": "More information about prescription drug coverage is available at Covers up to a 90 day supply (retail and mail). Prior authorization recommended for some drugs . Medical deductible applies."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "pharmacy",
+            "illness",
+            "condition",
+            "service",
+            "preferred",
+            "in_network",
+            "maximum",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Preferred specialty drugs",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need drugs to treat your illness or condition",
+            "service": "Preferred specialty drugs",
+            "in_network": "20% coinsurance up to $175 maximum",
+            "out_of_network": "Not covered",
+            "limitations": "https://www.premera.co m/documents/052149_2 026.pdf Covers up to a 30 day supply. Only covered at specific contracted specialty pharmacies. Prior authorization recommended for some drugs. Initial fill on certain specialty drugs are dispensed in two 15 day increments. Please visit www.premera.com/splitfill-WA for a list of these drugs. Medical deductible applies."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "illness",
+            "condition",
+            "service",
+            "preferred",
+            "specialty",
+            "in_network",
+            "maximum",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "pref. generic:",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need drugs to treat your illness or condition",
+            "service": "pref. generic:",
+            "in_network": "20% Non - Non - Non - covered",
+            "out_of_network": "",
+            "limitations": "Non - preferred generic drugs Non - preferred brand drugs Non - preferred specialty drugs Services You May Need Non - (retail), 20% (mail) Non - (retail), 20% (mail) Non - coinsurance up to $250 Non - pref. generic and non-pref. brand: Covers up to a 90 day supply (retail and mail). Non - pref. specialty drugs: Covers up to a 30 day supply. Only covered at specific contracted specialty pharmacies. Initial fill on certain specialty drugs are dispensed in two 15 day increments. Please visit www.premera.com/splitfill-WA for a list of these drugs. Prior authorization recommended for some drugs. Medical deductible applies. coinsurance up to $250 coinsurance up to $500 pref. brand: 20% coinsurance up to $250 coinsurance up to $500 pref. specialty: 20% pref. generic: 40% coinsurance (retail), Not covered (mail) pref. brand: 40% coinsurance (retail), Not covered (mail) pref. specialty: not"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "illness",
+            "condition",
+            "service",
+            "generic",
+            "in_network",
+            "covered",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Facility fee (e.g., ambulatory surgery center)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have outpatient",
+            "service": "Facility fee (e.g., ambulatory surgery center)",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Prior authorization recommended for some services. Penalty for out-of-network: no penalty."
+        },
+        "keywords": [
+            "out-of-network",
+            "coinsurance",
+            "outpatient",
+            "service",
+            "facility",
+            "ambulatory",
+            "surgery",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Physician/surgeon fees",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have outpatient",
+            "service": "Physician/surgeon fees",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "None"
+        },
+        "keywords": [
+            "coinsurance",
+            "outpatient",
+            "service",
+            "physician",
+            "surgeon",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Emergency room care Emergency medical transportation",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need immediate",
+            "service": "Emergency room care Emergency medical transportation",
+            "in_network": "$350 copay/visit + 20% $350 copay/visit + 20% coinsurance 20% coinsurance",
+            "out_of_network": "$350 copay/visit + 20% $350 copay/visit + 20% coinsurance 20% coinsurance",
+            "limitations": "Emergency room copay waived if admitted to hospital. None"
+        },
+        "keywords": [
+            "copay",
+            "coinsurance",
+            "emergency",
+            "immediate",
+            "service",
+            "medical",
+            "transportation",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Urgent care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need immediate",
+            "service": "Urgent care",
+            "in_network": "20% coinsurance Hospital-based: $350 copay/visit + 20% coinsurance 20% coinsurance",
+            "out_of_network": "Hospital-based: $350 copay/visit + 20% coinsurance Freestanding center: 40% coinsurance",
+            "limitations": "None medical attention Freestanding center:"
+        },
+        "keywords": [
+            "copay",
+            "coinsurance",
+            "emergency",
+            "urgent-care",
+            "immediate",
+            "service",
+            "in_network",
+            "hospital",
+            "out_of_network",
+            "freestanding"
+        ]
+    },
+    {
+        "topic": "Facility fee (e.g., hospital room)",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have a hospital stay",
+            "service": "Facility fee (e.g., hospital room)",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty."
+        },
+        "keywords": [
+            "coinsurance",
+            "hospital",
+            "service",
+            "facility",
+            "in_network",
+            "out_of_network",
+            "limitations",
+            "authorization",
+            "recommended",
+            "planned"
+        ]
+    },
+    {
+        "topic": "Physician/surgeon fees",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you have a hospital stay",
+            "service": "Physician/surgeon fees",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "None"
+        },
+        "keywords": [
+            "coinsurance",
+            "hospital",
+            "service",
+            "physician",
+            "surgeon",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Outpatient services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need mental health, behavioral health, or substance abuse services",
+            "service": "Outpatient services",
+            "in_network": "Kinwell: 0% coinsurance All Other: 20% coinsurance Facility: 20%",
+            "out_of_network": "",
+            "limitations": "40% coinsurance Deductible applies. 40% coinsurance Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty. Cost sharing does not apply for preventive"
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "mental-health",
+            "behavioral",
+            "substance",
+            "services",
+            "service",
+            "outpatient",
+            "in_network",
+            "kinwell"
+        ]
+    },
+    {
+        "topic": "Inpatient services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need mental health, behavioral health, or substance abuse services",
+            "service": "Inpatient services",
+            "in_network": "20% coinsurance",
+            "out_of_network": "",
+            "limitations": ""
+        },
+        "keywords": [
+            "coinsurance",
+            "mental-health",
+            "behavioral",
+            "substance",
+            "services",
+            "service",
+            "inpatient",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Office visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need mental health, behavioral health, or substance abuse services",
+            "service": "Office visits",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "services. Depending on the type of services, a coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound). Cost sharing does not apply for preventive services. Depending on the type of services, a"
+        },
+        "keywords": [
+            "coinsurance",
+            "mental-health",
+            "behavioral",
+            "substance",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations",
+            "depending"
+        ]
+    },
+    {
+        "topic": "Office visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you are pregnant Childbirth/delivery professional services",
+            "service": "Office visits",
+            "in_network": "20% coinsurance",
+            "out_of_network": "20%",
+            "limitations": "coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound). Cost sharing does not apply for preventive services. Depending on the type of services, a coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound)."
+        },
+        "keywords": [
+            "coinsurance",
+            "pregnant",
+            "childbirth",
+            "delivery",
+            "professional",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Office visits",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you are pregnant Childbirth/delivery professional services",
+            "service": "Office visits",
+            "in_network": "40% coinsurance",
+            "out_of_network": "",
+            "limitations": "Childbirth/delivery facility"
+        },
+        "keywords": [
+            "coinsurance",
+            "pregnant",
+            "childbirth",
+            "delivery",
+            "professional",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Home health care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you are pregnant Childbirth/delivery professional services",
+            "service": "Home health care",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Limited to 130 visits per calendar year Limited to 45 outpatient visits per calendar year, limited to 30 inpatient days per calendar year. Includes physical therapy, speech therapy, and occupational therapy. Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002"
+        },
+        "keywords": [
+            "coinsurance",
+            "therapy",
+            "pregnant",
+            "childbirth",
+            "delivery",
+            "professional",
+            "services",
+            "service",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Rehabilitation services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you are pregnant Childbirth/delivery professional services",
+            "service": "Rehabilitation services",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "network: no penalty."
+        },
+        "keywords": [
+            "coinsurance",
+            "therapy",
+            "pregnant",
+            "childbirth",
+            "delivery",
+            "professional",
+            "services",
+            "service",
+            "rehabilitation",
+            "in_network"
+        ]
+    },
+    {
+        "topic": "Habilitation services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need help recovering or have other special health needs",
+            "service": "Habilitation services",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Limited to 45 outpatient visits per calendar year, limited to 30 inpatient days per calendar year. Includes physical therapy, speech therapy, and occupational therapy. Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty."
+        },
+        "keywords": [
+            "coinsurance",
+            "therapy",
+            "recovering",
+            "special",
+            "service",
+            "habilitation",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Skilled nursing care",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need help recovering or have other special health needs",
+            "service": "Skilled nursing care",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Limited to 120 days per calendar year. Prior authorization recommended for all planned inpatient stays. Penalty for out-of-network: no penalty."
+        },
+        "keywords": [
+            "out-of-network",
+            "coinsurance",
+            "recovering",
+            "special",
+            "service",
+            "skilled",
+            "nursing",
+            "in_network",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Durable medical equipment",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need help recovering or have other special health needs",
+            "service": "Durable medical equipment",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Prior authorization recommended to buy some medical equipment. Penalty for out-of-network: no penalty."
+        },
+        "keywords": [
+            "out-of-network",
+            "coinsurance",
+            "recovering",
+            "special",
+            "service",
+            "durable",
+            "medical",
+            "equipment",
+            "in_network",
+            "out_of_network"
+        ]
+    },
+    {
+        "topic": "Hospice services",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If you need help recovering or have other special health needs",
+            "service": "Hospice services",
+            "in_network": "20% coinsurance",
+            "out_of_network": "40% coinsurance",
+            "limitations": "Limited to 240 respite hours, limited to 10 inpatient days - 6 month overall lifetime benefit limit, except when approved otherwise."
+        },
+        "keywords": [
+            "coinsurance",
+            "recovering",
+            "special",
+            "service",
+            "hospice",
+            "services",
+            "in_network",
+            "out_of_network",
+            "limitations",
+            "limited"
+        ]
+    },
+    {
+        "topic": "Children\u2019s eye exam Children\u2019s glasses",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If your child needs",
+            "service": "Children\u2019s eye exam Children\u2019s glasses",
+            "in_network": "Not covered",
+            "out_of_network": "Not covered",
+            "limitations": "None None"
+        },
+        "keywords": [
+            "vision",
+            "service",
+            "children",
+            "glasses",
+            "in_network",
+            "covered",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Children\u2019s dental check - up",
+        "category": "cost",
+        "benefit_category": "medical",
+        "content": {
+            "event": "If your child needs",
+            "service": "Children\u2019s dental check - up",
+            "in_network": "Not covered",
+            "out_of_network": "Not covered",
+            "limitations": "None"
+        },
+        "keywords": [
+            "dental",
+            "service",
+            "children",
+            "in_network",
+            "covered",
+            "out_of_network",
+            "limitations"
+        ]
+    },
+    {
+        "topic": "Cosmetic surgery \u2022 Long-term care \u2022 Routine eye care (Adult)",
+        "category": "excluded",
+        "benefit_category": "medical",
+        "content": {
+            "type": "not_covered",
+            "service": "Cosmetic surgery \u2022 Long-term care \u2022 Routine eye care (Adult)"
+        },
+        "keywords": [
+            "vision",
+            "not_covered",
+            "service",
+            "cosmetic",
+            "surgery",
+            "routine"
+        ]
+    },
+    {
+        "topic": "Dental care (Adult) \u2022 Private-duty nursing \u2022 Weight loss programs",
+        "category": "excluded",
+        "benefit_category": "medical",
+        "content": {
+            "type": "not_covered",
+            "service": "Dental care (Adult) \u2022 Private-duty nursing \u2022 Weight loss programs"
+        },
+        "keywords": [
+            "dental",
+            "not_covered",
+            "service",
+            "private",
+            "nursing",
+            "programs"
+        ]
+    },
+    {
+        "topic": "Infertility treatment",
+        "category": "excluded",
+        "benefit_category": "medical",
+        "content": {
+            "type": "not_covered",
+            "service": "Infertility treatment"
+        },
+        "keywords": [
+            "not_covered",
+            "service",
+            "infertility",
+            "treatment"
+        ]
+    },
+    {
+        "topic": "Acupuncture \u2022 Chiropractic care or other spinal manipulations \u2022 Hearing aids",
+        "category": "excluded",
+        "benefit_category": "medical",
+        "content": {
+            "type": "covered",
+            "service": "Acupuncture \u2022 Chiropractic care or other spinal manipulations \u2022 Hearing aids"
+        },
+        "keywords": [
+            "covered",
+            "service",
+            "acupuncture",
+            "chiropractic",
+            "manipulations",
+            "hearing"
+        ]
+    },
+    {
+        "topic": "Bariatric surgery \u2022 Foot care \u2022 Non-emergency care when traveling outside the",
+        "category": "excluded",
+        "benefit_category": "medical",
+        "content": {
+            "type": "covered",
+            "service": "Bariatric surgery \u2022 Foot care \u2022 Non-emergency care when traveling outside the"
+        },
+        "keywords": [
+            "emergency",
+            "covered",
+            "service",
+            "bariatric",
+            "surgery",
+            "traveling",
+            "outside"
+        ]
+    }
+]

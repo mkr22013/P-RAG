@@ -1,0 +1,45 @@
+services:
+
+  # ── Ollama LLM server ────────────────────────────────────────────────────────
+  # Pulls and serves the local LLM model used by the Streamlit app.
+  # On first run: `docker compose exec ollama ollama pull llama3.1`
+  ollama:
+    image: ollama/ollama:latest
+    container_name: p_rag_ollama
+    restart: unless-stopped
+    volumes:
+      # Persist downloaded models between container restarts
+      - ollama_models:/root/.ollama
+    ports:
+      - "11434:11434"
+    # Uncomment the section below if you have an NVIDIA GPU:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  # ── Streamlit app ────────────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: p_rag_app
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    ports:
+      - "8501:8501"
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: llama3.1
+    volumes:
+      # Mount the DB so a re-index run persists without rebuilding the image
+      - ./p_insurance_index.db:/workspace/app/p_insurance_index.db
+      # Mount docs so you can add PDFs without rebuilding
+      - ./docs:/workspace/docs
+
+volumes:
+  ollama_models:

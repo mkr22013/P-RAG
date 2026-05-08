@@ -1,0 +1,50 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.whl
+
+# ── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.conda/
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Secrets ──────────────────────────────────────────────────────────────────
+.env
+.env.*
+
+# ── OS junk ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Docker ───────────────────────────────────────────────────────────────────
+# Ignore local docker override files (the base compose is tracked)
+docker-compose.override.yml
+
+# ── SQLite databases (built artefacts, regenerate with indexer) ──────────────
+*.db
+
+# ── Indices output (built artefacts) ─────────────────────────────────────────
+indices/
+
+# ── Streamlit ────────────────────────────────────────────────────────────────
+.streamlit/
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.log

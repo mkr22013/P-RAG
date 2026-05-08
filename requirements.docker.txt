@@ -1,0 +1,21 @@
+# Runtime Python requirements for the P-RAG Docker image.
+# Versions are pinned to the minor release for reproducibility.
+# ──────────────────────────────────────────────────────────────
+
+# Streamlit UI
+streamlit>=1.40,<2.0
+
+# LLM client (talks to ollama container)
+ollama>=0.4,<1.0
+
+# PDF parsing — medical & dental indexers
+pdfplumber>=0.11,<1.0
+
+# PDF parsing — SBC (Summary of Benefits and Coverage)
+docling>=2.0,<3.0
+
+# FastMCP server (imported in-process by client.py)
+fastmcp>=2.0,<4.0
+
+# Env file loading
+python-dotenv>=1.0,<2.0

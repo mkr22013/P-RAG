@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "plan-indexer"
+version = "0.1.0"
+description = "Vectorless insurance plan document indexer"
+requires-python = ">=3.12"
+dependencies = [
+    "pdfplumber>=0.11",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+sbc = ["docling>=2.0"]
+
+[tool.hatch.build.targets.wheel]
+# Only plan_indexer/ is packaged — app/ is application code, not a library.
+packages = ["plan_indexer"]

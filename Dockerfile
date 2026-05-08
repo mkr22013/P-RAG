@@ -1,5 +1,5 @@
 # ── P-RAG: Insurance Policy Assistant ─────────────────────────────────────────
-# Streamlit UI + FastMCP server + plan_indexer library
+# FastAPI REST API (main.py) + plan_indexer library
 # LLM is served externally by an ollama container (see docker-compose.yml).
 # ──────────────────────────────────────────────────────────────────────────────
 FROM python:3.12-slim
@@ -31,20 +31,16 @@ COPY p_insurance_index.db app/p_insurance_index.db
 COPY docs/ docs/
 
 # ── Runtime config ────────────────────────────────────────────────────────────
-# Streamlit runs from the app/ directory so relative imports work correctly.
+# main.py (FastAPI + uvicorn) runs from the app/ directory so relative imports work.
 WORKDIR /workspace/app
 
 # OLLAMA_HOST is set at runtime via docker-compose (points to ollama service).
 ENV OLLAMA_HOST=http://ollama:11434 \
-    OLLAMA_MODEL=llama3.1 \
-    # Tell Streamlit not to open a browser and to bind all interfaces
-    STREAMLIT_SERVER_HEADLESS=true \
-    STREAMLIT_SERVER_PORT=8501 \
-    STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    OLLAMA_MODEL=llama3.1
 
-EXPOSE 8501
+EXPOSE 8000
 
 # plan_indexer must be on PYTHONPATH so `from plan_indexer import ...` works
 ENV PYTHONPATH=/workspace
 
-CMD ["python", "-m", "streamlit", "run", "app.py"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

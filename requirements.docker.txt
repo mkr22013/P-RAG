@@ -2,9 +2,6 @@
 # Versions are pinned to the minor release for reproducibility.
 # ──────────────────────────────────────────────────────────────
 
-# Streamlit UI
-streamlit>=1.40,<2.0
-
 # LLM client (talks to ollama container)
 ollama>=0.4,<1.0
 
@@ -19,3 +16,11 @@ fastmcp>=2.0,<4.0
 
 # Env file loading
 python-dotenv>=1.0,<2.0
+
+# FastAPI server (main.py REST API)
+fastapi>=0.109,<1.0
+uvicorn>=0.27,<1.0
+python-multipart>=0.0.6
+
+# PDF generation endpoint (/download-pdf)
+fpdf2>=2.7

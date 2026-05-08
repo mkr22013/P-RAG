@@ -1,4 +1,4 @@
-# ── Dev artefacts ─────────────────────────────────────────────────────────────
+# Dev artefacts
 __pycache__/
 *.pyc
 *.pyo
@@ -9,26 +9,27 @@ __pycache__/
 dist/
 build/
 
-# ── Virtual envs ─────────────────────────────────────────────────────────────
+# Virtual envs
 .venv/
 venv/
 env/
 
-# ── IDE ──────────────────────────────────────────────────────────────────────
+# IDE
 .vscode/
 .idea/
 
-# ── Test / debug scripts (not needed at runtime) ────────────────────────────
+# Test / debug scripts (not needed at runtime)
 create_test_docs.py
 debug_*.py
 verify_rag.py
+medical_indexer_simple.py
 client_py_chatgptversion.txt
 QueriesToTests.txt
 
-# ── Images / screenshots ────────────────────────────────────────────────────
+# Images / screenshots
 *.png
 
-# ── Root-level copies of app files (kept only for reference) ─────────────────
+# Root-level copies of app files (kept only for reference)
 app.py
 client.py
 client_old.py
@@ -41,26 +42,12 @@ server.py
 utils.py
 main.py
 
-# ── Indices output (built artefacts, not source) ────────────────────────────
+# Indices output directory (built artefacts, not source)
 indices/
 
-# ── Secrets (passed via environment at runtime) ─────────────────────────────
+# Secrets (passed via environment at runtime)
 .env
-.env.*
 
-# ── Git ──────────────────────────────────────────────────────────────────────
-.git/
-.gitignore
-
-# ── Docker (don't send Docker config into the image context) ────────────────
-Dockerfile
-docker-compose.yml
-docker-compose.override.yml
-
-# ── OS ───────────────────────────────────────────────────────────────────────
+# OS
 .DS_Store
 Thumbs.db
-
-# ── Docs / non-runtime files ────────────────────────────────────────────────
-readme.md
-*.log

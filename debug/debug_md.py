@@ -7,6 +7,7 @@ Usage:
 """
 
 import os, re
+import sys
 from docling.datamodel.pipeline_options import (
     PdfPipelineOptions,
     TableStructureOptions,
@@ -16,7 +17,13 @@ from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.base_models import InputFormat
 from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
 
-PDF_PATH = r"docs\2026\SBC\SBC Summary of Benefits.pdf"  # adjust path
+# Get the directory where THIS script (debug_summary.py) is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Move up one level from 'debug' to the root, then down into 'docs'
+DEFAULT_PDF = os.path.join(BASE_DIR, "..", "docs", "2026", "medical", "Medical.pdf")
+
+PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 
 pipeline_options = PdfPipelineOptions(
     table_structure_options=TableStructureOptions(mode=TableFormerMode.FAST)

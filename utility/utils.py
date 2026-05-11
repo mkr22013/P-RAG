@@ -1,6 +1,7 @@
 """
 Shared utilities used by all booklet indexers (SBC, Medical, Dental, etc.)
 """
+
 import re
 import json as json_lib
 
@@ -16,22 +17,22 @@ def get_smart_keywords(text):
 
     text_lower = text.lower()
     patterns = {
-        "pcp":           r"\bpcp\b|primary[- ]?care",
-        "specialist":    r"specialist",
-        "in-network":    r"in[- ]?network",
-        "out-of-network":r"out[- ]?of[- ]?network",
-        "copay":         r"co[- ]?pay|copay",
-        "deductible":    r"deductible",
-        "coinsurance":   r"co[- ]?insurance",
-        "emergency":     r"emergency|medical[- ]?attention",
-        "urgent-care":   r"urgent[- ]?care",
-        "pharmacy":      r"pharmacy|prescription|rx",
-        "dental":        r"dental|dentist|ortho|braces",
-        "vision":        r"vision|eye|glasses",
-        "imaging":       r"imaging|mri|ct\s?scan|pet\s?scan",
-        "diagnostic":    r"diagnostic|x-ray|blood\s?work",
+        "pcp": r"\bpcp\b|primary[- ]?care",
+        "specialist": r"specialist",
+        "in-network": r"in[- ]?network",
+        "out-of-network": r"out[- ]?of[- ]?network",
+        "copay": r"co[- ]?pay|copay",
+        "deductible": r"deductible",
+        "coinsurance": r"co[- ]?insurance",
+        "emergency": r"emergency|medical[- ]?attention",
+        "urgent-care": r"urgent[- ]?care",
+        "pharmacy": r"pharmacy|prescription|rx",
+        "dental": r"dental|dentist|ortho|braces",
+        "vision": r"vision|eye|glasses",
+        "imaging": r"imaging|mri|ct\s?scan|pet\s?scan",
+        "diagnostic": r"diagnostic|x-ray|blood\s?work|blood\s?products|\bblood\b",
         "mental-health": r"mental|behavioral|substance|abuse",
-        "therapy":       r"rehab|physical|speech|occupational",
+        "therapy": r"rehab|physical|speech|occupational",
     }
     found = [label for label, pat in patterns.items() if re.search(pat, text_lower)]
 

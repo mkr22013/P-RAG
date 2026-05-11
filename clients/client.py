@@ -2,6 +2,7 @@ import os, ollama, re, json
 
 from dotenv import load_dotenv
 from datetime import datetime
+from difflib import SequenceMatcher
 
 load_dotenv()
 LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
@@ -13,200 +14,617 @@ CURRENT_YEAR_INT = datetime.now().year
 last_type_global = None
 
 
+# def resolve_insurance_topic(query_words, full_query_text):
+#     """SINGLE SOURCE OF TRUTH: Maps keywords to our specific index topics."""
+#     topics = []
+#     query_lower = full_query_text.lower()
+
+#     # 1. DEDUCTIBLES/oop (Keyword Match)
+#     if any(
+#         w in query_words
+#         for w in [
+#             "deductible",
+#             "deductibles",
+#             "limit",
+#             "oop",
+#             "out-of-pocket",
+#             "coinsurance",
+#         ]
+#     ):
+#         if (
+#             "pocket" in query_lower
+#             or "oop" in query_lower
+#             or "out-of-pocket" in query_lower
+#             or "out of pocket" in query_lower
+#         ):
+#             topics.append("out-of-pocket")
+#         else:
+#             topics.append("deductible")
+
+#     # 2. EMERGENCY & AMBULANCE (Surgical Match)
+#     # \ber\b ensures 'ER' is a standalone word. We also check for 'room'.
+#     # =========================================================
+#     # 🔥 EMERGENCY vs URGENT (PRIORITY FIX)
+#     # =========================================================
+
+#     # URGENT CARE → higher priority
+#     if any(w in query_words for w in ["urgent", "afterhours", "after-hours"]):
+#         topics.append("urgent care")
+
+#     # EMERGENCY → only if urgent NOT present
+#     elif (
+#         re.search(r"\ber\b", query_lower)
+#         or "emergency" in query_lower
+#         or "ambulance" in query_words
+#         or ("room" in query_words and "emergency" in query_lower)
+#     ):
+#         topics.append("emergency")
+
+#     # 4. IMAGING / DIAGNOSTIC (Splitting the logic)
+#     if any(w in query_words for w in ["xray", "x-ray", "blood", "diagnostic"]):
+#         topics.append("diagnostic")
+
+#     if any(w in query_words for w in ["mri", "pet", "scan", "imaging", "ct"]):
+#         topics.append("imaging")
+
+#     # 5. NETWORK & PROVIDER (Network is a common topic that doesn't fit neatly into the others)
+#     if any(
+#         w in query_words for w in ["network", "provider", "pay less", "balance-billing"]
+#     ):
+#         topics.append("network")
+
+#     # 6. DENTAL & VISION
+#     if any(w in query_words for w in ["dental", "ortho", "braces"]):
+#         topics.append("orthodontia")
+#     if any(w in query_words for w in ["vision", "eye", "glasses"]):
+#         topics.append("vision")
+
+#     # 7. PRIMARY & SPECIALIST
+#     # PRIMARY / PCP
+#     if (
+#         any(w in query_words for w in ["pcp", "primary", "physician"])
+#         or "primary care" in query_lower
+#     ):
+#         topics.append("primary care provider")
+
+#     # SPECIALIST
+#     if "specialist" in query_words:
+#         topics.append("specialist")
+
+#     # 8. MENTAL HEALTH & SUBSTANCE ABUSE
+#     if any(
+#         w in query_words
+#         for w in ["mental", "behavioral", "substance", "abuse", "psychiatrist"]
+#     ):
+#         topics.append("mental-health")
+
+#     # 9. PREGNANCY & CHILDBIRTH
+#     if any(
+#         w in query_words
+#         for w in ["pregnant", "maternity", "childbirth", "delivery", "prenatal"]
+#     ):
+#         topics.append("maternity")
+
+#     # 10. HOSPITAL & SKILLED NURSING
+#     if any(w in query_words for w in ["hospital", "inpatient", "nursing", "facility"]):
+#         topics.append("hospital")
+
+#     # 11. CHILDREN'S VISION & DENTAL
+#     if "child" in query_words or "children" in query_words:
+#         if any(w in query_words for w in ["vision", "eye", "glasses"]):
+#             topics.append("child-vision")
+#         if any(w in query_words for w in ["dental", "teeth", "check-up"]):
+#             topics.append("child-dental")
+
+#     # 12. PHARMACY & DRUGS
+#     if any(
+#         w in query_words
+#         for w in ["drug", "prescription", "pharmacy", "generic", "brand", "specialty"]
+#     ):
+#         topics.append("pharmacy")
+
+#     # 13. REHAB & HABILITATIVE (Common in Premera SBCs)
+#     if any(
+#         w in query_words
+#         for w in [
+#             "rehab",
+#             "rehabilitation",
+#             "habilitative",
+#             "therapy",
+#             "physical",
+#             "speech",
+#             "occupational",
+#         ]
+#     ):
+#         topics.append("rehabilitation")
+
+#     # 14. Excluded services
+#     if any(w in query_words for w in ["excluded", "exclude"]):
+#         topics.append("excluded")
+
+#     # 15. OTHER SERVICES
+#     if any(w in query_words for w in ["other services", "other service"]):
+#         topics.append("other services")
+
+#     # 16. PRIOR AUTHORIZATION
+#     if any(w in query_words for w in ["prior authorization", "authorization"]):
+#         topics.append("prior authorization")
+
+#     # 17. DRUGS
+#     if any(
+#         w in query_words
+#         for w in ["preferred speciality drugs", "speciality drugs", "drugs"]
+#     ):
+#         topics.append("drugs")
+
+#     # 18. COVERED SERVICES
+#     if any(w in query_words for w in ["covered services", "covered"]):
+#         topics.append("other covered services")
+
+#     # 18. REFERRAL
+#     if any(w in query_words for w in ["referral"]):
+#         topics.append("referral")
+
+#     # # 18. PREVENTIVE CARE
+#     # preventive_keywords = [
+#     #     # Core Terms
+#     #     "vaccination",
+#     #     "immunization",
+#     #     "shot",
+#     #     "booster",
+#     #     "vaccine",
+#     #     "vax",
+#     #     # Physicals & Wellness
+#     #     "physical",
+#     #     "check-up",
+#     #     "checkup",
+#     #     "wellness",
+#     #     "routine exam",
+#     #     "annual exam",
+#     #     # Screenings & Tests
+#     #     "screening",
+#     #     "mammogram",
+#     #     "colonoscopy",
+#     #     "pap smear",
+#     #     "blood pressure",
+#     #     "cholesterol",
+#     #     "biopsy",
+#     #     "prostate exam",
+#     #     "a1c",
+#     #     "glucose test",
+#     #     # Counseling & Lifestyle
+#     #     "behavioral counseling",
+#     #     "smoking cessation",
+#     #     "nutrition therapy",
+#     #     "obesity",
+#     #     # Technical Terms
+#     #     "prophylaxis",
+#     #     "preventative",
+#     #     "early detection",
+#     # ]
+
+#     # if any(w in query_words for w in preventive_keywords):
+#     #     topics.append("preventive care")
+
+#     print(f"[*] Resolved Topics from query : {query_lower}  : {topics}")
+#     return topics
+
+from difflib import SequenceMatcher
+
+
+def fuzzy_match(a, b, threshold=0.8):
+    return SequenceMatcher(None, a, b).ratio() >= threshold
+
+
+def smart_match(term, query_words, query_lower):
+    """
+    Priority:
+    1. Exact phrase match
+    2. Exact word match
+    3. Fuzzy match (safe)
+    """
+    term = term.lower()
+
+    # 1. Phrase match
+    if " " in term:
+        return term in query_lower
+
+    # 2. Exact word match
+    if term in query_words:
+        return True
+
+    # 3. Fuzzy match (safe)
+    for w in query_words:
+        if len(w) >= 4 and len(term) >= 4:
+            if fuzzy_match(w, term):
+                return True
+
+    return False
+
+
+# def resolve_insurance_topic(query_words, full_query_text):
+#     """
+#     SINGLE SOURCE OF TRUTH:
+#     1. Resolve high-level insurance topics
+#     2. Extract precise retrieval keywords
+#     """
+
+#     topics = []
+#     extracted_keywords = []
+
+#     query_lower = full_query_text.lower()
+
+#     print(f"[*] resolve insurance topics - Query Words for Matching: {query_words}")
+
+#     # =========================================================
+#     # 🔥 HELPER
+#     # =========================================================
+#     def add_keyword(phrase):
+#         phrase = phrase.lower().strip()
+
+#         if phrase not in extracted_keywords:
+#             extracted_keywords.append(phrase)
+
+#     # =========================================================
+#     # 1. DEDUCTIBLE / OOP
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["deductible", "limit", "oop", "coinsurance"]
+#     ):
+
+#         if any(
+#             p in query_lower
+#             for p in ["out of pocket", "out-of-pocket", "oop", "pocket"]
+#         ):
+#             topics.append("out-of-pocket")
+#             add_keyword("out of pocket")
+#         else:
+#             topics.append("deductible")
+#             add_keyword("deductible")
+
+#     # =========================================================
+#     # 2. URGENT vs EMERGENCY
+#     # =========================================================
+#     URGENT_CONTEXT = {"care", "clinic", "center"}
+
+#     if "urgent care" in query_lower or (
+#         smart_match("urgent", query_words, query_lower)
+#         and any(w in query_words for w in URGENT_CONTEXT)
+#     ):
+#         topics.append("urgent care")
+#         add_keyword("urgent care")
+
+#     elif (
+#         re.search(r"\ber\b", query_lower)
+#         or smart_match("emergency", query_words, query_lower)
+#         or smart_match("ambulance", query_words, query_lower)
+#     ):
+#         topics.append("emergency")
+
+#         if "emergency room" in query_lower:
+#             add_keyword("emergency room")
+#         else:
+#             add_keyword("emergency")
+
+#     # =========================================================
+#     # 3. DIAGNOSTIC / IMAGING
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["xray", "blood", "diagnostic"]
+#     ):
+#         topics.append("diagnostic")
+
+#         if "blood" in query_lower:
+#             add_keyword("blood work")
+
+#         if "xray" in query_lower or "x-ray" in query_lower:
+#             add_keyword("x-ray")
+
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["mri", "scan", "imaging", "ct"]
+#     ):
+#         topics.append("imaging")
+
+#         if "mri" in query_lower:
+#             add_keyword("mri")
+
+#         if "ct" in query_lower:
+#             add_keyword("ct scan")
+
+#     # =========================================================
+#     # 4. NETWORK
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["network", "provider", "balance billing"]
+#     ):
+#         topics.append("network")
+
+#     # =========================================================
+#     # 5. DENTAL / VISION
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["dental", "braces"]
+#     ):
+#         topics.append("orthodontia")
+
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["vision", "eye", "glasses"]
+#     ):
+#         topics.append("vision")
+
+#     # =========================================================
+#     # 6. PRIMARY / SPECIALIST
+#     # =========================================================
+#     if "primary care" in query_lower or any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["pcp", "primary", "physician"]
+#     ):
+#         topics.append("primary care provider")
+#         add_keyword("primary care")
+
+#     if smart_match("specialist", query_words, query_lower):
+#         topics.append("specialist")
+#         add_keyword("specialist visit")
+
+#     # =========================================================
+#     # 7. MENTAL HEALTH
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["mental", "behavioral", "psychiatrist", "psychological"]
+#     ):
+#         topics.append("mental-health")
+
+#         # 🔥 CRITICAL FIX
+#         if "psychological testing" in query_lower:
+#             add_keyword("psychological testing")
+
+#         if "neuropsychological testing" in query_lower:
+#             add_keyword("neuropsychological testing")
+
+#         if "mental health visit" in query_lower:
+#             add_keyword("mental health visit")
+
+#         if "behavioral health" in query_lower:
+#             add_keyword("behavioral health")
+
+#     # =========================================================
+#     # 8. MATERNITY
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["pregnant", "maternity", "delivery", "prenatal"]
+#     ):
+#         topics.append("maternity")
+
+#     # =========================================================
+#     # 9. HOSPITAL
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["hospital", "inpatient", "nursing", "facility"]
+#     ):
+#         topics.append("hospital")
+
+#     # =========================================================
+#     # 10. PHARMACY
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["drug", "prescription", "pharmacy", "generic", "brand", "specialty"]
+#     ):
+#         topics.append("pharmacy")
+
+#     # =========================================================
+#     # 11. REHABILITATION
+#     # =========================================================
+#     if any(
+#         smart_match(w, query_words, query_lower)
+#         for w in ["rehab", "therapy", "physical", "speech", "occupational"]
+#     ):
+#         topics.append("rehabilitation")
+
+#         if "physical therapy" in query_lower:
+#             add_keyword("physical therapy")
+
+#         if "speech therapy" in query_lower:
+#             add_keyword("speech therapy")
+
+#         if "occupational therapy" in query_lower:
+#             add_keyword("occupational therapy")
+
+#     # =========================================================
+#     # 12. OTHER FLAGS
+#     # =========================================================
+#     if smart_match("referral", query_words, query_lower):
+#         topics.append("referral")
+
+#     if smart_match("authorization", query_words, query_lower):
+#         topics.append("prior authorization")
+
+#     # if smart_match("covered", query_words, query_lower):
+#     #     topics.append("other covered services")
+
+#     # =========================================================
+#     # 🔥 FINAL DEDUPE
+#     # =========================================================
+#     topics = list(set(topics))
+#     extracted_keywords = list(set(extracted_keywords))
+
+#     print(f"[*] Resolved Topics : {topics}")
+#     print(f"[*] Extracted Keywords : {extracted_keywords}")
+
+#     return {
+#         "topics": topics,
+#         "keywords": extracted_keywords,
+#     }
+
+
 def resolve_insurance_topic(query_words, full_query_text):
-    """SINGLE SOURCE OF TRUTH: Maps keywords to our specific index topics."""
+    """
+    Resolves topics and extracts clean keywords even with typos.
+    """
     topics = []
+    extracted_keywords = []
     query_lower = full_query_text.lower()
 
-    # 1. DEDUCTIBLES/oop (Keyword Match)
+    def add_keyword(phrase):
+        phrase = phrase.lower().strip()
+        if phrase not in extracted_keywords:
+            extracted_keywords.append(phrase)
+
+    # 1. DEDUCTIBLE / OOP
     if any(
-        w in query_words
-        for w in [
-            "deductible",
-            "deductibles",
-            "limit",
-            "oop",
-            "out-of-pocket",
-            "coinsurance",
-        ]
+        smart_match(w, query_words, query_lower)
+        for w in ["deductible", "limit", "oop", "coinsurance"]
     ):
-        if (
-            "pocket" in query_lower
-            or "oop" in query_lower
-            or "out-of-pocket" in query_lower
-            or "out of pocket" in query_lower
+        # Check for out-of-pocket specifically
+        if any(
+            smart_match(p, query_words, query_lower)
+            for p in ["out of pocket", "out-of-pocket", "oop", "pocket"]
         ):
             topics.append("out-of-pocket")
+            add_keyword("out of pocket")
         else:
             topics.append("deductible")
+            add_keyword("deductible")
 
-    # 2. EMERGENCY & AMBULANCE (Surgical Match)
-    # \ber\b ensures 'ER' is a standalone word. We also check for 'room'.
-    # =========================================================
-    # 🔥 EMERGENCY vs URGENT (PRIORITY FIX)
-    # =========================================================
-
-    # URGENT CARE → higher priority
-    if any(w in query_words for w in ["urgent", "afterhours", "after-hours"]):
+    # 2. URGENT vs EMERGENCY
+    if smart_match("urgent care", query_words, query_lower) or (
+        smart_match("urgent", query_words, query_lower)
+        and any(
+            smart_match(w, query_words, query_lower)
+            for w in ["care", "clinic", "center"]
+        )
+    ):
         topics.append("urgent care")
-
-    # EMERGENCY → only if urgent NOT present
+        add_keyword("urgent care")
     elif (
         re.search(r"\ber\b", query_lower)
-        or "emergency" in query_lower
-        or "ambulance" in query_words
-        or ("room" in query_words and "emergency" in query_lower)
+        or smart_match("emergency", query_words, query_lower)
+        or smart_match("ambulance", query_words, query_lower)
     ):
         topics.append("emergency")
+        if smart_match("emergency room", query_words, query_lower):
+            add_keyword("emergency room")
+        else:
+            add_keyword("emergency")
 
-    # 4. IMAGING / DIAGNOSTIC (Splitting the logic)
-    if any(w in query_words for w in ["xray", "x-ray", "blood", "diagnostic"]):
-        topics.append("diagnostic")
-
-    if any(w in query_words for w in ["mri", "pet", "scan", "imaging", "ct"]):
-        topics.append("imaging")
-
-    # 5. NETWORK & PROVIDER (Network is a common topic that doesn't fit neatly into the others)
+    # 3. DIAGNOSTIC / IMAGING (Fuzzy Safe)
     if any(
-        w in query_words for w in ["network", "provider", "pay less", "balance-billing"]
+        smart_match(w, query_words, query_lower)
+        for w in ["xray", "blood", "diagnostic"]
+    ):
+        topics.append("diagnostic")
+        if smart_match("blood", query_words, query_lower):
+            add_keyword("blood work")
+        if smart_match("xray", query_words, query_lower) or "x-ray" in query_lower:
+            add_keyword("x-ray")
+
+    if any(
+        smart_match(w, query_words, query_lower)
+        for w in ["mri", "scan", "imaging", "ct"]
+    ):
+        topics.append("imaging")
+        if smart_match("mri", query_words, query_lower):
+            add_keyword("mri")
+        if smart_match("ct", query_words, query_lower):
+            add_keyword("ct scan")
+
+    # 4. NETWORK
+    if any(
+        smart_match(w, query_words, query_lower)
+        for w in ["network", "provider", "balance billing"]
     ):
         topics.append("network")
 
-    # 6. DENTAL & VISION
-    if any(w in query_words for w in ["dental", "ortho", "braces"]):
+    # 5. DENTAL / VISION
+    if any(smart_match(w, query_words, query_lower) for w in ["dental", "braces"]):
         topics.append("orthodontia")
-    if any(w in query_words for w in ["vision", "eye", "glasses"]):
+    if any(
+        smart_match(w, query_words, query_lower) for w in ["vision", "eye", "glasses"]
+    ):
         topics.append("vision")
 
-    # 7. PRIMARY & SPECIALIST
-    # PRIMARY / PCP
-    if (
-        any(w in query_words for w in ["pcp", "primary", "physician"])
-        or "primary care" in query_lower
+    # 6. PRIMARY / SPECIALIST
+    if smart_match("primary care", query_words, query_lower) or any(
+        smart_match(w, query_words, query_lower)
+        for w in ["pcp", "primary", "physician"]
     ):
-        topics.append("primary care provider")
-
-    # SPECIALIST
-    if "specialist" in query_words:
+        topics.append("Professional Visit Copay")
+        add_keyword("Professional Visit Copay")
+    if smart_match("specialist", query_words, query_lower):
         topics.append("specialist")
+        add_keyword("specialist visit")
 
-    # 8. MENTAL HEALTH & SUBSTANCE ABUSE
+    # 7. MENTAL HEALTH
     if any(
-        w in query_words
-        for w in ["mental", "behavioral", "substance", "abuse", "psychiatrist"]
+        smart_match(w, query_words, query_lower)
+        for w in ["mental", "behavioral", "psychiatrist", "psychological"]
     ):
         topics.append("mental-health")
+        if smart_match("psychological testing", query_words, query_lower):
+            add_keyword("psychological testing")
+        if smart_match("neuropsychological testing", query_words, query_lower):
+            add_keyword("neuropsychological testing")
+        if smart_match("mental health visit", query_words, query_lower):
+            add_keyword("mental health visit")
+        if smart_match("behavioral health", query_words, query_lower):
+            add_keyword("behavioral health")
 
-    # 9. PREGNANCY & CHILDBIRTH
+    # 8. MATERNITY
     if any(
-        w in query_words
-        for w in ["pregnant", "maternity", "childbirth", "delivery", "prenatal"]
+        smart_match(w, query_words, query_lower)
+        for w in ["pregnant", "maternity", "delivery", "prenatal"]
     ):
         topics.append("maternity")
 
-    # 10. HOSPITAL & SKILLED NURSING
-    if any(w in query_words for w in ["hospital", "inpatient", "nursing", "facility"]):
+    # 9. HOSPITAL
+    if any(
+        smart_match(w, query_words, query_lower)
+        for w in ["hospital", "nursing", "facility"]
+    ):
         topics.append("hospital")
 
-    # 11. CHILDREN'S VISION & DENTAL
-    if "child" in query_words or "children" in query_words:
-        if any(w in query_words for w in ["vision", "eye", "glasses"]):
-            topics.append("child-vision")
-        if any(w in query_words for w in ["dental", "teeth", "check-up"]):
-            topics.append("child-dental")
-
-    # 12. PHARMACY & DRUGS
+    # 10. PHARMACY
     if any(
-        w in query_words
+        smart_match(w, query_words, query_lower)
         for w in ["drug", "prescription", "pharmacy", "generic", "brand", "specialty"]
     ):
         topics.append("pharmacy")
 
-    # 13. REHAB & HABILITATIVE (Common in Premera SBCs)
+    # 11. REHABILITATION
     if any(
-        w in query_words
-        for w in [
-            "rehab",
-            "rehabilitation",
-            "habilitative",
-            "therapy",
-            "physical",
-            "speech",
-            "occupational",
-        ]
+        smart_match(w, query_words, query_lower)
+        for w in ["rehab", "therapy", "physical", "speech", "occupational"]
     ):
         topics.append("rehabilitation")
+        if smart_match("physical therapy", query_words, query_lower):
+            add_keyword("physical therapy")
+        if smart_match("speech therapy", query_words, query_lower):
+            add_keyword("speech therapy")
+        if smart_match("occupational therapy", query_words, query_lower):
+            add_keyword("occupational therapy")
 
-    # 14. Excluded services
-    if any(w in query_words for w in ["excluded", "exclude"]):
-        topics.append("excluded")
-
-    # 15. OTHER SERVICES
-    if any(w in query_words for w in ["other services", "other service"]):
-        topics.append("other services")
-
-    # 16. PRIOR AUTHORIZATION
-    if any(w in query_words for w in ["prior authorization", "authorization"]):
-        topics.append("prior authorization")
-
-    # 17. DRUGS
-    if any(
-        w in query_words
-        for w in ["preferred speciality drugs", "speciality drugs", "drugs"]
-    ):
-        topics.append("drugs")
-
-    # 18. COVERED SERVICES
-    if any(w in query_words for w in ["covered services", "covered"]):
-        topics.append("other covered services")
-
-    # 18. REFERRAL
-    if any(w in query_words for w in ["referral"]):
+    # 12. OTHER FLAGS
+    if smart_match("referral", query_words, query_lower):
         topics.append("referral")
+    if smart_match("authorization", query_words, query_lower):
+        topics.append("prior authorization")
+        
+    print(f"[*] Resolved Topics : {topics}")
+    print(f"[*] Extracted Keywords : {extracted_keywords}")
 
-    # # 18. PREVENTIVE CARE
-    # preventive_keywords = [
-    #     # Core Terms
-    #     "vaccination",
-    #     "immunization",
-    #     "shot",
-    #     "booster",
-    #     "vaccine",
-    #     "vax",
-    #     # Physicals & Wellness
-    #     "physical",
-    #     "check-up",
-    #     "checkup",
-    #     "wellness",
-    #     "routine exam",
-    #     "annual exam",
-    #     # Screenings & Tests
-    #     "screening",
-    #     "mammogram",
-    #     "colonoscopy",
-    #     "pap smear",
-    #     "blood pressure",
-    #     "cholesterol",
-    #     "biopsy",
-    #     "prostate exam",
-    #     "a1c",
-    #     "glucose test",
-    #     # Counseling & Lifestyle
-    #     "behavioral counseling",
-    #     "smoking cessation",
-    #     "nutrition therapy",
-    #     "obesity",
-    #     # Technical Terms
-    #     "prophylaxis",
-    #     "preventative",
-    #     "early detection",
-    # ]
-
-    # if any(w in query_words for w in preventive_keywords):
-    #     topics.append("preventive care")
-
-    print(f"[*] Resolved Topics from query : {query_lower}  : {topics}")
-    return topics
+    return {
+        "topics": list(set(topics)),
+        "keywords": list(set(extracted_keywords)),
+    }
 
 
 def generate_ironclad_instruction():
@@ -347,12 +765,12 @@ def detect_category(query_words, query):
     category = None
 
     if any(w in query_words for w in ["dental", "ortho", "braces"]):
-        print("[*] RULE MATCH → dental")
+        print("[*] CATEGORY MATCH → dental")
         category = "dental"
         return category
 
     if any(w in query_words for w in ["vision", "eye", "glasses"]):
-        print("[*] RULE MATCH → vision")
+        print("[*] CATEGORY MATCH → vision")
         category = "vision"
         return category
     if any(
@@ -374,13 +792,13 @@ def detect_category(query_words, query):
             "cancer",
         ]
     ):
-        print("[*] RULE MATCH → medical")
+        print("[*] CATEGORY MATCH → medical")
         category = "medical"
         return category
     # --------------------------------------------------
     # 🤖 LLM FALLBACK
     # --------------------------------------------------
-    print("[*] NO RULE MATCH → CALLING LLM")
+    print("[*] CATEGORY NOT FOUND → CALLING LLM")
     if category == None:
 
         return get_category_from_llm(query)
@@ -411,11 +829,12 @@ def extract_user_queries(recent_history):
 async def get_ai_response(query, history):
     # 1. ACCESS GLOBALS
     global p_type_fast, p_tier_fast, last_type_global
+
     found_topics = []
     keywords = []
 
     try:
-        from server import query_insurance_benefits
+        from insurance_mcp.server import query_insurance_benefits
 
         # --- 2. CONTEXT MERGING (MEMORY) ---
         recent_history = " ".join(
@@ -425,7 +844,9 @@ async def get_ai_response(query, history):
 
         # Clean words for surgical matching
         query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
+
         print(f"[*] Query Words for Matching: {query_words}")
+        print("[DEBUG] urgent match:", smart_match("urgent", query_words, query_lower))
 
         # --- 3. TYPE DETECTION ---
         p_type = detect_category(query_words, query)
@@ -456,7 +877,11 @@ async def get_ai_response(query, history):
             skip_topic_history_check = False
 
         # --- 4. UNIFIED TOPIC DETECTION ---
-        found_topics = resolve_insurance_topic(query_words, query_lower)
+        resolved = resolve_insurance_topic(query_words, query_lower)
+
+        found_topics = resolved.get("topics", [])
+        keywords = resolved.get("keywords", [])
+
         print(f"[*] LENGTH OF DETECTED TOPIC : {len(found_topics)}")
         # PROMPT: Category is Medical, but specific service is missing
         medical_detail_prompt = """
@@ -500,7 +925,7 @@ async def get_ai_response(query, history):
         # ========================================================================
         # IF STILL TOPIC IS BLANK THEN WE NEED TO TAKE LLM HELP TO IDENTIFY TOPIC
         # ========================================================================
-        if not found_topics:
+        if not found_topics and not keywords:
             print(f"[*] TURNING TO LLM TO FIND THE TOPIC FROM QUERY : {query}")
             topic_prompt = """
                 You are a medical insurance classification assistant.
@@ -695,7 +1120,13 @@ async def get_ai_response(query, history):
                                 found_topics.append(t)
 
                     else:
-                        print("[*] NO VALID TOPIC FROM LLM → USING KEYWORDS ONLY")
+                        # print("[*] NO VALID TOPIC FROM LLM → USING KEYWORDS ONLY")
+                        print("[*] NO VALID TOPIC FROM LLM → USING KEYWORDS AS TOPICS")
+
+                        # 🔥 fallback: use keywords as retrieval topics
+                        for kw in keywords:
+                            if kw not in found_topics:
+                                found_topics.append(kw)
 
                 except json.JSONDecodeError as e:
                     print(f"[!] JSON PARSE ERROR: {e}")

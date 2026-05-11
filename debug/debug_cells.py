@@ -3,9 +3,15 @@ Print exact raw cell text for rows containing rehabilitation, acupuncture, denta
 Usage: python debug_cells.py path/to/Medical.pdf
 """
 
-import sys, pdfplumber, re
+import sys, pdfplumber, re, os
 
-PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else "./docs/2026/medical/Medical.pdf"
+# Get the directory where THIS script (debug_summary.py) is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Move up one level from 'debug' to the root, then down into 'docs'
+DEFAULT_PDF = os.path.join(BASE_DIR, "..", "docs", "2026", "medical", "Medical.pdf")
+
+PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 # KEYWORDS = ["rehabilitation", "acupuncture", "dental injury"]
 
 # with pdfplumber.open(PDF_PATH) as pdf:

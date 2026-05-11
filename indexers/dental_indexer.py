@@ -19,7 +19,7 @@ import pdfplumber
 
 from datetime import datetime
 from dotenv import load_dotenv
-from utils import get_smart_keywords
+from utility.utils import get_smart_keywords
 
 load_dotenv()
 
@@ -62,54 +62,228 @@ def n(v):
 
 def classify_document(pdf_path):
     """
-    Extract plan identity from the Dental booklet cover pages using pdfplumber + LLM.
+    Read the first few pages of the Dental booklet PDF and extract:
+    - year
+    - group_number
+    - group_name
+    - plan
+    - type
+    - tier
+    - variant
+    - network
     """
 
     try:
         with pdfplumber.open(pdf_path) as pdf:
             header_text = ""
+
+            # ---------------------------------------------------------
+            # 🔥 READ FIRST FEW PAGES
+            # ---------------------------------------------------------
             for page in pdf.pages[:3]:
                 header_text += (page.extract_text() or "") + "\n"
-                if len(header_text) > 3000:
+
+                if len(header_text) > 4000:
                     break
 
+        # ---------------------------------------------------------
+        # 🔥 EXTRACTION PROMPT
+        # ---------------------------------------------------------
         prompt = f"""
-            ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
+        ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
+        Extract ONLY if explicitly present in the text. DO NOT GUESS.
 
-            Extract ONLY if explicitly present in the text.
+        ----------------------------------------
+        🎯 FIELDS TO EXTRACT
+        ----------------------------------------
 
-            Rules:
-            1. year: Extract from "Effective Date" or "January 1, YYYY"
-            2. type: Look for plan type embedded in the name (e.g. "Dental" → DENTAL).
-                Return "DENTAL" if this is a dental plan.
-            3. tier: Extract Gold/Silver/Bronze if present, else return null.
-            4. product_line: Full plan name as written (e.g. "Willamette Dental Plan").
-            5. variant: Modifiers like "Retiree", "Standard". Else return "Standard".
-            6. network: Network name if explicitly stated (e.g. "Willamette Dental Group").
-                Else return null.
+        1. year
+        - Extract from:
+            • "Effective Date"
+            • "Coverage Period"
+            • Any date like "January 1, YYYY"
+        - Return only the year as integer (e.g. 2025)
 
-            RETURN STRICT JSON ONLY. Example:
-            {{"year": 2024, "type": "DENTAL", "tier": null, "product_line": "Willamette Dental Plan", "variant": "Standard", "network": "Willamette Dental Group"}}
+        2. group_number
+        - Extract from:
+            • "Group Number"
+            • Standalone number near header
+        - Return as string
 
-            TEXT:
-            {header_text[:3000].strip()}
-            """
+        3. group_name
+        - Extract from:
+            • "Group Name"
+        - Return full text exactly
 
+        4. plan
+        - Extract FULL plan name exactly as written
+        - Examples:
+            "Premera Employees Health Plan – Standard PPO Retiree Plan"
+            "Heritage Prime HMO Gold 2500"
+
+        5. type
+        - Extract from explicit label OR plan name
+        - Allowed values ONLY:
+            HMO, PPO, EPO, HSA
+
+        6. tier
+        - Extract ONLY if explicitly present:
+            Gold / Silver / Bronze / Platinum
+        - Else return null
+
+        7. variant
+        - Extract plan modifiers such as:
+            Standard
+            Retiree
+            Basic
+            Plus
+            HDHP
+            Advantage
+        - Return as string
+        - If none found → return "Standard"
+
+        8. network
+        - Extract ONLY if explicitly mentioned
+        - Examples:
+            BlueCard Network
+            National Network
+            Heritage Network
+            In-Network Only
+        - Else return null
+
+        ----------------------------------------
+        🚫 STRICT RULES
+        ----------------------------------------
+
+        - DO NOT infer missing fields
+        - DO NOT guess network from PPO/HMO
+        - DO NOT fabricate tier
+        - DO NOT merge unrelated fields
+        - If missing → return null
+        - Return STRICT JSON ONLY
+
+        ----------------------------------------
+        ✅ OUTPUT FORMAT
+        ----------------------------------------
+
+        {{
+            "year": 2025,
+            "group_number": "1000016",
+            "group_name": "Premera Employees Health Plan",
+            "plan": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+            "type": "PPO",
+            "tier": null,
+            "variant": "Retiree",
+            "network": null
+        }}
+
+        ----------------------------------------
+        TEXT:
+        {header_text[:4000].strip()}
+        """
+
+        # ---------------------------------------------------------
+        # 🔥 CALL LLM
+        # ---------------------------------------------------------
         response = ollama.generate(
             model=os.getenv("OLLAMA_MODEL", "llama3.1"),
             prompt=prompt,
             format="json",
-            options={"temperature": 0},
+            options={
+                "temperature": 0,
+            },
         )
-        data = json_lib.loads(response["response"])
-        return {
-            "year": int(re.sub(r"\D", "", str(data.get("year", CURRENT_YEAR_INT)))),
-            "type": str(data.get("type", "DENTAL")).strip().upper(),
-            "tier": str(data.get("tier", "")).strip().capitalize(),
-            "product_line": str(data.get("product_line", "Dental Plan")).strip(),
-            "variant": str(data.get("variant", "Standard")).strip(),
-            "network": str(data.get("network", "")).strip(),
+
+        raw_response = response.get("response", "{}")
+
+        print(f"[*] RAW DOCUMENT CLASSIFICATION RESPONSE: {raw_response}")
+
+        data = json_lib.loads(raw_response)
+
+        # ---------------------------------------------------------
+        # 🔥 SAFE NORMALIZATION
+        # ---------------------------------------------------------
+
+        # YEAR
+        raw_year = str(data.get("year", "")).strip()
+        year_match = re.search(r"\d{4}", raw_year)
+
+        year = int(year_match.group()) if year_match else CURRENT_YEAR_INT
+
+        # TYPE
+        plan_type = str(data.get("type", "")).strip().upper()
+
+        allowed_types = {"HMO", "PPO", "EPO", "HSA"}
+
+        if plan_type not in allowed_types:
+            plan_type = "UNKNOWN"
+
+        # TIER
+        tier = data.get("tier")
+
+        if tier:
+            tier = str(tier).strip().capitalize()
+        else:
+            tier = None
+
+        # GROUP NUMBER
+        group_number = data.get("group_number")
+
+        if group_number:
+            group_number = str(group_number).strip()
+        else:
+            group_number = None
+
+        # GROUP NAME
+        group_name = data.get("group_name")
+
+        if group_name:
+            group_name = str(group_name).strip()
+        else:
+            group_name = None
+
+        # PLAN
+        plan = data.get("plan")
+
+        if plan:
+            plan = str(plan).strip()
+        else:
+            plan = "Unknown Plan"
+
+        # VARIANT
+        variant = data.get("variant")
+
+        if variant:
+            variant = str(variant).strip()
+        else:
+            variant = "Standard"
+
+        # NETWORK
+        network = data.get("network")
+
+        if network:
+            network = str(network).strip()
+        else:
+            network = None
+
+        # ---------------------------------------------------------
+        # 🔥 FINAL STRUCTURED OUTPUT
+        # ---------------------------------------------------------
+        final_data = {
+            "year": year,
+            "group_number": group_number,
+            "group_name": group_name,
+            "plan": plan,
+            "type": plan_type,
+            "tier": tier,
+            "variant": variant,
+            "network": network,
         }
+
+        print(f"[*] FINAL DOCUMENT CLASSIFICATION: {final_data}")
+
+        return final_data
+
     except Exception as e:
         print(f"[!] Dental classification failed: {e}")
         return None

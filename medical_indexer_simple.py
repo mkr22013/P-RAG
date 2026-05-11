@@ -12,7 +12,7 @@ import ollama
 
 from datetime import datetime
 from dotenv import load_dotenv
-from utils import get_smart_keywords
+from utils.utils import get_smart_keywords
 
 load_dotenv()
 

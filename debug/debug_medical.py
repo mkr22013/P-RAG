@@ -3,11 +3,18 @@ Find and inspect the complex benefits table pages.
 Usage: python debug_medical.py path/to/medical_booklet.pdf
 """
 
+import os
 import re
 import sys
 import pdfplumber
 
-PDF_PATH = r"docs\2026\Medical\Medical.pdf"  # adjust path
+# Get the directory where THIS script (debug_summary.py) is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Move up one level from 'debug' to the root, then down into 'docs'
+DEFAULT_PDF = os.path.join(BASE_DIR, "..", "docs", "2026", "medical", "Medical.pdf")
+
+PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 
 # with pdfplumber.open(PDF_PATH) as pdf:
 #     print(f"Total pages: {len(pdf.pages)}\n")

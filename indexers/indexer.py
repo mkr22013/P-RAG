@@ -18,9 +18,10 @@ import sqlite3
 import json as json_lib
 import re
 
-import sbc_indexer
-import medical_indexer
-import dental_indexer
+from indexers import sbc_indexer as sbc_indexer
+from indexers import medical_indexer as medical_indexer
+from indexers import dental_indexer as dental_indexer
+
 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -47,12 +48,14 @@ def setup_db():
     cursor = conn.cursor()
 
     # 1. Master Index for Fast Routing with unique Plan Identity
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS master_index (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             year INTEGER, 
             plan_category TEXT,     -- SBC, MEDICAL, DENTAL, VISION 
+            group_number TEXT,      -- e.g. "12345" (optional, may be null)
+            group_name TEXT,        -- e.g. "Premera Employees" (optional, may be null)
+            plan TEXT,              -- e.g. "Standard PPO Retiree Plan" (optional, may be null)
             plan_type TEXT,    -- PPO, HMO, HSA
             plan_tier TEXT,    -- Gold, Silver, Bronze
             product_line TEXT, -- e.g., 'EPO HSA Preferred', 'Cascade Care'
@@ -61,25 +64,25 @@ def setup_db():
             pdf_path TEXT UNIQUE, 
             sub_index_path TEXT
         )
-    """
-    )
+    """)
 
     # Performance: This 5-way Composite Index is the "Identity Lock"
     # It ensures lookups for specific variants are instant and deterministic.
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE INDEX IF NOT EXISTS idx_plan_identity 
         ON master_index (year, plan_category, plan_type, plan_tier, product_line, variant, network)
-    """
-    )
+    """)
 
     # 2. FTS5 Virtual Table for Fuzzy Search
     # We include product_line and variant so users can search for "94%" or "HSA"
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE VIRTUAL TABLE IF NOT EXISTS search_index 
         USING fts5(
             year, 
+            category,
+            group_number, 
+            group_name,        
+            plan,
             tier, 
             type, 
             product_line,
@@ -91,8 +94,7 @@ def setup_db():
             keywords, 
             tokenize='porter'
         )
-    """
-    )
+    """)
 
     conn.commit()
     conn.close()
@@ -104,203 +106,241 @@ def build_all():
     os.makedirs(INDEX_OUTPUT_DIR, exist_ok=True)
 
     conn = sqlite3.connect(DB_PATH)
+
     doc_path = os.path.abspath(DOC_BASE_DIR)
     print(f"[*] Absolute Doc Path: {doc_path}")
 
     for root, _, files in os.walk(doc_path):
+
         parts = os.path.normpath(root).lower().split(os.sep)
 
+        # ---------------------------------------------------------
+        # YEAR FROM FOLDER
+        # ---------------------------------------------------------
         path_year = next((int(p) for p in parts if p.isdigit()), None)
 
-        # Determine booklet type from the folder path.
-        # Walk all path parts and return the first one that matches a known
-        # booklet strategy — this works regardless of subfolder depth.
-        # e.g. docs/2025/sbc/file.pdf  →  "sbc"
-        #      docs/medical/plan_a/file.pdf  →  "medical"
+        # ---------------------------------------------------------
+        # PLAN CATEGORY FROM FOLDER
+        # ---------------------------------------------------------
         final_plan_category = next(
             (p for p in parts if p in BOOKLET_STRATEGIES),
-            os.path.basename(root).lower(),  # fallback to immediate folder name
+            os.path.basename(root).lower(),
         )
 
         for filename in files:
+
             if not filename.lower().endswith(".pdf"):
                 continue
+
             pdf_path = os.path.abspath(os.path.join(root, filename))
 
             try:
-                print(f"[*] Processing: {filename}...")
+                print(f"\n[*] Processing: {filename}")
 
-                # ── STEP 1: Classify + Index — look up strategy by folder name ─
+                # =====================================================
+                # STEP 1: PICK STRATEGY
+                # =====================================================
                 strategy = BOOKLET_STRATEGIES.get(final_plan_category)
+
                 if not strategy:
-                    print(
-                        f"[!] Unknown folder type '{final_plan_category}' — skipping {filename}"
-                    )
+                    print(f"[!] Unknown folder type '{final_plan_category}' — skipping")
                     continue
 
                 classify_fn, generate_index_fn = strategy
-                print(
-                    f"[*] PICKING UP INDEXER BASED ON TYPE OF BOOKLET TO BE INDEXED : {generate_index_fn}"
-                )
-                plan_info = classify_fn(pdf_path)
-                print(f"[*] LLM Classification for {filename}: {plan_info}")
-                # --- STEP 2: HARDENED IDENTITY FALLBACKS ---
 
-                # Folder path overrides LLM guess for Year and Type
+                print(f"[*] USING INDEXER: {generate_index_fn.__name__}")
+
+                # =====================================================
+                # STEP 2: CLASSIFY DOCUMENT
+                # =====================================================
+                plan_info = classify_fn(pdf_path)
+
+                print(f"[*] RAW PLAN INFO: {plan_info}")
+
+                # =====================================================
+                # STEP 3: SAFE NORMALIZATION
+                # =====================================================
+
+                # -------------------------
+                # YEAR
+                # -------------------------
                 final_year = path_year or (
-                    plan_info["year"]
+                    plan_info.get("year")
                     if plan_info and plan_info.get("year")
                     else CURRENT_YEAR_INT
                 )
 
-                # -----------------------------
-                # TYPE LOGIC (FINAL FIX)
-                # -----------------------------
-                llm_type = (
-                    str(plan_info.get("type", "")).upper()
-                    if plan_info and plan_info.get("type")
+                # -------------------------
+                # GROUP NUMBER
+                # -------------------------
+                final_group_number = (
+                    str(plan_info.get("group_number")).strip()
+                    if plan_info and plan_info.get("group_number")
                     else ""
                 )
 
-                # Normalize LLM types
-                VALID_TYPES = ["HMO", "PPO", "EPO", "HSA"]
-
-                if llm_type not in VALID_TYPES:
-                    final_type = ""
-                else:
-                    final_type = llm_type
+                # -------------------------
+                # GROUP NAME
+                # -------------------------
+                final_group_name = (
+                    str(plan_info.get("group_name")).strip()
+                    if plan_info and plan_info.get("group_name")
+                    else ""
+                )
 
                 # -------------------------
-                # Tier
+                # PLAN TYPE
                 # -------------------------
+                VALID_TYPES = {
+                    "HMO",
+                    "PPO",
+                    "EPO",
+                    "HSA",
+                    "DENTAL",
+                    "VISION",
+                }
+
+                raw_type = (
+                    str(plan_info.get("type", "")).upper().strip() if plan_info else ""
+                )
+
+                final_type = raw_type if raw_type in VALID_TYPES else ""
+
+                # -------------------------
+                # TIER
+                # -------------------------
+                raw_tier = str(plan_info.get("tier", "")).strip() if plan_info else ""
+
                 final_tier = (
-                    plan_info["tier"] if plan_info and plan_info.get("tier") else "Gold"
-                ).capitalize()
-                print(f"[*] Tier Locked: {final_tier}")
+                    raw_tier.capitalize()
+                    if raw_tier and raw_tier.lower() != "none"
+                    else ""
+                )
 
-                if final_tier.lower() == "none":
-                    row_tier = ""
-                else:
-                    row_tier = final_tier
                 # -------------------------
-                # Product Line
+                # PLAN NAME
                 # -------------------------
-                raw_prod = plan_info.get("product_line", "") if plan_info else ""
+                raw_plan = str(plan_info.get("plan", "")).strip() if plan_info else ""
 
-                if not raw_prod or str(raw_prod).lower() in [
-                    "plan",
-                    "standard",
-                    "none",
-                    "",
-                ]:
-                    final_product = (
-                        filename.replace(".pdf", "").replace("_", " ").title()
+                if not raw_plan or raw_plan.lower() in ["plan", "none"]:
+                    final_plan = (
+                        filename.replace(".pdf", "").replace("_", " ").strip().title()
                     )
                 else:
-                    final_product = str(raw_prod).strip()
+                    final_plan = raw_plan
 
                 # -------------------------
-                # Variant (DB SAFE)
+                # VARIANT
                 # -------------------------
-                raw_vari = plan_info.get("variant", "") if plan_info else ""
+                raw_variant = (
+                    str(plan_info.get("variant", "")).strip() if plan_info else ""
+                )
 
-                if not raw_vari or str(raw_vari).lower() in ["none", "standard", ""]:
-                    final_variant = "Standard"
-                else:
-                    final_variant = str(raw_vari).strip()
+                final_variant = (
+                    raw_variant
+                    if raw_variant and raw_variant.lower() != "none"
+                    else "Standard"
+                )
 
                 # -------------------------
-                # Network (DB SAFE — NO HARDCODE)
+                # NETWORK
                 # -------------------------
-                raw_net = plan_info.get("network") if plan_info else None
+                raw_network = (
+                    str(plan_info.get("network", "")).strip()
+                    if plan_info and plan_info.get("network")
+                    else ""
+                )
 
-                if raw_net and str(raw_net).strip().lower() not in ["network", "none"]:
-                    final_network = str(raw_net).strip()
-                else:
-                    final_network = "Unknown Network"
+                final_network = raw_network if raw_network else ""
 
                 print(
-                    f"[*] Identity Locked: {final_year} | {final_product} | {final_network}"
+                    f"[*] FINAL METADATA:"
+                    f"\n    Year: {final_year}"
+                    f"\n    Group #: {final_group_number}"
+                    f"\n    Group Name: {final_group_name}"
+                    f"\n    Plan: {final_plan}"
+                    f"\n    Type: {final_type}"
+                    f"\n    Tier: {final_tier}"
+                    f"\n    Variant: {final_variant}"
+                    f"\n    Network: {final_network}"
                 )
 
                 # =====================================================
-                # 🧼 STEP 3: CLEAN FILENAME (NO NOISE VALUES)
+                # STEP 4: BUILD CLEAN INDEX FILENAME
                 # =====================================================
 
-                INVALID_NETWORK_VALUES = {
-                    "unknown network",
-                    "standard network",
-                    "network",
-                    "",
-                }
+                def safe_slug(v):
+                    return re.sub(r"\W+", "_", str(v).lower()).strip("_")
 
-                INVALID_VARIANT_VALUES = {
-                    "standard",
-                    "none",
-                    "",
-                }
-
-                # Clean product
-                safe_prod = re.sub(r"\W+", "_", final_product.lower()).strip("_")
-
-                # Clean network (ONLY if real)
-                raw_net_clean = str(final_network).strip().lower()
-                if raw_net_clean not in INVALID_NETWORK_VALUES:
-                    safe_net = re.sub(r"\W+", "_", raw_net_clean).strip("_")
-                else:
-                    safe_net = None
-
-                # Clean variant (ONLY if meaningful)
-                raw_var_clean = str(final_variant).strip().lower()
-                if raw_var_clean not in INVALID_VARIANT_VALUES:
-                    safe_var = re.sub(r"\W+", "_", raw_var_clean).strip("_")
-                else:
-                    safe_var = None
-
-                # -------------------------
-                # Build filename dynamically
-                # -------------------------
-                filepath = [
+                filepath_parts = [
                     str(final_year),
                     final_plan_category,
-                    final_type,
-                    row_tier,
-                    safe_prod,
                 ]
 
-                if safe_var:
-                    filepath.append(safe_var)
+                if final_type:
+                    filepath_parts.append(safe_slug(final_type))
 
-                if safe_net:
-                    filepath.append(safe_net)
+                if final_tier:
+                    filepath_parts.append(safe_slug(final_tier))
 
-                unique_fn = "_".join(filepath) + ".json"
+                if final_group_number:
+                    filepath_parts.append(safe_slug(final_group_number))
+
+                filepath_parts.append(safe_slug(final_plan))
+
+                if final_variant:
+                    filepath_parts.append(safe_slug(final_variant))
+
+                if final_network:
+                    filepath_parts.append(safe_slug(final_network))
+
+                unique_fn = "_".join(filepath_parts) + ".json"
 
                 sub_index_path = os.path.abspath(
                     os.path.join(INDEX_OUTPUT_DIR, unique_fn)
                 )
 
-                # ── STEP 4: Generate index using the booklet-specific parser ───
-                sub_chunks = generate_index_fn(sub_index_path, pdf_path)
+                print(f"[*] SUB INDEX PATH: {sub_index_path}")
 
-                # --- STEP 4: DB INSERTS (Surgical Siloing) ---
+                # =====================================================
+                # STEP 5: GENERATE SUB INDEX
+                # =====================================================
+                sub_chunks = generate_index_fn(
+                    sub_index_path,
+                    pdf_path,
+                )
+
+                # =====================================================
+                # STEP 6: CLEAN OLD RECORDS
+                # =====================================================
                 conn.execute(
                     """
-                    DELETE FROM search_index 
-                    WHERE year = ? AND tier = ? AND type = ? 
-                    AND product_line = ? AND variant = ? AND network = ?
-                """,
+                    DELETE FROM search_index
+                    WHERE
+                        year = ?
+                        AND group_number = ?
+                        AND plan = ?
+                        AND type = ?
+                        AND tier = ?
+                        AND variant = ?
+                        AND network = ?
+                    """,
                     (
                         final_year,
-                        final_tier,
+                        final_group_number,
+                        final_plan,
                         final_type,
-                        final_product,
+                        final_tier,
                         final_variant,
                         final_network,
                     ),
                 )
 
+                # =====================================================
+                # STEP 7: INSERT CHUNKS
+                # =====================================================
                 for chunk in sub_chunks:
+
                     raw_content = chunk.get("content", "")
 
                     if isinstance(raw_content, dict):
@@ -308,7 +348,6 @@ def build_all():
                     else:
                         clean_content = str(raw_content)
 
-                    # ✅ SAFE KEYWORDS HANDLING (FIXED)
                     keywords_str = (
                         " ".join(chunk.get("keywords", []))
                         if chunk.get("keywords")
@@ -317,36 +356,66 @@ def build_all():
 
                     conn.execute(
                         """
-                        INSERT INTO search_index 
-                        (year, tier, type, product_line, variant, network, topic, benefit_category, content, keywords) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
-                    """,
+                        INSERT INTO search_index (
+                            year,
+                            group_number,
+                            group_name,
+                            plan,
+                            type,
+                            tier,
+                            variant,
+                            network,
+                            topic,
+                            benefit_category,
+                            content,
+                            keywords
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
                         (
                             final_year,
-                            final_tier,
+                            final_group_number,
+                            final_group_name,
+                            final_plan,
                             final_type,
-                            final_product,
+                            final_tier,
                             final_variant,
                             final_network,
-                            chunk.get("topic", ""),  # ✅ extra safety
+                            chunk.get("topic", ""),
                             chunk.get("benefit_category", ""),
                             clean_content,
                             keywords_str,
                         ),
                     )
 
+                # =====================================================
+                # STEP 8: MASTER INDEX
+                # =====================================================
                 conn.execute(
                     """
-                    INSERT OR REPLACE INTO master_index 
-                    (year, plan_category, plan_type, plan_tier, product_line, variant, network, pdf_path, sub_index_path) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
+                    INSERT OR REPLACE INTO master_index (
+                        year,
+                        plan_category,
+                        group_number,
+                        group_name,
+                        plan,
+                        plan_type,
+                        plan_tier,
+                        variant,
+                        network,
+                        pdf_path,
+                        sub_index_path
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
                     (
                         final_year,
                         final_plan_category,
+                        final_group_number,
+                        final_group_name,
+                        final_plan,
                         final_type,
                         final_tier,
-                        final_product,
                         final_variant,
                         final_network,
                         pdf_path,
@@ -355,6 +424,7 @@ def build_all():
                 )
 
                 conn.commit()
+
                 print(f"✅ SUCCESS: {filename} -> {unique_fn}")
 
             except Exception as e:
@@ -365,6 +435,273 @@ def build_all():
 
 if __name__ == "__main__":
     build_all()
+
+
+# ===================================Previous Code (for reference)====================================
+
+# def build_all():
+#     setup_db()
+#     os.makedirs(INDEX_OUTPUT_DIR, exist_ok=True)
+
+#     conn = sqlite3.connect(DB_PATH)
+#     doc_path = os.path.abspath(DOC_BASE_DIR)
+#     print(f"[*] Absolute Doc Path: {doc_path}")
+
+#     for root, _, files in os.walk(doc_path):
+#         parts = os.path.normpath(root).lower().split(os.sep)
+
+#         path_year = next((int(p) for p in parts if p.isdigit()), None)
+
+#         # Determine booklet type from the folder path.
+#         # Walk all path parts and return the first one that matches a known
+#         # booklet strategy — this works regardless of subfolder depth.
+#         # e.g. docs/2025/sbc/file.pdf  →  "sbc"
+#         #      docs/medical/plan_a/file.pdf  →  "medical"
+#         final_plan_category = next(
+#             (p for p in parts if p in BOOKLET_STRATEGIES),
+#             os.path.basename(root).lower(),  # fallback to immediate folder name
+#         )
+
+#         for filename in files:
+#             if not filename.lower().endswith(".pdf"):
+#                 continue
+#             pdf_path = os.path.abspath(os.path.join(root, filename))
+
+#             try:
+#                 print(f"[*] Processing: {filename}...")
+
+#                 # ── STEP 1: Classify + Index — look up strategy by folder name ─
+#                 strategy = BOOKLET_STRATEGIES.get(final_plan_category)
+#                 if not strategy:
+#                     print(
+#                         f"[!] Unknown folder type '{final_plan_category}' — skipping {filename}"
+#                     )
+#                     continue
+
+#                 classify_fn, generate_index_fn = strategy
+#                 print(
+#                     f"[*] PICKING UP INDEXER BASED ON TYPE OF BOOKLET TO BE INDEXED : {generate_index_fn}"
+#                 )
+#                 plan_info = classify_fn(pdf_path)
+#                 print(f"[*] LLM Classification for {filename}: {plan_info}")
+#                 # --- STEP 2: HARDENED IDENTITY FALLBACKS ---
+
+#                 # Folder path overrides LLM guess for Year and Type
+#                 final_year = path_year or (
+#                     plan_info["year"]
+#                     if plan_info and plan_info.get("year")
+#                     else CURRENT_YEAR_INT
+#                 )
+
+#                 # -----------------------------
+#                 # TYPE LOGIC (FINAL FIX)
+#                 # -----------------------------
+#                 llm_type = (
+#                     str(plan_info.get("type", "")).upper()
+#                     if plan_info and plan_info.get("type")
+#                     else ""
+#                 )
+
+#                 # Normalize LLM types
+#                 VALID_TYPES = ["HMO", "PPO", "EPO", "HSA"]
+
+#                 if llm_type not in VALID_TYPES:
+#                     final_type = ""
+#                 else:
+#                     final_type = llm_type
+
+#                 # -------------------------
+#                 # Tier
+#                 # -------------------------
+#                 final_tier = (
+#                     plan_info["tier"] if plan_info and plan_info.get("tier") else "Gold"
+#                 ).capitalize()
+#                 print(f"[*] Tier Locked: {final_tier}")
+
+#                 if final_tier.lower() == "none":
+#                     row_tier = ""
+#                 else:
+#                     row_tier = final_tier
+#                 # -------------------------
+#                 # Product Line
+#                 # -------------------------
+#                 raw_prod = plan_info.get("product_line", "") if plan_info else ""
+
+#                 if not raw_prod or str(raw_prod).lower() in [
+#                     "plan",
+#                     "standard",
+#                     "none",
+#                     "",
+#                 ]:
+#                     final_product = (
+#                         filename.replace(".pdf", "").replace("_", " ").title()
+#                     )
+#                 else:
+#                     final_product = str(raw_prod).strip()
+
+#                 # -------------------------
+#                 # Variant (DB SAFE)
+#                 # -------------------------
+#                 raw_vari = plan_info.get("variant", "") if plan_info else ""
+
+#                 if not raw_vari or str(raw_vari).lower() in ["none", "standard", ""]:
+#                     final_variant = "Standard"
+#                 else:
+#                     final_variant = str(raw_vari).strip()
+
+#                 # -------------------------
+#                 # Network (DB SAFE — NO HARDCODE)
+#                 # -------------------------
+#                 raw_net = plan_info.get("network") if plan_info else None
+
+#                 if raw_net and str(raw_net).strip().lower() not in ["network", "none"]:
+#                     final_network = str(raw_net).strip()
+#                 else:
+#                     final_network = "Unknown Network"
+
+#                 print(
+#                     f"[*] Identity Locked: {final_year} | {final_product} | {final_network}"
+#                 )
+
+#                 # =====================================================
+#                 # 🧼 STEP 3: CLEAN FILENAME (NO NOISE VALUES)
+#                 # =====================================================
+
+#                 INVALID_NETWORK_VALUES = {
+#                     "unknown network",
+#                     "standard network",
+#                     "network",
+#                     "",
+#                 }
+
+#                 INVALID_VARIANT_VALUES = {
+#                     "standard",
+#                     "none",
+#                     "",
+#                 }
+
+#                 # Clean product
+#                 safe_prod = re.sub(r"\W+", "_", final_product.lower()).strip("_")
+
+#                 # Clean network (ONLY if real)
+#                 raw_net_clean = str(final_network).strip().lower()
+#                 if raw_net_clean not in INVALID_NETWORK_VALUES:
+#                     safe_net = re.sub(r"\W+", "_", raw_net_clean).strip("_")
+#                 else:
+#                     safe_net = None
+
+#                 # Clean variant (ONLY if meaningful)
+#                 raw_var_clean = str(final_variant).strip().lower()
+#                 if raw_var_clean not in INVALID_VARIANT_VALUES:
+#                     safe_var = re.sub(r"\W+", "_", raw_var_clean).strip("_")
+#                 else:
+#                     safe_var = None
+
+#                 # -------------------------
+#                 # Build filename dynamically
+#                 # -------------------------
+#                 filepath = [
+#                     str(final_year),
+#                     final_plan_category,
+#                     final_type,
+#                     row_tier,
+#                     safe_prod,
+#                 ]
+
+#                 if safe_var:
+#                     filepath.append(safe_var)
+
+#                 if safe_net:
+#                     filepath.append(safe_net)
+
+#                 unique_fn = "_".join(filepath) + ".json"
+
+#                 sub_index_path = os.path.abspath(
+#                     os.path.join(INDEX_OUTPUT_DIR, unique_fn)
+#                 )
+
+#                 # ── STEP 4: Generate index using the booklet-specific parser ───
+#                 sub_chunks = generate_index_fn(sub_index_path, pdf_path)
+
+#                 # --- STEP 4: DB INSERTS (Surgical Siloing) ---
+#                 conn.execute(
+#                     """
+#                     DELETE FROM search_index
+#                     WHERE year = ? AND tier = ? AND type = ?
+#                     AND product_line = ? AND variant = ? AND network = ?
+#                 """,
+#                     (
+#                         final_year,
+#                         final_tier,
+#                         final_type,
+#                         final_product,
+#                         final_variant,
+#                         final_network,
+#                     ),
+#                 )
+
+#                 for chunk in sub_chunks:
+#                     raw_content = chunk.get("content", "")
+
+#                     if isinstance(raw_content, dict):
+#                         clean_content = json_lib.dumps(raw_content)
+#                     else:
+#                         clean_content = str(raw_content)
+
+#                     # ✅ SAFE KEYWORDS HANDLING (FIXED)
+#                     keywords_str = (
+#                         " ".join(chunk.get("keywords", []))
+#                         if chunk.get("keywords")
+#                         else ""
+#                     )
+
+#                     conn.execute(
+#                         """
+#                         INSERT INTO search_index
+#                         (year, tier, type, product_line, variant, network, topic, benefit_category, content, keywords)
+#                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+#                     """,
+#                         (
+#                             final_year,
+#                             final_tier,
+#                             final_type,
+#                             final_product,
+#                             final_variant,
+#                             final_network,
+#                             chunk.get("topic", ""),  # ✅ extra safety
+#                             chunk.get("benefit_category", ""),
+#                             clean_content,
+#                             keywords_str,
+#                         ),
+#                     )
+
+#                 conn.execute(
+#                     """
+#                     INSERT OR REPLACE INTO master_index
+#                     (year, plan_category, plan_type, plan_tier, product_line, variant, network, pdf_path, sub_index_path)
+#                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+#                 """,
+#                     (
+#                         final_year,
+#                         final_plan_category,
+#                         final_type,
+#                         final_tier,
+#                         final_product,
+#                         final_variant,
+#                         final_network,
+#                         pdf_path,
+#                         sub_index_path,
+#                     ),
+#                 )
+
+#                 conn.commit()
+#                 print(f"✅ SUCCESS: {filename} -> {unique_fn}")
+
+#             except Exception as e:
+#                 print(f"❌ FAILED {filename}: {e}")
+
+#     conn.close()
+
 
 # import os
 # import sqlite3

@@ -12,7 +12,9 @@ from dotenv import load_dotenv
 # ============================================================
 
 load_dotenv()
-DB_PATH = "p_insurance_index.db"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(BASE_DIR, "indexers", "p_insurance_index.db")
 
 mcp = FastMCP("Insurance-Secure-RAG")
 
@@ -32,11 +34,13 @@ def get_member_plan_info_sbc():
     return {
         "year": "2026",
         "plan_category": "sbc",
+        "group_number": "1000016",
+        "group_name": "Premera Employees",
         "plan_type": "PPO",
-        "plan_tier": None,
+        "plan_tier": "",
         "product_line": "Your Future HSA Qualified Agg NGF - SF",
         "variant": "Standard",
-        "network": "Unknown Network",
+        "network": "",
     }
 
 
@@ -44,11 +48,14 @@ def get_member_plan_info_medical():
     return {
         "year": "2026",
         "plan_category": "medical",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Premera Employees Health Plan – Standard PPO Retiree Plan	",
         "plan_type": "PPO",
-        "plan_tier": None,
-        "product_line": "Premera Employees Health Plan - Standard PPO Retiree Plan (Non-Grandfathered)",
+        "plan_tier": "",
+        "product_line": "Null",
         "variant": "Retiree",
-        "network": "Unknown Network",
+        "network": "",
     }
 
 
@@ -56,11 +63,14 @@ def get_member_plan_info_dental():
     return {
         "year": "2026",
         "plan_category": "dental",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Willamette Dental Plan",
         "plan_type": "",
-        "plan_tier": None,
-        "product_line": "Willamette Dental Plan",
+        "plan_tier": "",
+        "product_line": "Null",
         "variant": "Standard",
-        "network": "Unknown Network",
+        "network": "",
     }
 
 
@@ -109,47 +119,89 @@ def get_plan_data_from_disk(query, topics, category, keywords):
             member_plan_info = get_member_plan_info_sbc()
             print("[*] USING SBC BOOKLET TO SEARCH CONTENT")
 
+        print(f"[*] DB PATH : {DB_PATH} ")
+
         with sqlite3.connect(DB_PATH) as conn:
             cursor = conn.cursor()
 
-            sql = """
-                SELECT sub_index_path
-                FROM master_index
-                WHERE 1=1
-            """
+            # We use a base query and build filters carefully
+            sql = "SELECT sub_index_path FROM master_index WHERE year = ? AND plan_category = ?"
+            params = [member_plan_info["year"], member_plan_info["plan_category"]]
 
-            params = []
+            # List of fields to filter on
+            # Format: (DB_COLUMN_NAME, DICTIONARY_KEY)
+            filters = [
+                ("plan_type", "plan_type"),
+                ("plan_tier", "plan_tier"),
+                ("product_line", "product_line"),
+                ("variant", "variant"),
+                ("network", "network"),
+            ]
 
-            sql += " AND year = ?"
-            params.append(member_plan_info["year"])
+            for db_col, dict_key in filters:
+                val = str(member_plan_info.get(dict_key, "")).strip()
 
-            sql += " AND plan_category LIKE ?"
-            params.append(f"%{member_plan_info["plan_category"]}%")
+                # If value is empty or the string "NULL", we check for empty OR null in DB
+                if val == "" or val.upper() == "NULL":
+                    sql += (
+                        f" AND ({db_col} IS NULL OR {db_col} = '' OR {db_col} = 'NULL')"
+                    )
+                else:
+                    # Use exact match for stability, or LIKE if you prefer partial
+                    sql += f" AND {db_col} LIKE ?"
+                    params.append(f"%{val}%")
 
-            if member_plan_info["plan_type"] != "":
-                sql += " AND plan_type LIKE ?"
-                params.append(f"%{member_plan_info["plan_type"]}%")
+            print(f"[*] FINAL QUERY: {sql}")
+            print(f"[*] PARAMS: {params}")
 
-            sql += " AND plan_tier LIKE ?"
-            params.append(f"%{member_plan_info["plan_tier"]}%")
-
-            sql += " AND product_line LIKE ?"
-            params.append(f"%{member_plan_info["product_line"]}%")
-
-            sql += " AND variant LIKE ?"
-            params.append(f"%{member_plan_info["variant"]}%")
-
-            sql += " AND network LIKE ?"
-            params.append(f"%{member_plan_info["network"]}%")
-
-            print(f"[*] FINAL QUERY TO BE EXECUTED : {sql} ")
-            print(f"[*] PARAM PASSED TO QUERY : {params}")
             cursor.execute(sql, params)
             rows = cursor.fetchall()
-            print(f"[*] ROWS RETURNED : {rows} ")
+            print(f"[*] ROWS RETURNED: {rows}")
 
         if not rows:
-            return f"ERROR: Plan for {member_plan_info["year"]} {member_plan_info["plan_tier"]} {member_plan_info["plan_type"]} not found."
+            return f"ERROR: Plan not found for {member_plan_info['plan_category']} - {member_plan_info['variant']}"
+
+        # with sqlite3.connect(DB_PATH) as conn:
+        #     cursor = conn.cursor()
+
+        #     sql = """
+        #         SELECT sub_index_path
+        #         FROM master_index
+        #         WHERE 1=1
+        #     """
+
+        #     params = []
+
+        #     sql += " AND year = ?"
+        #     params.append(member_plan_info["year"])
+
+        #     sql += " AND plan_category LIKE ?"
+        #     params.append(f"%{member_plan_info["plan_category"]}%")
+
+        #     if member_plan_info["plan_type"] != "":
+        #         sql += " AND plan_type LIKE ?"
+        #         params.append(f"%{member_plan_info["plan_type"]}%")
+
+        #     sql += " AND plan_tier LIKE ?"
+        #     params.append(f"%{member_plan_info["plan_tier"]}%")
+
+        #     sql += " AND product_line LIKE ?"
+        #     params.append(f"%{member_plan_info["product_line"]}%")
+
+        #     sql += " AND variant LIKE ?"
+        #     params.append(f"%{member_plan_info["variant"]}%")
+
+        #     sql += " AND network LIKE ?"
+        #     params.append(f"%{member_plan_info["network"]}%")
+
+        #     print(f"[*] FINAL QUERY TO BE EXECUTED : {sql} ")
+        #     print(f"[*] PARAM PASSED TO QUERY : {params}")
+        #     cursor.execute(sql, params)
+        #     rows = cursor.fetchall()
+        #     print(f"[*] ROWS RETURNED : {rows} ")
+
+        # if not rows:
+        #     return f"ERROR: Plan for {member_plan_info["year"]} {member_plan_info["plan_tier"]} {member_plan_info["plan_type"]} not found."
 
         # Normalize inputs
 
@@ -165,7 +217,7 @@ def get_plan_data_from_disk(query, topics, category, keywords):
         print(f"[*] RAW TOPICS: {topics}")
 
         sectioned_context = {}  # 🔥 group by type
-        
+
         # ------------------------------------------------------------
         # 🔧 🔁 MAIN LOOP HELPERS
         # ------------------------------------------------------------
@@ -362,10 +414,23 @@ def get_plan_data_from_disk(query, topics, category, keywords):
                 # ============================================================
                 # 🔥 SAME EVENT GROUPING
                 # ============================================================
+                # def extract_event(p):
+                #     c = p.get("content", {})
+                #     if isinstance(c, dict):
+                #         return normalize_text(c.get("event", p.get("topic", "")))
+                #     return normalize_text(p.get("topic", ""))
+
+                # event_set = set(extract_event(p) for p in prioritized)
                 def extract_event(p):
                     c = p.get("content", {})
+
                     if isinstance(c, dict):
-                        return normalize_text(c.get("event", p.get("topic", "")))
+                        event = normalize_text(c.get("event", ""))
+                        service = normalize_text(c.get("service", ""))
+
+                        # 🔥 combine event + service
+                        return f"{event}_{service}"
+
                     return normalize_text(p.get("topic", ""))
 
                 event_set = set(extract_event(p) for p in prioritized)
@@ -373,7 +438,20 @@ def get_plan_data_from_disk(query, topics, category, keywords):
                 # ============================================================
                 # 🔥 FINAL SELECTION
                 # ============================================================
-                if len(prioritized) == 1:
+                MULTI_ROW_TOPICS = {
+                    "deductible",
+                    "out-of-pocket",
+                    "oop",
+                    "imaging",
+                    "diagnostic",
+                    "hospital",
+                    "rehabilitation",
+                }
+
+                if topic in MULTI_ROW_TOPICS:
+                    selected_chunks = prioritized[:10]
+
+                elif len(prioritized) == 1:
                     selected_chunks = prioritized[:1]
 
                 elif len(event_set) == 1:
@@ -384,7 +462,7 @@ def get_plan_data_from_disk(query, topics, category, keywords):
 
                 else:
                     selected_chunks = prioritized[:3]
-
+                    
                 if not selected_chunks and prioritized:
                     selected_chunks = prioritized[:1]
 
@@ -435,9 +513,12 @@ def get_plan_data_from_disk(query, topics, category, keywords):
                     if chunk_type == "cost":
                         structured = {
                             "event": content.get("event", selected.get("topic", "")),
-                            "service": content.get("service", selected.get("topic", "")),
+                            "service": content.get(
+                                "service", selected.get("topic", "")
+                            ),
                             "in_network": content.get("in_network") or "Data Not Found",
-                            "out_of_network": content.get("out_of_network") or "Data Not Found",
+                            "out_of_network": content.get("out_of_network")
+                            or "Data Not Found",
                             "notes": content.get("limitations") or "Data Not Found",
                         }
 
@@ -448,7 +529,8 @@ def get_plan_data_from_disk(query, topics, category, keywords):
                         structured = {
                             "question": content.get("question", ""),
                             "answer": content.get("answer") or "Data Not Found",
-                            "explanation": content.get("explanation") or "Data Not Found",
+                            "explanation": content.get("explanation")
+                            or "Data Not Found",
                         }
 
                     else:

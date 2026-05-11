@@ -7,6 +7,7 @@ Uses docling for PDF → markdown conversion, then parses the markdown.
 """
 import re
 import json as json_lib
+from pathlib import Path
 import ollama
 
 from datetime import datetime
@@ -19,7 +20,7 @@ from docling.datamodel.pipeline_options import (
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.base_models import InputFormat
 from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
-from utils import get_smart_keywords
+from utility.utils import get_smart_keywords
 
 # Docling converter — initialised once so the ML model is loaded only once per run.
 _converter = DocumentConverter(
@@ -49,48 +50,117 @@ CURRENT_YEAR_INT = datetime.now().year
 
 
 def classify_document(pdf_path):
-    """Extract plan identity from an SBC PDF using docling markdown."""
+    """
+    Extract SBC plan identity from the PDF using docling markdown.
+
+    NOTE:
+    SBC documents are inconsistent and usually do NOT contain:
+    - group number
+    - group name
+    - reliable network labels
+
+    Those should come from folder structure fallback:
+    docs/<year>/sbc/<group_number>/<group_name>/<plan_type>/
+
+    Example:
+    docs/2026/sbc/1000016/Your Future HSA Qualified Agg NGF - SF/PPO/
+    """
+
     md_content = _pdf_to_markdown(pdf_path)
+
     if not md_content:
         return None
+
     try:
-        header_snippet = md_content[:6500].strip()
+        header_snippet = md_content[:4000].strip()
+        footer_snippet = md_content[-2000:].strip()
+        full_context = f"{header_snippet}\n\n[FOOTER SECTION]\n{footer_snippet}"
 
         prompt = f"""
-            ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
+        ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
 
-            Extract ONLY if explicitly present in the text.
+        Extract ONLY if explicitly present in the text.
+        DO NOT GUESS.
 
-            Rules:
+        ------------------------------------------------
+        🎯 FIELDS TO EXTRACT
+        ------------------------------------------------
 
-            1. year:
-            - Extract from "Coverage Period"
+        1. year
+        - Extract from:
+            • "Coverage Period"
+            • Any explicit year
 
-            2. type:
-            - ONLY extract if "Plan Type: <VALUE>" exists
-            - Allowed: HMO, PPO, EPO, HSA
+        2. group_number
+        - SCAN THE ENTIRE TEXT, including footers.
+        - Look for a 7-digit numeric pattern (e.g., 1000016).
+        - It is often embedded in strings like "WA 24311 | 1000016" at the bottom of the page.
+        - Extract this number even if the label "Group Number" is missing.
 
-            3. tier:
-            - Extract from plan title (Gold, Silver, Bronze, Catastrophic)
+        3. group_name
+        - Extract the organization or plan sponsor name.
+        - If not explicitly labeled, look at the very top header of Page 1.
+        - If the plan name is "Premera Employees Health Plan", the group name is "Premera Employees".
+        - Else return null
 
-            4. product_line:
-            - Extract plan name after "Premera Blue Cross:"
-            - Remove metal tier words
+        4. plan
+        - Look for the employer or organization name.
+        - If "Group Number" is found, the text immediately near it is often the Group Name.
+        - If not found, look at the very top of Page 1.
+        - Else return null
 
-            5. variant:
-            - Extract modifiers like Standard, CSR, etc
-            - Else return "Standard"
+        5. type
+        - ONLY extract if explicitly shown
+        - Allowed:
+            PPO, HMO, EPO, HSA
 
-            6. network:
-            - ONLY extract if explicitly labeled (e.g. "Network: Sherwood")
-            - DO NOT infer from provider names
-            - If not found → return null
+        6. tier
+        - Extract metal tier ONLY if explicitly present:
+            Gold, Silver, Bronze, Platinum, Catastrophic
+        - Else return null
 
-            RETURN STRICT JSON ONLY.
+        7. variant
+        - Extract modifiers such as:
+            CSR, Standard, Basic, Plus
+        - Else return "Standard"
 
-            TEXT:
-            {header_snippet}
-            """
+        8. network
+        - Extract ONLY if explicitly labeled:
+            Examples:
+                "Sherwood Network"
+                "BlueCard Network"
+        - DO NOT infer from provider names
+        - Else return null
+
+        ------------------------------------------------
+        🚫 STRICT RULES
+        ------------------------------------------------
+
+        - DO NOT infer missing fields
+        - DO NOT invent group numbers
+        - DO NOT fabricate network
+        - DO NOT combine fields
+        - If not found → return null
+
+        ------------------------------------------------
+        ✅ OUTPUT FORMAT (STRICT JSON ONLY)
+        ------------------------------------------------
+
+        {{
+            "year": 2026,
+            "group_number": null,
+            "group_name": null,
+            "plan": "Your Future HSA Qualified Agg NGF - SF",
+            "type": "PPO",
+            "tier": null,
+            "variant": "Standard",
+            "network": null
+        }}
+
+        ------------------------------------------------
+        TEXT:
+        {header_snippet}
+        """
 
         response = ollama.generate(
             model=os.getenv("OLLAMA_MODEL", "llama3.1"),
@@ -101,17 +171,144 @@ def classify_document(pdf_path):
 
         data = json_lib.loads(response["response"])
 
-        return {
-            "year": int(re.sub(r"\D", "", str(data.get("year", CURRENT_YEAR_INT)))),
-            "type": str(data.get("type", "")).strip().upper(),
-            "tier": str(data.get("tier", "Gold")).strip().capitalize(),
-            "product_line": str(data.get("product_line", "Plan")).strip(),
-            "variant": str(data.get("variant", "Standard")).strip(),
-            "network": str(data.get("network", "Standard Network")).strip(),
+        # =====================================================
+        # HELPERS
+        # =====================================================
+        def clean_null(v):
+            if not v:
+                return None
+            if str(v).strip().lower() in {"null", "none", "unknown", ""}:
+                return None
+            return str(v).strip()
+
+        # =====================================================
+        # INITIAL EXTRACTION FROM LLM
+        # =====================================================
+        res = {
+            "year": data.get("year"),
+            "group_number": clean_null(data.get("group_number")),
+            "group_name": clean_null(data.get("group_name")),
+            "plan": clean_null(data.get("plan")),
+            "type": clean_null(data.get("type")),
+            "tier": clean_null(data.get("tier")),
+            "variant": clean_null(data.get("variant")) or "Standard",
+            "network": clean_null(data.get("network")),
         }
+
+        # =====================================================
+        # 📂 FOLDER STRUCTURE FALLBACK (THE FAIL-SAFE)
+        # Expected: .../<year>/sbc/<group_number>/<plan_name>/<type>/file.pdf
+        # =====================================================
+        path_parts = Path(pdf_path).parts
+
+        # Fallback for Group Number (index -4)
+        if not res["group_number"] and len(path_parts) >= 4:
+            potential_group = path_parts[-4]
+            if re.fullmatch(r"\d{7}", potential_group):
+                res["group_number"] = potential_group
+                print(f"[*] Fallback: Used Folder for Group# -> {res['group_number']}")
+
+        # Fallback for Plan Name (index -3)
+        if not res["plan"] and len(path_parts) >= 3:
+            res["plan"] = path_parts[-3]
+            print(f"[*] Fallback: Used Folder for Plan -> {res['plan']}")
+
+        # Fallback for Plan Type (index -2)
+        if not res["type"] and len(path_parts) >= 2:
+            res["type"] = path_parts[-2].upper()
+            print(f"[*] Fallback: Used Folder for Type -> {res['type']}")
+
+        # Fallback for Year (index -6)
+        if not res["year"] and len(path_parts) >= 6:
+            try:
+                res["year"] = int(re.sub(r"\D", "", path_parts[-6]))
+            except:
+                res["year"] = CURRENT_YEAR_INT
+
+        # =====================================================
+        # FINAL NORMALIZATION
+        # =====================================================
+        try:
+            res["year"] = int(re.sub(r"\D", "", str(res["year"])))
+        except:
+            res["year"] = CURRENT_YEAR_INT
+
+        if res["type"]:
+            res["type"] = res["type"].upper()
+        if res["tier"]:
+            res["tier"] = res["tier"].capitalize()
+
+        return res
+
     except Exception as e:
-        print(f"[!] Dynamic classification failed: {e}")
+        print(f"[!] SBC classification failed: {e}")
         return None
+
+
+# def classify_document(pdf_path):
+#     """Extract plan identity from an SBC PDF using docling markdown."""
+#     md_content = _pdf_to_markdown(pdf_path)
+#     if not md_content:
+#         return None
+#     try:
+#         header_snippet = md_content[:6500].strip()
+
+#         prompt = f"""
+#             ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
+
+#             Extract ONLY if explicitly present in the text.
+
+#             Rules:
+
+#             1. year:
+#             - Extract from "Coverage Period"
+
+#             2. type:
+#             - ONLY extract if "Plan Type: <VALUE>" exists
+#             - Allowed: HMO, PPO, EPO, HSA
+
+#             3. tier:
+#             - Extract from plan title (Gold, Silver, Bronze, Catastrophic)
+
+#             4. product_line:
+#             - Extract plan name after "Premera Blue Cross:"
+#             - Remove metal tier words
+
+#             5. variant:
+#             - Extract modifiers like Standard, CSR, etc
+#             - Else return "Standard"
+
+#             6. network:
+#             - ONLY extract if explicitly labeled (e.g. "Network: Sherwood")
+#             - DO NOT infer from provider names
+#             - If not found → return null
+
+#             RETURN STRICT JSON ONLY.
+
+#             TEXT:
+#             {header_snippet}
+#             """
+
+#         response = ollama.generate(
+#             model=os.getenv("OLLAMA_MODEL", "llama3.1"),
+#             prompt=prompt,
+#             format="json",
+#             options={"temperature": 0},
+#         )
+
+#         data = json_lib.loads(response["response"])
+
+#         return {
+#             "year": int(re.sub(r"\D", "", str(data.get("year", CURRENT_YEAR_INT)))),
+#             "type": str(data.get("type", "")).strip().upper(),
+#             "tier": str(data.get("tier", "Gold")).strip().capitalize(),
+#             "product_line": str(data.get("product_line", "Plan")).strip(),
+#             "variant": str(data.get("variant", "Standard")).strip(),
+#             "network": str(data.get("network", "Standard Network")).strip(),
+#         }
+#     except Exception as e:
+#         print(f"[!] Dynamic classification failed: {e}")
+#         return None
 
 
 def generate_sub_index(sub_index_path, pdf_path):

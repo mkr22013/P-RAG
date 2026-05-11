@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import json
 import ollama
-from client import get_ai_response  # Your existing RAG logic
+from clients.client import get_ai_response  # Your existing RAG logic
 from fpdf import FPDF
 import logging
 

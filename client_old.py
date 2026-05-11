@@ -147,7 +147,7 @@ def lock_plan_metadata(found_years, detected_type, detected_tier):
     CROSS-REFERENCE: Compares detected intent against the ACTUAL DB Index.
     Returns (Valid Years, Valid Type, Valid Tier).
     """
-    from server import get_available_plans
+    from mcp.server import get_available_plans
     import ast
 
     # 1. Get the actual schema from the DB
@@ -381,7 +381,7 @@ async def get_ai_response(query, history):
     has_retrieved_data = False
     turn_count = 0
     try:
-        from server import (
+        from mcp.server import (
             query_insurance_benefits,
             get_available_plans,
            

@@ -1,3 +1,5 @@
+Medical Plan Test Queries
+==============================================================
 allergy testing and treatment cost
 
 want to know about blood products
@@ -14,11 +16,11 @@ show me all Apicoectomy benefits
 
 Can you show me transplants cost
 
-cost of Virtual substance use disorder visits 
+cost of Virtual substance use disorder visits - Info section shows 1 extra row seems like care is generic word
 
 show me all benefits for Temporomandibular Joint Disorders (TMJ) Care
 
-show me all my virtual care benefits
+show me all my virtual care benefits 
 
 I want to know about nicotine habit breaking programs cost
 
@@ -60,7 +62,7 @@ does clinical trials covered for me?
 
 what are the cost for breast reconstructions
 
-show me gender affirming care profesional service
+show me gender affirming care professional service
 
 does my plan provide medical food during my hospital stay
 
@@ -70,3 +72,159 @@ show me new born care impatient care cost
 
 does my plan cover Non-preferred generic and brand name drugs?
 
+==================Mixed queries=================================
+
+what is covered under clinical trials and what does it cost
+
+tell me about emergency room coverage and cost
+
+what does my plan cover for medical transportation and how much does it cost
+
+vision exam coverage and cost
+
+what is prior authorization and how does it affect my benefits
+===============================================================
+
+
+Vision Plan Test Queries
+===============================================================
+COST queries (expect: cost table, no LLM)
+
+What is the cost for a vision exam?
+What is my out-of-network cost for vision hardware?
+How much does vision hardware cost in network?
+What is the annual limit for vision hardware?
+Is there a calendar year limit for eye exams?
+
+INFO queries (expect: info table, no LLM)
+
+What services are covered under vision exams?
+What vision hardware is covered under my plan?
+Are contact lenses covered under my vision plan?
+What is NOT covered under vision hardware?
+How does selecting an in-network vision provider affect my costs?
+
+OUT-OF-AREA queries (expect: info table)
+
+What happens if I need vision care outside Washington?
+Is vision care covered when I am travelling?
+
+EXCLUSION queries (expect: info table)
+
+What vision services are excluded from my plan?
+Are plain sunglasses covered under my vision plan?
+
+MIXED / EDGE queries (expect: LLM — cost + info together)
+
+What does my vision plan cover and how much will I pay?
+=================================================================
+
+Premera Dental Plan Test Queries
+=================================================================
+
+COST queries (expect: cost table, no LLM)
+
+What is my coinsurance for a basic dental service?
+What percentage do I pay for major dental work like a crown?
+What is my calendar year dental deductible?
+What is the annual maximum benefit for dental?
+What does Class I diagnostic and preventive services cost me?
+
+INFO queries — class coverage (expect: info table, no LLM)
+
+What services are covered under Class I diagnostic and preventive?
+What dental services fall under Class II basic services?
+What is included in Class III major dental services?
+Are fillings covered under my dental plan?
+Is a root canal covered and what class is it?
+
+INFO queries — special benefits (expect: info table, no LLM)
+
+Is orthodontic treatment covered under my dental plan?
+Is TMJ treatment covered?
+Are dental implants covered?
+What dental services are NOT covered or excluded?
+
+MIXED query (expect: LLM — cost + info together)
+
+What does my dental plan cover and how much will I pay for each type of service?
+
+
+
+==============================================================
+Willamette Dental Plan Test Queries
+==============================================================
+
+OFFICE VISIT queries (expect: Office Visit Copayments)
+
+What is my general office visit copay for dental?
+What is my specialist office visit copay for dental?
+
+DIAGNOSTIC AND PREVENTIVE queries (expect: cost table, D0xxx/D1xxx codes)
+
+How much does a teeth cleaning cost?
+What is the cost for a dental x-ray?
+How much is a dental exam?
+What does a panoramic x-ray cost?
+What is the cost for fluoride treatment?
+How much are sealants?
+
+RESTORATIVE queries (expect: cost table, D2xxx codes)
+
+What is the cost for a filling?
+How much does an amalgam filling cost?
+What is my copay for a composite filling?
+
+CROWNS queries (expect: cost table, D2710-D2792 codes)
+
+How much does a crown cost?
+What is my copay for a porcelain crown?
+What does a stainless steel crown cost?
+
+ENDODONTIC queries (expect: cost table, D3xxx codes)
+
+What does a root canal cost?
+How much is an apicoectomy?
+What is the cost for a pulp cap?
+
+PERIODONTIC queries (expect: cost table, D4xxx codes)
+
+How much is periodontal scaling and root planing?
+What does periodontic maintenance cost?
+What is my copay for gum surgery?
+
+ORAL SURGERY queries (expect: cost table, D7xxx codes)
+
+How much does a tooth extraction cost?
+What is the cost to remove an impacted tooth?
+What does wisdom tooth removal cost?
+
+PROSTHODONTICS queries (expect: cost table, D5xxx/D6xxx codes)
+
+How much does a complete denture cost?
+What is the cost for a partial denture?
+How much does a dental bridge cost?
+
+IMPLANTS queries (expect: cost table, D6010-D6011)
+
+How much does a dental implant cost?
+What is covered for dental implants?
+
+ADJUNCTIVE queries (expect: cost table, D9xxx codes)
+
+What does nitrous oxide cost at the dentist?
+How much is general anesthesia for a dental procedure?
+What is my emergency dental visit copay?
+
+INFO queries (expect: info table, no cost)
+
+Is TMJ treatment covered under my dental plan?
+What dental services are not covered?
+What happens if I go to an out of network dentist?
+What are my orthodontic benefits?
+Is there a maximum benefit for implants?
+
+MIXED queries (expect: LLM)
+
+What does my dental plan cover and what are the costs?
+==============================================================

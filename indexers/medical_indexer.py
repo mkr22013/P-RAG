@@ -660,6 +660,247 @@ def parse_summary_page(pdf_path):
     return entries
 
 
+def parse_prose_sections(pdf_path):
+    """
+    Scan all prose pages and extract every benefit-relevant section
+    as a category="info" entry.
+
+    Fixes applied:
+    1. Title Case benefit headers detected (Blood Products, Emergency Room, etc.)
+    2. Continuation headers merged (Cellular Immunotherapy And + Gene Therapy)
+    3. Cost table content filtered out (deductible/copay leakage)
+    4. Address/contact noise filtered out
+    5. Lines starting with ( filtered out
+    """
+    import pdfplumber
+
+    ADMIN_SECTIONS = {
+        # Enrollment / eligibility
+        "WHEN DOES COVERAGE BEGIN",
+        "ENROLLMENT",
+        "SPECIAL ENROLLMENT",
+        "WHO IS ELIGIBLE",
+        "SUBSCRIBER ELIGIBILITY",
+        "DEPENDENT ELIGIBILITY",
+        "CHANGES IN COVERAGE",
+        "PLAN TRANSFERS",
+        "EVENTS THAT END COVERAGE",
+        "PLAN TERMINATION",
+        "CONTINUED ELIGIBILITY",
+        "LEAVE OF ABSENCE",
+        "LABOR DISPUTE",
+        # Continuation / COBRA
+        "HOW DO I CONTINUE COVERAGE",
+        "COBRA",
+        "EXTENDED BENEFITS",
+        "CONTINUATION UNDER USERRA",
+        "USERRA",
+        "MEDICARE SUPPLEMENT",
+        # Claims / appeals
+        "HOW DO I FILE A CLAIM",
+        "WHERE TO SEND CLAIMS",
+        "MAIL YOUR CLAIMS",
+        "COMPLAINTS AND APPEALS",
+        "WHAT YOU CAN APPEAL",
+        "APPEAL LEVELS",
+        "IF WE NEED MORE TIME",
+        "WHAT IF IT",
+        "HOW TO ASK FOR AN EXTERNAL",
+        "ONCE THE IRO",
+        "EXTERNAL REVIEW",
+        # Coordination / recovery
+        "WHAT IF YOU HAVE ONGOING CARE",
+        "COORDINATING BENEFITS",
+        "WHAT IF I HAVE OTHER COVERAGE",
+        "THIRD PARTY RECOVERY",
+        # Admin / legal
+        "PRIVACY",
+        "NOTICE OF INFORMATION",
+        "ERISA",
+        "YOUR ERISA RIGHTS",
+        "TYPE OF ADMINISTRATION",
+        "RIGHT TO AND PAYMENT",
+        "RIGHT OF RECOVERY",
+        "OTHER INFORMATION ABOUT THIS PLAN",
+        "CONFORMITY WITH THE LAW",
+        "TIMELY FILING",
+        "VENUE",
+        # Navigation / contact
+        "DEFINITIONS",
+        "CONTACT US",
+        "FOR MORE INFORMATION",
+        "YOUR IDENTIFICATION CARD",
+        "HOW TO USE THIS BOOKLET",
+        "TABLE OF CONTENTS",
+        "INTRODUCTION",
+    }
+
+    def is_admin(header):
+        h = re.sub(r"\s+", " ", header.upper().strip())
+        return any(a in h for a in ADMIN_SECTIONS)
+
+    def is_address_header(header):
+        lower = header.lower()
+        return any(
+            p in lower
+            for p in (
+                "wa 98",
+                "po box",
+                "mailing address",
+                "phone number",
+                "seattle,",
+                "mountlake",
+                "bluecard website",
+                "844-",
+                ", wa ",
+            )
+        )
+
+    def is_cost_table_content(text):
+        """True if content is cost table data, not a prose description."""
+        lower = text.lower()
+        cost_hits = sum(
+            1
+            for w in (
+                "coinsurance",
+                "copay",
+                "deductible",
+                "in-network",
+                "out-of-network",
+            )
+            if w in lower
+        )
+        return cost_hits >= 2 and len(text) < 300
+
+    def is_section_header(line):
+        if len(line) < 4 or len(line) > 100:
+            return False
+        TABLE_WORDS = (
+            "IN-NETWORK PROVIDERS",
+            "OUT-OF-NETWORK PROVIDERS",
+            "YOUR SHARE OF THE ALLOWED AMOUNT",
+            "BENEFIT IN-NETWORK",
+        )
+        if any(w in line.upper() for w in TABLE_WORDS):
+            return False
+        # Skip sentences, bullets, symbols, parentheses
+        if line.rstrip().endswith("."):
+            return False
+        if re.match(r"^[•\-\*\d\$%(]", line):
+            return False
+        words = line.split()
+        upper_ratio = sum(1 for c in line if c.isupper()) / max(len(line), 1)
+        if upper_ratio > 0.7:
+            return True
+        SENTENCE_STARTERS = {
+            "the",
+            "a",
+            "an",
+            "you",
+            "we",
+            "this",
+            "these",
+            "for",
+            "if",
+            "when",
+            "while",
+            "note",
+            "see",
+            "benefits",
+            "covered",
+            "services",
+            "some",
+            "in",
+        }
+        if 2 <= len(words) <= 7:
+            cap_ratio = sum(1 for w in words if w and w[0].isupper()) / len(words)
+            first_word = words[0].lower() if words else ""
+            if cap_ratio >= 0.6 and first_word not in SENTENCE_STARTERS:
+                return True
+        return False
+
+    # Continuation endings: header split across lines (e.g. "Cellular Immunotherapy And")
+    CONTINUATION_ENDINGS = re.compile(r"\b(And|Or|Of|–|-|The|For|In|A)\s*$", re.I)
+
+    all_lines = []
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text() or ""
+            for line in text.split("\n"):
+                stripped = line.strip()
+                if stripped:
+                    all_lines.append(stripped)
+
+    sections = []
+    current_header = None
+    current_content = []
+
+    for line in all_lines:
+        if is_section_header(line):
+            if current_header and current_content:
+                sections.append((current_header, current_content))
+            # Merge continuation: "Cellular Immunotherapy And" + "Gene Therapy"
+            if (
+                current_header
+                and not current_content
+                and CONTINUATION_ENDINGS.search(current_header)
+            ):
+                current_header = current_header.rstrip("–- ") + " " + line
+            else:
+                current_header = line
+                current_content = []
+        elif current_header:
+            current_content.append(line)
+
+    if current_header and current_content:
+        sections.append((current_header, current_content))
+
+    entries = []
+    seen_headers = set()
+
+    for header, content_lines in sections:
+        if is_admin(header):
+            continue
+        if is_address_header(header):
+            continue
+
+        header_key = re.sub(r"\s+", " ", header.upper().strip())
+        if header_key in seen_headers:
+            continue
+        seen_headers.add(header_key)
+
+        content_text = " ".join(content_lines).strip()
+        if len(content_text) < 80:
+            continue
+        if is_cost_table_content(content_text):
+            continue
+
+        event = header.strip().title()
+
+        entries.append(
+            {
+                "topic": f"{event} \u2014 Coverage Information",
+                "category": "info",
+                "benefit_category": "medical",
+                "content": {
+                    "event": event,
+                    "service": "Coverage Information",
+                    "in_network": "Data Not Found",
+                    "out_of_network": "Data Not Found",
+                    "limitations": content_text,
+                },
+                "keywords": get_smart_keywords(
+                    {
+                        "event": event,
+                        "limitations": content_text,
+                    }
+                ),
+            }
+        )
+
+    return entries
+
+
 def generate_sub_index(sub_index_path, pdf_path):
     """
     Parse the Medical Benefits booklet and write a structured index file.
@@ -674,10 +915,10 @@ def generate_sub_index(sub_index_path, pdf_path):
         Col 1/2 used as fallback for simpler 3-col layouts
 
     For each data row:
-      1. Parse col 0 → benefit name + list of services
-      2. Parse col 3 and col 6 → ordered cost lists
-      3. Pair each service with its cost by position
-         If fewer costs than services, the last cost is reused (inherited)
+        1. Parse col 0 → benefit name + list of services
+        2. Parse col 3 and col 6 → ordered cost lists
+        3. Pair each service with its cost by position
+            If fewer costs than services, the last cost is reused (inherited)
 
     Page-continuation rows: when col 0 has no benefit name (PDF splits a row
     across pages), the last seen benefit name is reused.
@@ -834,6 +1075,19 @@ def generate_sub_index(sub_index_path, pdf_path):
             print("[!] Summary page: no entries found — page structure may differ")
     except Exception as e:
         print(f"[!] Summary page parsing failed (benefit index unaffected): {e}")
+
+    # Parse prose sections (coverage descriptions, provider rules, exclusions etc.)
+    # as category="info" entries so members can ask "what is covered?" questions.
+    # FULLY ISOLATED — any failure here never touches the cost table entries above.
+    try:
+        info_entries = parse_prose_sections(pdf_path)
+        sub_index.extend(info_entries)
+        if info_entries:
+            print(f"[+] Prose sections: {len(info_entries)} info entries added")
+        else:
+            print("[!] Prose sections: no entries found")
+    except Exception as e:
+        print(f"[!] Prose parsing failed (cost table unaffected): {e}")
 
     with open(sub_index_path, "w", encoding="utf-8") as f:
         json_lib.dump(sub_index, f, indent=4)

@@ -18,10 +18,10 @@ import sqlite3
 import json as json_lib
 import re
 
-from indexers import sbc_indexer as sbc_indexer
+from indexers import sbc_indexer as sbc_indexer, vision_indexer
 from indexers import medical_indexer as medical_indexer
 from indexers import dental_indexer as dental_indexer
-
+from indexers import vision_indexer as vision_indexer
 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -37,9 +37,10 @@ CURRENT_YEAR_INT = datetime.now().year
 # Maps folder name (lowercase) → (classify_fn, generate_index_fn)
 # Add new booklet types here without touching build_all().
 BOOKLET_STRATEGIES = {
-    "sbc": (sbc_indexer.classify_document, sbc_indexer.generate_sub_index),
+    "sbc":     (sbc_indexer.classify_document,    sbc_indexer.generate_sub_index),
     "medical": (medical_indexer.classify_document, medical_indexer.generate_sub_index),
-    "dental": (dental_indexer.classify_document, dental_indexer.generate_sub_index),
+    "dental":  (dental_indexer.classify_document,  dental_indexer.generate_sub_index),
+    "vision":  (vision_indexer.classify_document,  vision_indexer.generate_sub_index),
 }
 
 

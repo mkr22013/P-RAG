@@ -191,106 +191,152 @@ PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 #         if page_num >= 12:  # limit output
 #             break
 
-"""
-Trace get_subsection_headers and parse_benefit_cell for the dental row.
-Usage: python debug_dental.py path/to/Medical.pdf
-"""
 
-CROSS_REF = re.compile(r"\s*\(See.*", re.I)
+# # #==========================================================================debug medical for cost benefits parsing==========================================================================
+# # """
+# # Trace get_subsection_headers and parse_benefit_cell for the dental row.
+# # Usage: python debug_dental.py path/to/Medical.pdf
+# # """
 
-
-def get_subsection_headers(page):
-    lines = {}
-    for char in page.chars:
-        if char["x0"] >= 200:
-            continue
-        y = round(char["top"] / 2) * 2
-        lines.setdefault(y, []).append(char)
-
-    starters = set()
-    for y in sorted(lines):
-        chars = sorted(lines[y], key=lambda c: c["x0"])
-        line_text = "".join(c["text"] for c in chars).strip()
-        if not line_text.startswith("•"):
-            continue
-        after = [c for c in chars if c["text"] not in ("•", " ")]
-        is_bold = any(
-            "Bold" in c.get("fontname", "") or "bold" in c.get("fontname", "")
-            for c in after
-        )
-        first_word = (
-            line_text.lstrip("• ").split()[0] if line_text.lstrip("• ").split() else ""
-        )
-        print(
-            f"  bullet: {line_text[:45]!r:47} bold={is_bold}  first_word={first_word!r}"
-        )
-        if is_bold and first_word:
-            starters.add(first_word)
-    return starters
+# # CROSS_REF = re.compile(r"\s*\(See.*", re.I)
 
 
-def parse_benefit_cell(cell_text, subsection_headers):
-    benefit = ""
-    current_subsection = None
-    services = []
-    lines = cell_text.split("\n")
-    i = 0
-    while i < len(lines):
-        line = lines[i].strip()
-        if not line:
-            i += 1
-            continue
-        if line.startswith("•"):
-            item = re.sub(r"^•\s*", "", line)
-            i += 1
-            while i < len(lines) and not lines[i].strip().startswith("•"):
-                cont = lines[i].strip()
-                if cont and not CROSS_REF.match(cont):
-                    item += " " + cont
-                i += 1
-            had_cross_ref = bool(re.search(r"\(See", item, re.I))
-            item = CROSS_REF.sub("", item).strip()
-            first_word = item.split()[0] if item else ""
-            if had_cross_ref or first_word in subsection_headers:
-                print(f"    → SUBSECTION: {item!r}  (cross_ref={had_cross_ref})")
-                current_subsection = item
-            elif item:
-                print(
-                    f"    → SERVICE: {item!r}  under subsection={current_subsection!r}"
-                )
-                services.append((item, current_subsection))
-        else:
-            benefit = (benefit + " " + line).strip()
-            i += 1
-    return benefit, services
+# # def get_subsection_headers(page):
+# #     lines = {}
+# #     for char in page.chars:
+# #         if char["x0"] >= 200:
+# #             continue
+# #         y = round(char["top"] / 2) * 2
+# #         lines.setdefault(y, []).append(char)
+
+# #     starters = set()
+# #     for y in sorted(lines):
+# #         chars = sorted(lines[y], key=lambda c: c["x0"])
+# #         line_text = "".join(c["text"] for c in chars).strip()
+# #         if not line_text.startswith("•"):
+# #             continue
+# #         after = [c for c in chars if c["text"] not in ("•", " ")]
+# #         is_bold = any(
+# #             "Bold" in c.get("fontname", "") or "bold" in c.get("fontname", "")
+# #             for c in after
+# #         )
+# #         first_word = (
+# #             line_text.lstrip("• ").split()[0] if line_text.lstrip("• ").split() else ""
+# #         )
+# #         print(
+# #             f"  bullet: {line_text[:45]!r:47} bold={is_bold}  first_word={first_word!r}"
+# #         )
+# #         if is_bold and first_word:
+# #             starters.add(first_word)
+# #     return starters
+
+
+# # def parse_benefit_cell(cell_text, subsection_headers):
+# #     benefit = ""
+# #     current_subsection = None
+# #     services = []
+# #     lines = cell_text.split("\n")
+# #     i = 0
+# #     while i < len(lines):
+# #         line = lines[i].strip()
+# #         if not line:
+# #             i += 1
+# #             continue
+# #         if line.startswith("•"):
+# #             item = re.sub(r"^•\s*", "", line)
+# #             i += 1
+# #             while i < len(lines) and not lines[i].strip().startswith("•"):
+# #                 cont = lines[i].strip()
+# #                 if cont and not CROSS_REF.match(cont):
+# #                     item += " " + cont
+# #                 i += 1
+# #             had_cross_ref = bool(re.search(r"\(See", item, re.I))
+# #             item = CROSS_REF.sub("", item).strip()
+# #             first_word = item.split()[0] if item else ""
+# #             if had_cross_ref or first_word in subsection_headers:
+# #                 print(f"    → SUBSECTION: {item!r}  (cross_ref={had_cross_ref})")
+# #                 current_subsection = item
+# #             elif item:
+# #                 print(
+# #                     f"    → SERVICE: {item!r}  under subsection={current_subsection!r}"
+# #                 )
+# #                 services.append((item, current_subsection))
+# #         else:
+# #             benefit = (benefit + " " + line).strip()
+# #             i += 1
+# #     return benefit, services
+
+
+# # with pdfplumber.open(PDF_PATH) as pdf:
+# #     for page_num, page in enumerate(pdf.pages):
+# #         text = (page.extract_text() or "").upper()
+# #         if "DENTAL INJURY" not in text or "YOUR SHARE" not in text:
+# #             continue
+
+# #         print(f"\n{'='*60}")
+# #         print(f"PAGE {page_num+1}")
+# #         print(f"{'='*60}")
+
+# #         print("\n--- get_subsection_headers ---")
+# #         headers = get_subsection_headers(page)
+# #         print(f"\nFINAL subsection_headers = {headers}\n")
+
+# #         tables = page.extract_tables() or []
+# #         for table in tables:
+# #             for ri, row in enumerate(table):
+# #                 if ri < 2:
+# #                     continue
+# #                 c0 = str(row[0] or "")
+# #                 if "dental injury" not in c0.lower():
+# #                     continue
+# #                 print(f"--- parse_benefit_cell ---")
+# #                 benefit, services = parse_benefit_cell(c0, headers)
+# #                 print(f"\nbenefit = {benefit!r}")
+# #                 print(f"services ({len(services)}):")
+# #                 for svc, sub in services:
+# #                     print(f"  service={svc!r}  subsection={sub!r}")
+# #         break
+# # #=========================================================================================================================================
+
+# Admin sections to skip (same as vision)
+ADMIN = {
+    "enrollment",
+    "cobra",
+    "eligibility",
+    "when does coverage",
+    "how do i file",
+    "complaints",
+    "appeals",
+    "privacy",
+    "erisa",
+    "definitions",
+    "right of recovery",
+    "where to send",
+}
+
+
+def is_admin(text):
+    t = text.lower()
+    return any(a in t for a in ADMIN)
 
 
 with pdfplumber.open(PDF_PATH) as pdf:
+    print(f"Total pages: {len(pdf.pages)}\n")
     for page_num, page in enumerate(pdf.pages):
-        text = (page.extract_text() or "").upper()
-        if "DENTAL INJURY" not in text or "YOUR SHARE" not in text:
+        text = page.extract_text() or ""
+        tables = page.extract_tables() or []
+
+        # Skip benefit table pages
+        if "YOUR SHARE OF THE ALLOWED AMOUNT" in text.upper():
+            print(f"Page {page_num+1}: BENEFIT TABLE — skipping")
             continue
 
-        print(f"\n{'='*60}")
-        print(f"PAGE {page_num+1}")
-        print(f"{'='*60}")
+        # Skip admin pages
+        if is_admin(text[:500]):
+            print(f"Page {page_num+1}: ADMIN — skipping")
+            continue
 
-        print("\n--- get_subsection_headers ---")
-        headers = get_subsection_headers(page)
-        print(f"\nFINAL subsection_headers = {headers}\n")
-
-        tables = page.extract_tables() or []
-        for table in tables:
-            for ri, row in enumerate(table):
-                if ri < 2:
-                    continue
-                c0 = str(row[0] or "")
-                if "dental injury" not in c0.lower():
-                    continue
-                print(f"--- parse_benefit_cell ---")
-                benefit, services = parse_benefit_cell(c0, headers)
-                print(f"\nbenefit = {benefit!r}")
-                print(f"services ({len(services)}):")
-                for svc, sub in services:
-                    print(f"  service={svc!r}  subsection={sub!r}")
-        break
+        # Show prose pages
+        preview = " | ".join(l.strip() for l in text.split("\n") if l.strip())[:300]
+        print(f"\nPage {page_num+1}: PROSE")
+        print(f"  {preview!r}")

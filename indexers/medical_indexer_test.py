@@ -20,6 +20,14 @@ utils_mock = MagicMock()
 utils_mock.get_smart_keywords = lambda t: []
 sys.modules["utils"] = utils_mock
 
+# medical_indexer imports from "utility.utils" (not bare "utils") —
+# stub the full package path so the import resolves without a real env
+utility_pkg = types.ModuleType("utility")
+utility_utils = types.ModuleType("utility.utils")
+utility_utils.get_smart_keywords = lambda t: []
+sys.modules["utility"] = utility_pkg
+sys.modules["utility.utils"] = utility_utils
+
 sys.path.insert(0, ".")
 import medical_indexer as mi
 

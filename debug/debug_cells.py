@@ -9,7 +9,7 @@ import sys, pdfplumber, re, os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Move up one level from 'debug' to the root, then down into 'docs'
-DEFAULT_PDF = os.path.join(BASE_DIR, "..", "docs", "2026", "medical", "Medical.pdf")
+DEFAULT_PDF = os.path.join(BASE_DIR, "..", "docs", "2026", "vision", "vision.pdf")
 
 PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 # KEYWORDS = ["rehabilitation", "acupuncture", "dental injury"]
@@ -146,24 +146,50 @@ PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 #                     print(f"  (no services parsed)")
 
 
-KEYWORD = " ".join(sys.argv[2:]).lower() if len(sys.argv) > 2 else "neurodevelopmental"
+# KEYWORD = " ".join(sys.argv[2:]).lower() if len(sys.argv) > 2 else "neurodevelopmental"
+
+# with pdfplumber.open(PDF_PATH) as pdf:
+#     for page_num, page in enumerate(pdf.pages):
+#         text = (page.extract_text() or "").lower()
+#         if KEYWORD not in text or "your share" not in text:
+#             continue
+#         for table in page.extract_tables() or []:
+#             for ri, row in enumerate(table):
+#                 if ri < 2:
+#                     continue
+#                 c0 = str(row[0] or "")
+#                 c3 = str(row[3] if len(row) > 6 else (row[1] if len(row) > 1 else ""))
+#                 c6 = str(row[6] if len(row) > 6 else (row[2] if len(row) > 2 else ""))
+#                 if KEYWORD not in c0.lower():
+#                     continue
+#                 print(f"\n=== Page {page_num+1} row {ri} ===")
+#                 print("COL0:")
+#                 [print(f"  {l!r}") for l in c0.split("\n")]
+#                 print(f"COL3: {c3.replace(chr(10),'|')!r}")
+#                 print(f"COL6: {c6.replace(chr(10),'|')!r}")
 
 with pdfplumber.open(PDF_PATH) as pdf:
+    print(f"Total pages: {len(pdf.pages)}\n")
+ 
     for page_num, page in enumerate(pdf.pages):
-        text = (page.extract_text() or "").lower()
-        if KEYWORD not in text or "your share" not in text:
-            continue
-        for table in page.extract_tables() or []:
+        text = page.extract_text() or ""
+        tables = page.extract_tables() or []
+ 
+        # Show every page — text summary and any tables found
+        print(f"{'='*60}")
+        print(f"PAGE {page_num+1}  |  tables={len(tables)}")
+        print(f"{'='*60}")
+ 
+        # Print first 500 chars of text so we know what's on the page
+        preview = " | ".join(l.strip() for l in text.split("\n") if l.strip())[:500]
+        print(f"TEXT: {preview!r}")
+ 
+        # Print every table found
+        for ti, table in enumerate(tables):
+            print(f"\n  TABLE {ti+1}: {len(table)} rows x {len(table[0]) if table else 0} cols")
             for ri, row in enumerate(table):
-                if ri < 2:
-                    continue
-                c0 = str(row[0] or "")
-                c3 = str(row[3] if len(row) > 6 else (row[1] if len(row) > 1 else ""))
-                c6 = str(row[6] if len(row) > 6 else (row[2] if len(row) > 2 else ""))
-                if KEYWORD not in c0.lower():
-                    continue
-                print(f"\n=== Page {page_num+1} row {ri} ===")
-                print("COL0:")
-                [print(f"  {l!r}") for l in c0.split("\n")]
-                print(f"COL3: {c3.replace(chr(10),'|')!r}")
-                print(f"COL6: {c6.replace(chr(10),'|')!r}")
+                cleaned = [str(c or "").replace("\n", " | ").strip() for c in row]
+                if any(cleaned):
+                    print(f"    row{ri}: {cleaned}")
+ 
+        print()

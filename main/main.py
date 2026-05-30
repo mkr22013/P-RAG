@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import json
 import ollama
-from clients.client import get_ai_response  # Your existing RAG logic
+from clients.client import get_ai_response
+from member_info_provider import get_member_info  # Your existing RAG logic
 from fpdf import FPDF
 import logging
 
@@ -40,22 +41,59 @@ def parse_history(history_str: str):
         raise e
 
 
+# --- ENDPOINT 0: WELCOME ---
+@app.get("/welcome")
+async def welcome_endpoint(member_key: str = "", group_number: str = ""):
+    """Returns welcome message and member plan info on first load."""
+    from utility.prompts import WELCOME_MESSAGE
+
+    return {
+        "answer": WELCOME_MESSAGE,
+        "member_info": get_member_info(
+            member_key=member_key, group_number=group_number
+        ),
+    }
+
+
+# --- ENDPOINT 0b: MEMBER INFO ---
+@app.get("/member-info")
+async def member_info_endpoint(member_key: str = "", group_number: str = ""):
+    """Returns member plan details. Calls external API when configured."""
+    return get_member_info(member_key=member_key, group_number=group_number)
+
+
 # --- ENDPOINT 1: CHAT (Existing RAG) ---
 @app.post("/chat")
-async def chat_endpoint(prompt: str = Form(...), history: str = Form("[]")):
+async def chat_endpoint(
+    prompt: str = Form(...),
+    history: str = Form("[]"),
+    member_info: str = Form("{}"),
+    current_category: str = Form(""),
+):
     """
     Chat endpoint that processes user prompts and history for AI response.
+    member_info: JSON string of member plan details from /member-info.
     """
     try:
-        # Parse the history from the Form data
         history_list = parse_history(history)
+        try:
+            member_info_dict = json.loads(member_info) if member_info else {}
+        except json.JSONDecodeError:
+            member_info_dict = {}
+
+        if not member_info_dict:
+            member_info_dict = get_member_info()
+
         logger.info(
             f"[*] Received chat request with prompt: {prompt} and history: {history_list}"
         )
 
-        # Get AI response based on the prompt and history
-        answer = await get_ai_response(prompt, history_list)
-        return {"answer": answer}
+        result = await get_ai_response(
+            prompt, history_list, member_info_dict, current_category
+        )
+        if isinstance(result, dict):
+            return result
+        return {"answer": result}
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
@@ -73,31 +111,44 @@ async def scan_card(file: UploadFile = File(...)):
         image_bytes = await file.read()
         logger.info(f"[*] Image received ({len(image_bytes)} bytes). Calling Llama...")
 
-        # Call the Llama model for analysis
+        # Call the Llama model — simple synchronous call as original
         response = ollama.chat(
             model="llama3.2-vision",
             messages=[
                 {
                     "role": "user",
-                    "content": """ACT AS A MEDICAL BILLING SPECIALIST. 
-                            Analyze this Premera/Blue Cross card with 100% precision...
-                            Return ONLY JSON.""",
+                    "content": 'Read this insurance card. Return ONLY JSON: {"prefix":"","identification":"","suffix":"","group_number":""}',
                     "images": [image_bytes],
                 }
             ],
         )
 
-        # Process the AI response
         ai_text = response["message"]["content"]
         logger.info(f"[*] AI RESPONDED: {ai_text}")
 
         if not ai_text:
             return {"data": "⚠️ AI returned empty result."}
 
-        # Try to parse the response as JSON and return it
         try:
             ai_data = json.loads(ai_text)
-            return {"data": ai_data}
+            prefix = str(ai_data.get("prefix", "")).strip()
+            identification = str(ai_data.get("identification", "")).strip()
+            suffix = str(ai_data.get("suffix", "")).strip()
+            group_number = str(ai_data.get("group_number", "")).strip()
+
+            member_key = f"{prefix}{identification}{suffix}"
+            logger.info(f"[*] MEMBER KEY: {member_key} | GROUP: {group_number}")
+
+            member_info = get_member_info(
+                member_key=member_key, group_number=group_number
+            )
+
+            return {
+                "data": ai_data,
+                "member_key": member_key,
+                "group_number": group_number,
+                "member_info": member_info,
+            }
         except json.JSONDecodeError:
             return {"data": "⚠️ AI returned invalid JSON response."}
 

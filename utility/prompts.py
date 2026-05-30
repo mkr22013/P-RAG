@@ -1,49 +1,68 @@
-BENEFIT_SELECTION_PROMPT = """
-    Can you please let me know if you are looking for Medical, Dental, or Vision benefits?
+WELCOME_MESSAGE = """👋 Hi! I'm your **Premera Insurance Plan Assistant**.
 
-    Please select from the following options:
-    • Medical (Doctor visits, prescriptions, hospital stays)
-    • Dental (Cleanings, X-rays, orthodontics)
-    • Vision (Eye exams, glasses, contact lenses)
+I can answer specific questions about your **Medical**, **Dental**, and **Vision** benefits.
 
-    Please type your selection below to get started.
-    """
+Here are some examples to get you started:
 
-MEDICAL_DETAIL_PROMPT = """
-    I see you're interested in your Medical benefits! To give you the right details, what specifically are you looking for?
+🏥 **Medical**
+• *"What is my PCP copay?"*
+• *"How much is an ER visit?"*
+• *"What is my deductible?"*
 
-    Please select or type an option:
-    • Deductibles & Out-of-Pocket Max
-    • Emergency Room (ER) or Urgent Care costs
-    • X-Rays, Lab Work, or Imaging
-    • Office Visit Copays (PCP or Specialist)
+🦷 **Dental**
+• *"How much is a teeth cleaning?"*
+• *"What does a crown cost?"*
+• *"What is my dental annual maximum benefit?"*
 
-    What would you like to check first?
-    """
+👁️ **Vision**
+• *"What is my vision exam copay?"*
+• *"How much is my glasses allowance?"*
 
-DENTAL_DETAIL_PROMPT = """
-    Great, let's look at your Dental coverage. What specific information do you need?
+What would you like to know?"""
 
-    Please select or type an option:
-    • Preventive Care (Cleanings & Exams)
-    • Orthodontics (Braces or Aligners)
-    • Basic Services (Fillings or Extractions)
-    • Major Services (Crowns, Bridges, or Dentures)
+GUIDANCE_NO_CATEGORY = """I'm not sure what area of your plan that relates to. I can help with specific questions about your benefits.
 
-    Which of these can I help you with?
-    """
+Here are some examples:
 
-VISION_DETAIL_PROMPT = """
-    I can certainly help with your Vision benefits! Which part of your coverage are you curious about?
+🏥 **Medical** — *"What is my PCP copay?"* · *"What is my deductible?"* · *"How much is urgent care?"*
 
-    Please select or type an option:
-    • Routine Eye Exams
-    • Eyeglass Frames & Lenses
-    • Contact Lens Allowance
-    • Laser Vision Correction (LASIK)
+🦷 **Dental** — *"How much is a cleaning?"* · *"Are crowns covered?"* · *"What is my dental annual maximum benefit?"*
 
-    Please type your selection below to see your benefits.
-    """
+👁️ **Vision** — *"What is my vision exam cost?"* · *"How much is my glasses allowance?"*
+
+Try asking a specific question and I'll pull up your exact benefits."""
+
+GUIDANCE_MEDICAL_VAGUE = """I can help with your **medical benefits**! To get your exact costs, try asking something specific:
+
+• *"What is my PCP copay?"*
+• *"How much does an ER visit cost?"*
+• *"What is my deductible?"*
+• *"What does a specialist visit cost?"*
+• *"How much is urgent care?"*
+• *"What is my out-of-pocket maximum?"*
+
+The more specific your question, the more precise the answer I can give you."""
+
+GUIDANCE_DENTAL_VAGUE = """I can help with your **dental benefits**! To get your exact costs, try asking something specific:
+
+• *"How much is a teeth cleaning?"*
+• *"What does a crown cost?"*
+• *"Are fillings covered?"*
+• *"What is my annual maximum benefit?"*
+• *"How much is a root canal?"*
+• *"Is orthodontic treatment covered?"*
+
+The more specific your question, the more precise the answer I can give you."""
+
+GUIDANCE_VISION_VAGUE = """I can help with your **vision benefits**! To get your exact costs, try asking something specific:
+
+• *"What is my vision exam copay?"*
+• *"How much is my glasses allowance?"*
+• *"Are contact lenses covered?"*
+• *"What is my out-of-network vision cost?"*
+• *"What vision services are excluded?"*
+
+The more specific your question, the more precise the answer I can give you."""
 
 TOPIC_EXTRACTION_PROMPT = """
     You are a medical insurance classification assistant.
@@ -128,3 +147,9 @@ TOPIC_EXTRACTION_PROMPT = """
     ----------------------------------------
     Return strictly valid JSON.
     """
+
+# Keep old prompts for backwards compatibility
+BENEFIT_SELECTION_PROMPT = GUIDANCE_NO_CATEGORY
+MEDICAL_DETAIL_PROMPT = GUIDANCE_MEDICAL_VAGUE
+DENTAL_DETAIL_PROMPT = GUIDANCE_DENTAL_VAGUE
+VISION_DETAIL_PROMPT = GUIDANCE_VISION_VAGUE

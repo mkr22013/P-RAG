@@ -151,6 +151,10 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             "class 3",
             "apicoectomy",
             "retrograde",
+            "braces",
+            "aligner",
+            "retainer",
+            "invisalign",
         ]
     ) or re.search(r"\bclass\s+[i123]", query_lower):
         CLASS_I_TERMS = [

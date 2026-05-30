@@ -56,6 +56,70 @@ def get_category_from_llm(query: str) -> str:
         return "medical"
 
 
+def detect_category_rule_based(query_words: list, query: str) -> str | None:
+    """
+    Rule-based only category detection — never calls LLM.
+    Returns None when category cannot be determined from rules alone.
+    Used for history boundary detection to avoid LLM calls on past queries.
+    """
+    if any(
+        w in query_words
+        for w in [
+            "dental",
+            "ortho",
+            "braces",
+            "tooth",
+            "teeth",
+            "gum",
+            "cavity",
+            "filling",
+            "crown",
+            "denture",
+            "molar",
+            "canal",
+            "implant",
+            "tmj",
+            "jaw",
+            "orthodontic",
+            "orthodontia",
+            "panoramic",
+            "sealant",
+            "fluoride",
+        ]
+    ):
+        return "dental"
+
+    if any(
+        w in query_words
+        for w in ["vision", "eye", "glasses", "lens", "lenses", "contacts"]
+    ):
+        return "vision"
+
+    if any(
+        w in query_words
+        for w in [
+            "medical",
+            "doctor",
+            "hospital",
+            "pcp",
+            "emergency",
+            "urgent",
+            "ambulance",
+            "immunization",
+            "vaccination",
+            "cancer",
+            "dialysis",
+            "deductible",
+            "copay",
+            "pharmacy",
+            "prescription",
+        ]
+    ):
+        return "medical"
+
+    return None  # ambiguous — caller decides
+
+
 def detect_category(query_words, query):
     category = None
 

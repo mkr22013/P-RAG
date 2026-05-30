@@ -228,3 +228,11 @@ MIXED queries (expect: LLM)
 
 What does my dental plan cover and what are the costs?
 ==============================================================
+
+
+
+"what is my deductible?" — medical, should show deductible amount
+"how much does a crown cost?" — dental, D2740/D2750 entries
+"what is my vision exam copay?" — vision
+"hello how are you" — should show guidance message (no category)
+"tell me about my plan" — vague, should show guidance nudging to be specific

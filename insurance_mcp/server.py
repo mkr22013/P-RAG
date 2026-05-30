@@ -59,34 +59,34 @@ def get_member_plan_info_medical():
     }
 
 
-def get_member_plan_info_dental():
-    return {
-        "year": "2026",
-        "plan_category": "dental",
-        "group_number": "1000016",
-        "group_name": "Premera Employees Health Plan",
-        "plan": "Premera Dental Plan",
-        "plan_type": "",
-        "plan_tier": "",
-        "product_line": "Null",
-        "variant": "Standard",
-        "network": "",
-    }
-
-
 # def get_member_plan_info_dental():
 #     return {
 #         "year": "2026",
 #         "plan_category": "dental",
 #         "group_number": "1000016",
 #         "group_name": "Premera Employees Health Plan",
-#         "plan": "Willamette Dental Plan",
+#         "plan": "Premera Dental Plan",
 #         "plan_type": "",
 #         "plan_tier": "",
 #         "product_line": "Null",
 #         "variant": "Standard",
 #         "network": "",
 #     }
+
+
+def get_member_plan_info_dental():
+    return {
+        "year": "2026",
+        "plan_category": "dental",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Willamette Dental Plan",
+        "plan_type": "",
+        "plan_tier": "",
+        "product_line": "Null",
+        "variant": "Standard",
+        "network": "",
+    }
 
 
 def get_member_plan_info_vision():

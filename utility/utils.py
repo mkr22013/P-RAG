@@ -4,6 +4,7 @@ Shared utilities used by all booklet indexers (SBC, Medical, Dental, etc.)
 
 import re
 import json as json_lib
+from difflib import SequenceMatcher
 
 
 def get_smart_keywords(text):
@@ -42,3 +43,168 @@ def get_smart_keywords(text):
                 found.append(word)
 
     return found[:10]
+
+
+# Single source of truth for noise/generic words.
+# Used by both residual keyword extraction (topic_resolver)
+# and LLM keyword cleaning (client).
+NOISE_WORDS = {
+    "what",
+    "which",
+    "how",
+    "does",
+    "do",
+    "did",
+    "is",
+    "are",
+    "was",
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "but",
+    "in",
+    "on",
+    "at",
+    "to",
+    "for",
+    "of",
+    "from",
+    "by",
+    "with",
+    "that",
+    "this",
+    "can",
+    "will",
+    "would",
+    "should",
+    "could",
+    "my",
+    "your",
+    "our",
+    "its",
+    "under",
+    "about",
+    "tell",
+    "know",
+    "want",
+    "need",
+    "get",
+    "show",
+    "covered",
+    "coverage",
+    "cover",
+    "covers",
+    "plan",
+    "plans",
+    "benefit",
+    "benefits",
+    "service",
+    "services",
+    "cost",
+    "costs",
+    "price",
+    "fee",
+    "amount",
+    "amounts",
+    "pay",
+    "paying",
+    "charge",
+    "charges",
+    "any",
+    "some",
+    "all",
+    "option",
+    "options",
+    "information",
+    "info",
+    "detail",
+    "details",
+    "type",
+    "types",
+    "kind",
+    "kinds",
+    "question",
+    "much",
+    "many",
+    "more",
+    "have",
+    "that",
+    "them",
+    "they",
+    "been",
+    "when",
+    "where",
+    "there",
+    "teeth",
+    "tooth",
+    "treatment",
+    "therapy",
+    "procedure",
+    "happens",
+    "dentist",
+    "program",
+    "programs",
+    "care",
+    "health",
+    "insurance",
+    "policy",
+    "related",
+    "general",
+    "standard",
+    "other",
+    "various",
+    "max",
+    "min",
+    "per",
+    "dental",
+    "medical",
+    "vision",
+}
+
+
+def fuzzy_match(a, b, threshold=0.8):
+    return SequenceMatcher(None, a, b).ratio() >= threshold
+
+
+def smart_match(term, query_words, query_lower):
+    """
+    Priority:
+    1. Exact phrase match
+    2. Exact word match
+    3. Fuzzy match (safe)
+    """
+    term = term.lower()
+
+    if " " in term:
+        return term in query_lower
+
+    if term in query_words:
+        return True
+
+    for w in query_words:
+        if len(w) >= 4 and len(term) >= 4:
+            if fuzzy_match(w, term):
+                return True
+
+    return False
+
+
+def flatten_message_content(content):
+    """
+    Forces any Ollama response (List, Dict, or None) into a plain string.
+    """
+    if not content:
+        return ""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        parts = []
+        for item in content:
+            if isinstance(item, dict):
+                parts.append(item.get("text", str(item)))
+            else:
+                parts.append(str(item))
+        return " ".join(parts).strip()
+    return str(content).strip()

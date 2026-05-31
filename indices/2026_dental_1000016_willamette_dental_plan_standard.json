@@ -19,7 +19,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 0
     },
     {
         "topic": "Office Visit Copayments \u2014 Specialist Office Visit",
@@ -41,7 +42,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 0
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Periodic oral evaluation - established patient",
@@ -65,7 +67,8 @@
             "established",
             "patient",
             "in_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Limited oral evaluation - problem focused",
@@ -89,7 +92,8 @@
             "problem",
             "focused",
             "in_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Oral evaluation for patient under 3 years of age and counseling with primary caregiver",
@@ -113,7 +117,8 @@
             "patient",
             "counseling",
             "primary"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Comprehensive oral evaluation - new or established patient",
@@ -137,7 +142,8 @@
             "established",
             "patient",
             "in_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Detailed & extensive oral evaluation - problem focused, by report",
@@ -161,7 +167,8 @@
             "evaluation",
             "problem",
             "focused"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Re-evaluation - limited, problem focused (established patient; not post-operative visit)",
@@ -185,7 +192,8 @@
             "problem",
             "focused",
             "established"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Comprehensive periodontal evaluation - new or established patient",
@@ -209,7 +217,8 @@
             "evaluation",
             "established",
             "patient"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Intraoral - complete series of radiographic images",
@@ -233,7 +242,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Intraoral - periapical-first radiographic image",
@@ -257,7 +267,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Intraoral - periapical each additional radiographic image",
@@ -281,7 +292,8 @@
             "radiographic",
             "in_network",
             "covered"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Intraoral - occlusal radiographic image",
@@ -305,7 +317,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Extra-oral - 2D projection radiographic image",
@@ -329,7 +342,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Bitewing - single radiographic image",
@@ -353,7 +367,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Bitewings - two radiographic images",
@@ -377,7 +392,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Bitewings - three radiographic images",
@@ -401,7 +417,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Bitewings - four radiographic images",
@@ -425,7 +442,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Vertical bitewings - 7 to 8 radiographic images",
@@ -449,7 +467,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Panoramic radiographic image",
@@ -473,7 +492,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Cephalometric radiographic image",
@@ -497,7 +517,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 2D oral/facial photographic image obtained intraorally or extraorally",
@@ -521,7 +542,8 @@
             "extraorally",
             "in_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Caries susceptibility tests",
@@ -545,7 +567,8 @@
             "general",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Pulp vitality tests",
@@ -569,7 +592,8 @@
             "general",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Diagnostic casts",
@@ -593,7 +617,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Prophylaxis - adult",
@@ -616,7 +641,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Prophylaxis - child",
@@ -639,7 +665,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Topical application of fluoride varnish",
@@ -663,7 +690,8 @@
             "varnish",
             "in_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Topical application of fluoride - excluding varnish",
@@ -687,7 +715,8 @@
             "excluding",
             "varnish",
             "in_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Nutritional counseling for control of dental disease",
@@ -711,7 +740,8 @@
             "control",
             "disease",
             "in_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Tobacco counseling for the control and prevention of oral disease",
@@ -735,7 +765,8 @@
             "prevention",
             "disease",
             "in_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Oral hygiene instructions",
@@ -759,7 +790,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Sealant - per tooth",
@@ -782,7 +814,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Space maintainer - fixed - unilateral",
@@ -806,7 +839,8 @@
             "in_network",
             "general",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Space maintainer - fixed - bilateral",
@@ -830,7 +864,8 @@
             "in_network",
             "general",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Space maintainer - removable - unilateral",
@@ -854,7 +889,8 @@
             "unilateral",
             "in_network",
             "general"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Space maintainer - removable - bilateral",
@@ -878,7 +914,8 @@
             "bilateral",
             "in_network",
             "general"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Re-cement or re-bond space maintainer",
@@ -902,7 +939,8 @@
             "general",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Diagnostic and Preventive Services \u2014 Removal of fixed space maintainer",
@@ -926,7 +964,8 @@
             "in_network",
             "general",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Amalgam - 1 surface, primary or permanent",
@@ -950,7 +989,8 @@
             "permanent",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Amalgam - 2 surfaces, primary or permanent",
@@ -974,7 +1014,8 @@
             "permanent",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Amalgam - 3 surfaces, primary or permanent",
@@ -998,7 +1039,8 @@
             "permanent",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Amalgam - 4 or more surfaces, primary or permanent",
@@ -1022,7 +1064,8 @@
             "permanent",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 1 surface, anterior",
@@ -1046,7 +1089,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 2 surfaces, anterior",
@@ -1070,7 +1114,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 3 surfaces, anterior",
@@ -1094,7 +1139,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 4 or more surfaces",
@@ -1118,7 +1164,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite crown, anterior",
@@ -1142,7 +1189,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 1 surface, posterior",
@@ -1166,7 +1214,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 2 surfaces, posterior",
@@ -1190,7 +1239,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 3 surfaces, posterior",
@@ -1214,7 +1264,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Restorative Services \u2014 Resin - based composite - 4 or more surfaces, posterior",
@@ -1238,7 +1289,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - metallic - 1 surface",
@@ -1262,7 +1314,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - metallic - 2 surfaces",
@@ -1286,7 +1339,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - metallic - 3 or more surfaces",
@@ -1310,7 +1364,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - metallic - 2 surfaces",
@@ -1334,7 +1389,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - metallic - 3 surfaces",
@@ -1358,7 +1414,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - metallic - 4 or more surfaces",
@@ -1382,7 +1439,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - porcelain/ceramic - 1 surface",
@@ -1406,7 +1464,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - porcelain/ceramic - 2 surfaces",
@@ -1430,7 +1489,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Inlay - porcelain/ceramic - 3 or more surfaces",
@@ -1454,7 +1514,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - porcelain/ceramic - 2 surfaces",
@@ -1478,7 +1539,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - porcelain/ceramic - 3 surfaces",
@@ -1502,7 +1564,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Restorative Services \u2014 Onlay - porcelain/ceramic - 4 or more surfaces",
@@ -1526,7 +1589,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Crown - resin based composite (indirect)",
@@ -1548,7 +1612,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Crown - porcelain/ceramic",
@@ -1570,7 +1635,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Crown - porcelain fused to high noble metal",
@@ -1591,7 +1657,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Crown - \u00be cast noble metal",
@@ -1611,7 +1678,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Crown - full cast noble metal",
@@ -1631,7 +1699,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Re-cement or re-bond inlay, onlay, veneer or partial coverage restoration",
@@ -1653,7 +1722,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Re-cement or re-bond crown",
@@ -1672,7 +1742,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Prefabricated stainless steel crown - primary tooth",
@@ -1694,7 +1765,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Prefabricated stainless steel crown - permanent tooth",
@@ -1716,7 +1788,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Prefabricated resin crown",
@@ -1736,7 +1809,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Prefabricated stainless steel crown with resin window",
@@ -1757,7 +1831,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Protective restoration",
@@ -1778,7 +1853,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Core buildup, including any pins when required",
@@ -1800,7 +1876,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Pin retention - per tooth, in addition to restoration",
@@ -1822,7 +1899,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Prefabricated post and core in addition to crown",
@@ -1843,7 +1921,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Post removal",
@@ -1863,7 +1942,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Each additional prefabricated post - same tooth",
@@ -1884,7 +1964,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Crowns \u2014 Temporary crown (fractured tooth)",
@@ -1905,7 +1986,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Crowns \u2014 Coping",
@@ -1924,7 +2006,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Crowns \u2014 Crown repair necessitated by restorative material failure",
@@ -1947,7 +2030,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Pulp cap - direct (excluding final restoration)",
@@ -1969,7 +2053,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Pulp cap - indirect (excluding final restoration)",
@@ -1992,7 +2077,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Therapeutic pulpotomy (excluding final restoration) - removal of pulp coronal to the dentinocemental junction and application of medicament",
@@ -2016,7 +2102,8 @@
             "removal",
             "coronal",
             "dentinocemental"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Pulpal debridement, primary and permanent teeth",
@@ -2039,7 +2126,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Pulpal therapy (resorbable filling) - anterior, primary tooth (excluding final restoration)",
@@ -2063,7 +2151,8 @@
             "excluding",
             "restoration",
             "in_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Pulpal therapy (resorbable filling) - posterior, primary tooth (excluding final restoration)",
@@ -2087,7 +2176,8 @@
             "excluding",
             "restoration",
             "in_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Endodontic therapy, anterior tooth (excluding final",
@@ -2111,7 +2201,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Endodontic therapy, premolar tooth (excluding",
@@ -2135,7 +2226,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Endodontic therapy, molar (excluding final",
@@ -2159,7 +2251,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Treatment of root canal obstruction; non-surgical",
@@ -2182,7 +2275,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Incomplete endodontic therapy; inoperable,",
@@ -2206,7 +2300,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Internal repair of perforation defects",
@@ -2229,7 +2324,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Retreatment of previous root canal therapy -",
@@ -2253,7 +2349,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Retreatment of previous root canal therapy -",
@@ -2277,7 +2374,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Retreatment of previous root canal therapy - molar",
@@ -2301,7 +2399,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Apexification/recalcification - initial visit (apical",
@@ -2325,7 +2424,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Apexification/recalcification - interim medication",
@@ -2349,7 +2449,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Apexification/recalcification - final visit (includes",
@@ -2372,7 +2473,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Endodontics \u2014 Apicoectomy - anterior",
@@ -2395,7 +2497,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Apicoectomy - premolar (first root)",
@@ -2418,7 +2521,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Apicoectomy - molar (first root)",
@@ -2440,7 +2544,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Apicoectomy - (each additional root)",
@@ -2462,7 +2567,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Retrograde filling - per root",
@@ -2484,7 +2590,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Root amputation - per root",
@@ -2506,7 +2613,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Hemisection (including any root removal), not",
@@ -2530,7 +2638,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Endodontics \u2014 Canal preparation and fitting of a preformed dowel",
@@ -2553,7 +2662,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Gingivectomy or gingivoplasty - 4 or more",
@@ -2576,7 +2686,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Gingivectomy or gingivoplasty - 1 to 3 contiguous",
@@ -2600,7 +2711,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Gingival flap procedures, including root planing - 4",
@@ -2624,7 +2736,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Gingival flap procedure, including root planing - 1",
@@ -2648,7 +2761,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Clinical crown lengthening - hard tissue",
@@ -2671,7 +2785,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Osseous surgery (including elevation of a full",
@@ -2695,7 +2810,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Osseous surgery (including elevation of a full",
@@ -2719,7 +2835,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Bone replacement graft - retained natural tooth -",
@@ -2742,7 +2859,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Bone replacement graft - retained natural tooth -",
@@ -2765,7 +2883,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Pedicle soft tissue graft procedure",
@@ -2788,7 +2907,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Autogenous connective tissue graft procedure",
@@ -2812,7 +2932,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Mesial/distal wedge procedure, single tooth (when",
@@ -2834,7 +2955,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Periodontics \u2014 Free soft tissue graft procedure (including",
@@ -2857,7 +2979,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Free soft tissue graft procedure (including",
@@ -2880,7 +3003,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Autogenous connective tissue graft procedure",
@@ -2904,7 +3028,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Periodontic scaling and root planing - 4 or more",
@@ -2928,7 +3053,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Periodontic scaling and root planing - 1 to 3 teeth",
@@ -2952,7 +3078,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Full mouth debridement to enable comprehensive",
@@ -2974,7 +3101,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Localized delivery of antimicrobial agents via a",
@@ -2997,7 +3125,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Periodontics \u2014 Periodontic maintenance",
@@ -3019,7 +3148,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Complete denture - maxillary",
@@ -3043,7 +3173,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Complete denture - mandibular",
@@ -3067,7 +3198,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Immediate denture - maxillary",
@@ -3091,7 +3223,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Immediate denture - mandibular",
@@ -3115,7 +3248,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Maxillary partial denture - resin base (including any",
@@ -3139,7 +3273,8 @@
             "including",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Mandibular partial denture - resin base (including",
@@ -3163,7 +3298,8 @@
             "including",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Maxillary partial denture - cast metal framework with",
@@ -3187,7 +3323,8 @@
             "framework",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Mandibular partial denture - cast metal framework",
@@ -3211,7 +3348,8 @@
             "framework",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Removable unilateral partial denture - one piece cast",
@@ -3235,7 +3373,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Adjust complete denture - maxillary",
@@ -3259,7 +3398,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Adjust complete denture - mandibular",
@@ -3283,7 +3423,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Adjust partial denture - maxillary",
@@ -3307,7 +3448,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Adjust partial denture - mandibular",
@@ -3331,7 +3473,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair broken complete denture base, mandibular",
@@ -3355,7 +3498,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair broken complete denture base, maxillary",
@@ -3379,7 +3523,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Replace missing or broken teeth - complete denture",
@@ -3403,7 +3548,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair resin partial denture base, mandibular",
@@ -3427,7 +3573,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair resin partial denture base, maxillary",
@@ -3451,7 +3598,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair cast partial framework, mandibular",
@@ -3475,7 +3623,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair cast partial framework, maxillary",
@@ -3499,7 +3648,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Repair or replace broken clasp \u2013 per tooth",
@@ -3521,7 +3671,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Replace broken teeth - per tooth",
@@ -3543,7 +3694,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Add tooth to existing partial denture",
@@ -3567,7 +3719,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Add clasp to existing partial denture \u2013 per tooth",
@@ -3591,7 +3744,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Replace all teeth and acrylic on cast metal",
@@ -3614,7 +3768,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Replace all teeth and acrylic on cast metal",
@@ -3637,7 +3792,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Rebase complete maxillary denture",
@@ -3661,7 +3817,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Rebase complete mandibular denture",
@@ -3685,7 +3842,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Rebase maxillary partial denture",
@@ -3709,7 +3867,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Rebase mandibular partial denture",
@@ -3733,7 +3892,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline complete maxillary denture (chairside)",
@@ -3757,7 +3917,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline complete mandibular denture (chairside)",
@@ -3781,7 +3942,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline maxillary partial denture (chairside)",
@@ -3805,7 +3967,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline mandibular partial denture (chairside)",
@@ -3829,7 +3992,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline complete maxillary denture (laboratory)",
@@ -3853,7 +4017,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline complete mandibular denture (laboratory)",
@@ -3877,7 +4042,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline maxillary partial denture (laboratory)",
@@ -3901,7 +4067,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Reline mandibular partial denture (laboratory)",
@@ -3925,7 +4092,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Interim complete denture (maxillary)",
@@ -3949,7 +4117,8 @@
             "maxillary",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Interim complete denture (mandibular)",
@@ -3973,7 +4142,8 @@
             "mandibular",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Interim partial denture (maxillary)",
@@ -3997,7 +4167,8 @@
             "maxillary",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Interim partial denture (mandibular)",
@@ -4021,7 +4192,8 @@
             "mandibular",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Tissue conditioning, maxillary",
@@ -4044,7 +4216,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Tissue conditioning, mandibular",
@@ -4067,7 +4240,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Overdenture - complete maxillary",
@@ -4091,7 +4265,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Overdenture - partial maxillary",
@@ -4115,7 +4290,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Overdenture - complete mandibular",
@@ -4139,7 +4315,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Overdenture - partial mandibular",
@@ -4163,7 +4340,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Removable \u2014 Fluoride gel carrier",
@@ -4186,7 +4364,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Pontic - cast high noble metal",
@@ -4207,7 +4386,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Pontic - porcelain fused to high noble metal",
@@ -4229,7 +4409,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Pontic - porcelain fused to predominantly base metal",
@@ -4252,7 +4433,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Retainer - cast metal for resin bonded fixed",
@@ -4274,7 +4456,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Retainer crown - resin with high noble metal",
@@ -4296,7 +4479,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Retainer crown - porcelain fused to high noble metal",
@@ -4319,7 +4503,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Retainer crown - \u00be cast high noble metal",
@@ -4341,7 +4526,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Retainer crown - full cast high noble metal",
@@ -4363,7 +4549,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Re-cement or re-bond fixed partial denture",
@@ -4385,7 +4572,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Prosthodontics - Fixed \u2014 Fixed partial denture repair necessitated by",
@@ -4408,7 +4596,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Extraction, coronal remnants - primary tooth",
@@ -4432,7 +4621,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Extraction, erupted tooth or exposed root (elevation",
@@ -4456,7 +4646,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Extraction, erupted tooth requiring removal of bone",
@@ -4480,7 +4671,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Removal of impacted tooth - soft tissue",
@@ -4503,7 +4695,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Removal of impacted tooth - partially bony",
@@ -4527,7 +4720,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Removal of impacted tooth - completely bony",
@@ -4551,7 +4745,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Removal of impacted tooth - completely bony, with",
@@ -4575,7 +4770,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Removal of residual tooth roots (cutting procedure)",
@@ -4599,7 +4795,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Oroantral fistula closure",
@@ -4623,7 +4820,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Primary closure of a sinus perforation",
@@ -4647,7 +4845,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Tooth reimplantation and/or stabilization of",
@@ -4670,7 +4869,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Oral Surgery \u2014 Exposure of an unerupted tooth",
@@ -4693,7 +4893,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Placement of device to facilitate eruption of impacted",
@@ -4717,7 +4918,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Transseptal fiberotomy/supra crestal fiberotomy, by",
@@ -4741,7 +4943,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Alveoloplasty in conjunction with extractions - 4 or",
@@ -4764,7 +4967,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Alveoloplasty in conjunction with extractions - 1 to 3",
@@ -4787,7 +4991,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Alveoloplasty not in conjunction with extractions - 4",
@@ -4810,7 +5015,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Alveoloplasty not in conjunction with extractions - 1",
@@ -4833,7 +5039,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Vestibuloplasty - ridge extension (secondary",
@@ -4857,7 +5064,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Vestibuloplasty - ridge extension (including soft",
@@ -4881,7 +5089,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Removal of lateral exostosis (maxilla or mandible)",
@@ -4905,7 +5114,8 @@
             "mandible",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Incision & drainage of abscess - intraoral soft",
@@ -4929,7 +5139,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Incision & drainage of abscess - extraoral soft",
@@ -4953,7 +5164,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Removal of foreign body from mucosa, skin or",
@@ -4975,7 +5187,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Removal of reaction producing foreign bodies,",
@@ -4999,7 +5212,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Partial ostectomy/sequestrectomy for removal of",
@@ -5023,7 +5237,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Alveolus - closed reduction, may include",
@@ -5046,7 +5261,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Suture of recent small wounds up to 5 cm",
@@ -5066,7 +5282,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Complicated suture - up to 5 cm",
@@ -5087,7 +5304,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Bone replacement graft for ridge preservation - per",
@@ -5110,7 +5328,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Frenulectomy - also known as frenectomy or",
@@ -5133,7 +5352,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Excision of hyperplastic tissue - per arch",
@@ -5156,7 +5376,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Oral Surgery \u2014 Excision of pericoronal gingiva",
@@ -5180,7 +5401,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Adjunctive General Services \u2014 Palliative (emergency) treatment of dental pain - minor",
@@ -5204,7 +5426,8 @@
             "treatment",
             "in_network",
             "covered"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Fixed partial denture sectioning",
@@ -5228,7 +5451,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Deep sedation/general anesthesia First 30 Minutes:",
@@ -5252,7 +5476,8 @@
             "minutes",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Inhalation of nitrous oxide/analgesia, anxiolysis",
@@ -5276,7 +5501,8 @@
             "analgesia",
             "anxiolysis",
             "in_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Consultation - diagnostic service provided by dentist",
@@ -5300,7 +5526,8 @@
             "provided",
             "dentist",
             "in_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Hospital or ambulatory surgical center call",
@@ -5324,7 +5551,8 @@
             "surgical",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Office visit for observation (during regularly scheduled",
@@ -5348,7 +5576,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Office visit - after regularly scheduled hours",
@@ -5372,7 +5601,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Application of desensitizing medicament",
@@ -5396,7 +5626,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Application of desensitizing resin for cervical and/or",
@@ -5420,7 +5651,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Occlusal adjustment - limited",
@@ -5444,7 +5676,8 @@
             "in_network",
             "covered",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Adjunctive General Services \u2014 Enamel microabrasion",
@@ -5467,7 +5700,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Implants \u2014 Surgical placement of implant body: endosteal",
@@ -5491,7 +5725,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Implants \u2014 Second state implant surgery",
@@ -5513,7 +5748,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Implants \u2014 Surgical placement of implant body: endosteal implant",
@@ -5537,7 +5773,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Implants \u2014 Second state implant surgery",
@@ -5559,7 +5796,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Limited orthodontic treatment of the transitional dentition",
@@ -5583,7 +5821,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Limited orthodontic treatment of the adolescent dentition",
@@ -5607,7 +5846,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Limited orthodontic treatment of the adult dentition",
@@ -5631,7 +5871,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Comprehensive orthodontic treatment of the transitional dentition",
@@ -5655,7 +5896,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Comprehensive orthodontic treatment of the adolescent dentition",
@@ -5679,7 +5921,8 @@
             "in_network",
             "out_of_network",
             "covered"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "ORTHODONTIC TREATMENT \u2014 Comprehensive orthodontic treatment of the adult dentition",
@@ -5703,7 +5946,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "For More Information \u2014 Coverage Information",
@@ -5727,7 +5971,8 @@
             "questions",
             "benefits",
             "complaints"
-        ]
+        ],
+        "page_number": 2
     },
     {
         "topic": "What Do I Need To Know Before I Get Care? \u2014 Coverage Information",
@@ -5751,7 +5996,8 @@
             "prescribed",
             "covered",
             "services"
-        ]
+        ],
+        "page_number": 6
     },
     {
         "topic": "Referrals \u2014 Coverage Information",
@@ -5775,7 +6021,8 @@
             "services",
             "benefits",
             "provided"
-        ]
+        ],
+        "page_number": 6
     },
     {
         "topic": "Dental Emergency \u2014 Coverage Information",
@@ -5799,7 +6046,8 @@
             "provide",
             "treatment",
             "emergencies"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Schedule Of Covered Services And Copayments \u2014 Coverage Information",
@@ -5823,7 +6071,8 @@
             "mental-health",
             "schedule",
             "covered"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Dental Implant Surgery \u2014 Coverage Information",
@@ -5847,7 +6096,8 @@
             "covered",
             "enrollees",
             "following"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Orthodontic Treatment \u2014 Coverage Information",
@@ -5871,7 +6121,8 @@
             "participating",
             "provider",
             "prepares"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Temporomandibular Joint Disorder Treatment \u2014 Coverage Information",
@@ -5896,7 +6147,8 @@
             "benefit",
             "maximum",
             "tmj"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Exclusions And Limitations \u2014 Coverage Information",
@@ -5920,7 +6172,8 @@
             "following",
             "conditions",
             "treatments"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Limitations \u2014 Coverage Information",
@@ -5944,7 +6197,8 @@
             "alternative",
             "condition",
             "service"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "What If It'S Urgent \u2014 Coverage Information",
@@ -5968,6 +6222,7 @@
             "currently",
             "receiving",
             "received"
-        ]
+        ],
+        "page_number": 33
     }
 ]

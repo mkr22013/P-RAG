@@ -19,7 +19,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Acupuncture \u2014 Visits outside an office setting",
@@ -42,7 +43,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Allergy Testing And Treatment",
@@ -65,7 +67,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Ambulance",
@@ -86,7 +89,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Blood Products and Services",
@@ -109,7 +113,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Cellular Immunotherapy And Gene Therapy",
@@ -133,7 +138,8 @@
             "service",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Chemotherapy and Radiation Therapy Professional and facility services",
@@ -157,7 +163,8 @@
             "services",
             "service",
             "in_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Clinical Trials",
@@ -181,7 +188,8 @@
             "limitations",
             "routine",
             "patient"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Inpatient facility care",
@@ -205,7 +213,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Outpatient surgery center",
@@ -229,7 +238,8 @@
             "surgery",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Anesthesiologist",
@@ -253,7 +263,8 @@
             "service",
             "anesthesiologist",
             "in_network"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Dental Injury",
@@ -277,7 +288,8 @@
             "service",
             "in_network",
             "kinwell"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Exams to determine treatment needed",
@@ -301,7 +313,8 @@
             "service",
             "determine",
             "treatment"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Dental Injury and Facility Anesthesia \u2014 Treatment",
@@ -325,7 +338,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Basic diagnostic images and scans",
@@ -349,7 +363,8 @@
             "service",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Major diagnostic images and scans",
@@ -373,7 +388,8 @@
             "service",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms \u2014 Diagnostic and supplemental breast exams",
@@ -397,7 +413,8 @@
             "ymptoms",
             "service",
             "supplemental"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Dialysis \u2014 During Medicare's waiting period",
@@ -421,7 +438,8 @@
             "out_of_network",
             "limitations",
             "permanent"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Dialysis \u2014 After Medicare's waiting period",
@@ -445,7 +463,8 @@
             "permanent",
             "failure",
             "benefit"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Electronic Visits (E-visits)",
@@ -467,7 +486,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Emergency Room \u2014 Facility charges",
@@ -491,7 +511,8 @@
             "charges",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Emergency Room \u2014 Professional services",
@@ -514,7 +535,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Foot Care \u2014 In an office or clinic",
@@ -538,7 +560,8 @@
             "clinics",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Foot Care \u2014 All other settings",
@@ -559,7 +582,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Gender Affirming Care \u2014 Office and clinic visits",
@@ -583,7 +607,8 @@
             "kinwell",
             "clinics",
             "out_of_network"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Gender Affirming Care \u2014 Other professional services",
@@ -606,7 +631,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Gender Affirming Care \u2014 Inpatient facility care",
@@ -629,7 +655,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Hearing Care \u2014 Hearing Exams",
@@ -651,7 +678,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Hearing Care \u2014 Hearing Hardware",
@@ -671,7 +699,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Home Health Care calendar year visit limit: 130 visits \u2014 Home visits",
@@ -692,7 +721,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Home Health Care calendar year visit limit: 130 visits \u2014 Prescription drugs billed by the home health agency",
@@ -715,7 +745,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Sales tax for covered items",
@@ -739,7 +770,8 @@
             "supplies",
             "service",
             "covered"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Foot orthotics and therapeutic shoes; calendar year limit: None",
@@ -763,7 +795,8 @@
             "supplies",
             "service",
             "therapeutic"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies \u2014 Breast pumps",
@@ -787,7 +820,8 @@
             "supplies",
             "service",
             "in_network"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Inpatient facility care",
@@ -811,7 +845,8 @@
             "unlimited",
             "respite",
             "service"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Home and respite care",
@@ -835,7 +870,8 @@
             "unlimited",
             "respite",
             "service"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max \u2014 Prescription drugs billed by the hospice",
@@ -859,7 +895,8 @@
             "inpatient",
             "unlimited",
             "respite"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospital \u2014 Inpatient Care",
@@ -881,7 +918,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospital \u2014 Professional",
@@ -903,7 +941,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospital \u2014 Facility",
@@ -925,7 +964,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospital \u2014 Outpatient Care",
@@ -947,7 +987,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospital \u2014 Professional*",
@@ -969,7 +1010,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Infusion Therapy",
@@ -991,7 +1033,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Mastectomy and Breast Reconstruction \u2014 Office and clinic visits",
@@ -1015,7 +1058,8 @@
             "in_network",
             "kinwell",
             "clinics"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Mastectomy and Breast Reconstruction \u2014 Surgery and other professional services",
@@ -1039,7 +1083,8 @@
             "services",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Mastectomy and Breast Reconstruction \u2014 Inpatient facility care",
@@ -1063,7 +1108,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Maternity Care \u2014 Professional care",
@@ -1087,7 +1133,8 @@
             "limitations",
             "pregnancy",
             "childbirth"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Maternity Care \u2014 Inpatient hospital, birthing centers and short-stay hospitals",
@@ -1111,7 +1158,8 @@
             "centers",
             "hospitals",
             "in_network"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Maternity Care \u2014 Abortion",
@@ -1135,7 +1183,8 @@
             "limitations",
             "pregnancy",
             "childbirth"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Foods",
@@ -1156,7 +1205,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Transportation \u2014 For transplants: limit per transplant: $7,500",
@@ -1180,7 +1230,8 @@
             "in_network",
             "out_of_network",
             "applicable"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Transportation \u2014 For total hip and knee joint replacements and certain spinal surgeries. \u2014 To/from a Premera Designated Center of Excellence",
@@ -1204,7 +1255,8 @@
             "out_of_network",
             "covered",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Transportation \u2014 For total hip and knee joint replacements and certain spinal surgeries. \u2014 To/from other providers",
@@ -1226,7 +1278,8 @@
             "covered",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Transportation \u2014 For cellular immunotherapy and gene therapy: $7,500 per episode of care",
@@ -1250,7 +1303,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Medical Transportation \u2013 State Restricted Care \u2014 To/from provider for abortion services",
@@ -1274,7 +1328,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Transportation \u2013 State Restricted Care \u2014 To/from provider for gender affirming care services",
@@ -1298,7 +1353,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Transportation \u2013 State Restricted Care \u2014 Plan year/Calendar year limit:",
@@ -1322,7 +1378,8 @@
             "limitations",
             "benefits",
             "limited"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Transportation \u2013 State Restricted Care \u2014 $4,000",
@@ -1346,7 +1403,8 @@
             "benefits",
             "limited",
             "members"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Air travel: 1 round trip per episode",
@@ -1370,7 +1428,8 @@
             "episode",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Ferry",
@@ -1394,7 +1453,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Lodging",
@@ -1418,7 +1478,8 @@
             "lodging",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Medical Travel Support Alaska Employees And Dependents \u2014 Surface transport and parking",
@@ -1442,7 +1503,8 @@
             "surface",
             "transport",
             "parking"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Mental Health Care \u2014 Office and clinic visits",
@@ -1464,7 +1526,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Mental Health Care \u2014 Other professional services",
@@ -1487,7 +1550,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Mental Health Care \u2014 Inpatient and residential facility care",
@@ -1511,7 +1575,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Mental Health Care \u2014 Outpatient facility care",
@@ -1534,7 +1599,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Naturopathy Services",
@@ -1557,7 +1623,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Office and clinic visits",
@@ -1581,7 +1648,8 @@
             "service",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Other outpatient services",
@@ -1605,7 +1673,8 @@
             "outpatient",
             "services",
             "in_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Inpatient care",
@@ -1629,7 +1698,8 @@
             "inpatient",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Newborn Care \u2014 Inpatient care",
@@ -1651,7 +1721,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Newborn Care \u2014 Office and clinic visits",
@@ -1675,7 +1746,8 @@
             "kinwell",
             "clinics",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Newborn Care \u2014 Other outpatient services",
@@ -1698,7 +1770,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Premera-Designated Centers Of Excellence Program \u2014 Certain Spine Surgeries And",
@@ -1722,7 +1795,8 @@
             "surgeries",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Premera-Designated Centers Of Excellence Program \u2014 Bariatric Surgery",
@@ -1746,7 +1820,8 @@
             "service",
             "bariatric",
             "surgery"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred Generic drugs",
@@ -1770,7 +1845,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred brand name drugs",
@@ -1793,7 +1869,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred generic and brand name drugs",
@@ -1817,7 +1894,8 @@
             "generic",
             "in_network",
             "allowed"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred Generic drugs",
@@ -1841,7 +1919,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred brand name drugs",
@@ -1864,7 +1943,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered.",
@@ -1888,7 +1968,8 @@
             "generic",
             "specialty",
             "in_network"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Preferred specialty drugs",
@@ -1912,7 +1993,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Non-preferred specialty drugs",
@@ -1936,7 +2018,8 @@
             "specialty",
             "in_network",
             "allowed"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Needles and syringes purchased with diabetic drugs",
@@ -1960,7 +2043,8 @@
             "syringes",
             "purchased",
             "diabetic"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Certain prescription drugs and generic over-the-counter drugs to break a nicotine habit",
@@ -1984,7 +2068,8 @@
             "nicotine",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Drugs on the Affordable Care Act's preventive drug list",
@@ -2007,7 +2092,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Oral chemotherapy drugs",
@@ -2029,7 +2115,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Prescription Drug In no case will you pay more than the cost of the drug or supply. Covered Drugs \u2014 Contraceptive drugs, devices and supplies (prescription and over- the-counter). Includes emergency contraceptive.",
@@ -2053,7 +2140,8 @@
             "supplies",
             "counter",
             "includes"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Preventive exams, including vision and oral health screening for members under 19, diabetes and depression screening",
@@ -2077,7 +2165,8 @@
             "members",
             "diabetes",
             "depression"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Fall prevention",
@@ -2099,7 +2188,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Immunizations in the provider's office",
@@ -2122,7 +2212,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Flu shots and other seasonal immunizations at a pharmacy or mass immunizer location",
@@ -2146,7 +2237,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Travel immunizations at a travel clinic or county health department",
@@ -2167,7 +2259,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Diabetes health education",
@@ -2188,7 +2281,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Health education and training (outpatient)",
@@ -2210,7 +2304,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Nicotine habit-breaking programs",
@@ -2232,7 +2327,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Nutritional counseling and therapy",
@@ -2256,7 +2352,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Pregnant member\u2019s care (includes breast-feeding support and post-partum depression screening)",
@@ -2280,7 +2377,8 @@
             "support",
             "depression",
             "screening"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Screening tests (includes prostate and cervical cancer screening)",
@@ -2304,7 +2402,8 @@
             "cervical",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Screening mammograms",
@@ -2327,7 +2426,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Colorectal cancer screening",
@@ -2350,7 +2450,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Preventive Care \u2014 Contraceptive and sterilization.",
@@ -2373,7 +2474,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 19
     },
     {
         "topic": "Professional Visits and Services \u2014 Office and clinic visits",
@@ -2397,7 +2499,8 @@
             "in_network",
             "kinwell",
             "clinics"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Professional Visits and Services \u2014 Other professional services",
@@ -2421,7 +2524,8 @@
             "limitations",
             "facility",
             "charges"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Psychological and Neuropsychological Testing",
@@ -2444,7 +2548,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Rehabilitation Therapy \u2014 Office and clinic visits",
@@ -2467,7 +2572,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Rehabilitation Therapy \u2014 Other outpatient services",
@@ -2491,7 +2597,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Rehabilitation Therapy \u2014 Inpatient Care",
@@ -2514,7 +2621,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Skilled Nursing Facility Care",
@@ -2537,7 +2645,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Spinal and Other Manipulations",
@@ -2559,7 +2668,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Substance Use Disorder \u2014 Office and clinic visits",
@@ -2583,7 +2693,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Substance Use Disorder \u2014 Other professional services",
@@ -2607,7 +2718,8 @@
             "services",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Substance Use Disorder \u2014 Inpatient and residential facility care",
@@ -2631,7 +2743,8 @@
             "residential",
             "facility",
             "in_network"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Substance Use Disorder \u2014 Outpatient facility care",
@@ -2655,7 +2768,8 @@
             "facility",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Surgery (includes anesthesia and blood transfusions) See the Hospital and Surgical Center Care \u2013 Outpatient benefits for facility charges. \u2014 Vasectomy",
@@ -2679,7 +2793,8 @@
             "hospital",
             "surgical",
             "outpatient"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Surgical Center Care \u2013 Outpatient",
@@ -2701,7 +2816,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Office and clinic visits",
@@ -2725,7 +2841,8 @@
             "in_network",
             "kinwell",
             "clinics"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Other professional services",
@@ -2749,7 +2866,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Temporomandibular Joint Disorders (TMJ) Care \u2014 Inpatient facility care",
@@ -2773,7 +2891,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Therapeutic Injections",
@@ -2795,7 +2914,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Transplants (Includes donor search and donation costs.) \u2014 Inpatient facility care",
@@ -2819,7 +2939,8 @@
             "facility",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Transplants (Includes donor search and donation costs.) \u2014 Office and clinic visits",
@@ -2843,7 +2964,8 @@
             "in_network",
             "kinwell",
             "clinics"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Transplants (Includes donor search and donation costs.) \u2014 Surgery and other professional services",
@@ -2867,7 +2989,8 @@
             "professional",
             "services",
             "in_network"
-        ]
+        ],
+        "page_number": 21
     },
     {
         "topic": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.) \u2014 Freestanding urgent care centers",
@@ -2891,7 +3014,8 @@
             "received",
             "facility",
             "charges"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Urgent Care Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.) \u2014 Urgent care centers attached to or part of a hospital",
@@ -2915,7 +3039,8 @@
             "received",
             "facility",
             "charges"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual general medical visits with",
@@ -2939,7 +3064,8 @@
             "between",
             "originating",
             "provider"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual general medical visits with",
@@ -2963,7 +3089,8 @@
             "provider",
             "diagnoses",
             "consultation"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual mental health visits",
@@ -2987,7 +3114,8 @@
             "communication",
             "between",
             "originating"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual substance use disorder visits",
@@ -3011,7 +3139,8 @@
             "communication",
             "between",
             "originating"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Virtual rehabilitative care visits",
@@ -3035,7 +3164,8 @@
             "communication",
             "between",
             "originating"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2014 Behavioral/Mental health visits",
@@ -3059,7 +3189,8 @@
             "communication",
             "between",
             "originating"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 Members 19 or older (exam copay does not count toward your out-of-pocket maximum)",
@@ -3083,7 +3214,8 @@
             "maximum",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 Members younger than 19",
@@ -3106,7 +3238,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Exams Calendar year limit: one complete exam. \u2014 And Older Limit per calendar year: $400",
@@ -3127,7 +3260,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Eyeglass (frames) Limit: 1 pair per member per",
@@ -3149,7 +3283,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Eyeglass or contact lenses. Limit: 1 pair of eyeglass lenses or a 12 month supply of contact lenses per member each",
@@ -3172,7 +3307,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Contact lenses or glasses required for medical reasons",
@@ -3196,7 +3332,8 @@
             "medical",
             "reasons",
             "in_network"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Low vision devices, high power glasses, magnifiers and telescopes when medically necessary",
@@ -3220,7 +3357,8 @@
             "telescopes",
             "medically",
             "necessary"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Scratch resistant coating",
@@ -3244,7 +3382,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members Under 19 \u2014 Polycarbonate lenses",
@@ -3266,7 +3405,8 @@
             "in_network",
             "out_of_network",
             "limitations"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Professional Visit Copay \u2014 Professional visit copay",
@@ -3404,7 +3544,8 @@
             "standard",
             "retiree",
             "grandfathered"
-        ]
+        ],
+        "page_number": 2
     },
     {
         "topic": "Summary Of Your Costs \u2014 Coverage Information",
@@ -3428,7 +3569,8 @@
             "pharmacy",
             "dental",
             "mental-health"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Summary Table \u2014 Coverage Information",
@@ -3452,7 +3594,8 @@
             "summary",
             "limitations",
             "covered"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Gene Therapy \u2014 Coverage Information",
@@ -3476,7 +3619,8 @@
             "hospital",
             "facility",
             "charges"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Clinical Trials \u2014 Coverage Information",
@@ -3500,7 +3644,8 @@
             "service",
             "additional",
             "services"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Injury And Facility Anesthesia \u2014 Coverage Information",
@@ -3524,7 +3669,8 @@
             "anesthesia",
             "limitations",
             "benefit"
-        ]
+        ],
+        "page_number": 11
     },
     {
         "topic": "Diagnostic X-Ray, Lab, And \u2014 Coverage Information",
@@ -3548,7 +3694,8 @@
             "medical",
             "conditions",
             "ymptoms"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Emergency Room \u2014 Coverage Information",
@@ -3572,7 +3719,8 @@
             "facility",
             "charges",
             "additional"
-        ]
+        ],
+        "page_number": 12
     },
     {
         "topic": "Hearing Care \u2014 Coverage Information",
@@ -3596,7 +3744,8 @@
             "separate",
             "testing",
             "maximum"
-        ]
+        ],
+        "page_number": 13
     },
     {
         "topic": "Orthotics, Prosthetics And \u2014 Coverage Information",
@@ -3620,7 +3769,8 @@
             "supplies",
             "covered",
             "therapeutic"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Hospice Care \u2014 Coverage Information",
@@ -3640,7 +3790,8 @@
             "terminal",
             "illness",
             "inpatient"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Home Visits: Unlimited \u2014 Coverage Information",
@@ -3664,7 +3815,8 @@
             "lifetime",
             "inpatient",
             "facility"
-        ]
+        ],
+        "page_number": 14
     },
     {
         "topic": "Maternity Care \u2014 Coverage Information",
@@ -3688,7 +3840,8 @@
             "benefit",
             "routine",
             "professional"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Premera-Designated Centers Of \u2014 Coverage Information",
@@ -3712,7 +3865,8 @@
             "arranged",
             "replacements",
             "certain"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Center Of Excellence \u2014 Coverage Information",
@@ -3736,7 +3890,8 @@
             "therapy",
             "episode",
             "special"
-        ]
+        ],
+        "page_number": 15
     },
     {
         "topic": "Restricted Care \u2014 Coverage Information",
@@ -3760,7 +3915,8 @@
             "lodging",
             "covered",
             "approval"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Mental Health Care \u2014 Coverage Information",
@@ -3784,7 +3940,8 @@
             "services",
             "inpatient",
             "residential"
-        ]
+        ],
+        "page_number": 16
     },
     {
         "topic": "Premera-Designated Centers Of Excellence Program \u2014 Coverage Information",
@@ -3808,7 +3965,8 @@
             "limitations",
             "includes",
             "medical"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Of Excellence Program Benefit For \u2014 Coverage Information",
@@ -3832,7 +3990,8 @@
             "allowed",
             "network",
             "providers"
-        ]
+        ],
+        "page_number": 17
     },
     {
         "topic": "Prescription Drug \u2014 Coverage Information",
@@ -3856,7 +4015,8 @@
             "network",
             "preferred",
             "generic"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "In-Network Mail-Order Pharmacy \u2014 Coverage Information",
@@ -3880,7 +4040,8 @@
             "covered",
             "allowed",
             "maximum"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Mail Order Pharmacy \u2014 Coverage Information",
@@ -3904,7 +4065,8 @@
             "limitations",
             "needles",
             "syringes"
-        ]
+        ],
+        "page_number": 18
     },
     {
         "topic": "Rehabilitation Therapy \u2014 Coverage Information",
@@ -3928,7 +4090,8 @@
             "calendar",
             "cardiac",
             "pulmonary"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Substance Use Disorder \u2014 Coverage Information",
@@ -3952,7 +4115,8 @@
             "disorder",
             "limitations",
             "professional"
-        ]
+        ],
+        "page_number": 20
     },
     {
         "topic": "Urgent Care \u2014 Coverage Information",
@@ -3976,7 +4140,8 @@
             "services",
             "received",
             "facility"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Virtual Care \u2014 Coverage Information",
@@ -4000,7 +4165,8 @@
             "limitations",
             "interactive",
             "technology"
-        ]
+        ],
+        "page_number": 22
     },
     {
         "topic": "Vision Exams \u2014 Coverage Information",
@@ -4024,7 +4190,8 @@
             "maximum",
             "younger",
             "covered"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "Vision Hardware For Members \u2014 Coverage Information",
@@ -4048,7 +4215,8 @@
             "glasses",
             "required",
             "medical"
-        ]
+        ],
+        "page_number": 23
     },
     {
         "topic": "How Providers Affect Your Costs \u2014 Coverage Information",
@@ -4072,7 +4240,8 @@
             "network",
             "preferred",
             "provider"
-        ]
+        ],
+        "page_number": 24
     },
     {
         "topic": "Contracted Health Care Benefit Managers \u2014 Coverage Information",
@@ -4096,7 +4265,8 @@
             "visitor",
             "partners",
             "vendors"
-        ]
+        ],
+        "page_number": 24
     },
     {
         "topic": "Continuity Of Care \u2014 Coverage Information",
@@ -4120,7 +4290,8 @@
             "network",
             "employer",
             "transitions"
-        ]
+        ],
+        "page_number": 24
     },
     {
         "topic": "Non-Participating Providers \u2014 Coverage Information",
@@ -4144,7 +4315,8 @@
             "contracted",
             "washington",
             "heritage"
-        ]
+        ],
+        "page_number": 25
     },
     {
         "topic": "Balance Billing Protection \u2014 Coverage Information",
@@ -4168,7 +4340,8 @@
             "providers",
             "allowed",
             "covered"
-        ]
+        ],
+        "page_number": 25
     },
     {
         "topic": "Air Ambulance \u2014 Coverage Information",
@@ -4192,7 +4365,8 @@
             "sharing",
             "participating",
             "services"
-        ]
+        ],
+        "page_number": 26
     },
     {
         "topic": "Important Plan Information \u2014 Coverage Information",
@@ -4216,7 +4390,8 @@
             "covered",
             "services",
             "benefits"
-        ]
+        ],
+        "page_number": 26
     },
     {
         "topic": "Copayments (Copays) \u2014 Coverage Information",
@@ -4240,7 +4415,8 @@
             "certain",
             "covered",
             "services"
-        ]
+        ],
+        "page_number": 26
     },
     {
         "topic": "Split Copay For Office Visits \u2014 Coverage Information",
@@ -4264,7 +4440,8 @@
             "providers",
             "services",
             "received"
-        ]
+        ],
+        "page_number": 26
     },
     {
         "topic": "Calendar Year Deductible \u2014 Coverage Information",
@@ -4288,7 +4465,8 @@
             "services",
             "supplies",
             "provides"
-        ]
+        ],
+        "page_number": 27
     },
     {
         "topic": "Individual Deductible \u2014 Coverage Information",
@@ -4310,7 +4488,8 @@
             "certain",
             "benefits",
             "provided"
-        ]
+        ],
+        "page_number": 27
     },
     {
         "topic": "Family Deductible \u2014 Coverage Information",
@@ -4334,7 +4513,8 @@
             "individual",
             "incurred",
             "enrolled"
-        ]
+        ],
+        "page_number": 27
     },
     {
         "topic": "Coinsurance \u2014 Coverage Information",
@@ -4358,7 +4538,8 @@
             "allowed",
             "amounts",
             "covered"
-        ]
+        ],
+        "page_number": 27
     },
     {
         "topic": "Out-Of-Pocket Maximum \u2014 Coverage Information",
@@ -4382,7 +4563,8 @@
             "maximum",
             "limitations",
             "u201cindividual"
-        ]
+        ],
+        "page_number": 28
     },
     {
         "topic": "Allowed Amount \u2014 Coverage Information",
@@ -4406,7 +4588,8 @@
             "determine",
             "service",
             "otherwise"
-        ]
+        ],
+        "page_number": 28
     },
     {
         "topic": "General Rules \u2014 Coverage Information",
@@ -4430,7 +4613,8 @@
             "agreements",
             "service",
             "payment"
-        ]
+        ],
+        "page_number": 28
     },
     {
         "topic": "Non-Emergency Services Protected From Balance Billing \u2014 Coverage Information",
@@ -4454,7 +4638,8 @@
             "calculated",
             "consistent",
             "requirements"
-        ]
+        ],
+        "page_number": 29
     },
     {
         "topic": "Dialysis Due To End Stage Renal Disease \u2014 Coverage Information",
@@ -4478,7 +4663,8 @@
             "explained",
             "definition",
             "another"
-        ]
+        ],
+        "page_number": 29
     },
     {
         "topic": "Emergency Services \u2014 Coverage Information",
@@ -4502,7 +4688,8 @@
             "consistent",
             "requirements",
             "federal"
-        ]
+        ],
+        "page_number": 29
     },
     {
         "topic": "Ground Or Air Ambulance \u2014 Coverage Information",
@@ -4526,7 +4713,8 @@
             "requirements",
             "federal",
             "washington"
-        ]
+        ],
+        "page_number": 29
     },
     {
         "topic": "Covered Services \u2014 Coverage Information",
@@ -4550,7 +4738,8 @@
             "describes",
             "supplies",
             "benefits"
-        ]
+        ],
+        "page_number": 29
     },
     {
         "topic": "Allergy Testing And Treatment \u2014 Coverage Information",
@@ -4574,7 +4763,8 @@
             "limitations",
             "diagnose",
             "substances"
-        ]
+        ],
+        "page_number": 30
     },
     {
         "topic": "Blood Products And Services \u2014 Coverage Information",
@@ -4598,7 +4788,8 @@
             "certified",
             "licensed",
             "healthcare"
-        ]
+        ],
+        "page_number": 31
     },
     {
         "topic": "Cellular Immunotherapy And Gene Therapy \u2014 Coverage Information",
@@ -4622,7 +4813,8 @@
             "necessary",
             "services",
             "premera"
-        ]
+        ],
+        "page_number": 31
     },
     {
         "topic": "Chemotherapy And Radiation Therapy \u2014 Coverage Information",
@@ -4646,7 +4838,8 @@
             "chemicals",
             "prescribed",
             "provider"
-        ]
+        ],
+        "page_number": 31
     },
     {
         "topic": "Dental Anesthesia \u2014 Coverage Information",
@@ -4670,7 +4863,8 @@
             "medically",
             "necessary",
             "benefit"
-        ]
+        ],
+        "page_number": 32
     },
     {
         "topic": "Dental Injury \u2014 Coverage Information",
@@ -4694,7 +4888,8 @@
             "consultations",
             "surgery",
             "covered"
-        ]
+        ],
+        "page_number": 32
     },
     {
         "topic": "Diagnostic X-Ray, Lab, And Imaging \u2014 Coverage Information",
@@ -4718,7 +4913,8 @@
             "services",
             "medical",
             "identify"
-        ]
+        ],
+        "page_number": 32
     },
     {
         "topic": "Electronic Visits (E-Visits) \u2014 Coverage Information",
@@ -4742,7 +4938,8 @@
             "advantage",
             "conveniences",
             "communication"
-        ]
+        ],
+        "page_number": 33
     },
     {
         "topic": "E-Visit Confidentiality \u2014 Coverage Information",
@@ -4766,7 +4963,8 @@
             "because",
             "established",
             "quality"
-        ]
+        ],
+        "page_number": 34
     },
     {
         "topic": "E-Visit Exclusions \u2014 Coverage Information",
@@ -4790,7 +4988,8 @@
             "provider",
             "covered",
             "examples"
-        ]
+        ],
+        "page_number": 34
     },
     {
         "topic": "Hearing Exams \u2014 Coverage Information",
@@ -4814,7 +5013,8 @@
             "evaluation",
             "whispered",
             "history"
-        ]
+        ],
+        "page_number": 35
     },
     {
         "topic": "Hearing Hardware \u2014 Coverage Information",
@@ -4838,7 +5038,8 @@
             "licensed",
             "physician",
             "audiologist"
-        ]
+        ],
+        "page_number": 35
     },
     {
         "topic": "General Home Health Care \u2014 Coverage Information",
@@ -4862,7 +5063,8 @@
             "professional",
             "employed",
             "through"
-        ]
+        ],
+        "page_number": 36
     },
     {
         "topic": "Skilled Hourly Nursing \u2014 Coverage Information",
@@ -4886,7 +5088,8 @@
             "benefit",
             "medically",
             "intensive"
-        ]
+        ],
+        "page_number": 36
     },
     {
         "topic": "Orthopedic Shoes And Shoe Inserts \u2014 Coverage Information",
@@ -4910,7 +5113,8 @@
             "limitations",
             "treatment",
             "complications"
-        ]
+        ],
+        "page_number": 37
     },
     {
         "topic": "Infusion Therapy \u2014 Coverage Information",
@@ -4934,7 +5138,8 @@
             "treatment",
             "examples",
             "include"
-        ]
+        ],
+        "page_number": 39
     },
     {
         "topic": "Mastectomy And Breast Reconstruction \u2014 Coverage Information",
@@ -4958,7 +5163,8 @@
             "disease",
             "illness",
             "benefit"
-        ]
+        ],
+        "page_number": 39
     },
     {
         "topic": "Facility Care \u2014 Coverage Information",
@@ -4982,7 +5188,8 @@
             "outpatient",
             "services",
             "including"
-        ]
+        ],
+        "page_number": 39
     },
     {
         "topic": "Professional Care \u2014 Coverage Information",
@@ -5006,7 +5213,8 @@
             "procedures",
             "genetic",
             "counseling"
-        ]
+        ],
+        "page_number": 40
     },
     {
         "topic": "Medical Transportation \u2014 Coverage Information",
@@ -5030,7 +5238,8 @@
             "covered",
             "services",
             "described"
-        ]
+        ],
+        "page_number": 40
     },
     {
         "topic": "Companion Travel \u2014 Coverage Information",
@@ -5049,7 +5258,8 @@
             "covered",
             "medically",
             "necessary"
-        ]
+        ],
+        "page_number": 41
     },
     {
         "topic": "Reimbursement Of Travel Claims \u2014 Coverage Information",
@@ -5073,7 +5283,8 @@
             "centers",
             "excellence",
             "covered"
-        ]
+        ],
+        "page_number": 41
     },
     {
         "topic": "Medical Transportation \u2013 State-Restricted Care \u2014 Coverage Information",
@@ -5097,7 +5308,8 @@
             "abortion",
             "transgender",
             "services"
-        ]
+        ],
+        "page_number": 42
     },
     {
         "topic": "Medical Travel Support (Alaska Employees And Dependents) \u2014 Coverage Information",
@@ -5121,7 +5333,8 @@
             "provides",
             "specified",
             "emergent"
-        ]
+        ],
+        "page_number": 43
     },
     {
         "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Coverage Information",
@@ -5145,7 +5358,8 @@
             "provided",
             "treatment",
             "disabilities"
-        ]
+        ],
+        "page_number": 45
     },
     {
         "topic": "Hospital Care \u2014 Coverage Information",
@@ -5169,7 +5383,8 @@
             "necessary",
             "attending",
             "provider"
-        ]
+        ],
+        "page_number": 46
     },
     {
         "topic": "How To Obtain Coverage \u2014 Coverage Information",
@@ -5193,7 +5408,8 @@
             "coordinated",
             "consistent",
             "established"
-        ]
+        ],
+        "page_number": 47
     },
     {
         "topic": "Total Knee And Hip Joint Replacements \u2014 Coverage Information",
@@ -5213,7 +5429,8 @@
             "surgery",
             "covered",
             "benefits"
-        ]
+        ],
+        "page_number": 47
     },
     {
         "topic": "Bariatric Surgery \u2014 Coverage Information",
@@ -5237,7 +5454,8 @@
             "northwest",
             "evergreen",
             "medical"
-        ]
+        ],
+        "page_number": 47
     },
     {
         "topic": "What\u2019S Covered \u2014 Coverage Information",
@@ -5261,7 +5479,8 @@
             "include",
             "medically",
             "necessary"
-        ]
+        ],
+        "page_number": 47
     },
     {
         "topic": "Shots You Give Yourself \u2014 Coverage Information",
@@ -5285,7 +5504,8 @@
             "covered",
             "prescription",
             "towards"
-        ]
+        ],
+        "page_number": 48
     },
     {
         "topic": "Prescription Vitamins \u2014 Coverage Information",
@@ -5309,7 +5529,8 @@
             "example",
             "rheumatoid",
             "arthritis"
-        ]
+        ],
+        "page_number": 48
     },
     {
         "topic": "Split Fill Program \u2014 Coverage Information",
@@ -5333,7 +5554,8 @@
             "certain",
             "specialty",
             "instance"
-        ]
+        ],
+        "page_number": 48
     },
     {
         "topic": "Getting Prescriptions Filled \u2014 Coverage Information",
@@ -5357,7 +5579,8 @@
             "answers",
             "benefits",
             "exceptions"
-        ]
+        ],
+        "page_number": 49
     },
     {
         "topic": "Pharmacy Supply Limit Instructions \u2014 Coverage Information",
@@ -5375,7 +5598,8 @@
             "instructions",
             "limitations",
             "network"
-        ]
+        ],
+        "page_number": 49
     },
     {
         "topic": "Network Specialty \u2014 Coverage Information",
@@ -5399,7 +5623,8 @@
             "limitations",
             "pharmacies",
             "prescription"
-        ]
+        ],
+        "page_number": 49
     },
     {
         "topic": "Questions And Answers About Your Pharmacy Benefits \u2014 Coverage Information",
@@ -5423,7 +5648,8 @@
             "provider",
             "prescribe",
             "encourage"
-        ]
+        ],
+        "page_number": 50
     },
     {
         "topic": "Essentials Drug List \u2014 Coverage Information",
@@ -5447,7 +5673,8 @@
             "includes",
             "doctors",
             "pharmacists"
-        ]
+        ],
+        "page_number": 50
     },
     {
         "topic": "Generic Drug Substitution \u2014 Coverage Information",
@@ -5471,7 +5698,8 @@
             "limitations",
             "encourages",
             "appropriate"
-        ]
+        ],
+        "page_number": 50
     },
     {
         "topic": "Preventive Care \u2014 Coverage Information",
@@ -5489,7 +5717,8 @@
             "limitations",
             "summary",
             "services"
-        ]
+        ],
+        "page_number": 52
     },
     {
         "topic": "Preventive Exams \u2014 Coverage Information",
@@ -5513,7 +5742,8 @@
             "screening",
             "depression",
             "immunizations"
-        ]
+        ],
+        "page_number": 52
     },
     {
         "topic": "Screening Tests \u2014 Coverage Information",
@@ -5537,7 +5767,8 @@
             "services",
             "recommended",
             "guidelines"
-        ]
+        ],
+        "page_number": 52
     },
     {
         "topic": "Pregnant Member\u2019S Care \u2014 Coverage Information",
@@ -5561,7 +5792,8 @@
             "electric",
             "hospital",
             "medically"
-        ]
+        ],
+        "page_number": 52
     },
     {
         "topic": "Colorectal Screening \u2014 Coverage Information",
@@ -5585,7 +5817,8 @@
             "sigmoidoscopy",
             "consultation",
             "anesthesia"
-        ]
+        ],
+        "page_number": 53
     },
     {
         "topic": "Health Education And Training \u2014 Coverage Information",
@@ -5609,7 +5842,8 @@
             "conditions",
             "disease",
             "diabetes"
-        ]
+        ],
+        "page_number": 53
     },
     {
         "topic": "Nutritional Counseling And Therapy \u2014 Coverage Information",
@@ -5633,7 +5867,8 @@
             "screening",
             "members",
             "conditions"
-        ]
+        ],
+        "page_number": 53
     },
     {
         "topic": "Fall Prevention \u2014 Coverage Information",
@@ -5657,7 +5892,8 @@
             "history",
             "falling",
             "mobility"
-        ]
+        ],
+        "page_number": 53
     },
     {
         "topic": "About Preventive Care \u2014 Coverage Information",
@@ -5681,7 +5917,8 @@
             "services",
             "guidelines",
             "required"
-        ]
+        ],
+        "page_number": 53
     },
     {
         "topic": "Psychological And Neuropsychological Testing \u2014 Coverage Information",
@@ -5705,7 +5942,8 @@
             "services",
             "including",
             "interpretation"
-        ]
+        ],
+        "page_number": 55
     },
     {
         "topic": "Inpatient Care \u2014 Coverage Information",
@@ -5729,7 +5967,8 @@
             "provided",
             "specialized",
             "hospital"
-        ]
+        ],
+        "page_number": 55
     },
     {
         "topic": "Outpatient Care \u2014 Coverage Information",
@@ -5753,7 +5992,8 @@
             "physical",
             "hearing",
             "occupational"
-        ]
+        ],
+        "page_number": 55
     },
     {
         "topic": "Temporomandibular Joint Disorders (Tmj) Care \u2014 Coverage Information",
@@ -5777,7 +6017,8 @@
             "covered",
             "condition",
             "include"
-        ]
+        ],
+        "page_number": 57
     },
     {
         "topic": "Recipient Costs \u2014 Coverage Information",
@@ -5801,7 +6042,8 @@
             "including",
             "preparation",
             "regiment"
-        ]
+        ],
+        "page_number": 58
     },
     {
         "topic": "Donor Costs \u2014 Coverage Information",
@@ -5825,7 +6067,8 @@
             "evaluation",
             "transportation",
             "including"
-        ]
+        ],
+        "page_number": 59
     },
     {
         "topic": "Travel And Lodging \u2014 Coverage Information",
@@ -5849,7 +6092,8 @@
             "expenses",
             "related",
             "services"
-        ]
+        ],
+        "page_number": 59
     },
     {
         "topic": "Members 19 Or Older \u2014 Coverage Information",
@@ -5873,7 +6117,8 @@
             "provided",
             "requirements",
             "benefit"
-        ]
+        ],
+        "page_number": 60
     },
     {
         "topic": "Members Under 19 \u2014 Coverage Information",
@@ -5895,7 +6140,8 @@
             "provide",
             "coverage",
             "summary"
-        ]
+        ],
+        "page_number": 61
     },
     {
         "topic": "Out-Of-Area Care \u2014 Coverage Information",
@@ -5919,7 +6165,8 @@
             "licensees",
             "u201chost",
             "washington"
-        ]
+        ],
+        "page_number": 61
     },
     {
         "topic": "Bluecard Program \u2014 Coverage Information",
@@ -5943,7 +6190,8 @@
             "network",
             "providers",
             "provider"
-        ]
+        ],
+        "page_number": 61
     },
     {
         "topic": "Taxes, Surcharges And Fees \u2014 Coverage Information",
@@ -5966,7 +6214,8 @@
             "service",
             "happens",
             "allowed"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "Non-Contracted Providers \u2014 Coverage Information",
@@ -5990,7 +6239,8 @@
             "outside",
             "contract",
             "allowed"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "Blue Cross Blue Shield Global\u00ae Core \u2014 Coverage Information",
@@ -6014,7 +6264,8 @@
             "program",
             "instance",
             "although"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "More Questions \u2014 Coverage Information",
@@ -6038,7 +6289,8 @@
             "provider",
             "premera",
             "information"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "Care Management \u2014 Coverage Information",
@@ -6062,7 +6314,8 @@
             "process",
             "important",
             "explained"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "Prior Authorization \u2014 Coverage Information",
@@ -6086,7 +6339,8 @@
             "services",
             "service",
             "performed"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "How Prior Authorization Works \u2014 Coverage Information",
@@ -6110,7 +6364,8 @@
             "calendar",
             "receipt",
             "information"
-        ]
+        ],
+        "page_number": 62
     },
     {
         "topic": "Medical Services, Supplies Or Equipment \u2014 Coverage Information",
@@ -6134,7 +6389,8 @@
             "facility",
             "authorization",
             "receive"
-        ]
+        ],
+        "page_number": 63
     },
     {
         "topic": "Prescription Drugs \u2014 Coverage Information",
@@ -6158,7 +6414,8 @@
             "premera",
             "provider",
             "accurately"
-        ]
+        ],
+        "page_number": 63
     },
     {
         "topic": "Exceptions To Prior Authorization For Benefit Coverage \u2014 Coverage Information",
@@ -6182,7 +6439,8 @@
             "benefit",
             "coverage",
             "limitations"
-        ]
+        ],
+        "page_number": 63
     },
     {
         "topic": "Clinical Review \u2014 Coverage Information",
@@ -6206,7 +6464,8 @@
             "medical",
             "policies",
             "outline"
-        ]
+        ],
+        "page_number": 64
     },
     {
         "topic": "Personal Health Support Programs \u2014 Coverage Information",
@@ -6230,7 +6489,8 @@
             "members",
             "managing",
             "complex"
-        ]
+        ],
+        "page_number": 64
     },
     {
         "topic": "Chronic Condition Management \u2014 Coverage Information",
@@ -6254,7 +6514,8 @@
             "consumer",
             "digital",
             "company"
-        ]
+        ],
+        "page_number": 65
     },
     {
         "topic": "Exclusions And Limitations \u2014 Coverage Information",
@@ -6276,7 +6537,8 @@
             "section",
             "booklet",
             "limited"
-        ]
+        ],
+        "page_number": 65
     },
     {
         "topic": "Amounts Over The Allowed Amount \u2014 Coverage Information",
@@ -6298,7 +6560,8 @@
             "service",
             "participating",
             "provider"
-        ]
+        ],
+        "page_number": 65
     },
     {
         "topic": "Assisted Reproduction \u2014 Coverage Information",
@@ -6322,7 +6585,8 @@
             "required",
             "procedures",
             "artificial"
-        ]
+        ],
+        "page_number": 65
     },
     {
         "topic": "Charges For Records Or Reports \u2014 Coverage Information",
@@ -6346,7 +6610,8 @@
             "premera",
             "utilization",
             "complications"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Cosmetic Services \u2014 Coverage Information",
@@ -6370,7 +6635,8 @@
             "performed",
             "reshape",
             "structures"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Counseling, Education Or Training \u2014 Coverage Information",
@@ -6394,7 +6660,8 @@
             "limited",
             "outreach",
             "fitness"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Court-Ordered Services \u2014 Coverage Information",
@@ -6414,7 +6681,8 @@
             "sentenced",
             "medically",
             "necessary"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Dental Care \u2014 Coverage Information",
@@ -6438,7 +6706,8 @@
             "temporomandibular",
             "disorders",
             "benefit"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Experimental Or Investigational Services \u2014 Coverage Information",
@@ -6462,7 +6731,8 @@
             "complications",
             "effects",
             "certain"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Family Members Or Volunteers \u2014 Coverage Information",
@@ -6486,7 +6756,8 @@
             "provider",
             "brother",
             "marriage"
-        ]
+        ],
+        "page_number": 66
     },
     {
         "topic": "Governmental Facilities \u2014 Coverage Information",
@@ -6510,7 +6781,8 @@
             "federal",
             "facility",
             "required"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Hair Loss \u2014 Coverage Information",
@@ -6533,7 +6805,8 @@
             "prostheses",
             "transplants",
             "implants"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Illegal Acts, Illegal Services, And Terrorism \u2014 Coverage Information",
@@ -6555,7 +6828,8 @@
             "committing",
             "service",
             "federal"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Military Service And War \u2014 Coverage Information",
@@ -6579,7 +6853,8 @@
             "country",
             "including",
             "related"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Non-Covered Services \u2014 Coverage Information",
@@ -6603,7 +6878,8 @@
             "ordered",
             "provided",
             "someone"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Non-Treatment Facilities, Institutions Or Programs \u2014 Coverage Information",
@@ -6627,7 +6903,8 @@
             "limitations",
             "institutional",
             "housing"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Orthognathic Surgery \u2014 Coverage Information",
@@ -6651,7 +6928,8 @@
             "cosmetic",
             "services",
             "medically"
-        ]
+        ],
+        "page_number": 67
     },
     {
         "topic": "Provider\u2019S Licensing Or Certification \u2014 Coverage Information",
@@ -6675,7 +6953,8 @@
             "unlicensed",
             "uncertified",
             "providers"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Recreational, Camp And Activity Programs \u2014 Coverage Information",
@@ -6699,7 +6978,8 @@
             "sensory",
             "movement",
             "therapy"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Serious Adverse Events And Never Events \u2014 Coverage Information",
@@ -6723,7 +7003,8 @@
             "hospitalization",
             "produces",
             "disability"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Sexual Dysfunction \u2014 Coverage Information",
@@ -6747,7 +7028,8 @@
             "medical",
             "psychological",
             "impotence"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Vision Therapy \u2014 Coverage Information",
@@ -6771,7 +7053,8 @@
             "muscular",
             "imbalance",
             "orthoptics"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Voluntary Support Groups \u2014 Coverage Information",
@@ -6794,7 +7077,8 @@
             "diabetic",
             "alcoholics",
             "anonymous"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Work-Related Illness Or Injury \u2014 Coverage Information",
@@ -6817,7 +7101,8 @@
             "coverage",
             "details",
             "recovery"
-        ]
+        ],
+        "page_number": 68
     },
     {
         "topic": "Effect On Benefits \u2014 Coverage Information",
@@ -6841,7 +7126,8 @@
             "responsible",
             "providing",
             "u201cprimary"
-        ]
+        ],
+        "page_number": 70
     },
     {
         "topic": "Primary And Secondary Rules \u2014 Coverage Information",
@@ -6865,7 +7151,8 @@
             "governmental",
             "medicaid",
             "required"
-        ]
+        ],
+        "page_number": 70
     },
     {
         "topic": "Medical Premises Coverage \u2014 Coverage Information",
@@ -6889,7 +7176,8 @@
             "insurance",
             "homeowners",
             "commercial"
-        ]
+        ],
+        "page_number": 72
     },
     {
         "topic": "Reimbursement And Subrogation Rights \u2014 Coverage Information",
@@ -6913,7 +7201,8 @@
             "lawyers",
             "expenses",
             "doctrine"
-        ]
+        ],
+        "page_number": 72
     },
     {
         "topic": "Your Responsibilities \u2014 Coverage Information",
@@ -6937,7 +7226,8 @@
             "provided",
             "premera",
             "existence"
-        ]
+        ],
+        "page_number": 73
     },
     {
         "topic": "Reimbursement And Subrogation Procedures \u2014 Coverage Information",
@@ -6961,7 +7251,8 @@
             "satisfied",
             "equitable",
             "constructive"
-        ]
+        ],
+        "page_number": 73
     },
     {
         "topic": "Retiree Eligibility \u2014 Coverage Information",
@@ -6985,7 +7276,8 @@
             "requirements",
             "medicare",
             "retirement"
-        ]
+        ],
+        "page_number": 74
     },
     {
         "topic": "Employees Performing Employment Services In Hawaii \u2014 Coverage Information",
@@ -7009,7 +7301,8 @@
             "employers",
             "political",
             "subdivisions"
-        ]
+        ],
+        "page_number": 74
     },
     {
         "topic": "Foster Children \u2014 Coverage Information",
@@ -7030,7 +7323,8 @@
             "enrollment",
             "subscriber",
             "enrolled"
-        ]
+        ],
+        "page_number": 75
     },
     {
         "topic": "Children Through Legal Guardianship \u2014 Coverage Information",
@@ -7054,7 +7348,8 @@
             "application",
             "required",
             "charges"
-        ]
+        ],
+        "page_number": 75
     },
     {
         "topic": "Children Covered Under Medical Child Support Orders \u2014 Coverage Information",
@@ -7078,7 +7373,8 @@
             "enrollment",
             "application",
             "coverage"
-        ]
+        ],
+        "page_number": 75
     },
     {
         "topic": "Involuntary Loss Of Other Coverage \u2014 Coverage Information",
@@ -7102,7 +7398,8 @@
             "subject",
             "limited",
             "exceptions"
-        ]
+        ],
+        "page_number": 75
     },
     {
         "topic": "Contract Replacement \u2014 Coverage Information",
@@ -7126,7 +7423,8 @@
             "another",
             "premera",
             "companies"
-        ]
+        ],
+        "page_number": 76
     },
     {
         "topic": "Qualifying Events And Length Of Coverage \u2014 Coverage Information",
@@ -7150,7 +7448,8 @@
             "periods",
             "covered",
             "domestic"
-        ]
+        ],
+        "page_number": 77
     },
     {
         "topic": "Adding Family Members \u2014 Coverage Information",
@@ -7174,7 +7473,8 @@
             "coverage",
             "further",
             "qualifying"
-        ]
+        ],
+        "page_number": 78
     },
     {
         "topic": "Keep The Group Informed Of Address Changes \u2014 Coverage Information",
@@ -7198,7 +7498,8 @@
             "coverage",
             "premium",
             "required"
-        ]
+        ],
+        "page_number": 78
     },
     {
         "topic": "Claims Other Than Prescription Drug Claims \u2014 Coverage Information",
@@ -7222,7 +7523,8 @@
             "complete",
             "subscriber",
             "separate"
-        ]
+        ],
+        "page_number": 80
     },
     {
         "topic": "Medicare Benefits.\u201d \u2014 Coverage Information",
@@ -7246,7 +7548,8 @@
             "considered",
             "necessary",
             "included"
-        ]
+        ],
+        "page_number": 80
     },
     {
         "topic": "In-Network Pharmacies \u2014 Coverage Information",
@@ -7270,7 +7573,8 @@
             "pharmacist",
             "directly",
             "prescription"
-        ]
+        ],
+        "page_number": 80
     },
     {
         "topic": "Special Notice About Claims Procedure \u2014 Coverage Information",
@@ -7294,7 +7598,8 @@
             "possible",
             "receive",
             "writing"
-        ]
+        ],
+        "page_number": 81
     },
     {
         "topic": "How To Submit An Appeal \u2014 Coverage Information",
@@ -7318,7 +7623,8 @@
             "appeals",
             "process",
             "collect"
-        ]
+        ],
+        "page_number": 82
     },
     {
         "topic": "Appeal Response Time Limits \u2014 Coverage Information",
@@ -7342,7 +7648,8 @@
             "premera",
             "representatives",
             "reviewed"
-        ]
+        ],
+        "page_number": 83
     },
     {
         "topic": "Evidence Of Medical Necessity \u2014 Coverage Information",
@@ -7366,7 +7673,8 @@
             "receive",
             "benefits",
             "provided"
-        ]
+        ],
+        "page_number": 85
     },
     {
         "topic": "Healthcare Providers \u2014 Independent Contractors \u2014 Coverage Information",
@@ -7390,7 +7698,8 @@
             "services",
             "supplies",
             "provisions"
-        ]
+        ],
+        "page_number": 85
     },
     {
         "topic": "Intentionally False Or Misleading Statements \u2014 Coverage Information",
@@ -7414,7 +7723,8 @@
             "commission",
             "providing",
             "entitled"
-        ]
+        ],
+        "page_number": 85
     },
     {
         "topic": "Member Cooperation \u2014 Coverage Information",
@@ -7435,7 +7745,8 @@
             "administration",
             "benefits",
             "lawsuit"
-        ]
+        ],
+        "page_number": 85
     },
     {
         "topic": "Newborn\u2019S And Mother\u2019S Health Protection Act \u2014 Coverage Information",
@@ -7459,7 +7770,8 @@
             "restrict",
             "benefits",
             "hospital"
-        ]
+        ],
+        "page_number": 85
     },
     {
         "topic": "Notice Of Other Coverage \u2014 Coverage Information",
@@ -7483,7 +7795,8 @@
             "provides",
             "address",
             "insurance"
-        ]
+        ],
+        "page_number": 86
     },
     {
         "topic": "Type Of Plan \u2014 Coverage Information",
@@ -7503,7 +7816,8 @@
             "benefit",
             "provides",
             "benefits"
-        ]
+        ],
+        "page_number": 87
     },
     {
         "topic": "Eligibility To Participate In The Plan \u2014 Coverage Information",
@@ -7527,7 +7841,8 @@
             "benefits",
             "requirements",
             "booklet"
-        ]
+        ],
+        "page_number": 88
     },
     {
         "topic": "Source Of Contributions \u2014 Coverage Information",
@@ -7551,7 +7866,8 @@
             "payments",
             "permitted",
             "continue"
-        ]
+        ],
+        "page_number": 88
     },
     {
         "topic": "Funding Medium \u2014 Coverage Information",
@@ -7575,7 +7891,8 @@
             "special",
             "account",
             "reserves"
-        ]
+        ],
+        "page_number": 88
     },
     {
         "topic": "Plan Changes And Termination \u2014 Coverage Information",
@@ -7599,7 +7916,8 @@
             "circumstances",
             "changed",
             "terminated"
-        ]
+        ],
+        "page_number": 88
     },
     {
         "topic": "Accidental Injury \u2014 Coverage Information",
@@ -7623,7 +7941,8 @@
             "following",
             "illness",
             "infection"
-        ]
+        ],
+        "page_number": 89
     },
     {
         "topic": "Adverse Benefit Determination \u2014 Coverage Information",
@@ -7647,7 +7966,8 @@
             "failure",
             "provide",
             "payment"
-        ]
+        ],
+        "page_number": 89
     },
     {
         "topic": "Affordable Care Act \u2014 Coverage Information",
@@ -7668,7 +7988,8 @@
             "amended",
             "education",
             "reconciliation"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Ambulatory Surgical Center \u2014 Coverage Information",
@@ -7692,7 +8013,8 @@
             "required",
             "operates",
             "following"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Applied Behavioral Analysis (Aba) \u2014 Coverage Information",
@@ -7716,7 +8038,8 @@
             "environmental",
             "modifications",
             "stimuli"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Autism Spectrum Disorders \u2014 Coverage Information",
@@ -7740,7 +8063,8 @@
             "conditions",
             "substantially",
             "characteristics"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Benefit Booklet \u2014 Coverage Information",
@@ -7764,7 +8088,8 @@
             "eligibility",
             "coverage",
             "provisions"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Calendar Year \u2014 Coverage Information",
@@ -7784,7 +8109,8 @@
             "january",
             "december",
             "midnight"
-        ]
+        ],
+        "page_number": 90
     },
     {
         "topic": "Community Mental Health Agency \u2014 Coverage Information",
@@ -7808,7 +8134,8 @@
             "treatment",
             "supervision",
             "physician"
-        ]
+        ],
+        "page_number": 91
     },
     {
         "topic": "Complication Of Pregnancy \u2014 Coverage Information",
@@ -7832,7 +8159,8 @@
             "categories",
             "surgery",
             "difficult"
-        ]
+        ],
+        "page_number": 91
     },
     {
         "topic": "Congenital Anomaly \u2014 Coverage Information",
@@ -7852,7 +8180,8 @@
             "difference",
             "structure",
             "present"
-        ]
+        ],
+        "page_number": 91
     },
     {
         "topic": "Eligibility Waiting Period \u2014 Coverage Information",
@@ -7876,7 +8205,8 @@
             "dependent",
             "eligible",
             "covered"
-        ]
+        ],
+        "page_number": 92
     },
     {
         "topic": "Experimental/Investigative Services \u2014 Coverage Information",
@@ -7900,7 +8230,8 @@
             "equipment",
             "medical",
             "following"
-        ]
+        ],
+        "page_number": 93
     },
     {
         "topic": "Explanation Of Benefits \u2014 Coverage Information",
@@ -7921,7 +8252,8 @@
             "healthcare",
             "services",
             "received"
-        ]
+        ],
+        "page_number": 93
     },
     {
         "topic": "Facility (Medical Facility) \u2014 Coverage Information",
@@ -7945,7 +8277,8 @@
             "approved",
             "treatment",
             "substance"
-        ]
+        ],
+        "page_number": 93
     },
     {
         "topic": "Health Care Benefit Managers \u2014 Coverage Information",
@@ -7969,7 +8302,8 @@
             "certain",
             "services",
             "carrier"
-        ]
+        ],
+        "page_number": 93
     },
     {
         "topic": "Home Medical Equipment (Hme) \u2014 Coverage Information",
@@ -7993,7 +8327,8 @@
             "provider",
             "everyday",
             "extended"
-        ]
+        ],
+        "page_number": 93
     },
     {
         "topic": "In-Network Pharmacy (In-Network Retail/In-Network Mail Order Pharmacy) \u2014 Coverage Information",
@@ -8017,7 +8352,8 @@
             "manager",
             "provide",
             "prescription"
-        ]
+        ],
+        "page_number": 94
     },
     {
         "topic": "In-Network Provider \u2014 Coverage Information",
@@ -8041,7 +8377,8 @@
             "confined",
             "medical",
             "facility"
-        ]
+        ],
+        "page_number": 94
     },
     {
         "topic": "Long-Term Care Facility \u2014 Coverage Information",
@@ -8065,7 +8402,8 @@
             "community",
             "defined",
             "assisted"
-        ]
+        ],
+        "page_number": 94
     },
     {
         "topic": "Medical Equipment \u2014 Coverage Information",
@@ -8087,7 +8425,8 @@
             "connection",
             "treatment",
             "illness"
-        ]
+        ],
+        "page_number": 94
     },
     {
         "topic": "Medically Necessary And Medical Necessity \u2014 Coverage Information",
@@ -8111,7 +8450,8 @@
             "provider",
             "exercising",
             "prudent"
-        ]
+        ],
+        "page_number": 94
     },
     {
         "topic": "Milk Bank \u2014 Coverage Information",
@@ -8133,7 +8473,8 @@
             "storage",
             "distribution",
             "contributed"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Non-Contracted Provider \u2014 Coverage Information",
@@ -8153,7 +8494,8 @@
             "network",
             "premera",
             "licensee"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Non-Participating Provider \u2014 Coverage Information",
@@ -8177,7 +8519,8 @@
             "premera",
             "licensee",
             "orthodontia"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Out-Of-Network Provider \u2014 Coverage Information",
@@ -8201,7 +8544,8 @@
             "treatment",
             "received",
             "setting"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Outpatient Surgical Center \u2014 Coverage Information",
@@ -8225,7 +8569,8 @@
             "operates",
             "following",
             "organized"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Pharmacy Benefit Manager \u2014 Coverage Information",
@@ -8249,7 +8594,8 @@
             "monthly",
             "condition",
             "coverage"
-        ]
+        ],
+        "page_number": 95
     },
     {
         "topic": "Post-2023 Retiree \u2014 Coverage Information",
@@ -8273,7 +8619,8 @@
             "service",
             "defined",
             "pension"
-        ]
+        ],
+        "page_number": 96
     },
     {
         "topic": "Pre-1993 Retiree \u2014 Coverage Information",
@@ -8297,7 +8644,8 @@
             "eligible",
             "retirement",
             "companies"
-        ]
+        ],
+        "page_number": 96
     },
     {
         "topic": "Psychiatric Condition \u2014 Coverage Information",
@@ -8321,7 +8669,8 @@
             "statistical",
             "disorders",
             "include"
-        ]
+        ],
+        "page_number": 97
     },
     {
         "topic": "Reconstructive Surgery \u2014 Coverage Information",
@@ -8345,7 +8694,8 @@
             "correct",
             "congenital",
             "deformity"
-        ]
+        ],
+        "page_number": 97
     },
     {
         "topic": "Service Area \u2014 Coverage Information",
@@ -8366,7 +8716,8 @@
             "provider",
             "networks",
             "washington"
-        ]
+        ],
+        "page_number": 97
     },
     {
         "topic": "Skilled Nursing Care \u2014 Coverage Information",
@@ -8390,7 +8741,8 @@
             "knowledge",
             "training",
             "licensed"
-        ]
+        ],
+        "page_number": 97
     },
     {
         "topic": "Skilled Nursing Facility \u2014 Coverage Information",
@@ -8414,7 +8766,8 @@
             "require",
             "direction",
             "physician"
-        ]
+        ],
+        "page_number": 97
     },
     {
         "topic": "Substance Use Disorder Conditions \u2014 Coverage Information",
@@ -8438,6 +8791,7 @@
             "related",
             "disorders",
             "included"
-        ]
+        ],
+        "page_number": 98
     }
 ]

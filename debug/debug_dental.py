@@ -170,13 +170,23 @@ import sys, json, os
 #     BASE_DIR, "..", "indices", "2026_dental_1000016_premera_dental_plan_standard"
 # )
 
-index_path = "C:\\Personal\\AI\\P-RAG\\indices\\2026_dental_1000016_premera_dental_plan_standard.json"
-data = json.load(open(index_path, encoding="utf-8"))
+# index_path = "C:\\Personal\\AI\\P-RAG\\indices\\2026_dental_1000016_premera_dental_plan_standard.json"
+# data = json.load(open(index_path, encoding="utf-8"))
 
-for e in data:
-    svc = e.get("content", {}).get("service", "")
-    if "implant" in svc.lower():
-        print(f"topic:    {e.get('topic')}")
-        print(f"keywords: {e.get('keywords')}")
-        print(f"service:  {svc}")
-        print()
+# for e in data:
+#     svc = e.get("content", {}).get("service", "")
+#     if "implant" in svc.lower():
+#         print(f"topic:    {e.get('topic')}")
+#         print(f"keywords: {e.get('keywords')}")
+#         print(f"service:  {svc}")
+#         print()
+
+
+import pdfplumber
+
+pdf_path = "C:\\Personal\\AI\\P-RAG\\docs\\2026\\dental\\Dental.pdf"
+
+with pdfplumber.open(pdf_path) as pdf:
+    for i, page in enumerate(pdf.pages[:10], 1):
+        text = (page.extract_text() or "")[:200]
+        print(f"PDF page {i}: {text[:80]}")

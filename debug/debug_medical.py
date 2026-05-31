@@ -298,45 +298,54 @@ PDF_PATH = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PDF
 # #         break
 # # #=========================================================================================================================================
 
-# Admin sections to skip (same as vision)
-ADMIN = {
-    "enrollment",
-    "cobra",
-    "eligibility",
-    "when does coverage",
-    "how do i file",
-    "complaints",
-    "appeals",
-    "privacy",
-    "erisa",
-    "definitions",
-    "right of recovery",
-    "where to send",
-}
+# # Admin sections to skip (same as vision)
+# ADMIN = {
+#     "enrollment",
+#     "cobra",
+#     "eligibility",
+#     "when does coverage",
+#     "how do i file",
+#     "complaints",
+#     "appeals",
+#     "privacy",
+#     "erisa",
+#     "definitions",
+#     "right of recovery",
+#     "where to send",
+# }
 
 
-def is_admin(text):
-    t = text.lower()
-    return any(a in t for a in ADMIN)
+# def is_admin(text):
+#     t = text.lower()
+#     return any(a in t for a in ADMIN)
 
 
-with pdfplumber.open(PDF_PATH) as pdf:
-    print(f"Total pages: {len(pdf.pages)}\n")
-    for page_num, page in enumerate(pdf.pages):
-        text = page.extract_text() or ""
-        tables = page.extract_tables() or []
+# with pdfplumber.open(PDF_PATH) as pdf:
+#     print(f"Total pages: {len(pdf.pages)}\n")
+#     for page_num, page in enumerate(pdf.pages):
+#         text = page.extract_text() or ""
+#         tables = page.extract_tables() or []
 
-        # Skip benefit table pages
-        if "YOUR SHARE OF THE ALLOWED AMOUNT" in text.upper():
-            print(f"Page {page_num+1}: BENEFIT TABLE — skipping")
-            continue
+#         # Skip benefit table pages
+#         if "YOUR SHARE OF THE ALLOWED AMOUNT" in text.upper():
+#             print(f"Page {page_num+1}: BENEFIT TABLE — skipping")
+#             continue
 
-        # Skip admin pages
-        if is_admin(text[:500]):
-            print(f"Page {page_num+1}: ADMIN — skipping")
-            continue
+#         # Skip admin pages
+#         if is_admin(text[:500]):
+#             print(f"Page {page_num+1}: ADMIN — skipping")
+#             continue
 
-        # Show prose pages
-        preview = " | ".join(l.strip() for l in text.split("\n") if l.strip())[:300]
-        print(f"\nPage {page_num+1}: PROSE")
-        print(f"  {preview!r}")
+#         # Show prose pages
+#         preview = " | ".join(l.strip() for l in text.split("\n") if l.strip())[:300]
+#         print(f"\nPage {page_num+1}: PROSE")
+#         print(f"  {preview!r}")
+
+import pdfplumber
+
+pdf_path = "C:\\Personal\\AI\\P-RAG\\docs\\2026\\vision\\vision.pdf"
+
+with pdfplumber.open(pdf_path) as pdf:
+    for i, page in enumerate(pdf.pages[:10], 1):
+        text = (page.extract_text() or "")[:200]
+        print(f"PDF page {i}: {text[:80]}")

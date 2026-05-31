@@ -181,6 +181,10 @@ NOISE_WORDS = {
     "just",
     "really",
     "actually",
+    "mean",
+    "whats",
+    "what" "wat",
+    "unknown",
 }
 
 

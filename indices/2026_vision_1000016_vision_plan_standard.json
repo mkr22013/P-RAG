@@ -16,7 +16,8 @@
             "in_network",
             "out_of_network",
             "allowed"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Vision Hardware \u2014 Cost",
@@ -35,7 +36,8 @@
             "service",
             "in_network",
             "out_of_network"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Summary Of Your Costs \u2014 Coverage Information",
@@ -59,7 +61,8 @@
             "explains",
             "amounts",
             "details"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Summary Table \u2014 Coverage Information",
@@ -83,7 +86,8 @@
             "services",
             "although",
             "provider"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Selecting A Vision Care Provider \u2014 Coverage Information",
@@ -107,7 +111,8 @@
             "benefits",
             "expenses",
             "providers"
-        ]
+        ],
+        "page_number": 7
     },
     {
         "topic": "Important Plan Information \u2014 Coverage Information",
@@ -131,7 +136,8 @@
             "covered",
             "services",
             "benefits"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Coinsurance \u2014 Coverage Information",
@@ -155,7 +161,8 @@
             "amounts",
             "covered",
             "u2019re"
-        ]
+        ],
+        "page_number": 8
     },
     {
         "topic": "Allowed Amount \u2014 Coverage Information",
@@ -179,7 +186,8 @@
             "covered",
             "services",
             "reserve"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "What Are My Vision Benefits? \u2014 Coverage Information",
@@ -203,7 +211,8 @@
             "available",
             "covered",
             "services"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Vision Exams \u2014 Coverage Information",
@@ -227,7 +236,8 @@
             "evaluation",
             "sharpness",
             "refraction"
-        ]
+        ],
+        "page_number": 9
     },
     {
         "topic": "Vision Hardware \u2014 Coverage Information",
@@ -251,7 +261,8 @@
             "provided",
             "maximum",
             "summary"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Out-Of-Area Care \u2014 Coverage Information",
@@ -275,7 +286,8 @@
             "arrangements",
             "licensees",
             "washington"
-        ]
+        ],
+        "page_number": 10
     },
     {
         "topic": "Exclusions And Limitations \u2014 Coverage Information",
@@ -299,6 +311,7 @@
             "addition",
             "services",
             "covered"
-        ]
+        ],
+        "page_number": 11
     }
 ]

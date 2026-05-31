@@ -48,6 +48,7 @@ def get_member_info(member_key: str = "", group_number: str = "") -> dict:
                 "product_line": "Null",
                 "variant": "Retiree",
                 "network": "",
+                "page_offset": 4,
             },
             # "dental": {
             #     "plan_category": "dental",
@@ -59,6 +60,7 @@ def get_member_info(member_key: str = "", group_number: str = "") -> dict:
             #     "product_line": "Null",
             #     "variant": "Standard",
             #     "network": "",
+            #     "page_offset": 5,
             # },
             "dental": {
                 "plan_category": "dental",
@@ -70,6 +72,7 @@ def get_member_info(member_key: str = "", group_number: str = "") -> dict:
                 "product_line": "Null",
                 "variant": "Standard",
                 "network": "",
+                "page_offset": 5,
             },
             "vision": {
                 "plan_category": "vision",
@@ -81,6 +84,7 @@ def get_member_info(member_key: str = "", group_number: str = "") -> dict:
                 "product_line": "Null",
                 "variant": "Standard",
                 "network": "",
+                "page_offset": 6,
             },
             "sbc": {
                 "plan_category": "sbc",

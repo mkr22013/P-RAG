@@ -164,6 +164,12 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             "sealant",
             "preventive",
             "oral exam",
+            "dental exam",
+            "exam",
+            "examination",
+            "checkup",
+            "check-up",
+            "evaluation",
             "xray",
             "panoramic",
         ]
@@ -276,7 +282,8 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             smart_match(w, query_words, query_lower) for w in DENTAL_EXCLUSION_TERMS
         ):
             topics.append("dental exclusions")
-            add_keyword("dental exclusions and limitations")
+            add_keyword("exclusions")
+            add_keyword("limitations")
 
         # Office visit / copay queries (primarily Willamette-style plans)
         OFFICE_VISIT_TERMS = [

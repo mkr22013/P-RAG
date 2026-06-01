@@ -613,6 +613,7 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                             "out_of_network": content.get("out_of_network")
                             or "Data Not Found",
                             "notes": content.get("limitations") or "Data Not Found",
+                            "page_number": selected.get("page_number", 0),
                         }
 
                     elif chunk_type == "qa":
@@ -627,15 +628,12 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                         }
 
                     elif chunk_type == "info":
-                        # Info entries carry prose coverage details.
-                        # Truncate to 500 chars so they don't fill the context trim limit.
                         raw_info = content.get("limitations") or "Data Not Found"
-                        if len(raw_info) > 500:
-                            raw_info = raw_info[:500].rsplit(" ", 1)[0] + "..."
                         structured = {
                             "event": content.get("event", selected.get("topic", "")),
                             "service": content.get("service", "Coverage Information"),
                             "information": raw_info,
+                            "page_number": selected.get("page_number", 0),
                         }
 
                     else:

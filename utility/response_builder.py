@@ -56,9 +56,9 @@ def generate_ironclad_instruction():
     )
 
 
-
-
-def build_cost_table(context: str, user_query: str, keywords: list, found_topics: list | None = None) -> str | None:
+def build_cost_table(
+    context: str, user_query: str, keywords: list, found_topics: list | None = None
+):
     if found_topics is None:
         found_topics = []
     rows = []
@@ -79,9 +79,10 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         in_net = data.get("in_network", "")
         out_net = data.get("out_of_network", "")
         limitation = data.get("notes") or "Data Not Found"
-        rows.append((event, service, in_net, out_net, limitation))
+        page = data.get("page_number", 0)
+        rows.append((event, service, in_net, out_net, limitation, page))
     if not rows:
-        return "No relevant cost information found."
+        return "No relevant cost information found.", []
     # if len(rows) > 10:
     #     print("[*] TOO MANY ROWS → FALLBACK TO LLM")
     #     return "__USE_LLM__"
@@ -99,9 +100,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
             return True
         return False
 
-    query_words = [
-        w.lower() for w in re.split(r"\W+", user_query) if len(w) > 2
-    ]
+    query_words = [w.lower() for w in re.split(r"\W+", user_query) if len(w) > 2]
     STOP_WORDS = {
         "show",
         "me",
@@ -308,7 +307,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         event_text = norm(event)
         if query_phrase:
             for r in group_rows:
-                if query_phrase in norm(" ".join(r)):
+                if query_phrase in norm(" ".join(str(x) for x in r[:5])):
                     score += 500
                     break
         for term in strong_terms:
@@ -320,7 +319,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
                 if soft_match(term, service_text):
                     score += 80
         for r in group_rows:
-            full_text = norm(" ".join(r))
+            full_text = norm(" ".join(str(x) for x in r[:5]))
             for term in strong_terms:
                 if soft_match(term, full_text):
                     score += 10
@@ -341,7 +340,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         best_score, _, _ = event_scores[0]
         if best_score < MIN_CONFIDENCE:
             print(f"[*] LOW CONFIDENCE (score={best_score}) → LLM")
-            return "__USE_LLM__"
+            return "__USE_LLM__", []
 
         # Include ALL events that scored above MIN_CONFIDENCE ONLY when
         # keywords explicitly name multiple distinct benefits
@@ -349,20 +348,16 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         # "allergy testing" → only show top event (Psychological Testing
         # would wrongly score high on "testing" alone)
         multi_word_kws = [kw for kw in keywords if " " in kw.lower()]
-        confident = [
-            (s, e, r) for s, e, r in event_scores if s >= MIN_CONFIDENCE
-        ]
+        confident = [(s, e, r) for s, e, r in event_scores if s >= MIN_CONFIDENCE]
 
         if len(confident) > 1 and len(multi_word_kws) >= 2:
-            print(
-                f"[*] MULTI-EVENT MATCH ({len(confident)} events) → SHOWING ALL"
-            )
+            print(f"[*] MULTI-EVENT MATCH ({len(confident)} events) → SHOWING ALL")
             best_rows = [row for _, _, rows in confident for row in rows]
         else:
             best_rows = event_scores[0][2]
     else:
         # No event matched — too vague, let LLM handle it
-        return "__USE_LLM__"
+        return "__USE_LLM__", []
 
     # 🔥 Multi-class list query: balance rows across events so no class
     # is crowded out by a higher-scoring event hitting the row cap.
@@ -370,9 +365,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
     # Class II (600), Class III (600) — without balancing, [:10] would
     # cut off Class II entirely since Class I + Class III fills 11 rows.
     class_topics_for_balance = [
-        t
-        for t in found_topics
-        if re.match(r"^class\s+[i123]+$", t.lower().strip())
+        t for t in found_topics if re.match(r"^class\s+[i123]+$", t.lower().strip())
     ]
     if len(class_topics_for_balance) > 1 and len(best_rows) > 10:
         per_event = {}
@@ -383,9 +376,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         for event_rows in per_event.values():
             balanced.extend(event_rows[:max_per])
         best_rows = balanced
-        print(
-            f"[*] BALANCED ROWS: {len(best_rows)} across {len(per_event)} events"
-        )
+        print(f"[*] BALANCED ROWS: {len(best_rows)} across {len(per_event)} events")
     elif len(best_rows) > 10:
         print("[*] TOO MANY FILTERED ROWS → USING TOP 10")
         best_rows = best_rows[:10]
@@ -395,9 +386,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
     # AND in_network value contains "copay" (e.g. "$20 copay" for D9440).
     if "copay" in user_query.lower():
         _copay_rows = [
-            r
-            for r in best_rows
-            if "copay" in r[0].lower() or "copay" in r[2].lower()
+            r for r in best_rows if "copay" in r[0].lower() or "copay" in r[2].lower()
         ]
         if _copay_rows:
             best_rows = _copay_rows
@@ -408,7 +397,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         r for r in best_rows if r[2] in ("", "Data Not Found", "Data not found")
     ]
     if len(_no_data_rows) == len(best_rows) and best_rows:
-        return None
+        return None, []
 
     # Service-level keyword filter — when specific procedure keywords are
     # present (e.g. radiographic, bitewing, prophylaxis), only show rows
@@ -436,9 +425,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
     }
     _svc_kws = [kw for kw in keywords if kw in _SERVICE_SPECIFIC]
     if _svc_kws:
-        _svc_rows = [
-            r for r in best_rows if any(kw in norm(r[1]) for kw in _svc_kws)
-        ]
+        _svc_rows = [r for r in best_rows if any(kw in norm(r[1]) for kw in _svc_kws)]
         if _svc_rows:
             best_rows = _svc_rows
 
@@ -447,9 +434,7 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
     # Prevents coinsurance-word contamination pulling in wrong classes.
     # Does NOT fire when multiple class topics are present (comparison queries).
     class_topics = [
-        t
-        for t in found_topics
-        if re.match(r"^class\s+[i123]+$", t.lower().strip())
+        t for t in found_topics if re.match(r"^class\s+[i123]+$", t.lower().strip())
     ]
     if len(class_topics) == 1:
         cf = class_topics[0].lower()
@@ -462,16 +447,17 @@ def build_cost_table(context: str, user_query: str, keywords: list, found_topics
         w in user_query.lower() for w in ["all", "list", "which", "show me"]
     )
     final_rows = best_rows[:10] if is_list_query else best_rows
-    table = (
-        "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n"
-    )
+    table = "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n"
     table += "| :--- | :--- | :--- | :--- | :--- |\n"
-    for e, s, i, o, l in final_rows:
+    pages = []
+    for e, s, i, o, l, pg in final_rows:
         table += f"| {e} | {s} | {i} | {o} | {l} |\n"
-    return table
+        if pg and pg > 0:
+            pages.append(pg)
+    return table, sorted(set(pages))
 
 
-def build_info_response(context: str, user_query: str, keywords: list) -> str | None:
+def build_info_response(context: str, user_query: str, keywords: list):
     rows = []
     items = re.split(r"Item \d+:", context)
     for item in items:
@@ -487,14 +473,13 @@ def build_info_response(context: str, user_query: str, keywords: list) -> str | 
             continue
         event = data.get("event", "")
         information = (
-            data.get("information")
-            or data.get("limitations")
-            or "Data Not Found"
+            data.get("information") or data.get("limitations") or "Data Not Found"
         )
+        page = data.get("page_number", 0)
         if event and information and information != "Data Not Found":
-            rows.append((event, information))
+            rows.append((event, information, page))
     if not rows:
-        return "__USE_LLM__"
+        return "__USE_LLM__", []
 
     # Relevance filter: when specific keywords exist, only keep rows
     # whose event name matches at least one specific keyword.
@@ -510,28 +495,24 @@ def build_info_response(context: str, user_query: str, keywords: list) -> str | 
         "benefits",
         "coverage",
     }
-    _specific_kws = [
-        k for k in keywords if k not in _GENERIC_KWS and len(k) > 3
-    ]
+    _specific_kws = [k for k in keywords if k not in _GENERIC_KWS and len(k) > 3]
     if _specific_kws:
 
         def _relevant(event_name):
             ev = event_name.lower()
             return any(
-                re.search(r"\b" + re.escape(k) + r"\b", ev)
-                for k in _specific_kws
+                re.search(r"\b" + re.escape(k) + r"\b", ev) for k in _specific_kws
             )
 
-        filtered = [(e, i) for e, i in rows if _relevant(e)]
+        filtered = [(e, i, pg) for e, i, pg in rows if _relevant(e)]
         if filtered:
             rows = filtered
 
     table = "| Topic | Coverage Information |\n"
     table += "| :--- | :--- |\n"
-    for event, info in rows:
+    pages = []
+    for event, info, pg in rows:
         table += f"| {event} | {info} |\n"
-    return table
-
-# --------------------------------------------------------
-# 🔥 MULTI-SECTION → try no-LLM first, fall back to LLM
-# --------------------------------------------------------
+        if pg and pg > 0:
+            pages.append(pg)
+    return table, sorted(set(pages))

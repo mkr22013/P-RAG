@@ -95,13 +95,13 @@ def generate_summary(
             return ""
 
         prompt = (
-            f"You are an insurance assistant. Answer the question below in ONE sentence only.\n"
-            f"- If it is a yes/no question, start with Yes or No then add one brief detail.\n"
-            f"- If it is asking what something is or how it works, give a plain-english summary.\n"
-            f"- If it is asking to show or list benefits, briefly describe what is covered.\n"
+            f"You are an insurance assistant. Write ONE plain sentence summarising the benefit below.\n"
+            f"- State the fact directly. Do NOT start with Yes, No, or any affirmation.\n"
+            f"- Example: 'Allergy testing and treatment is covered when provided by a certified allergy specialist.'\n"
+            f"- Example: 'TMJ care is covered under your plan subject to applicable cost-sharing.'\n"
             f"- Do NOT mention any dollar amounts, copays, percentages or deductibles.\n"
             f"- No extra text, no preamble.\n"
-            f"Question: {query}\n"
+            f"Query: {query}\n"
             f"Benefits data:\n{content}"
         )
         response = ollama.chat(
@@ -405,6 +405,20 @@ async def get_ai_response(
 
         print(f"Final topic found from query : {found_topics}")
         last_type_global = p_type  # Now setting up the last type here as now we have category and topic and keywords
+
+        # Page reference helpers — used at every return point below
+        # member_info shape: {"year":..., "plans": {"medical": {...}, "dental": {...}}}
+        _plan_info = (member_info.get("plans", {}) if member_info else {}).get(
+            p_type, {}
+        )
+        _page_offset = _plan_info.get("page_offset", 0)
+        _booklet_name = _plan_info.get("plan", "")
+
+        def _add_offset(raw_pages):
+            return sorted(
+                p - _page_offset for p in raw_pages if p > 0 and p - _page_offset > 0
+            )
+
         # Once we reach here it means topic did not available
         if len(found_topics) == 0 and len(keywords) == 0:
             print(f"[*] NO TOPIC FOUND FOR {p_type} → returning guidance")
@@ -614,19 +628,74 @@ async def get_ai_response(
             # 🔥 STEP 4 — CLEAN CONTEXT (CRITICAL)
             # ============================================================
             def trim_context(text, max_chars=8000):
-                if not text:
-                    return ""
-
-                if len(text) <= max_chars:
+                """
+                Section-aware trim — never cuts a section off mid-item.
+                Keeps complete items from COST and INFO sections separately,
+                trimming the number of items per section rather than raw chars.
+                Falls back to char trim only when no section structure is found.
+                """
+                if not text or len(text) <= max_chars:
                     return text
 
-                cut = text[:max_chars]
-                last_break = cut.rfind("\n\n")
+                import re as _re
 
-                if last_break != -1:
-                    return cut[:last_break]
+                # Split into named sections
+                section_re = _re.compile(r"(### SECTION: \w+\s*\n)")
+                parts = section_re.split(text)
+                # parts alternates: [preamble, header1, body1, header2, body2, ...]
 
-                return cut
+                sections = {}
+                i = 1
+                while i < len(parts) - 1:
+                    header = parts[i].strip()  # e.g. "### SECTION: COST"
+                    body = parts[i + 1] if i + 1 < len(parts) else ""
+                    name = header.replace("### SECTION:", "").strip().lower()
+                    sections[name] = (header, body)
+                    i += 2
+
+                if not sections:
+                    # No section structure — fall back to original char trim
+                    cut = text[:max_chars]
+                    last_break = cut.rfind("\n\n")
+                    return cut[:last_break] if last_break != -1 else cut
+
+                # Budget: give COST section up to 3000 chars, INFO gets the rest
+                cost_budget = min(3000, max_chars // 2)
+                info_budget = max_chars - cost_budget
+
+                # Get keywords from outer scope for relevance sorting
+                _trim_keywords = keywords if "keywords" in dir() else []
+
+                result_parts = []
+                for name, (header, body) in sections.items():
+                    budget = cost_budget if name == "cost" else info_budget
+
+                    items = _re.split(r"(?=Item \d+:)", body.strip())
+                    items = [it for it in items if it.strip()]
+
+                    # For INFO section: sort keyword-matching items first
+                    if name == "info" and _trim_keywords:
+
+                        def _score(item):
+                            item_lower = item.lower()
+                            return sum(
+                                1 for kw in _trim_keywords if kw.lower() in item_lower
+                            )
+
+                        items = sorted(items, key=_score, reverse=True)
+
+                    kept = []
+                    total = len(header) + 2
+                    for item in items:
+                        if total + len(item) > budget and kept:
+                            break
+                        kept.append(item)
+                        total += len(item)
+
+                    section_text = f"{header}\n\n" + "\n".join(kept)
+                    result_parts.append(section_text)
+
+                return "\n\n".join(result_parts)
 
             # ============================================================
             # STEP 5 — FINAL ANSWER (NO TOOLS)
@@ -689,9 +758,9 @@ async def get_ai_response(
                     ]
                 )
                 if _exclusion_query:
-                    cost_table = None
+                    cost_table, cost_pages = None, []
                 else:
-                    cost_table = build_cost_table(
+                    cost_table, cost_pages = build_cost_table(
                         cost_ctx, query, keywords, found_topics
                     )
 
@@ -726,9 +795,11 @@ async def get_ai_response(
                     or any(kw in _SERVICE_SPECIFIC_KEYS for kw in keywords)
                 )
                 if _pure_cost_query:
-                    info_table = None
+                    info_table, info_pages = None, []
                 else:
-                    info_table = build_info_response(info_ctx, query, keywords)
+                    info_table, info_pages = build_info_response(
+                        info_ctx, query, keywords
+                    )
 
                 if cost_table not in (None, "__USE_LLM__") and info_table not in (
                     None,
@@ -741,13 +812,24 @@ async def get_ai_response(
                     )
                     combined = cost_table.rstrip("\n") + "\n\n" + info_table
                     answer = f"{summary}\n\n{combined}" if summary else combined
+                    pages = _add_offset(sorted(set(cost_pages + info_pages)))
                     print("[*] COST+INFO COMBINED TABLE → RETURNING (NO LLM)")
-                    return {"answer": answer, "category": p_type}
+                    return {
+                        "answer": answer,
+                        "category": p_type,
+                        "pages": pages,
+                        "source": _booklet_name,
+                    }
 
                 elif cost_table not in (None, "__USE_LLM__"):
                     # Cost-only — no summary (table is self-explanatory)
                     print("[*] COST+INFO → RETURNING COST TABLE ONLY (NO LLM)")
-                    return {"answer": cost_table, "category": p_type}
+                    return {
+                        "answer": cost_table,
+                        "category": p_type,
+                        "pages": _add_offset(cost_pages),
+                        "source": _booklet_name,
+                    }
 
                 elif info_table not in (None, "__USE_LLM__"):
                     summary = generate_summary(
@@ -757,7 +839,12 @@ async def get_ai_response(
                     )
                     answer = f"{summary}\n\n{info_table}" if summary else info_table
                     print("[*] COST+INFO → RETURNING INFO TABLE ONLY (NO LLM)")
-                    return {"answer": answer, "category": p_type}
+                    return {
+                        "answer": answer,
+                        "category": p_type,
+                        "pages": _add_offset(info_pages),
+                        "source": _booklet_name,
+                    }
 
                 # ── Tier 2: cheap mini-LLM (~50-100 tokens) ──────────────────
                 # Scoring failed for both — LLM extracts the canonical benefit
@@ -789,24 +876,40 @@ async def get_ai_response(
 
                     if benefit_name:
                         if intent in ("cost", "both"):
-                            ct2 = build_cost_table(
+                            ct2, cp2 = build_cost_table(
                                 cost_ctx, benefit_name, [benefit_name], found_topics
                             )
                             if ct2 not in (None, "__USE_LLM__"):
                                 if intent == "cost":
-                                    return {"answer": ct2}
-                                it2 = build_info_response(
+                                    return {
+                                        "answer": ct2,
+                                        "pages": _add_offset(cp2),
+                                        "source": _booklet_name,
+                                    }
+                                it2, ip2 = build_info_response(
                                     info_ctx, benefit_name, [benefit_name]
                                 )
                                 if it2 not in (None, "__USE_LLM__"):
-                                    return {"answer": ct2.rstrip("\n") + "\n\n" + it2}
-                                return {"answer": ct2}
+                                    return {
+                                        "answer": ct2.rstrip("\n") + "\n\n" + it2,
+                                        "pages": _add_offset(sorted(set(cp2 + ip2))),
+                                        "source": _booklet_name,
+                                    }
+                                return {
+                                    "answer": ct2,
+                                    "pages": _add_offset(cp2),
+                                    "source": _booklet_name,
+                                }
                         if intent in ("info", "both"):
-                            it2 = build_info_response(
+                            it2, ip2 = build_info_response(
                                 info_ctx, benefit_name, [benefit_name]
                             )
                             if it2 not in (None, "__USE_LLM__"):
-                                return {"answer": it2}
+                                return {
+                                    "answer": it2,
+                                    "pages": _add_offset(ip2),
+                                    "source": _booklet_name,
+                                }
                 except Exception as e:
                     print(f"[*] MINI-LLM FAILED: {e}")
                 # fallthrough to full LLM (Tier 3)
@@ -820,7 +923,7 @@ async def get_ai_response(
         elif len(sections) == 1:
             if sections[0] == "cost":
                 print("[*] COST DETECTED → TRYING PARSER")
-                final_answer = build_cost_table(
+                final_answer, final_pages = build_cost_table(
                     clean_context, query, keywords, found_topics
                 )
                 if final_answer == "__USE_LLM__":
@@ -828,16 +931,27 @@ async def get_ai_response(
                 elif final_answer:
                     # Cost-only — no summary (table is self-explanatory)
                     print("[*] PARSER SUCCESS → RETURNING TABLE")
-                    return {"answer": final_answer, "category": p_type}
+                    return {
+                        "answer": final_answer,
+                        "category": p_type,
+                        "pages": _add_offset(final_pages),
+                        "source": _booklet_name,
+                    }
 
             elif sections[0] == "info":
                 print("[*] INFO DETECTED → BUILDING INFO TABLE")
-                final_answer = build_info_response(clean_context, query, keywords)
+                final_answer, final_pages = build_info_response(
+                    clean_context, query, keywords
+                )
                 if final_answer == "__USE_LLM__":
                     print("[*] INFO FALLBACK TO LLM")
                 elif final_answer:
                     print("[*] INFO PARSER SUCCESS → RETURNING TABLE")
-                    return {"answer": final_answer}
+                    return {
+                        "answer": final_answer,
+                        "pages": _add_offset(final_pages),
+                        "source": _booklet_name,
+                    }
 
         # --------------------------------------------------------
         # 🔥 FALLBACK
@@ -929,7 +1043,23 @@ async def get_ai_response(
         print(f"[FINAL ANSWER LENGTH]: {len(final_answer)}")
         print(f"Final answer = {final_answer[:500]}")
 
-        return {"answer": final_answer, "category": p_type}
+        # Tier 3: parse pages from all chunks in context (LLM used them all)
+        import re as _re
+
+        _t3_pages = []
+        for _item in _re.split(r"Item \d+:", clean_context):
+            _m = _re.search(r'"page_number"\s*:\s*(\d+)', _item)
+            if _m:
+                _pg = int(_m.group(1))
+                if _pg > 0:
+                    _t3_pages.append(_pg - _page_offset)
+
+        return {
+            "answer": final_answer,
+            "category": p_type,
+            "pages": sorted(set(_t3_pages)),
+            "source": _booklet_name,
+        }
 
     except Exception as e:
         print(f"❌ SYNTHESIS ERROR: {e}")

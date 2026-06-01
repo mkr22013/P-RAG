@@ -457,6 +457,33 @@ def parse_prose_sections(pdf_path):
         sections.append((current_header, current_content, current_page))
 
     # Build info entries
+    INLINE_SPLIT = re.compile(
+        r"(?<!\. )(?<![•] )([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,5})\s+"
+        r"(This benefit (?:covers|does not cover):)",
+    )
+
+    def split_inline_benefits(text, base_page):
+        parts = []
+        last = 0
+        for m in INLINE_SPLIT.finditer(text):
+            before = text[last : m.start()].strip()
+            if before:
+                parts.append((None, before, base_page))
+            last = m.start(1)
+        remainder = text[last:].strip()
+        if remainder:
+            parts.append((None, remainder, base_page))
+        if not parts:
+            return [(None, text, base_page)]
+        result = []
+        for _, chunk, pg in parts:
+            m2 = re.match(
+                r"^([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,5})\s+(This benefit)",
+                chunk,
+            )
+            result.append((m2.group(1) if m2 else None, chunk, pg))
+        return result
+
     entries = []
     seen_headers = set()
 
@@ -473,29 +500,31 @@ def parse_prose_sections(pdf_path):
         if len(content_text) < 50:
             continue
 
-        event = header.strip().title()
-
-        entries.append(
-            {
-                "topic": f"{event} \u2014 Coverage Information",
-                "category": "info",
-                "benefit_category": "vision",
-                "content": {
-                    "event": event,
-                    "service": "Coverage Information",
-                    "in_network": "Data Not Found",
-                    "out_of_network": "Data Not Found",
-                    "limitations": content_text,
-                },
-                "keywords": get_smart_keywords(
-                    {
+        for inline_name, chunk_text, chunk_page in split_inline_benefits(
+            content_text, section_page
+        ):
+            event = (inline_name or header).strip().title()
+            entries.append(
+                {
+                    "topic": f"{event} \u2014 Coverage Information",
+                    "category": "info",
+                    "benefit_category": "vision",
+                    "content": {
                         "event": event,
-                        "limitations": content_text,
-                    }
-                ),
-                "page_number": section_page,
-            }
-        )
+                        "service": "Coverage Information",
+                        "in_network": "Data Not Found",
+                        "out_of_network": "Data Not Found",
+                        "limitations": chunk_text,
+                    },
+                    "keywords": get_smart_keywords(
+                        {
+                            "event": event,
+                            "limitations": chunk_text,
+                        }
+                    ),
+                    "page_number": chunk_page,
+                }
+            )
 
     return entries
 
@@ -548,6 +577,7 @@ def generate_sub_index(sub_index_path, pdf_path):
     return sub_index
 
 
+# =============================Previous working code before page number addition============================
 # # """
 # # vision_indexer.py — Index a Vision Plan booklet.
 

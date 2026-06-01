@@ -3581,642 +3581,21 @@
             "service": "Coverage Information",
             "in_network": "Data Not Found",
             "out_of_network": "Data Not Found",
-            "limitations": "The summary table below shows plan limits and what you pay (your cost shares) for covered services. Facility in the table below means hospitals or other medical institutions. Professional means doctors, nurses, and other people who give you your care. No charge means that you do not pay any deductible, copay or coinsurance for covered services. No cost shares means that although you do not pay any deductible, copay or coinsurance for covered services, the provider can bill you for amounts over the allowed amount. A non- participating provider can bill you for amounts over the allowed amount except for emergency services, covered air ambulance services, or as prohibited by law. 6 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS OUT-OF-NETWORK PROVIDERS Acupuncture \u2022 Office and Clinic Visits $25 copay per visit, deductible waived Deductible, then 40% coinsurance calendar year visit limit: 24 visits \u2022 Visits outside an office setting Deductible, then 20% coinsurance Deductible, then 40% coinsurance Allergy Testing And Treatment Deductible, then 20% coinsurance Deductible, then 40% coinsurance Ambulance Deductible, then 20% coinsurance Deductible, then 20% coinsurance Blood Products and Services Deductible, then 20% coinsurance Deductible, then 40% coinsurance"
+            "limitations": "The summary table below shows plan limits and what you pay (your cost shares) for covered services. Facility in the table below means hospitals or other medical institutions. Professional means doctors, nurses, and other people who give you your care. No charge means that you do not pay any deductible, copay or coinsurance for covered services. No cost shares means that although you do not pay any deductible, copay or coinsurance for covered services, the provider can bill you for amounts over the allowed amount. A non- participating provider can bill you for amounts over the allowed amount except for emergency services, covered air ambulance services, or as prohibited by law. 6"
         },
         "keywords": [
-            "in-network",
-            "out-of-network",
             "copay",
             "deductible",
             "coinsurance",
             "emergency",
-            "diagnostic",
             "summary",
             "limitations",
-            "covered"
+            "covered",
+            "services",
+            "facility",
+            "hospitals"
         ],
         "page_number": 10
-    },
-    {
-        "topic": "Gene Therapy \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Gene Therapy",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "You may have additional costs for other services such as x-rays, labs, prescription drugs, and hospital facility charges. See those covered services for details."
-        },
-        "keywords": [
-            "pharmacy",
-            "diagnostic",
-            "therapy",
-            "limitations",
-            "additional",
-            "services",
-            "prescription",
-            "hospital",
-            "facility",
-            "charges"
-        ],
-        "page_number": 11
-    },
-    {
-        "topic": "Clinical Trials \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Clinical Trials",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Covers routine patient care during Covered as any other service Covered as any other service the trial You may have additional costs for other services such as x-rays, labs, prescription drugs, and hospital facility charges. See those covered services for details."
-        },
-        "keywords": [
-            "pharmacy",
-            "diagnostic",
-            "clinical",
-            "limitations",
-            "routine",
-            "patient",
-            "covered",
-            "service",
-            "additional",
-            "services"
-        ],
-        "page_number": 11
-    },
-    {
-        "topic": "Injury And Facility Anesthesia \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Injury And Facility Anesthesia",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "benefit for details.) \u2022 Inpatient facility care Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Outpatient surgery center Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Anesthesiologist \u2022 Dental Injury Kinwell Clinics: $0 copay per visit, deductible waived \u2022 Exams to determine treatment All Other Non-Specialist: $25 copay Deductible, then 40% coinsurance needed per visit, deductible waived All Other Specialist: $40 copay per visit, deductible waived 7 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT \u2022 Treatment Deductible, then 20% coinsurance Deductible, then 40% coinsurance"
-        },
-        "keywords": [
-            "specialist",
-            "in-network",
-            "copay",
-            "deductible",
-            "coinsurance",
-            "dental",
-            "facility",
-            "anesthesia",
-            "limitations",
-            "benefit"
-        ],
-        "page_number": 11
-    },
-    {
-        "topic": "Diagnostic X-Ray, Lab, And \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Diagnostic X-Ray, Lab, And",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Imaging for medical conditions or s ymptoms \u2022 Basic diagnostic images and Deductible, then 20% coinsurance Deductible, then 40% coinsurance scans \u2022 Major diagnostic images and Deductible, then 20% coinsurance Deductible, then 40% coinsurance scans \u2022 Diagnostic and supplemental No charge Deductible, then 40% coinsurance breast exams No charge on certain laboratory services that are provided by a Kinwell clinic. Please call customer service for more information. Dialysis For permanent kidney failure. See the Dialysis benefit for details. \u2022 During Medicare's waiting period Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 After Medicare's waiting period No charge No cost-shares Electronic Visits (E-visits) $25 copay per visit, deductible waived Not covered"
-        },
-        "keywords": [
-            "copay",
-            "deductible",
-            "coinsurance",
-            "imaging",
-            "diagnostic",
-            "mental-health",
-            "limitations",
-            "medical",
-            "conditions",
-            "ymptoms"
-        ],
-        "page_number": 12
-    },
-    {
-        "topic": "Emergency Room \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Emergency Room",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 Facility charges $350 copay per visit, then deductible, $350 copay per visit, then deductible, You may have additional costs then 20% coinsurance then 20% coinsurance for other services. Examples are X-rays or lab tests. See those covered services for details. The copay is waived if you are admitted as an inpatient through the emergency room. The copay is waived if you are transferred and admitted to a different hospital directly from the emergency room. \u2022 Professional services Deductible, then 20% coinsurance Deductible, then 20% coinsurance 8 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "in-network",
-            "copay",
-            "deductible",
-            "coinsurance",
-            "emergency",
-            "diagnostic",
-            "limitations",
-            "facility",
-            "charges",
-            "additional"
-        ],
-        "page_number": 12
-    },
-    {
-        "topic": "Hearing Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Hearing Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "For hearing loss, often due to age or noise exposure. \u2022 Hearing Exams $25 copay per visit, deductible waived Deductible, then 40% coinsurance Limit each calendar year: 1 exam/test (Copay does not apply to a separate visit for testing. Your copay does not count toward your out-of-pocket maximum.) \u2022 Hearing Hardware Limit $3,000 per ear with hearing No charge No cost shares loss every 36 months"
-        },
-        "keywords": [
-            "copay",
-            "deductible",
-            "coinsurance",
-            "hearing",
-            "limitations",
-            "exposure",
-            "calendar",
-            "separate",
-            "testing",
-            "maximum"
-        ],
-        "page_number": 13
-    },
-    {
-        "topic": "Orthotics, Prosthetics And \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Orthotics, Prosthetics And",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Supplies \u2022 Sales tax for covered items Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Foot orthotics and therapeutic Deductible, then 20% coinsurance Deductible, then 40% coinsurance shoes; calendar year limit: None \u2022 Medical vision hardware for members 19 or older (see the Deductible, then 20% coinsurance Deductible, then 40% coinsurance Vision Hardware benefit for members under 19) \u2022 Breast pumps No charge No cost-shares"
-        },
-        "keywords": [
-            "deductible",
-            "coinsurance",
-            "dental",
-            "vision",
-            "orthotics",
-            "prosthetics",
-            "limitations",
-            "supplies",
-            "covered",
-            "therapeutic"
-        ],
-        "page_number": 14
-    },
-    {
-        "topic": "Hospice Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Hospice Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days"
-        },
-        "keywords": [
-            "hospice",
-            "limitations",
-            "lifetime",
-            "terminal",
-            "illness",
-            "inpatient"
-        ],
-        "page_number": 14
-    },
-    {
-        "topic": "Home Visits: Unlimited \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Home Visits: Unlimited",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Respite care: 240 hours lifetime max \u2022 Inpatient facility care Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Home and respite care Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Prescription drugs billed by the Deductible, then 20% coinsurance Deductible, then 40% coinsurance hospice Hospital \u2022 Inpatient Care \u2022 Professional Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Facility Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Outpatient Care \u2022 Professional* Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Facility Deductible, then 20% coinsurance Deductible, then 40% coinsurance Infusion Therapy Deductible, then 20% coinsurance Deductible, then 40% coinsurance 10 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "in-network",
-            "deductible",
-            "coinsurance",
-            "pharmacy",
-            "unlimited",
-            "limitations",
-            "respite",
-            "lifetime",
-            "inpatient",
-            "facility"
-        ],
-        "page_number": 14
-    },
-    {
-        "topic": "Maternity Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Maternity Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Care during pregnancy, childbirth and after the baby is born. See the Preventive Care benefit for routine exams and tests during pregnancy. \u2022 Professional care Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Inpatient hospital, birthing Deductible, then 20% coinsurance Deductible, then 40% coinsurance centers and short-stay hospitals \u2022 Abortion No charge Deductible, then 40% coinsurance"
-        },
-        "keywords": [
-            "deductible",
-            "coinsurance",
-            "maternity",
-            "limitations",
-            "pregnancy",
-            "childbirth",
-            "preventive",
-            "benefit",
-            "routine",
-            "professional"
-        ],
-        "page_number": 15
-    },
-    {
-        "topic": "Premera-Designated Centers Of \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Premera-Designated Centers Of",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Excellence benefit. Travel and lodging must be arranged by Premera. \u2022 For total hip and knee joint replacements and certain spinal surgeries. \u2022 To/from a Premera Designated No charge Not applicable"
-        },
-        "keywords": [
-            "premera",
-            "designated",
-            "centers",
-            "limitations",
-            "excellence",
-            "benefit",
-            "lodging",
-            "arranged",
-            "replacements",
-            "certain"
-        ],
-        "page_number": 15
-    },
-    {
-        "topic": "Center Of Excellence \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Center Of Excellence",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 To/from other providers Not covered Not covered For cellular immunotherapy and No charge No charge gene therapy: $7,500 per episode of care Special criteria are required for travel benefits to be provided. See the benefit for coverage details. 11 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "in-network",
-            "excellence",
-            "limitations",
-            "providers",
-            "covered",
-            "cellular",
-            "immunotherapy",
-            "therapy",
-            "episode",
-            "special"
-        ],
-        "page_number": 15
-    },
-    {
-        "topic": "Restricted Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Restricted Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Benefits are limited to members residing in states where laws restrict access to care. Travel and lodging are covered up to the IRS limitations. Prior approval required. \u2022 To/from provider for abortion No charge No charge services \u2022 To/from provider for gender No charge No charge affirming care services \u2022 Plan year/Calendar year limit: $4,000 Special criteria are required for travel benefits to be provided. See the benefit for coverage details."
-        },
-        "keywords": [
-            "restricted",
-            "limitations",
-            "benefits",
-            "limited",
-            "members",
-            "residing",
-            "restrict",
-            "lodging",
-            "covered",
-            "approval"
-        ],
-        "page_number": 16
-    },
-    {
-        "topic": "Mental Health Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Mental Health Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 Office and clinic visits $25 copay per visit, deductible waived Deductible, then 40% coinsurance \u2022 Other professional services Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Inpatient and residential facility Deductible, then 20% coinsurance Deductible, then 40% coinsurance care \u2022 Outpatient facility care Deductible, then 20% coinsurance Deductible, then 40% coinsurance No charge on certain services provided by a Kinwell Clinic. Please call customer service for more information. 12 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT Naturopathy Services $25 copay per visit, deductible waived Deductible, then 40% coinsurance Neurodevelopmental (Habilitation) Therapy See the Mental Health Care benefit for therapies for mental conditions such as autism. \u2022 Outpatient care calendar year visit limit: 45 visits \u2022 Office and clinic visits $40 copay per visit, deductible waived Deductible, then 40% coinsurance \u2022 Other outpatient services Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Inpatient care Deductible, then 20% coinsurance Deductible, then 40% coinsurance calendar year day limit: 30 days"
-        },
-        "keywords": [
-            "in-network",
-            "copay",
-            "deductible",
-            "coinsurance",
-            "mental-health",
-            "limitations",
-            "professional",
-            "services",
-            "inpatient",
-            "residential"
-        ],
-        "page_number": 16
-    },
-    {
-        "topic": "Premera-Designated Centers Of Excellence Program \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Premera-Designated Centers Of Excellence Program",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Includes travel as needed. See Medical Transportation. \u2022 Certain Spine Surgeries And Total Knee And Hip Joint No charge Not applicable Replacements For hip, knee, and spinal surgery by providers other than designated centers of excellence, see Hospital and Surgery. \u2022 Bariatric Surgery Deductible, then 20% coinsurance Not applicable Special criteria are required for coverage under this benefit. See the Premera-Designated Centers"
-        },
-        "keywords": [
-            "deductible",
-            "coinsurance",
-            "premera",
-            "designated",
-            "centers",
-            "excellence",
-            "program",
-            "limitations",
-            "includes",
-            "medical"
-        ],
-        "page_number": 17
-    },
-    {
-        "topic": "Of Excellence Program Benefit For \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Of Excellence Program Benefit For",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "coverage details. 13 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "in-network",
-            "excellence",
-            "program",
-            "benefit",
-            "limitations",
-            "coverage",
-            "details",
-            "allowed",
-            "network",
-            "providers"
-        ],
-        "page_number": 17
-    },
-    {
-        "topic": "Prescription Drug \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Prescription Drug",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "In no case will you pay more than the cost of the drug or supply. Covered Drugs In-Network Retail Pharmacy Out-Of-Network Retail Pharmacy \u2022 Preferred Generic drugs $25 copay Not covered \u2022 Preferred brand name drugs $45 copay Not covered \u2022 Non-preferred generic and brand 20% of the allowed amount up to a Not covered name drugs $250 maximum per drug"
-        },
-        "keywords": [
-            "in-network",
-            "out-of-network",
-            "copay",
-            "pharmacy",
-            "prescription",
-            "limitations",
-            "covered",
-            "network",
-            "preferred",
-            "generic"
-        ],
-        "page_number": 18
-    },
-    {
-        "topic": "In-Network Mail-Order Pharmacy \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "In-Network Mail-Order Pharmacy",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Pharmacy \u2022 Preferred Generic drugs $50 copay Not covered \u2022 Preferred brand name drugs $90 copay Not covered \u2022 Non-preferred generic and brand 20% of the allowed amount up to a Not covered name drugs $500 maximum per drug Specialty Drugs (per prescription or refill). You must use a specialty"
-        },
-        "keywords": [
-            "in-network",
-            "copay",
-            "pharmacy",
-            "network",
-            "limitations",
-            "preferred",
-            "generic",
-            "covered",
-            "allowed",
-            "maximum"
-        ],
-        "page_number": 18
-    },
-    {
-        "topic": "Mail Order Pharmacy \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Mail Order Pharmacy",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 Needles and syringes purchased No charge No cost-shares with diabetic drugs \u2022 Certain prescription drugs and generic over-the-counter drugs to No charge Not covered break a nicotine habit 14 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT \u2022 Drugs on the Affordable Care No charge Not covered Act's preventive drug list \u2022 Oral chemotherapy drugs No charge No cost-shares \u2022 Contraceptive drugs, devices and supplies (prescription and over- No charge Not covered the-counter). Includes emergency contraceptive. Preventive Care In-Network Providers Out-of-Network Providers \u2022 Preventive exams, including vision and oral health screening No charge 40% coinsurance, deductible waived for members under 19, diabetes and depression screening \u2022 Fall prevention for members 65 No charge 40% coinsurance, deductible waived and older \u2022 Immunizations in the provider's No charge 40% coinsurance, deductible waived office \u2022 Flu shots and other seasonal immunizations at a pharmacy or No charge No cost-shares mass immunizer location \u2022 Travel immunizations at a travel clinic or county health No charge No cost-shares department \u2022 Diabetes health education No charge No cost-shares \u2022 Health education and training No charge No cost-shares (outpatient) \u2022 Nicotine habit-breaking programs No charge No cost-shares \u2022 Nutritional counseling and No charge Deductible, then 40% coinsurance therapy \u2022 Pregnant member\u2019s care (includes breast-feeding support No charge Deductible, then 40% coinsurance and post-partum depression screening) \u2022 Screening tests (includes prostate and cervical cancer No charge Deductible, then 40% coinsurance screening) \u2022 Screening mammograms No charge 40% coinsurance, deductible waived \u2022 Colorectal cancer screening No charge Deductible, then 40% coinsurance \u2022 Contraceptive and sterilization. No charge Deductible, then 40% coinsurance 15 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "in-network",
-            "out-of-network",
-            "deductible",
-            "coinsurance",
-            "emergency",
-            "pharmacy",
-            "vision",
-            "limitations",
-            "needles",
-            "syringes"
-        ],
-        "page_number": 18
-    },
-    {
-        "topic": "Rehabilitation Therapy \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Rehabilitation Therapy",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 Outpatient Care calendar year visit limit: 45 visits No limit for cardiac or pulmonary rehabilitation programs, or similar programs for cancer or other chronic conditions. \u2022 Office and clinic visits $40 copay per visit, deductible waived Deductible, then 40% coinsurance \u2022 Other outpatient services Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Inpatient Care Deductible, then 20% coinsurance Deductible, then 40% coinsurance calendar year day limit: 30 days"
-        },
-        "keywords": [
-            "copay",
-            "deductible",
-            "coinsurance",
-            "therapy",
-            "rehabilitation",
-            "limitations",
-            "outpatient",
-            "calendar",
-            "cardiac",
-            "pulmonary"
-        ],
-        "page_number": 20
-    },
-    {
-        "topic": "Substance Use Disorder \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Substance Use Disorder",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "\u2022 Office and clinic visits $25 copay per visit, deductible waived Deductible, then 40% coinsurance \u2022 Other professional services Deductible, then 20% coinsurance Deductible, then 40% coinsurance \u2022 Inpatient and residential facility Deductible, then 20% coinsurance Deductible, then 40% coinsurance care \u2022 Outpatient facility care Deductible, then 20% coinsurance Deductible, then 40% coinsurance 16 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT Surgery (includes anesthesia and blood transfusions) See the Hospital and Deductible, then 20% coinsurance Deductible, then 40% coinsurance"
-        },
-        "keywords": [
-            "in-network",
-            "copay",
-            "deductible",
-            "coinsurance",
-            "diagnostic",
-            "mental-health",
-            "substance",
-            "disorder",
-            "limitations",
-            "professional"
-        ],
-        "page_number": 20
-    },
-    {
-        "topic": "Urgent Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Urgent Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Services at an urgent care center. (See Diagnostic X-Ray, Lab, And Imaging for tests received while at the center. Your deductible and coinsurance apply to facility charges.) \u2022 Freestanding urgent care centers $35 copay per visit, deductible waived Deductible, then 40% coinsurance \u2022 Urgent care centers attached to $350 copay per visit, then deductible, $350 copay per visit, then deductible, or part of a hospital then 20% coinsurance then 20% coinsurance"
-        },
-        "keywords": [
-            "copay",
-            "deductible",
-            "coinsurance",
-            "urgent-care",
-            "imaging",
-            "diagnostic",
-            "limitations",
-            "services",
-            "received",
-            "facility"
-        ],
-        "page_number": 22
-    },
-    {
-        "topic": "Virtual Care \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Virtual Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. \u2022 Virtual general medical visits with Premera-designated virtual care $25 copay per visit, deductible waived Not covered provider (telephone and online- based) \u2022 Virtual general medical visits with Premera-designated virtual No charge Not covered primary care provider (text message-based) \u2022 Virtual mental health visits $25 copay per visit, deductible waived Not covered \u2022 Virtual substance use disorder $25 copay per visit, deductible waived Not covered visits \u2022 Virtual rehabilitative care visits $40 copay per visit, deductible waived Not covered Virtual Pediatric (for members 0-17 years old) $25 copay per visit, deductible waived Not covered \u2022 Behavioral/Mental health visits 18 YOUR SHARE OF THE ALLOWED AMOUNT BENEFIT IN-NETWORK PROVIDERS BENEFIT"
-        },
-        "keywords": [
-            "pcp",
-            "in-network",
-            "copay",
-            "deductible",
-            "mental-health",
-            "therapy",
-            "virtual",
-            "limitations",
-            "interactive",
-            "technology"
-        ],
-        "page_number": 22
-    },
-    {
-        "topic": "Vision Exams \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Vision Exams",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Calendar year limit: one complete exam. \u2022 Members 19 or older (exam copay does not count $25 copay per visit, deductible waived $25 copay per visit, deductible waived toward your out-of-pocket maximum) \u2022 Members younger than 19 Also covered is 1 comprehensive No charge No cost shares low vision exam and 4 follow-up visits in a 5-calendar year period as needed. Vision Hardware For Members 19 No charge No cost shares"
-        },
-        "keywords": [
-            "copay",
-            "deductible",
-            "vision",
-            "limitations",
-            "calendar",
-            "complete",
-            "members",
-            "maximum",
-            "younger",
-            "covered"
-        ],
-        "page_number": 23
-    },
-    {
-        "topic": "Vision Hardware For Members \u2014 Coverage Information",
-        "category": "info",
-        "benefit_category": "medical",
-        "content": {
-            "event": "Vision Hardware For Members",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Under 19 \u2022 Eyeglass (frames) Limit: 1 pair per member per calendar year. \u2022 Eyeglass or contact lenses. Limit: 1 pair of eyeglass lenses or a 12 month supply of contact lenses per member each calendar year \u2022 Contact lenses or glasses No charge No cost shares required for medical reasons \u2022 Low vision devices, high power glasses, magnifiers and telescopes when medically necessary \u2022 Scratch resistant coating \u2022 Polycarbonate lenses 19"
-        },
-        "keywords": [
-            "vision",
-            "hardware",
-            "members",
-            "limitations",
-            "eyeglass",
-            "calendar",
-            "contact",
-            "glasses",
-            "required",
-            "medical"
-        ],
-        "page_number": 23
     },
     {
         "topic": "How Providers Affect Your Costs \u2014 Coverage Information",
@@ -4750,11 +4129,10 @@
             "service": "Coverage Information",
             "in_network": "Data Not Found",
             "out_of_network": "Data Not Found",
-            "limitations": "Skin and blood tests used to diagnose what substances a person is allergic to, and treatment for allergies. Services must be provided by a certified or licensed allergy specialist. This benefit covers: \u2022 Testing \u2022 Allergy shots \u2022 Serums Ambulance This benefit covers: \u2022 Ground ambulance services \u2022 Transport to the nearest facility that can treat your condition \u2022 Medical care you get during the trip \u2022 Transport from one medical facility to another as needed for your condition \u2022 Transport to your home when medically necessary These services are only covered when: \u2022 Any other type of transport would put your health or safety at risk \u2022 The service is from a licensed ambulance \u2022 It is for the member who needs transport Air or sea emergency medical transportation is covered when: \u2022 Transport takes you to the nearest available facility that can treat your condition \u2022 The above requirements for ambulance services are met \u2022 Geographic restraints prevent ground transport \u2022 Ground emergency transportation would put your health or safety at risk 26 Ambulance services that are not for an emergency must be medically necessary and need prior authorization. See Prior Authorization for details. Ground ambulance services means: \u2022 The rendering of medical treatment and care at the scene of a medical emergency or while transporting a member to an appropriate emergency services provider when the services are provided by one or more ground ambulance vehicles designed for this purpose; and \u2022 Ground ambulance transport between emergency services providers, emergency services providers and medical facilities, and between medical facilities when the services are medically necessary and are provided by one or more ground ambulance vehicles designed for this purpose. This benefit does not cover: \u2022 Services from an unlicensed ambulance"
+            "limitations": "Skin and blood tests used to diagnose what substances a person is allergic to, and treatment for allergies. Services must be provided by a certified or licensed allergy specialist. This benefit covers: \u2022 Testing \u2022 Allergy shots \u2022 Serums"
         },
         "keywords": [
             "specialist",
-            "emergency",
             "diagnostic",
             "mental-health",
             "allergy",
@@ -4762,7 +4140,33 @@
             "treatment",
             "limitations",
             "diagnose",
-            "substances"
+            "substances",
+            "allergic"
+        ],
+        "page_number": 30
+    },
+    {
+        "topic": "Ambulance \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Ambulance",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Ambulance This benefit covers: \u2022 Ground ambulance services \u2022 Transport to the nearest facility that can treat your condition \u2022 Medical care you get during the trip \u2022 Transport from one medical facility to another as needed for your condition \u2022 Transport to your home when medically necessary These services are only covered when: \u2022 Any other type of transport would put your health or safety at risk \u2022 The service is from a licensed ambulance \u2022 It is for the member who needs transport Air or sea emergency medical transportation is covered when: \u2022 Transport takes you to the nearest available facility that can treat your condition \u2022 The above requirements for ambulance services are met \u2022 Geographic restraints prevent ground transport \u2022 Ground emergency transportation would put your health or safety at risk 26 Ambulance services that are not for an emergency must be medically necessary and need prior authorization. See Prior Authorization for details. Ground ambulance services means: \u2022 The rendering of medical treatment and care at the scene of a medical emergency or while transporting a member to an appropriate emergency services provider when the services are provided by one or more ground ambulance vehicles designed for this purpose; and \u2022 Ground ambulance transport between emergency services providers, emergency services providers and medical facilities, and between medical facilities when the services are medically necessary and are provided by one or more ground ambulance vehicles designed for this purpose. This benefit does not cover: \u2022 Services from an unlicensed ambulance"
+        },
+        "keywords": [
+            "emergency",
+            "ambulance",
+            "limitations",
+            "benefit",
+            "services",
+            "transport",
+            "nearest",
+            "facility",
+            "condition",
+            "medical"
         ],
         "page_number": 30
     },
@@ -4838,6 +4242,31 @@
             "chemicals",
             "prescribed",
             "provider"
+        ],
+        "page_number": 31
+    },
+    {
+        "topic": "Clinical Trials \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Clinical Trials",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "A qualified clinical trial (see Definitions) is a scientific study that tests and improves treatments of cancer and other life-threatening conditions. This benefit covers qualified clinical trial medical services and drugs that are already covered under this plan. The clinical trial must be suitable for your health condition. You also have to be enrolled in the trial at the time of treatment. Benefits are based on the type of service you get. For example, if you have an office visit, it's covered under Professional Visits And Services and if you have a lab test, it's covered under Diagnostic X-Ray, Lab, And Imaging. This benefit doesn't cover: \u2022 Costs for treatment that are not primarily for the care of the patient (such as lab tests performed just to collect information for the trial) \u2022 The drug, device or services being tested \u2022 Travel costs to and from the clinical trial \u2022 Housing, meals, or other nonclinical expenses 27 \u2022 A service that isn't consistent with established standards of care for a certain condition \u2022 Services, supplies or drugs that would not be charged to you if there were no coverage. \u2022 Services provided to you in a clinical trial that are fully paid for by another source \u2022 Services that are not routine costs normally covered under this plan"
+        },
+        "keywords": [
+            "imaging",
+            "diagnostic",
+            "clinical",
+            "limitations",
+            "qualified",
+            "definitions",
+            "scientific",
+            "improves",
+            "treatments",
+            "threatening"
         ],
         "page_number": 31
     },
@@ -4992,6 +4421,81 @@
         "page_number": 34
     },
     {
+        "topic": "Emergency Room \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Emergency Room",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers: \u2022 Emergency room and provider services \u2022 Equipment, supplies and drugs used in the emergency room \u2022 Services and exams used for stabilizing an emergency medical condition, including mental health, or substance use disorder condition. This includes emergency services arising from complications from a service that was not covered by the plan. \u2022 Diagnostic tests performed with other emergency services \u2022 Emergency detoxification You need to let us know if you are admitted to the hospital from the emergency room as soon as possible. See Prior Authorization for details."
+        },
+        "keywords": [
+            "emergency",
+            "diagnostic",
+            "mental-health",
+            "limitations",
+            "benefit",
+            "provider",
+            "services",
+            "equipment",
+            "supplies",
+            "stabilizing"
+        ],
+        "page_number": 34
+    },
+    {
+        "topic": "Foot Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Foot Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers the following medically necessary foot care services that need care from a provider: \u2022 Foot care for members with impaired blood flow to the legs and feet when it puts the member at risk \u2022 Treatment of corns, calluses and toenails This benefit does not cover routine foot care, such as trimming nails or removing corns and calluses that do not need care from a provider."
+        },
+        "keywords": [
+            "diagnostic",
+            "limitations",
+            "benefit",
+            "following",
+            "medically",
+            "necessary",
+            "services",
+            "provider",
+            "members",
+            "impaired"
+        ],
+        "page_number": 34
+    },
+    {
+        "topic": "Gender Affirming Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Gender Affirming Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Benefits for medically necessary gender affirming medical care or surgery are subject to the same cost shares that you would pay for inpatient or outpatient treatment for other covered medical conditions. To find the amounts you are responsible for, see the Summary Of Your Costs earlier in this booklet. If you can\u2019t find an in-network provider, or need information about what services are covered under your plan, call customer service. Gender transition or affirmation is the process of changing the gender characteristics a person was born with to the gender characteristics with which a person identifies. Benefits are provided for gender affirming medical care or surgery which meet the requirements of Premera\u2019s medical policy, including facility and anesthesia charges related to surgery. For more information, visit www.premera.com/visitor/care-essentials/lgbt-health. Additionally, our medical policies are available from customer service, or at www.premera.com/visitor/medical-policies. 30 Note: Coverage of prescription drugs, and mental health treatment associated with gender dysphoria and gender transition, are eligible under the general plan provisions for prescription drugs and behavioral health, subject to the applicable plan limitations and exclusions. For members residing in states where laws prohibit access to medically necessary gender affirming care services, travel to a provider in another state may be covered. See Medical Transportation \u2013 State-Restricted Care for details. For covered surgery benefits not part of gender affirming care, see Surgery. Some surgeries need prior authorization before you get them. See Prior Authorization for details."
+        },
+        "keywords": [
+            "in-network",
+            "pharmacy",
+            "vision",
+            "mental-health",
+            "affirming",
+            "limitations",
+            "benefits",
+            "medically",
+            "necessary",
+            "medical"
+        ],
+        "page_number": 34
+    },
+    {
         "topic": "Hearing Exams \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -5075,19 +4579,44 @@
             "service": "Coverage Information",
             "in_network": "Data Not Found",
             "out_of_network": "Data Not Found",
-            "limitations": "Skilled Hourly Nursing is also covered under the Home Health Care benefit. Skilled Hourly Nursing is medically intensive care at home that is provided by a licensed nurse. Home health care can be a substitute for hospitalization or inpatient care if hospitalization or inpatient care is medically necessary and such home care: \u2022 can be provided at equal or lesser cost; \u2022 is the most cost-effective setting and appropriate \u2022 is with your consent and recommended by your attending physician or licensed health care provider that such care will adequately meet your needs. You must have a written plan of care from your doctor and requires prior authorization by the plan. See Prior Authorization. This type of care is not subject to any visit limit shown in the Summary of Your Costs. The Home Health Care benefit does not cover: \u2022 Over-the-counter drugs, solutions and nutritional supplements \u2022 Private duty or 24-hour nursing care. Private duty nursing is the independent hiring of a nurse by a family or member to provide care without oversight by a home health agency. The care may be skilled, supportive or respite in nature. \u2022 Non-medical services, such as housekeeping \u2022 Services that bring you food, such as Meals on Wheels, or advice about food Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies This benefit covers: Home Medical Equipment (HME), fitting expenses and sales tax. This plan also covers rental of HME, not to exceed the purchase price. Covered items include: \u2022 Wheelchairs \u2022 Hospital beds \u2022 Traction equipment \u2022 Ventilators 32 \u2022 Diabetic equipment, such as an insulin pump Medical Supplies such as: \u2022 Dressings \u2022 Braces \u2022 Splints \u2022 Rib belts \u2022 Crutches \u2022 Blood glucose monitor and supplies \u2022 Supplies for an insulin pump Medical Vision Hardware for members age 19 and older to correct vision due to the following medical eye conditions: \u2022 Corneal ulcer \u2022 Bullous keratopathy \u2022 Recurrent erosion of cornea \u2022 Tear film insufficiency \u2022 Aphakia \u2022 Sjogren\u2019s disease \u2022 Congenital cataract \u2022 Corneal abrasion \u2022 Keratoconus \u2022 Progressive high (degenerative) myopia \u2022 Irregular astigmatism \u2022 Aniridia \u2022 Aniseikonia \u2022 Anisometropia \u2022 Corneal disorders \u2022 Pathological myopia \u2022 Post-traumatic disorders Medical vision hardware for members under age 19 is covered under Vision Hardware. External Prosthetics and Orthotic Devices used to: \u2022 Replace absent body limb and/or \u2022 Replace broken or failing body organ"
+            "limitations": "Skilled Hourly Nursing is also covered under the Home Health Care benefit. Skilled Hourly Nursing is medically intensive care at home that is provided by a licensed nurse. Home health care can be a substitute for hospitalization or inpatient care if hospitalization or inpatient care is medically necessary and such home care: \u2022 can be provided at equal or lesser cost; \u2022 is the most cost-effective setting and appropriate \u2022 is with your consent and recommended by your attending physician or licensed health care provider that such care will adequately meet your needs. You must have a written plan of care from your doctor and requires prior authorization by the plan. See Prior Authorization. This type of care is not subject to any visit limit shown in the Summary of Your Costs. The Home Health Care benefit does not cover: \u2022 Over-the-counter drugs, solutions and nutritional supplements \u2022 Private duty or 24-hour nursing care. Private duty nursing is the independent hiring of a nurse by a family or member to provide care without oversight by a home health agency. The care may be skilled, supportive or respite in nature. \u2022 Non-medical services, such as housekeeping \u2022 Services that bring you food, such as Meals on Wheels, or advice about food Home Medical Equipment (HME), Orthotics,"
         },
         "keywords": [
             "dental",
-            "vision",
-            "diagnostic",
             "skilled",
             "nursing",
             "limitations",
             "covered",
             "benefit",
             "medically",
-            "intensive"
+            "intensive",
+            "provided",
+            "licensed"
+        ],
+        "page_number": 36
+    },
+    {
+        "topic": "Prosthetics And Supplies \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Prosthetics And Supplies",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Prosthetics And Supplies This benefit covers: Home Medical Equipment (HME), fitting expenses and sales tax. This plan also covers rental of HME, not to exceed the purchase price. Covered items include: \u2022 Wheelchairs \u2022 Hospital beds \u2022 Traction equipment \u2022 Ventilators 32 \u2022 Diabetic equipment, such as an insulin pump Medical Supplies such as: \u2022 Dressings \u2022 Braces \u2022 Splints \u2022 Rib belts \u2022 Crutches \u2022 Blood glucose monitor and supplies \u2022 Supplies for an insulin pump Medical Vision Hardware for members age 19 and older to correct vision due to the following medical eye conditions: \u2022 Corneal ulcer \u2022 Bullous keratopathy \u2022 Recurrent erosion of cornea \u2022 Tear film insufficiency \u2022 Aphakia \u2022 Sjogren\u2019s disease \u2022 Congenital cataract \u2022 Corneal abrasion \u2022 Keratoconus \u2022 Progressive high (degenerative) myopia \u2022 Irregular astigmatism \u2022 Aniridia \u2022 Aniseikonia \u2022 Anisometropia \u2022 Corneal disorders \u2022 Pathological myopia \u2022 Post-traumatic disorders Medical vision hardware for members under age 19 is covered under Vision Hardware. External Prosthetics and Orthotic Devices used to: \u2022 Replace absent body limb and/or \u2022 Replace broken or failing body organ"
+        },
+        "keywords": [
+            "dental",
+            "vision",
+            "diagnostic",
+            "prosthetics",
+            "supplies",
+            "limitations",
+            "benefit",
+            "medical",
+            "equipment",
+            "fitting"
         ],
         "page_number": 36
     },
@@ -5115,6 +4644,56 @@
             "complications"
         ],
         "page_number": 37
+    },
+    {
+        "topic": "Hospice Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospice Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "To be covered, hospice care must be part of a written plan of care prescribed, periodically reviewed, and approved by a physician (MD or DO). In the plan of care, the physician must certify that confinement in a hospital or skilled nursing facility would be required without hospice services. The plan provides benefits for covered services furnished and billed by a hospice that is Medicare-certified or is licensed or certified by the state it operates in. See the Summary Of Your Costs for limits. Covered employees of a hospice are a registered nurse; a licensed practical nurse; a licensed physical therapist or occupational therapist; a certified respiratory therapist; a speech therapist certified by the American Speech, Language, and Hearing Association; a home health aide directly supervised by one of the above providers (performing services prescribed in the plan of care to achieve the desired medical results); and a social worker. The Hospice Care benefit covers: \u2022 Hospice care for a terminally ill member, for up to 6 months. Benefits may be provided for up to an additional 6 months of care when needed. The initial 6-month period starts on the first day of covered hospice care. \u2022 Palliative care for a member who has a serious or life-threatening condition that is not terminal. Coverage of palliative care can be extended based on the member's specific condition. Coverage includes expanded access to home-based care and care coordination. Covered services are: \u2022 In-home intermittent hospice visits by one or more of the hospice employees above. \u2022 Respite care to relieve anyone who lives with and cares for the terminally ill member. \u2022 Inpatient hospice care This benefit provides for inpatient services and supplies used while you\u2019re a hospice inpatient, such as solutions, medications or dressings, when ordered by the attending physician. \u2022 Insulin and Other Hospice Provider Prescribed Drugs Benefits are provided for prescription drugs and insulin furnished and billed by a hospice. This benefit doesn\u2019t cover: \u2022 Over-the-counter drugs, solutions and nutritional supplements \u2022 Services provided to someone other than the ill or injured member \u2022 Services of family members or volunteers \u2022 Services, supplies or providers not in the written plan of care or not named as covered in this benefit \u2022 Non-medical services, such as spiritual, bereavement, legal or financial counseling \u2022 Normal living expenses, such as food, clothing, transportation and household supplies; housekeeping services other than those of a home health aide as prescribed by the plan of care"
+        },
+        "keywords": [
+            "pharmacy",
+            "therapy",
+            "hospice",
+            "limitations",
+            "covered",
+            "written",
+            "prescribed",
+            "periodically",
+            "reviewed",
+            "approved"
+        ],
+        "page_number": 38
+    },
+    {
+        "topic": "Hospital \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Hospital",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Hospital This benefit covers: \u2022 Inpatient room and board \u2022 Providers services 34 \u2022 Intensive care or special care units \u2022 Operating rooms, procedure rooms and recovery rooms \u2022 Surgical supplies and anesthesia \u2022 Drugs, blood, medical equipment and oxygen for use in the hospital \u2022 X-ray, lab and testing billed by the hospital Even though you stay at an in-network hospital, you may get care from doctors or other providers who do not have a network contract at all. In that case, you will not have to pay any amounts over the allowed amount. You pay out-of-network cost shares if you get care from a provider not in your network. You will not be balanced- billed for certain services provided by a non-contracted provider. See How Providers Affect Your Costs for details. We must approve all planned inpatient stays before you enter the hospital. See Prior Authorization for details. This benefit does not cover: \u2022 Hospital stays that are only for testing, unless the tests cannot be done without inpatient hospital facilities, or your condition makes inpatient care medically necessary \u2022 Any days of inpatient care beyond what is medically necessary to treat the condition"
+        },
+        "keywords": [
+            "in-network",
+            "out-of-network",
+            "diagnostic",
+            "hospital",
+            "limitations",
+            "benefit",
+            "inpatient",
+            "providers",
+            "services",
+            "intensive"
+        ],
+        "page_number": 38
     },
     {
         "topic": "Infusion Therapy \u2014 Coverage Information",
@@ -5167,6 +4746,31 @@
         "page_number": 39
     },
     {
+        "topic": "Maternity Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Maternity Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Benefits for pregnancy and childbirth are provided on the same basis as any other condition. The Maternity Care benefit includes coverage for abortion."
+        },
+        "keywords": [
+            "maternity",
+            "limitations",
+            "benefits",
+            "pregnancy",
+            "childbirth",
+            "provided",
+            "condition",
+            "benefit",
+            "includes",
+            "coverage"
+        ],
+        "page_number": 39
+    },
+    {
         "topic": "Facility Care \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -5213,6 +4817,31 @@
             "procedures",
             "genetic",
             "counseling"
+        ],
+        "page_number": 40
+    },
+    {
+        "topic": "Medical Foods \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Medical Foods",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Medical foods are foods that are specially prepared to be consumed or given directly into the stomach by feeding tube under strict supervision of a doctor. They provide most of a person\u2019s nutrition. They are designed to treat a specific problem that can be detected using medical tests. This benefit covers: \u2022 Dietary replacement to treat inborn errors of metabolism (example phenylketonuria (PKU)) \u2022 Medically necessary elemental formula for eosinophilic gastrointestinal associated disorder \u2022 Other severe conditions when your body cannot take in nutrient from food in the small intestine (malabsorption) disorder \u2022 Disorders where you cannot swallow due to a blockage or a muscular problem and need to be fed through a tube Medical foods must be prescribed and supervised by doctors or other health care providers. This benefit does not cover: \u2022 Oral nutrition or supplements not used to treat inborn errors of metabolism or any of the above listed conditions \u2022 Specialized infant formulas \u2022 Lactose-free foods"
+        },
+        "keywords": [
+            "vision",
+            "mental-health",
+            "medical",
+            "limitations",
+            "specially",
+            "prepared",
+            "consumed",
+            "directly",
+            "stomach",
+            "feeding"
         ],
         "page_number": 40
     },
@@ -5337,6 +4966,31 @@
         "page_number": 43
     },
     {
+        "topic": "Mental Health Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Mental Health Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Benefits for mental health services to manage or lessen the effects of a psychiatric condition are provided as stated below. Services must be consistent with published practices that are based on evidence when available or follow clinical guidelines or a consensus of expert opinion published by national mental health professional organizations or other reputable sources. If no such published practices apply, services must be consistent with community standards of practice. Covered mental health services are: \u2022 Inpatient care \u2022 Outpatient therapeutic visits. \u201cOutpatient therapeutic visit\u201d (outpatient visit) means a clinical treatment session with a mental health provider of a duration consistent with relevant professional standards as defined in the Current Procedural Terminology manual, published by the American Medical Association. Outpatient therapeutic visits can include interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. See the Virtual Care benefit. \u2022 Treatment of eating disorders (such as anorexia nervosa, bulimia or any similar condition) \u2022 Physical, speech or occupational therapy provided for treatment of psychiatric conditions, such as autism spectrum disorders. \u2022 Applied behavioral analysis (ABA) therapy for members with one of the following: \u2022 Autistic disorder \u2022 Autism spectrum disorder \u2022 Asperger's disorder \u2022 Childhood disintegrative disorder \u2022 Pervasive developmental disorder \u2022 Rett's disorder Covered ABA therapy includes treatment or direct therapy for identified members and/or family members. Also covered are an initial evaluation and assessment, treatment review and planning, supervision of therapy assistants, and communication and coordination with other providers or school staff as needed. Delivery of all ABA services for a member may be managed by a BCBA or one of the licensed providers below, who is called a Program Manager. Covered ABA services are limited to activities that are considered to be behavior assessments or interventions using applied behavioral analysis techniques. ABA therapy must be provided by: \u2022 A licensed physician (MD or DO) who is a psychiatrist, developmental pediatrician or pediatric neurologist 40 \u2022 A licensed psychiatric nurse practitioner (NP), advanced nurse practitioner (ANP) or advanced registered nurse practitioner (ARNP) \u2022 A licensed occupational or speech therapist \u2022 A licensed psychologist (PhD) \u2022 A licensed community mental health agency or behavioral health agency that is also state-certified to provide ABA therapy. \u2022 A Board-Certified Behavior Analyst (BCBA). This means a provider who is state-licensed if the State licenses behavior analysts (Washington does). If the state does not require a license, the provider must be certified by the Behavior Analyst Certification Board. BCBAs are only covered for ABA therapy that is within the scope of their license or board certification. \u2022 A therapy assistant/behavioral technician/paraprofessional, when their services are supervised and billed by a licensed provider or a BCBA. Mental health services other than ABA therapy must be furnished by one of the following types of providers to be covered: \u2022 Hospital \u2022 State-Licensed Community Mental Health Agency \u2022 Licensed physician (MD or DO) \u2022 Licensed psychologist (PhD) \u2022 A state hospital operated and maintained by the state of Washington for the care of the mentally ill \u2022 Any other provider listed under the definition of \u201cprovider\u201d (see Definitions in this booklet) who is licensed or certified by the state in which the care is provided, and who is providing care within the scope of their license. \u2022 Behavioral health facilities that are accredited by the Joint Commission, the Commission on Accreditation of Rehabilitation Facilities (CARF), or the Council on Accreditation (COA), only when the state does not require licensure for the specific level of care. \u2022 Washington state-licensed Behavioral Health Agency When medically appropriate, services may be provided in your home. For psychological and neuropsychological testing and evaluation benefit information, see the Psychological and Neuropsychological Testing benefit. For substance use disorder conditions treatment information, see the Substance Use Disorder benefit. For prescription drug benefit information, see the Prescription Drug benefit. The Mental Health Care benefit doesn\u2019t cover: \u2022 Psychological treatment of sexual dysfunctions \u2022 Outward bound, camping or tall ship programs or activities \u2022 Mental health evaluations for purposes other than evaluating the presence of or planning treatment for covered mental health disorders, including, but not limited to, custody evaluations, competency evaluation, forensic evaluations, vocational, educational or academic placement evaluations."
+        },
+        "keywords": [
+            "pharmacy",
+            "vision",
+            "mental-health",
+            "therapy",
+            "limitations",
+            "benefits",
+            "services",
+            "effects",
+            "psychiatric",
+            "condition"
+        ],
+        "page_number": 44
+    },
+    {
         "topic": "Neurodevelopmental (Habilitation) Therapy \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -5362,6 +5016,31 @@
         "page_number": 45
     },
     {
+        "topic": "Newborn Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Newborn Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan. To continue benefits beyond the 3-week period, see the dependent eligibility and enrollment guidelines outlined in Who Is Eligible For Coverage? and When Does Coverage Begin?. If the mother isn\u2019t eligible to receive obstetrical care benefits under this plan, the newborn isn\u2019t automatically covered for the first 3 weeks. For newborn enrollment information, see Who Is Eligible For Coverage? and When Does Coverage Begin?. Benefits are provided on the same basis as any other care, subject to the child's own cost-shares, if any, and other provisions as specified in this plan. Services must be consistent with accepted medical practice and ordered by the attending provider in consultation with the mother."
+        },
+        "keywords": [
+            "vision",
+            "newborn",
+            "limitations",
+            "children",
+            "covered",
+            "automatically",
+            "eligible",
+            "receive",
+            "obstetrical",
+            "benefits"
+        ],
+        "page_number": 46
+    },
+    {
         "topic": "Hospital Care \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -5385,6 +5064,31 @@
             "provider"
         ],
         "page_number": 46
+    },
+    {
+        "topic": "Premera-Designated Centers Of Excellence Program \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Premera-Designated Centers Of Excellence Program",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Premera is working on your behalf to deliver better service excellence and better quality outcomes for services. To accomplish this, Premera has selected providers that have agreed to be held accountable for care quality, experience and cost. Premera calls these providers Designated Centers of Excellence. These providers can give you high quality care for complex medical situations. Designated Centers of Excellence are located throughout the United States. You will have lower out-of-pocket costs when you receive the covered surgeries below from a Designated Center of Excellence. See the Summary Of Your Costs for the cost shares you pay."
+        },
+        "keywords": [
+            "premera",
+            "designated",
+            "centers",
+            "excellence",
+            "program",
+            "limitations",
+            "working",
+            "deliver",
+            "service",
+            "quality"
+        ],
+        "page_number": 47
     },
     {
         "topic": "How To Obtain Coverage \u2014 Coverage Information",
@@ -5921,6 +5625,31 @@
         "page_number": 53
     },
     {
+        "topic": "Professional Visits And Services \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Professional Visits And Services",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Benefits are provided for the examination, diagnosis and treatment of an illness or injury when such services are performed on an inpatient or outpatient basis, including your home. Benefits are also provided for the following professional services when provided by a qualified provider: \u2022 Second opinions for any covered medical diagnosis or treatment plan \u2022 Biofeedback for migraines and other conditions for which biofeedback is not deemed experimental or investigational. See Definitions. \u2022 Repair of a dependent child\u2019s congenital anomaly \u2022 Consultations with a pharmacist For surgical procedures performed in a provider\u2019s office, surgical suite or other facility benefit information, see the Surgery benefit. For professional diagnostic services benefit information, see the Diagnostic X-Ray, Lab, And Imaging benefit. For home health or hospice care benefit information, see the Home Health Care and Hospice Care benefits. For preventive or routine services, see the Preventive Care benefit. For diagnosis and treatment of psychiatric conditions benefit information, see the Mental Health Care benefit. For diagnosis and treatment of temporomandibular joint (TMJ) disorders benefit information, see the Temporomandibular Joint Disorders (TMJ) Care benefit. For electronic visits benefit information, see the Electronic Visits benefit. The Professional Visits And Services benefit doesn't cover: \u2022 Hair analysis or non-prescription drugs or medicines, such as herbal, naturopathic or homeopathic medicines or devices \u2022 EEG biofeedback or neurofeedback services 50"
+        },
+        "keywords": [
+            "pharmacy",
+            "imaging",
+            "diagnostic",
+            "mental-health",
+            "professional",
+            "services",
+            "limitations",
+            "benefits",
+            "provided",
+            "examination"
+        ],
+        "page_number": 54
+    },
+    {
         "topic": "Psychological And Neuropsychological Testing \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -5942,6 +5671,31 @@
             "services",
             "including",
             "interpretation"
+        ],
+        "page_number": 55
+    },
+    {
+        "topic": "Rehabilitation Therapy \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Rehabilitation Therapy",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This plan covers rehabilitation therapy. Benefits must be provided by a licensed physical therapist, occupational therapist, speech language pathologist or a licensed qualified provider. Rehabilitation therapy is therapy that helps get a part of the body back to normal health or function. It includes therapy to 1) restore or improve a function that was lost because of an accidental injury, illness or surgery; or 2) to treat disorders caused by a physical congenital anomaly. Services provided for treatment of a mental health condition are provided under the Mental Health Care benefit. Chronic conditions such as cancer, chronic pulmonary or respiratory disease, cardiac disease or other similar chronic conditions or diseases are covered as any other medical condition and do not accrue to rehabilitation therapy limits. Limits listed in the Summary Of Your Costs do not apply to rehabilitation related to treatment of cancer, such as for breast cancer rehabilitation therapy."
+        },
+        "keywords": [
+            "dental",
+            "mental-health",
+            "therapy",
+            "rehabilitation",
+            "limitations",
+            "benefits",
+            "provided",
+            "licensed",
+            "physical",
+            "therapist"
         ],
         "page_number": 55
     },
@@ -5996,6 +5750,104 @@
         "page_number": 55
     },
     {
+        "topic": "Skilled Nursing Facility Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Skilled Nursing Facility Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit includes: \u2022 Room and board \u2022 Skilled nursing services \u2022 Supplies and drugs 51 \u2022 Skilled nursing care during some stages of recovery \u2022 Skilled rehabilitation provided by physical, occupational or speech therapists while in a skilled nursing facility \u2022 Short or long term stay immediately following a hospitalization \u2022 Active supervision by your provider while in the skilled nursing facility We must approve all planned skilled nursing facility stays before you enter a skilled nursing facility. See Prior Authorization for details. This benefit does not cover: \u2022 Acute nursing care \u2022 Skilled nursing facility stay not immediately following hospitalization or inpatient stay \u2022 Skilled nursing care outside of a hospital or skilled nursing facility \u2022 Care or stay provided at a facility that is not qualified per our standards"
+        },
+        "keywords": [
+            "vision",
+            "therapy",
+            "skilled",
+            "nursing",
+            "facility",
+            "limitations",
+            "benefit",
+            "includes",
+            "services",
+            "supplies"
+        ],
+        "page_number": 55
+    },
+    {
+        "topic": "Spinal And Other Manipulations \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Spinal And Other Manipulations",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers medically necessary manipulations to treat a covered illness, injury or condition. Rehabilitation therapy, such as massage or physical therapy, provided with manipulations is covered under the Rehabilitation Therapy and Neurodevelopmental (Habilitation) Therapy benefits."
+        },
+        "keywords": [
+            "mental-health",
+            "therapy",
+            "manipulations",
+            "limitations",
+            "benefit",
+            "medically",
+            "necessary",
+            "covered",
+            "illness",
+            "condition"
+        ],
+        "page_number": 56
+    },
+    {
+        "topic": "Substance Use Disorder \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Substance Use Disorder",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers inpatient and outpatient substance use disorder conditions treatment and supporting services. Covered services include services provided by a state-approved treatment program or other licensed or certified provider. Covered outpatient visits can include interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. See the Virtual Care benefit. The current edition of the Patient Placement Criteria for the Treatment of Substance Related Disorders as published by the American Society of Addiction Medicine is used to determine if substance use disorder conditions treatment is medically necessary. Note: Medically necessary detoxification is covered in any medically necessary setting. Detoxification in the hospital is covered under the Emergency Room and Hospital benefits. Acupuncture services when provided for substance use disorder conditions do not apply to the Acupuncture benefit visit limits. The Substance Use Disorder benefit doesn\u2019t cover: \u2022 Halfway houses, quarterway houses, recovery houses, and other sober living residences Surgery This benefit covers surgical services (including injections) that are not named as covered under other benefits, when performed on an inpatient or outpatient basis, in such locations as a hospital, ambulatory surgical facility, surgical suite or provider\u2019s office. Also covered under this benefit are: \u2022 Anesthesia or sedation and postoperative care as medically necessary. \u2022 Cornea transplantation, skin grafts, repair of a dependent child\u2019s congenital anomaly, and the transfusion of blood or blood derivatives. \u2022 Colonoscopy and other scope insertion procedures are also covered under this benefit unless they qualify as preventive services as described in the Preventive Care benefit. \u2022 Surgery that is medically necessary to correct the cause of infertility. This does not include assisted reproduction techniques or sterilization reversal. \u2022 Repair of a defect that is the direct result of an injury, providing such repair is started within 12 months of the date of the injury. \u2022 Correction of functional disorders upon our review and approval. \u2022 Vasectomy For organ, bone marrow or stem cell transplant procedure benefit information, see the Transplants benefit. For services to change gender, see the Gender Affirming Care benefit. 52 For members residing in states where laws prohibit access to medically necessary gender affirming care, travel to a provider in another state may be covered. See Medical Transportation \u2013 State-Restricted Care for details. This benefit does not cover removal of excess skin or fat related to either weight loss surgery or the use of drugs for weight loss."
+        },
+        "keywords": [
+            "emergency",
+            "diagnostic",
+            "mental-health",
+            "substance",
+            "disorder",
+            "limitations",
+            "benefit",
+            "inpatient",
+            "outpatient",
+            "conditions"
+        ],
+        "page_number": 56
+    },
+    {
+        "topic": "Surgical Center Care \u2013 Outpatient \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Surgical Center Care \u2013 Outpatient",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Benefits are provided for services and supplies furnished by an outpatient surgical center."
+        },
+        "keywords": [
+            "surgical",
+            "outpatient",
+            "limitations",
+            "benefits",
+            "provided",
+            "services",
+            "supplies",
+            "furnished"
+        ],
+        "page_number": 57
+    },
+    {
         "topic": "Temporomandibular Joint Disorders (Tmj) Care \u2014 Coverage Information",
         "category": "info",
         "benefit_category": "medical",
@@ -6017,6 +5869,31 @@
             "covered",
             "condition",
             "include"
+        ],
+        "page_number": 57
+    },
+    {
+        "topic": "Therapeutic Injections \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Therapeutic Injections",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers: \u2022 Shots given in the provider\u2019s office 53 \u2022 Supplies used during the visit, such as serums, needles and syringes \u2022 Three teaching doses for self-injectable specialty drugs This benefit does not cover: \u2022 Immunizations. See Preventive Care. \u2022 Self-injectable drugs. See Prescription Drug. \u2022 Infusion therapy. See Infusion Therapy. \u2022 Allergy shots. See Allergy Testing and Treatment. Transplants The Transplants benefit is not subject to a separate benefit maximum other than the maximum for travel and lodging described in Medical Transportation. This benefit covers medical services only if provided by in-network providers or \u201cApproved Transplant Centers.\u201d See the transplant benefit requirements later in this benefit for more information about Approved Transplant Centers. Covered Transplants Organ transplants and bone marrow/stem cell reinfusion procedures must not be considered experimental or investigational for the treatment of your condition. See Definitions in this booklet for the definition of \u201cexperimental/investigational services.\u201d The plan reserves the right to base coverage on all of the following: \u2022 Organ transplants and bone marrow/stem cell reinfusion procedures must meet the plan's criteria for coverage. The medical indications for the transplant, documented effectiveness of the procedure to treat the condition, and failure of medical alternatives are all reviewed. The types of organ transplants and bone marrow/stem cell reinfusion procedures that currently meet the plan's criteria for coverage are: \u2022 Heart \u2022 Heart/double lung \u2022 Single lung \u2022 Double lung \u2022 Liver \u2022 Kidney \u2022 Pancreas \u2022 Pancreas with kidney \u2022 Bone marrow (autologous and allogeneic) \u2022 Stem cell (autologous and allogeneic) Note: For the purposes of this plan, the term \u201ctransplant\u201d doesn't include cornea transplantation, skin grafts or the transplant of blood or blood derivatives other than bone marrow or stem cells. These procedures are covered on the same basis as any other covered surgical procedure. See the Surgery benefit. \u2022 Your medical condition must meet the plan's written standards. \u2022 The transplant or reinfusion must be furnished in an Approved Transplant Center. (An \"Approved Transplant Center\" is a hospital or other provider that\u2019s developed expertise in performing organ transplants, or bone marrow or stem cell reinfusion, and meets the other approval standards we use.) We have agreements with Approved Transplant Centers in Washington and Alaska, and we have access to a special network of Approved Transplant Centers around the country. Whenever medically possible, we\u2019ll direct you to an Approved Transplant Center that we\u2019ve contracted with for transplant services. Please call customer service. Of course, if none of our centers or the Approved Transplant Centers can provide the type of transplant you need, this benefit will cover a transplant center that meets the written approval standards we follow."
+        },
+        "keywords": [
+            "in-network",
+            "pharmacy",
+            "diagnostic",
+            "mental-health",
+            "therapeutic",
+            "injections",
+            "limitations",
+            "benefit",
+            "provider",
+            "supplies"
         ],
         "page_number": 57
     },
@@ -6094,6 +5971,81 @@
             "services"
         ],
         "page_number": 59
+    },
+    {
+        "topic": "Urgent Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Urgent Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit covers: Exams and treatment of: \u2022 Minor sprains \u2022 Cuts \u2022 Ear, nose and throat infections \u2022 Fever Some services done during the urgent care visit may be covered under other benefits of this plan with different or additional cost shares, such as: \u2022 X-rays and lab work \u2022 Shots or therapeutic injections \u2022 Office surgeries Urgent care centers can be part of a hospital or not. See the Summary of Your Costs for information about each type of center you may visit."
+        },
+        "keywords": [
+            "urgent-care",
+            "diagnostic",
+            "limitations",
+            "benefit",
+            "treatment",
+            "sprains",
+            "infections",
+            "services",
+            "covered",
+            "benefits"
+        ],
+        "page_number": 59
+    },
+    {
+        "topic": "Virtual Care \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Virtual Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Virtual care uses interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. Services must meet the following requirements: \u2022 Covered service under this plan \u2022 Originating site: Hospital, Rural health clinic, federally qualified health center, physician\u2019s or other health care provider office, community mental health center, skilled nursing facility, home, or renal dialysis center, except an independent renal dialysis center \u2022 If the service is provided through store and forward technology, there must be an associated office visit between the member and the referring provider. \u2022 Is Medically Necessary 55 This does not include services such as facsimile, email communication and SMS messages (texts) or services that are not HIPAA compliant and secured. See the Summary Of Your Costs for the types of virtual visits covered by this benefit."
+        },
+        "keywords": [
+            "mental-health",
+            "virtual",
+            "limitations",
+            "interactive",
+            "technology",
+            "forward",
+            "communication",
+            "between",
+            "originating",
+            "provider"
+        ],
+        "page_number": 59
+    },
+    {
+        "topic": "Vision Exams \u2014 Coverage Information",
+        "category": "info",
+        "benefit_category": "medical",
+        "content": {
+            "event": "Vision Exams",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "This benefit provides for routine vision exams by an ophthalmologist or optometrist as stated in the Summary Of Your Costs. Covered routine exam services include: \u2022 Examination of the outer and inner parts of the eye \u2022 Evaluation of vision sharpness (refraction) \u2022 Binocular balance testing \u2022 Routine tests of color vision, peripheral vision and intraocular pressure \u2022 Case history and recommendations The Vision Exam benefit for members under 19 will provide coverage until the end of the month in which the member turns 19. Some clinics that are based in or owned by a hospital will charge a separate facility fee for all physician visits, including routine vision exams. Benefits for these fees will be subject to your calendar year deductible and coinsurance, if any. Note: For vision exams and testing related to medical conditions of the eye, see the Professional Visits And Services benefit. The Vision Exams benefit doesn\u2019t cover vision hardware or fitting examinations for contact lenses or eyeglasses."
+        },
+        "keywords": [
+            "deductible",
+            "coinsurance",
+            "vision",
+            "limitations",
+            "benefit",
+            "provides",
+            "routine",
+            "ophthalmologist",
+            "optometrist",
+            "summary"
+        ],
+        "page_number": 60
     },
     {
         "topic": "Members 19 Or Older \u2014 Coverage Information",

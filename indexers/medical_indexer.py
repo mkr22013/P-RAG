@@ -825,8 +825,12 @@ def parse_prose_sections(pdf_path):
     all_lines = []  # list of (line_text, page_num)
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
-            text = page.extract_text() or ""
-            for line in text.split("\n"):
+            page_text = page.extract_text() or ""
+            # Skip pages that contain the cost table header — those are
+            # benefit cost table pages and must never contribute info chunks
+            if "YOUR SHARE OF THE ALLOWED AMOUNT" in page_text.upper():
+                continue
+            for line in page_text.split("\n"):
                 stripped = line.strip()
                 if stripped:
                     all_lines.append((stripped, page.page_number))
@@ -857,6 +861,44 @@ def parse_prose_sections(pdf_path):
     if current_header and current_content:
         sections.append((current_header, current_content, current_page))
 
+    # Pattern: inline benefit name appearing mid-content followed by benefit description.
+    # e.g. "• Serums Ambulance This benefit covers: ..." should split at "Ambulance".
+    # Matches 1-6 Title Case words immediately before "This benefit covers/does not cover".
+    INLINE_SPLIT = re.compile(
+        r"(?<!\. )(?<![•] )([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,5})\s+"
+        r"(This benefit (?:covers|does not cover):)",
+    )
+
+    def split_inline_benefits(text, base_page):
+        """
+        Split text at inline benefit boundaries and return list of (name, text, page).
+        If no inline boundaries found, returns [(None, text, base_page)].
+        """
+        parts = []
+        last = 0
+        for m in INLINE_SPLIT.finditer(text):
+            before = text[last : m.start()].strip()
+            if before:
+                parts.append((None, before, base_page))
+            last = m.start(1)
+        remainder = text[last:].strip()
+        if remainder:
+            parts.append((None, remainder, base_page))
+        if not parts:
+            return [(None, text, base_page)]
+        # First part keeps original name; subsequent parts extract name from text start
+        result = []
+        for i, (_, chunk, pg) in enumerate(parts):
+            m2 = re.match(
+                r"^([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,5})\s+(This benefit)",
+                chunk,
+            )
+            if m2:
+                result.append((m2.group(1), chunk, pg))
+            else:
+                result.append((None, chunk, pg))
+        return result
+
     entries = []
     seen_headers = set()
 
@@ -877,29 +919,31 @@ def parse_prose_sections(pdf_path):
         if is_cost_table_content(content_text):
             continue
 
-        event = header.strip().title()
-
-        entries.append(
-            {
-                "topic": f"{event} \u2014 Coverage Information",
-                "category": "info",
-                "benefit_category": "medical",
-                "content": {
-                    "event": event,
-                    "service": "Coverage Information",
-                    "in_network": "Data Not Found",
-                    "out_of_network": "Data Not Found",
-                    "limitations": content_text,
-                },
-                "keywords": get_smart_keywords(
-                    {
+        for inline_name, chunk_text, chunk_page in split_inline_benefits(
+            content_text, section_page
+        ):
+            event = (inline_name or header).strip().title()
+            entries.append(
+                {
+                    "topic": f"{event} \u2014 Coverage Information",
+                    "category": "info",
+                    "benefit_category": "medical",
+                    "content": {
                         "event": event,
-                        "limitations": content_text,
-                    }
-                ),
-                "page_number": section_page,
-            }
-        )
+                        "service": "Coverage Information",
+                        "in_network": "Data Not Found",
+                        "out_of_network": "Data Not Found",
+                        "limitations": chunk_text,
+                    },
+                    "keywords": get_smart_keywords(
+                        {
+                            "event": event,
+                            "limitations": chunk_text,
+                        }
+                    ),
+                    "page_number": chunk_page,
+                }
+            )
 
     return entries
 

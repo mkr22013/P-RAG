@@ -9,6 +9,7 @@ from utility.category import (
     detect_category_rule_based,
     detect_category_from_history,
     extract_user_queries,
+    is_conversational,
 )
 from utility.topic_resolver import resolve_insurance_topic, NOISE_WORDS
 from utility.response_builder import (
@@ -19,6 +20,7 @@ from utility.response_builder import (
 from utility.prompts import (
     TOPIC_EXTRACTION_PROMPT,
     GUIDANCE_NO_CATEGORY,
+    GUIDANCE_CONVERSATIONAL,
     GUIDANCE_MEDICAL_VAGUE,
     GUIDANCE_DENTAL_VAGUE,
     GUIDANCE_VISION_VAGUE,
@@ -154,6 +156,13 @@ async def get_ai_response(
 
         print(f"[*] Query Words for Matching: {query_words}")
         print("[DEBUG] urgent match:", smart_match("urgent", query_words, query_lower))
+
+        # --- 2b. CONVERSATIONAL INTENT CHECK ---
+        # Short-circuit before any RAG pipeline if query is greeting,
+        # follow-up, acknowledgement or clearly non-benefit
+        if is_conversational(query):
+            print("[*] CONVERSATIONAL QUERY DETECTED → returning guidance")
+            return GUIDANCE_CONVERSATIONAL
 
         # --- 3. TYPE DETECTION ---
         p_type = detect_category(query_words, query)
@@ -628,74 +637,19 @@ async def get_ai_response(
             # 🔥 STEP 4 — CLEAN CONTEXT (CRITICAL)
             # ============================================================
             def trim_context(text, max_chars=8000):
-                """
-                Section-aware trim — never cuts a section off mid-item.
-                Keeps complete items from COST and INFO sections separately,
-                trimming the number of items per section rather than raw chars.
-                Falls back to char trim only when no section structure is found.
-                """
-                if not text or len(text) <= max_chars:
+                if not text:
+                    return ""
+
+                if len(text) <= max_chars:
                     return text
 
-                import re as _re
+                cut = text[:max_chars]
+                last_break = cut.rfind("\n\n")
 
-                # Split into named sections
-                section_re = _re.compile(r"(### SECTION: \w+\s*\n)")
-                parts = section_re.split(text)
-                # parts alternates: [preamble, header1, body1, header2, body2, ...]
+                if last_break != -1:
+                    return cut[:last_break]
 
-                sections = {}
-                i = 1
-                while i < len(parts) - 1:
-                    header = parts[i].strip()  # e.g. "### SECTION: COST"
-                    body = parts[i + 1] if i + 1 < len(parts) else ""
-                    name = header.replace("### SECTION:", "").strip().lower()
-                    sections[name] = (header, body)
-                    i += 2
-
-                if not sections:
-                    # No section structure — fall back to original char trim
-                    cut = text[:max_chars]
-                    last_break = cut.rfind("\n\n")
-                    return cut[:last_break] if last_break != -1 else cut
-
-                # Budget: give COST section up to 3000 chars, INFO gets the rest
-                cost_budget = min(3000, max_chars // 2)
-                info_budget = max_chars - cost_budget
-
-                # Get keywords from outer scope for relevance sorting
-                _trim_keywords = keywords if "keywords" in dir() else []
-
-                result_parts = []
-                for name, (header, body) in sections.items():
-                    budget = cost_budget if name == "cost" else info_budget
-
-                    items = _re.split(r"(?=Item \d+:)", body.strip())
-                    items = [it for it in items if it.strip()]
-
-                    # For INFO section: sort keyword-matching items first
-                    if name == "info" and _trim_keywords:
-
-                        def _score(item):
-                            item_lower = item.lower()
-                            return sum(
-                                1 for kw in _trim_keywords if kw.lower() in item_lower
-                            )
-
-                        items = sorted(items, key=_score, reverse=True)
-
-                    kept = []
-                    total = len(header) + 2
-                    for item in items:
-                        if total + len(item) > budget and kept:
-                            break
-                        kept.append(item)
-                        total += len(item)
-
-                    section_text = f"{header}\n\n" + "\n".join(kept)
-                    result_parts.append(section_text)
-
-                return "\n\n".join(result_parts)
+                return cut
 
             # ============================================================
             # STEP 5 — FINAL ANSWER (NO TOOLS)

@@ -7,13 +7,86 @@ from .utils import smart_match
 
 LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
 
+# ── Conversational patterns — queries that are NOT benefit questions ──────────
+_CONVERSATIONAL_PATTERNS = [
+    r"^(hi|hello|hey|howdy|greetings)\b",
+    r"^how are you",
+    r"^(good morning|good afternoon|good evening|good night)\b",
+    r"^(thanks|thank you|thx|ty)\b",
+    r"^(ok|okay|got it|understood|makes sense|alright|sure|cool|great|awesome)\b",
+    r"^(yes|no|maybe|nope|yep|yeah|nah)\b",
+    r"^(i did not get|i don't understand|i dont understand|can you explain|what do you mean|what did you mean)\b",
+    r"^(can you repeat|repeat that|say that again)\b",
+    r"^(who are you|what are you|what can you do|help me|help)\b",
+    r"^(bye|goodbye|see you|later|take care)\b",
+]
+
+_CONVERSATIONAL_RE = [re.compile(p, re.IGNORECASE) for p in _CONVERSATIONAL_PATTERNS]
+
+
+def is_conversational(query: str) -> bool:
+    """
+    Returns True if the query is conversational/non-benefit (greeting,
+    follow-up clarification, acknowledgement etc.) and should NOT go
+    through the RAG pipeline.
+    """
+    q = query.strip().lower()
+
+    # Very short queries with no benefit keywords are likely conversational
+    words = [w for w in re.sub(r"[^\w\s]", "", q).split() if len(w) > 1]
+    if len(words) <= 3:
+        # Check it doesn't contain any benefit signal words
+        benefit_signals = {
+            "copay",
+            "cost",
+            "cover",
+            "covered",
+            "benefit",
+            "deductible",
+            "plan",
+            "insurance",
+            "medical",
+            "dental",
+            "vision",
+            "pcp",
+            "doctor",
+            "hospital",
+            "er",
+            "urgent",
+            "claim",
+            "premium",
+            "coinsurance",
+            "network",
+            "provider",
+            "drug",
+            "prescription",
+        }
+        if not any(w in benefit_signals for w in words):
+            # Check against conversational patterns
+            for pattern in _CONVERSATIONAL_RE:
+                if pattern.match(q):
+                    return True
+
+    # Longer queries — only flag if they explicitly match conversational patterns
+    for pattern in _CONVERSATIONAL_RE:
+        if pattern.match(q):
+            return True
+
+    return False
+
 
 def build_category_prompt(query: str) -> str:
     return f"""
-        You are a strict JSON classifier.
+        You are a strict JSON classifier for a health insurance assistant.
 
-        Classify the query into ONE category:
-        medical, dental, or vision.
+        Classify the query into ONE of these categories:
+        medical, dental, vision, or unknown.
+
+        Use "unknown" when:
+        - The query is a greeting (hi, hello, how are you)
+        - The query is a follow-up or clarification (I did not get it, can you explain)
+        - The query is an acknowledgement (ok, thanks, got it)
+        - The query is NOT about health insurance benefits
 
         Return ONLY this exact JSON format:
 
@@ -22,16 +95,15 @@ def build_category_prompt(query: str) -> str:
         }}
 
         - The key MUST be "category"
-        - The value MUST be one of: medical, dental, vision
+        - The value MUST be one of: medical, dental, vision, unknown
         - Do NOT return anything else
-        - Do NOT change the key name
         - Do NOT return null
 
         "{query}"
         """
 
 
-def get_category_from_llm(query: str) -> str:
+def get_category_from_llm(query: str) -> str | None:
     prompt = build_category_prompt(query)
     llm_messages = [{"role": "user", "content": prompt}]
 
@@ -46,14 +118,23 @@ def get_category_from_llm(query: str) -> str:
         print(f"[*] RAW LLM CATEGORY RESPONSE: {content}")
         data = json.loads(content)
         category = data.get("category", "").strip().lower()
+
+        if category == "unknown":
+            print("[*] LLM CATEGORY: unknown (conversational/non-benefit query)")
+            return None
+
         if category not in {"medical", "dental", "vision"}:
-            print(f"[WARNING] Invalid category from LLM: {category}")
-            return "medical"
+            print(
+                f"[WARNING] Invalid category from LLM: {category} — treating as unknown"
+            )
+            return None
+
         print(f"[*] LLM CATEGORY DETECTED: {category}")
         return category
+
     except Exception as e:
         print(f"[ERROR] LLM CATEGORY FAILED: {e}")
-        return "medical"
+        return None
 
 
 def detect_category_rule_based(query_words: list, query: str) -> str | None:

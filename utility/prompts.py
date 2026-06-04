@@ -32,6 +32,16 @@ Here are some examples:
 
 Try asking a specific question and I'll pull up your exact benefits."""
 
+GUIDANCE_CONVERSATIONAL = """I'm your Premera Insurance Plan Assistant — I'm here to help with questions about your benefits.
+
+Try asking something like:
+
+🏥 **Medical** — *"What is my PCP copay?"* · *"What is my deductible?"*
+
+🦷 **Dental** — *"How much is a cleaning?"* · *"What does a crown cost?"*
+
+👁️ **Vision** — *"What is my vision exam cost?"* · *"How much is my glasses allowance?"*"""
+
 GUIDANCE_MEDICAL_VAGUE = """I can help with your **medical benefits**! To get your exact costs, try asking something specific:
 
 • *"What is my PCP copay?"*

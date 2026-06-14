@@ -122,6 +122,7 @@ MEMBER_INFO_BY_CATEGORY = {
         {**_BASE_MEMBER, "plans": _DEMO_MEMBER_PREMERA_DENTAL_PLANS}
     ),
     "vision": json.dumps({**_BASE_MEMBER, "plans": _DEMO_MEMBER_PLANS}),
+    "rx": json.dumps({**_BASE_MEMBER, "plans": _DEMO_MEMBER_PLANS}),
 }
 
 # ── Queries ───────────────────────────────────────────────────────────────────
@@ -151,7 +152,6 @@ QUERIES = {
         "does my plan provide medical food during my hospital stay",
         "show me newborn care benefits",
         "show me new born care impatient care cost",
-        # "does my plan cover Non-preferred generic and brand name drugs?",
         "what is covered under clinical trials and what does it cost",
         "tell me about emergency room coverage and cost",
         "what does my plan cover for medical transportation and how much does it cost",
@@ -250,6 +250,35 @@ QUERIES = {
         "Are plain sunglasses covered under my vision plan?",
         "What does my vision plan cover and how much will I pay?",
     ],
+    "rx": [
+        # Tier queries — generic drugs
+        "what tier is metformin?",
+        "what tier is lisinopril?",
+        "what tier is atorvastatin?",
+        "what tier is amlodipine?",
+        "what tier is omeprazole?",
+        # Coverage queries — brand drugs
+        "is vivjoa covered?",
+        "does my plan cover humira?",
+        "what are the requirements for cresemba?",
+        "is lipitor on my formulary?",
+        "is ozempic covered under my plan?",
+        # Formulary queries
+        "is fluconazole on my formulary?",
+        "is metformin on my formulary?",
+        "is ibuprofen covered under my prescription plan?",
+        # Requirement queries
+        "does metformin require prior authorization?",
+        "does humira need prior authorization?",
+        # Not on formulary
+        "is ancobon covered?",
+        "is diflucan covered?",
+        # Combination drugs
+        "what tier is glipizide metformin?",
+        "is glyburide metformin covered?",
+        # General
+        "what tier is vivjoa?",
+    ],
 }
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -266,8 +295,10 @@ def baseline_path(category, query):
 def call_api(query, category):
     """POST to /chat — same as the UI does."""
     # Map category key to actual plan category for the API
-    api_category = category.replace("dental_willamette", "dental").replace(
-        "dental_premera", "dental"
+    api_category = (
+        category.replace("dental_willamette", "dental")
+        .replace("dental_premera", "dental")
+        .replace("rx", "")
     )
     member_info = MEMBER_INFO_BY_CATEGORY.get(
         category, MEMBER_INFO_BY_CATEGORY["medical"]
@@ -310,6 +341,7 @@ def parse_response(response: dict) -> dict:
 def run_query(query, category):
     response = call_api(query, category)
     parsed = parse_response(response)
+    token_usage = response.get("token_usage", {})
     return {
         "query": query,
         "category": category,
@@ -317,6 +349,7 @@ def run_query(query, category):
         "answer": parsed["answer"],
         "pages": parsed["pages"],
         "source": parsed["source"],
+        "token_usage": token_usage,
     }
 
 
@@ -374,8 +407,20 @@ def is_cost_changed(old_answer, new_answer):
 def capture(categories=None):
     cats = categories or list(QUERIES.keys())
     total = saved = 0
+    total_tokens = 0
+    total_calls = 0
+
     for cat in cats:
-        print(f"\n[{cat.upper()}]")
+        # Show which dental plan is being used — helps debug baseline mixups
+        # Only shown for dental categories since others don't have dental-specific plans
+        member_info_dict = json.loads(MEMBER_INFO_BY_CATEGORY.get(cat, "{}"))
+        dental_plan = (
+            member_info_dict.get("plans", {}).get("dental", {}).get("plan", "")
+        )
+        plan_label = (
+            f" — dental plan: {dental_plan}" if dental_plan and "dental" in cat else ""
+        )
+        print(f"\n[{cat.upper()}]{plan_label}")
         for query in QUERIES[cat]:
             total += 1
             print(f"  {query[:65]}", end="  ", flush=True)
@@ -383,8 +428,23 @@ def capture(categories=None):
             save_baseline(result)
             saved += 1
             has_answer = bool(result["answer"] and "[ERROR]" not in result["answer"])
-            print(f"{'✓' if has_answer else '✗ ERROR'}")
+            tokens = result.get("token_usage", {}).get("total_tokens", 0)
+            calls = result.get("token_usage", {}).get("total_llm_calls", 0)
+            total_tokens += tokens
+            total_calls += calls
+            print(
+                f"{'✓' if has_answer else '✗ ERROR'}  [{tokens} tokens, {calls} LLM calls]"
+            )
+
+    avg_tokens = total_tokens // saved if saved else 0
+    avg_calls = round(total_calls / saved, 1) if saved else 0
     print(f"\nSaved {saved}/{total} baselines → {BASELINES_DIR}/")
+    print(f"\n── Token Usage Summary ─────────────────")
+    print(f"  Total queries:     {saved}")
+    print(f"  Total tokens:      {total_tokens:,}")
+    print(f"  Total LLM calls:   {total_calls}")
+    print(f"  Avg tokens/query:  {avg_tokens}")
+    print(f"  Avg LLM calls/q:   {avg_calls}")
 
 
 # ── Verify mode ───────────────────────────────────────────────────────────────
@@ -487,7 +547,7 @@ if __name__ == "__main__":
     parser.add_argument("--ci", action="store_true", help="Non-interactive CI mode")
     parser.add_argument(
         "--category",
-        choices=["medical", "dental_willamette", "dental_premera", "vision"],
+        choices=["medical", "dental_willamette", "dental_premera", "vision", "rx"],
         help="Run only one category",
     )
     args = parser.parse_args()

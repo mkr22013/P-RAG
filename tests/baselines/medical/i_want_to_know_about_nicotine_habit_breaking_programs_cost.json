@@ -1,10 +1,24 @@
 {
   "query": "I want to know about nicotine habit breaking programs cost",
   "category": "medical",
-  "timestamp": "2026-06-13T16:57:49.755986",
+  "timestamp": "2026-06-14T13:36:39.252042",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Preventive Care | Nicotine habit-breaking programs | No charge | No cost-shares | Data Not Found |\n",
   "pages": [
     15
   ],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 555,
+    "total_output_tokens": 25,
+    "total_tokens": 580,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 555,
+        "output_tokens": 25,
+        "total_tokens": 580
+      }
+    ]
+  }
 }

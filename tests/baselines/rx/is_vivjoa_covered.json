@@ -1,0 +1,22 @@
+{
+  "query": "is vivjoa covered?",
+  "category": "rx",
+  "timestamp": "2026-06-14T13:42:40.974209",
+  "answer": "I'm not sure what area of your plan that relates to. I can help with specific questions about your benefits.\n\nHere are some examples:\n\n🏥 **Medical** — *\"What is my PCP copay?\"* · *\"What is my deductible?\"* · *\"How much is urgent care?\"*\n\n🦷 **Dental** — *\"How much is a cleaning?\"* · *\"Are crowns covered?\"* · *\"What is my dental annual maximum benefit?\"*\n\n👁️ **Vision** — *\"What is my vision exam cost?\"* · *\"How much is my glasses allowance?\"*\n\nTry asking a specific question and I'll pull up your exact benefits.",
+  "pages": [],
+  "source": "",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 213,
+    "total_output_tokens": 10,
+    "total_tokens": 223,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 213,
+        "output_tokens": 10,
+        "total_tokens": 223
+      }
+    ]
+  }
+}

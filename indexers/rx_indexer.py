@@ -73,8 +73,8 @@ def is_category_header(line: str) -> bool:
     """
     Detects if a line is a drug category or subcategory header.
 
-    Headers are ALL CAPS lines with no tier number at the end.
-    They group drug entries into therapeutic categories.
+    Headers are ALL CAPS lines with no tier number at the end and no digits.
+    Real category headers never contain numbers.
 
     Examples that return True:
         "ANTI - INFECTIVES"       ← top-level category
@@ -82,10 +82,15 @@ def is_category_header(line: str) -> bool:
         "ANTIVIRALS"              ← subcategory
 
     Examples that return False:
-        "VIVJOA ORAL CAPSULE 150 MG  4  PA"   ← drug entry (has tier)
-        "200 mg/5 ml (40 mg/ml)"              ← continuation line (lowercase)
+        "VIVJOA ORAL CAPSULE 150 MG  4  PA"    ← drug entry (has tier)
+        "RECONSTITUTION 40 MG/ML"              ← continuation line (has digits)
+        "200 mg/5 ml (40 mg/ml)"               ← continuation line (lowercase + digits)
+        "FOR RECON 300 MG"                      ← continuation line (has digits)
     """
     if not line or TIER_RE.search(line):
+        return False
+    # Real category headers never contain digits
+    if any(char.isdigit() for char in line):
         return False
     words = re.findall(r"[A-Za-z]+", line)
     return bool(words) and all(w.isupper() for w in words) and len(words) <= 8
@@ -168,15 +173,62 @@ def classify_document(pdf_path: str) -> dict:
     """
     Returns plan metadata for this Rx formulary.
 
-    Unlike medical/dental/vision indexers, Rx formularies contain no
-    plan-specific details (no group number, plan name, or year in the PDF).
-    In production, metadata comes from Azure Blob metadata attached to the file.
-    In local development, we return hardcoded DEV_METADATA.
+    Reads the variant (E1/E4, A1/A2 etc.) and effective year directly
+    from page 1 of the PDF — no LLM needed.
 
-    The run_indexer.py will skip this function entirely in production
-    when blob metadata is already available.
+    Page 1 always contains:
+        Line 1: "Essentials (E1/E4)" or "Open A1/Preferred A2"
+        Line 2: "Formulary Drug List"
+        Line 3: "Effective MM-DD-YYYY"
+
+    In production, group_number and group_name come from blob metadata.
+    In local dev, we use hardcoded DEV_METADATA values for those fields.
     """
-    return DEV_METADATA.copy()
+    variant = DEV_METADATA["variant"]  # fallback
+    year = DEV_METADATA["year"]  # fallback
+    plan = "Formulary Drug List"
+
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            first_page_text = pdf.pages[0].extract_text() or ""
+            lines = [l.strip() for l in first_page_text.split("\n") if l.strip()]
+
+            if lines:
+                # Line 1: "Essentials (E1/E4)" or "Open A1/Preferred A2"
+                first_line = lines[0]
+
+                # Extract variant — take the LAST code (member is on last listed variant)
+                paren_match = re.search(r"\(([^)]+)\)", first_line)
+                if paren_match:
+                    # "Essentials (E1/E4)" → codes=["E1","E4"] → variant="E4"
+                    codes = paren_match.group(1).split("/")
+                    variant = codes[-1].strip()
+                    # Plan name = text before parentheses + "Formulary Drug List"
+                    plan_prefix = first_line[: paren_match.start()].strip()
+                    plan = f"{plan_prefix} Formulary Drug List"
+                else:
+                    # "Open A1/Preferred A2" → take last code: "A2"
+                    code_match = re.search(r"\b([A-Z]\d+)\s*$", first_line)
+                    if code_match:
+                        variant = code_match.group(1)
+                    plan = f"{first_line} Formulary Drug List"
+
+            # Extract year from "Effective MM-DD-YYYY"
+            for line in lines[:5]:
+                year_match = re.search(r"(\d{4})", line)
+                if year_match:
+                    year = year_match.group(1)
+                    break
+
+    except Exception as e:
+        print(f"[!] classify_document failed to read PDF: {e} — using DEV_METADATA")
+
+    return {
+        **DEV_METADATA,
+        "plan": plan,
+        "variant": variant,
+        "year": year,
+    }
 
 
 def build_drug_chunk(
@@ -302,6 +354,11 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
 
                 # Skip empty lines and the repeating column header
                 if not line or line == COLUMN_HEADER:
+                    continue
+
+                # Skip alphabetical drug index lines — they contain "...." separators
+                # e.g. "fluconazole.......... 6  DIFLUCAN .............. NF"
+                if "......" in line:
                     continue
 
                 # Category or subcategory header (ALL CAPS, no tier)

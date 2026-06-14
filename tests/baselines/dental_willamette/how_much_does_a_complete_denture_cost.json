@@ -1,10 +1,17 @@
 {
   "query": "How much does a complete denture cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:49.445454",
+  "timestamp": "2026-06-14T13:39:53.520176",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Prosthodontics - Removable | D5110 Complete denture - maxillary | $350 copay | Not covered | Data Not Found |\n| Prosthodontics - Removable | D5120 Complete denture - mandibular | $350 copay | Not covered | Data Not Found |\n| Prosthodontics - Removable | D5410 Adjust complete denture - maxillary | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     8
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

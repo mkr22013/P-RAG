@@ -1,10 +1,17 @@
 {
   "query": "What does a root canal cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:16.696865",
+  "timestamp": "2026-06-14T13:39:26.017849",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Endodontics | D3331 Treatment of root canal obstruction; non-surgical | Covered In Full | Not covered | Data Not Found |\n| Endodontics | D3346 Retreatment of previous root canal therapy - | $155 copay | Not covered | Data Not Found |\n| Endodontics | D3347 Retreatment of previous root canal therapy - | $175 copay | Not covered | Data Not Found |\n",
   "pages": [
     6
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

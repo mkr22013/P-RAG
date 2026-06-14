@@ -1,10 +1,17 @@
 {
   "query": "What is my copay for gum surgery?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:36.653073",
+  "timestamp": "2026-06-14T13:39:43.762915",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Periodontics | D4210 Gingivectomy or gingivoplasty - 4 or more | $175 copay | Not covered | Data Not Found |\n",
   "pages": [
     7
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

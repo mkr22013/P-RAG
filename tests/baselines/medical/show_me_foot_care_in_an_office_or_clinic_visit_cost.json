@@ -1,12 +1,32 @@
 {
   "query": "show me foot care in an office or clinic visit cost",
   "category": "medical",
-  "timestamp": "2026-06-13T16:58:29.976475",
+  "timestamp": "2026-06-14T13:37:11.666207",
   "answer": "Foot care services for medically necessary conditions are covered by this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Foot Care | In an office or clinic | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Foot Care | All other settings | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies | Foot orthotics and therapeutic shoes; calendar year limit: None | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Foot Care | This benefit covers the following medically necessary foot care services that need care from a provider: • Foot care for members with impaired blood flow to the legs and feet when it puts the member at risk • Treatment of corns, calluses and toenails This benefit does not cover routine foot care, such as trimming nails or removing corns and calluses that do not need care from a provider. |\n",
   "pages": [
     9,
     10,
     30
   ],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 774,
+    "total_output_tokens": 37,
+    "total_tokens": 811,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 556,
+        "output_tokens": 23,
+        "total_tokens": 579
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 218,
+        "output_tokens": 14,
+        "total_tokens": 232
+      }
+    ]
+  }
 }

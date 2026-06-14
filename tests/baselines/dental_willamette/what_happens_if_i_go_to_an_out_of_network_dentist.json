@@ -1,10 +1,24 @@
 {
   "query": "What happens if I go to an out of network dentist?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:02:30.406272",
-  "answer": "Benefits for out-of-network dental services are available if referred by a participating provider and specifically authorized.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Referrals | The Participating Provider may refer you to a Specialist or Non-Participating Provider for Covered Services. Benefits for Covered Services provided by a Specialist or Non-Participating Provider are available under this plan only if: • The Participating Provider refers you; • The Covered Services are specifically authorized by the Participating Provider’s referral; and • The Covered Services are listed as covered in the What Are My Benefits? section and are not otherwise limited or excluded. 1 Willamette Dental Plan January 1, 2024 1000016 |\n",
+  "timestamp": "2026-06-14T13:40:28.258646",
+  "answer": "Benefits are not provided for out-of-network dental services.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Exclusions And Limitations | The plan does not provide benefits for any of the following conditions, treatments, services, or for any direct complications or consequences thereof. The plan does not provide benefits for excluded services even if approved, prescribed, or recommended by a Participating Provider. • Benefits aren’t available under this plan when coverage is available through: • Motor vehicle medical/dental or motor vehicle no-fault coverage • Personal injury protection (PIP) coverage • Commercial liability coverage • Homeowner policy • Other types of liability insurance • Worker's Compensation or similar coverage • Bridges, crowns, dentures, or prosthetic devices requiring multiple treatment dates or fittings, if the prosthetic item is installed or delivered more than 60 days after termination of coverage. • The completion or delivery of treatments or services performed or initiated prior to the member’s effective date, including the following: • Endodontic services and prosthodontic services; • An... |\n",
   "pages": [
-    1
+    14
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 235,
+    "total_output_tokens": 12,
+    "total_tokens": 247,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 235,
+        "output_tokens": 12,
+        "total_tokens": 247
+      }
+    ]
+  }
 }

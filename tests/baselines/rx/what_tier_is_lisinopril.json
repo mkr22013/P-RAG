@@ -1,0 +1,22 @@
+{
+  "query": "what tier is lisinopril?",
+  "category": "rx",
+  "timestamp": "2026-06-14T13:42:24.019308",
+  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "pages": [],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 553,
+    "total_output_tokens": 17,
+    "total_tokens": 570,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 553,
+        "output_tokens": 17,
+        "total_tokens": 570
+      }
+    ]
+  }
+}

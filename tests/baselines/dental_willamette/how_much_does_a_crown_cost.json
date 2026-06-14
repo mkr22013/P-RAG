@@ -1,10 +1,17 @@
 {
   "query": "How much does a crown cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:15.985185",
+  "timestamp": "2026-06-14T13:39:25.450819",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Crowns | D2740 Crown - porcelain/ceramic | $250 copay | Not covered | Data Not Found |\n| Crowns | D2750 Crown - porcelain fused to high noble metal | $250 copay | Not covered | Data Not Found |\n| Crowns | D2930 Prefabricated stainless steel crown - primary tooth | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     5
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

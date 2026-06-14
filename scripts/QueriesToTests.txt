@@ -68,7 +68,7 @@ does my plan provide medical food during my hospital stay
 
 show me newborn care benefits
 
-show me new born care impatient care cost
+show me new born care inpatient care cost
 
 does my plan cover Non-preferred generic and brand name drugs?
 
@@ -236,3 +236,14 @@ What does my dental plan cover and what are the costs?
 "what is my vision exam copay?" — vision
 "hello how are you" — should show guidance message (no category)
 "tell me about my plan" — vague, should show guidance nudging to be specific
+
+
+Rx queries to test
+==============================================================
+what tier is metformin?
+is vivjoa covered?
+is fluconazole on my formulary?
+what tier is lipitor?
+does my plan cover humira?
+is ibuprofen covered under my prescription plan?
+what are the requirements for cresemba?

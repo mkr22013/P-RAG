@@ -1,0 +1,28 @@
+{
+  "query": "is ancobon covered?",
+  "category": "rx",
+  "timestamp": "2026-06-14T13:43:29.037356",
+  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "pages": [],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 764,
+    "total_output_tokens": 26,
+    "total_tokens": 790,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 213,
+        "output_tokens": 10,
+        "total_tokens": 223
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 551,
+        "output_tokens": 16,
+        "total_tokens": 567
+      }
+    ]
+  }
+}

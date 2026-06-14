@@ -1,11 +1,31 @@
 {
   "query": "is Bariatric surgery covered under my plan?",
   "category": "medical",
-  "timestamp": "2026-06-13T17:00:33.585790",
+  "timestamp": "2026-06-14T13:38:49.522637",
   "answer": "Bariatric surgery is covered under your plan when performed at designated centers of excellence.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Premera-Designated Centers Of Excellence Program | Bariatric Surgery | Deductible, then 20% coinsurance | Data Not Found | Includes travel as needed. See Medical Transportation. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Bariatric Surgery | Services must be performed at Sound Surgeons, dba Northwest Weight Loss (ASC); Evergreen Medical Center (King County Public Hospital); or MultiCare Deaconess Hospital. Covered Services Services provided by the Designated Center of Excellence and covered under this benefit include pre-operative services and supplies before the procedure, surgery and associated facility care. Post-surgery care is covered under this benefit for a limited period after surgery. All other related services, including outpatient follow-up care after surgery, rehabilitation and skilled nursing facility care, are subject to the plan's standard cost shares and are covered under other plan benefits. See the Summary Of Your Costs for cost shares for those services. Travel Benefits are provided for certain travel expenses related to services provided by a Designated Center of Excellence that are arranged by Premera’s travel partner. See Medical Transportation for details. |\n",
   "pages": [
     13,
     43
   ],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 789,
+    "total_output_tokens": 39,
+    "total_tokens": 828,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 555,
+        "output_tokens": 21,
+        "total_tokens": 576
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 234,
+        "output_tokens": 18,
+        "total_tokens": 252
+      }
+    ]
+  }
 }

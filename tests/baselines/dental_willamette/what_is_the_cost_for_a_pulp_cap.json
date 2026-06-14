@@ -1,10 +1,30 @@
 {
   "query": "What is the cost for a pulp cap?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:26.095382",
+  "timestamp": "2026-06-14T13:39:34.417955",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Endodontics | D3110 Pulp cap - direct (excluding final restoration) | Covered In Full | Not covered | Data Not Found |\n| Endodontics | D3120 Pulp cap - indirect (excluding final restoration) | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     6
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 770,
+    "total_output_tokens": 31,
+    "total_tokens": 801,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 216,
+        "output_tokens": 11,
+        "total_tokens": 227
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 554,
+        "output_tokens": 20,
+        "total_tokens": 574
+      }
+    ]
+  }
 }

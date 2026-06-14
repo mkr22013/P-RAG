@@ -74,7 +74,7 @@ async def welcome_endpoint(member_key: str = "", group_number: str = ""):
 
     return {
         "answer": WELCOME_MESSAGE,
-        "member_info": await get_member_info(
+        "member_info": get_member_info(
             member_key=member_key, group_number=group_number
         ),
     }
@@ -84,7 +84,7 @@ async def welcome_endpoint(member_key: str = "", group_number: str = ""):
 @app.get("/member-info")
 async def member_info_endpoint(member_key: str = "", group_number: str = ""):
     """Returns member plan details. Calls external API when configured."""
-    return await get_member_info(member_key=member_key, group_number=group_number)
+    return get_member_info(member_key=member_key, group_number=group_number)
 
 
 # --- ENDPOINT 1: CHAT ---
@@ -134,24 +134,36 @@ async def chat_endpoint(
 
         # External agents pass member_key + group_number instead of full member_info
         if not member_info_dict and member_key:
-            member_info_dict = await get_member_info(
+            member_info_dict = get_member_info(
                 member_key=member_key, group_number=group_number
             )
 
         # Final fallback — demo member
         if not member_info_dict:
-            member_info_dict = await get_member_info()
+            member_info_dict = get_member_info()
 
         logger.info(
             f"[*] Received chat request with prompt: {prompt} and history: {history_list}"
         )
 
+        # Reset token log for this request
+        from utility.llm import reset_token_log, get_token_summary
+
+        reset_token_log()
+
         result = await get_ai_response(
             prompt, history_list, member_info_dict, current_category
         )
+
+        # Add token usage to response
+        token_summary = get_token_summary()
+        print(
+            f"[TOKENS TOTAL] calls={token_summary['total_llm_calls']} input={token_summary['total_input_tokens']} output={token_summary['total_output_tokens']} total={token_summary['total_tokens']}"
+        )
+
         if isinstance(result, dict):
-            return result
-        return {"answer": result}
+            return {**result, "token_usage": token_summary}  # type: ignore[return-value]
+        return {"answer": result, "token_usage": token_summary}  # type: ignore[return-value]
 
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

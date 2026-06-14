@@ -1,11 +1,18 @@
 {
   "query": "what is my cost for x-ray, lab and imaging",
   "category": "medical",
-  "timestamp": "2026-06-13T16:57:50.215977",
+  "timestamp": "2026-06-14T13:36:39.596980",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms | Basic diagnostic images and scans | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms | Major diagnostic images and scans | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Diagnostic X-Ray, Lab, And Imaging for medical conditions or s ymptoms | Diagnostic and supplemental breast exams | No charge | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Diagnostic X-Ray, Lab, And Imaging | Diagnostic x-ray, lab and imaging services are basic and major medical tests that help find or identify diseases. For more information about what services are covered as preventive see Preventive Care. A typical test can result in multiple charges for things like an office visit, test, and anesthesia. You may receive separate bills for each charge. Some tests need to be approved before you receive them. See Prior Authorization for details. Covered services include: • Basic diagnostic images and scans • Major diagnostic images and scans: • Computed Tomography (CT) scan • High technology ultrasound 28 • Nuclear cardiology • Magnetic Resonance Imaging (MRI) • Magnetic Resonance Angiography (MRA) • Positron Emission Tomography (PET) scan Diagnostic breast examination for the purpose of this Diagnostic X-Ray, Lab, And Imaging benefit means a medically necessary and appropriate examination of the breast, including an examination using diagnostic mammography breast magnetic resonance... |\n",
   "pages": [
     8,
     28
   ],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

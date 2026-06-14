@@ -1,8 +1,9 @@
-# P-RAG: Insurance Benefit Assistant — Architecture & Performance
+[//]: # (markdownlint-disable MD013 MD033 MD041)
+# BENJI — Insurance Benefit Assistant — Architecture & Performance
 
 ## Executive Summary
 
-P-RAG is a production-grade Retrieval-Augmented Generation (RAG) system purpose-built for insurance benefit queries. It achieves **100% numerical accuracy** on dollar amounts and coinsurance values at **95% lower LLM token cost** compared to traditional RAG architectures.
+BENJI is a production-grade Retrieval-Augmented Generation (RAG) system purpose-built for insurance benefit queries. It achieves **100% numerical accuracy** on dollar amounts and coinsurance values at **95% lower LLM token cost** compared to traditional RAG architectures.
 
 ---
 
@@ -15,7 +16,6 @@ Query → Embed → Vector Search → LLM Rerank → LLM Synthesis
 ```
 
 **Problems:**
-
 - Every step costs tokens — 1,500 to 5,000 tokens per query
 - LLM can hallucinate dollar amounts, copays, coinsurance values
 - 70-85% accuracy on structured financial data
@@ -24,9 +24,9 @@ Query → Embed → Vector Search → LLM Rerank → LLM Synthesis
 
 ---
 
-## P-RAG Architecture: Minimum LLM, Maximum Accuracy
+## BENJI Architecture: Minimum LLM, Maximum Accuracy
 
-P-RAG uses a **3-tier pipeline** that minimizes LLM calls while maximizing accuracy on structured benefit data.
+BENJI uses a **3-tier pipeline** that minimizes LLM calls while maximizing accuracy on structured benefit data.
 
 ```
 Member Query
@@ -64,11 +64,11 @@ Member Query
 
 ## Token Cost Comparison
 
-| System              | Tokens Per Query | Numerical Accuracy |
-| ------------------- | ---------------- | ------------------ |
-| Traditional RAG     | 1,500 – 5,000    | 70 – 85%           |
-| Azure AI Search RAG | 1,000 – 3,000    | 80 – 90%           |
-| **P-RAG**           | **30 – 150**     | **100%**           |
+| System | Tokens Per Query | Numerical Accuracy |
+|--------|-----------------|-------------------|
+| Traditional RAG | 1,500 – 5,000 | 70 – 85% |
+| Azure AI Search RAG | 1,000 – 3,000 | 80 – 90% |
+| **BENJI** | **30 – 150** | **100%** |
 
 **Cost reduction: ~95% vs traditional RAG**
 **Accuracy improvement: 100% vs 70-90%**
@@ -84,7 +84,7 @@ Traditional RAG:
   LLM reads raw PDF chunks → generates answer with numbers
   Risk: LLM can confabulate "$350" as "$250" or omit copay waiver conditions
 
-P-RAG:
+BENJI:
   Rule-based scoring → extracts exact rows from pre-indexed structured data
   LLM receives pre-verified structured chunks → synthesizes natural language only
   Dollar amounts, copays, coinsurance → always from source document, never generated
@@ -172,13 +172,13 @@ else:
 
 ### Test Coverage
 
-| Category            | Queries | Pass Rate |
-| ------------------- | ------- | --------- |
-| Medical             | 35      | 100%      |
-| Dental — Willamette | 38      | 100%      |
-| Dental — Premera    | 17      | 100%      |
-| Vision              | 15      | 100%      |
-| **Total**           | **105** | **100%**  |
+| Category | Queries | Pass Rate |
+|----------|---------|-----------|
+| Medical | 35 | 100% |
+| Dental — Willamette | 38 | 100% |
+| Dental — Premera | 17 | 100% |
+| Vision | 15 | 100% |
+| **Total** | **105** | **100%** |
 
 ### How Baselines Are Established
 
@@ -221,7 +221,6 @@ AUTO-PASS:
 ## Sample Query Responses
 
 ### Medical — "How much is an ER visit?"
-
 ```
 | Benefit        | Service              | In-Network                                    | Out-of-Network                                | Limitations |
 | Emergency Room | Facility charges     | $350 copay per visit, then deductible, 20%   | $350 copay per visit, then deductible, 20%   | Copay waived if admitted as inpatient |
@@ -231,7 +230,6 @@ Referenced from: Premera Employees Health Plan – Standard PPO Retiree Plan | P
 ```
 
 ### Dental — "How much is an apicoectomy?"
-
 ```
 | Benefit      | Service                                    | In-Network    | Out-of-Network | Limitations    |
 | Endodontics  | D3410 Apicoectomy - anterior               | $155 copay    | Not covered    | Data Not Found |
@@ -243,7 +241,6 @@ Referenced from: Willamette Dental Plan | Page 7
 ```
 
 ### Vision — "What is my vision exam cost?"
-
 ```
 | Benefit      | Service     | In-Network | Out-of-Network | Limitations |
 | Vision Exam  | Vision exam | $0 copay   | Not covered    | One per calendar year |
@@ -255,14 +252,14 @@ Referenced from: Vision Plan | Page 3
 
 ## Supported Plan Types
 
-| Plan Type | Source Document         | Index Type                  |
-| --------- | ----------------------- | --------------------------- |
-| Medical   | Premera Medical Booklet | Cost + Info chunks          |
-| Dental    | Willamette Dental Plan  | D-code cost entries         |
-| Dental    | Premera Dental Plan     | Class I/II/III cost entries |
-| Vision    | Vision Plan             | Cost + Info chunks          |
-| SBC       | Summary of Benefits     | Cost summary chunks         |
-| Rx        | Drug Formulary          | Drug entry chunks (coming)  |
+| Plan Type | Source Document | Index Type |
+|-----------|----------------|------------|
+| Medical | Premera Medical Booklet | Cost + Info chunks |
+| Dental | Willamette Dental Plan | D-code cost entries |
+| Dental | Premera Dental Plan | Class I/II/III cost entries |
+| Vision | Vision Plan | Cost + Info chunks |
+| SBC | Summary of Benefits | Cost summary chunks |
+| Rx | Drug Formulary | Drug entry chunks (coming) |
 
 ---
 
@@ -293,7 +290,6 @@ group_number=1000016
 Returns the same final vetted response as the UI — no raw chunks, no post-processing needed by the calling agent.
 
 Or via MCP protocol:
-
 ```python
 # query_benefits MCP tool — returns final vetted response
 result = await mcp_client.call_tool("query_benefits", {
@@ -324,14 +320,14 @@ Azure Redis Cache     — Index chunk cache (event-driven invalidation)
 
 ## Token Usage Summary (Per Query)
 
-| Query Type                            | Category Detection | Topic Resolution | Tool Call  | Synthesis  | Total              |
-| ------------------------------------- | ------------------ | ---------------- | ---------- | ---------- | ------------------ |
-| Simple cost query (e.g. "PCP copay")  | 0 (rules)          | 0 (rules)        | 0 (direct) | 0 (parser) | **0 tokens**       |
-| Moderate query (e.g. "ER coverage")   | 0 (rules)          | 0 (rules)        | 0 (direct) | ~300       | **~300 tokens**    |
-| Ambiguous query (e.g. "allergy cost") | ~100 (LLM)         | ~150 (LLM)       | 0 (direct) | 0 (parser) | **~250 tokens**    |
-| Complex narrative query               | ~100 (LLM)         | ~150 (LLM)       | 0 (direct) | ~500       | **~750 tokens**    |
-| **Average across all queries**        |                    |                  |            |            | **~80-150 tokens** |
+| Query Type | Category Detection | Topic Resolution | Tool Call | Synthesis | Total |
+|-----------|-------------------|-----------------|-----------|-----------|-------|
+| Simple cost query (e.g. "PCP copay") | 0 (rules) | 0 (rules) | 0 (direct) | 0 (parser) | **0 tokens** |
+| Moderate query (e.g. "ER coverage") | 0 (rules) | 0 (rules) | 0 (direct) | ~300 | **~300 tokens** |
+| Ambiguous query (e.g. "allergy cost") | ~100 (LLM) | ~150 (LLM) | 0 (direct) | 0 (parser) | **~250 tokens** |
+| Complex narrative query | ~100 (LLM) | ~150 (LLM) | 0 (direct) | ~500 | **~750 tokens** |
+| **Average across all queries** | | | | | **~80-150 tokens** |
 
 **Industry average RAG: 1,500 - 5,000 tokens per query**
-**P-RAG: 80 - 150 tokens per query**
+**BENJI: 80 - 150 tokens per query**
 **Cost reduction: ~95%**

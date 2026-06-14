@@ -1,8 +1,9 @@
 import re
 import json
 import os
-import ollama
 
+from config import settings
+from utility.llm import llm_chat, llm_generate, llm_chat_with_tools
 from utility.utils import flatten_message_content, smart_match
 from utility.category import (
     detect_category,
@@ -15,6 +16,7 @@ from utility.topic_resolver import resolve_insurance_topic, NOISE_WORDS
 from utility.response_builder import (
     build_cost_table,
     build_info_response,
+    build_rx_response,
     generate_ironclad_instruction,
 )
 from utility.prompts import (
@@ -25,8 +27,6 @@ from utility.prompts import (
     GUIDANCE_DENTAL_VAGUE,
     GUIDANCE_VISION_VAGUE,
 )
-
-LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
 
 TOOL_RESULT_CACHE = {}
 last_type_global = None
@@ -106,12 +106,12 @@ def generate_summary(
             f"Query: {query}\n"
             f"Benefits data:\n{content}"
         )
-        response = ollama.chat(
-            model=LOCAL_MODEL,
+        response_text = llm_chat(
             messages=[{"role": "user", "content": prompt}],
-            options={"temperature": 0.0, "num_predict": 40},
+            max_tokens=40,
+            temperature=0.0,
         )
-        summary = response["message"]["content"].strip()
+        summary = response_text.strip()
 
         # Post-process: strip any leaked cost figures the model included anyway
         import re as _re
@@ -252,14 +252,11 @@ async def get_ai_response(
             # 🔥 LLM TOPIC + KEYWORD EXTRACTION (PRODUCTION SAFE)
             # ============================================================
 
-            llm_response = ollama.chat(
-                model=LOCAL_MODEL,
+            raw_content = llm_chat(
                 messages=llm_messages,
                 format="json",
-                options={"temperature": 0.0, "num_ctx": 8192},
+                max_tokens=200,
             )
-
-            raw_content = llm_response["message"].get("content", "")
             print(f"[*] ROW CONTENT BY LLM AFTER TOPIC SEARCH : {raw_content}")
 
             match = re.search(r"\{.*\}", raw_content, re.DOTALL)
@@ -557,7 +554,163 @@ async def get_ai_response(
             # ============================================================
             tool_result = None
 
-            if p_type in DIRECT_CATEGORIES:
+            if p_type == "rx":
+                # ── Rx: dual-index query ──────────────────────────────────────
+                # For rx queries, use the drug name words directly as keywords
+                # The topic resolver returns "pharmacy" which is too generic
+                # Drug name words from the query are the best search terms
+                rx_keywords = tuple(
+                    w
+                    for w in query_words
+                    if len(w) > 3
+                    and w
+                    not in {
+                        "what",
+                        "tier",
+                        "covered",
+                        "cost",
+                        "much",
+                        "show",
+                        "does",
+                        "plan",
+                        "cover",
+                        "drug",
+                        "prescription",
+                        "medication",
+                        "formulary",
+                        "generic",
+                        "brand",
+                        "pharmacy",
+                        "refill",
+                    }
+                ) or tuple(keywords)
+
+                print(f"[DIRECT CALL]: rx dual-index | keywords={rx_keywords} | rx")
+                try:
+                    # Step 1 — drug coverage from Rx formulary index
+                    # Use drug name words as both topics and keywords for exact matching
+                    rx_result = query_insurance_benefits(
+                        query=query,
+                        topics=rx_keywords,
+                        category="rx",
+                        keywords=rx_keywords,
+                        member_info=json.dumps(member_info) if member_info else "{}",
+                    )
+                    print(f"[*] RX INDEX RESULT: {rx_result}")
+
+                    # Filter rx chunks to only keep entries where drug name
+                    # contains the search keyword — removes category noise
+                    # e.g. "fluconazole" query should not return "griseofulvin"
+                    if rx_result and rx_keywords:
+                        import re as _re
+
+                        filtered_items = []
+                        for item_match in _re.finditer(
+                            r"Item \d+:\s*\{[^{}]+\}", rx_result, _re.DOTALL
+                        ):
+                            item_text = item_match.group()
+                            drug_name_match = _re.search(
+                                r'"drug_name":\s*"([^"]+)"', item_text
+                            )
+                            if drug_name_match:
+                                drug_name = drug_name_match.group(1).lower()
+                                # Keep if any search keyword appears in drug name
+                                if any(kw.lower() in drug_name for kw in rx_keywords):
+                                    filtered_items.append(item_text)
+                        if filtered_items:
+                            rx_result = "### SECTION: RX\n\n" + "\n".join(
+                                filtered_items
+                            )
+                        print(
+                            f"[*] RX FILTERED: {len(filtered_items)} matching drug entries"
+                        )
+
+                    # Step 2 — tier cost from medical index
+                    # Use plan_type from member_info to decide medical vs sbc
+                    plan_type = ""
+                    if member_info and "plans" in member_info:
+                        medical_plan = member_info["plans"].get("medical", {})
+                        plan_type = medical_plan.get("plan_type", "").lower()
+
+                    cost_category = "sbc" if "hsa" in plan_type else "medical"
+                    cost_result = query_insurance_benefits(
+                        query="prescription drug tier cost",
+                        topics=("prescription drug",),
+                        category=cost_category,
+                        keywords=(
+                            "prescription",
+                            "drug",
+                            "generic",
+                            "brand",
+                            "specialty",
+                            "tier",
+                        ),
+                        member_info=json.dumps(member_info) if member_info else "{}",
+                    )
+                    print(f"[*] COST INDEX RESULT: {cost_result}")
+
+                    # Step 3 — build two-section response and return directly
+                    answer, rx_pages, cost_pages = build_rx_response(
+                        rx_context=rx_result or "",
+                        cost_context=cost_result or "",
+                    )
+                    all_pages = sorted(set(rx_pages + cost_pages))
+                    print(f"[*] RX RESPONSE BUILT: {len(all_pages)} pages")
+
+                    # Source shows both booklets with their respective page numbers
+                    rx_plan_info = (
+                        member_info.get("plans", {}).get("rx", {})
+                        if member_info
+                        else {}
+                    )
+                    rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
+                    rx_variant = rx_plan_info.get("variant", "")
+                    rx_source_name = (
+                        f"{rx_plan_name} ({rx_variant})" if rx_variant else rx_plan_name
+                    )
+
+                    medical_plan = (
+                        member_info.get("plans", {})
+                        .get("medical", {})
+                        .get("plan", "Medical Plan")
+                        if member_info
+                        else "Medical Plan"
+                    )
+
+                    # Build source string with per-booklet page numbers
+                    source_parts = []
+                    if rx_pages:
+                        rx_page_str = ", ".join(str(p) for p in sorted(set(rx_pages)))
+                        source_parts.append(f"{rx_source_name} | Pages {rx_page_str}")
+                    if cost_pages:
+                        cost_page_str = ", ".join(
+                            str(p) for p in sorted(set(cost_pages))
+                        )
+                        source_parts.append(
+                            f"{medical_plan} | Page {cost_page_str}"
+                            if len(set(cost_pages)) == 1
+                            else f"{medical_plan} | Pages {cost_page_str}"
+                        )
+
+                    source = (
+                        " || ".join(source_parts) if source_parts else rx_source_name
+                    )
+
+                    return {
+                        "answer": answer,
+                        "pages": [],  # pages encoded in source string for rx queries
+                        "source": source,
+                    }
+
+                except Exception as e:
+                    print(f"[!] RX RETRIEVAL FAILURE: {e}")
+                    return {
+                        "answer": "Unable to retrieve drug coverage information. Please try again.",
+                        "pages": [],
+                        "source": "",
+                    }
+
+            elif p_type in DIRECT_CATEGORIES:
                 # Direct call — bypass LLM tool decision entirely
                 print(
                     f"[DIRECT CALL]: query_insurance_benefits | {found_topics} | {p_type}"
@@ -579,15 +732,14 @@ async def get_ai_response(
 
             else:
                 # LLM tool orchestration — for unknown/future categories
+                # Works with both Ollama (dev) and OpenAI-compatible gateways (prod)
                 print(f"[LLM TOOL CALL]: category={p_type} — using LLM orchestration")
-                resp = ollama.chat(
-                    model=LOCAL_MODEL,
+                tool_response = llm_chat_with_tools(
                     messages=messages,
                     tools=tools,
-                    options={"temperature": 0},
                 )
-                msg = resp["message"]
-                tool_calls = msg.get("tool_calls", [])
+                msg_content = tool_response.get("content", "")
+                tool_calls = tool_response.get("tool_calls", [])
 
                 if tool_calls:
                     tool = tool_calls[0]
@@ -598,9 +750,9 @@ async def get_ai_response(
                         if function_name == "query_insurance_benefits":
                             tool_result = query_insurance_benefits(
                                 query=arguments.get("query", query),
-                                topics=found_topics,
+                                topics=tuple(found_topics),
                                 category=p_type,
-                                keywords=keywords,
+                                keywords=tuple(keywords),
                                 member_info=(
                                     json.dumps(member_info) if member_info else "{}"
                                 ),
@@ -616,9 +768,9 @@ async def get_ai_response(
                     try:
                         tool_result = query_insurance_benefits(
                             query=query,
-                            topics=found_topics,
+                            topics=tuple(found_topics),
                             category=p_type,
-                            keywords=keywords,
+                            keywords=tuple(keywords),
                             member_info=(
                                 json.dumps(member_info) if member_info else "{}"
                             ),
@@ -840,15 +992,11 @@ async def get_ai_response(
                         f'  "blood products coverage and cost" → {{"benefit": "Blood Products And Services", "intent": "both"}}\n'
                         f"Query: {query}"
                     )
-                    import ollama as _ollama, json as _json, os as _os
+                    from utility.llm import llm_generate
+                    import json as _json
 
-                    mini_resp = _ollama.generate(
-                        model=_os.getenv("OLLAMA_MODEL", "llama3.1"),
-                        prompt=mini_prompt,
-                        format="json",
-                        options={"temperature": 0, "num_predict": 60},
-                    )
-                    mini_data = _json.loads(mini_resp["response"])
+                    mini_content = llm_generate(prompt=mini_prompt, max_tokens=60)
+                    mini_data = _json.loads(mini_content) if mini_content else {}
                     benefit_name = mini_data.get("benefit", "")
                     intent = mini_data.get("intent", "both")
                     print(f"[*] MINI-LLM: benefit={benefit_name!r}  intent={intent}")
@@ -960,23 +1108,14 @@ async def get_ai_response(
             },
         ]
 
-        final_resp = ollama.chat(
-            model=LOCAL_MODEL,
+        final_answer = llm_chat(
             messages=final_messages,
-            options={"temperature": 0},
+            temperature=0.0,
         )
 
         # ============================================================
         # FINAL RESPONSE (STRICT CONTRACT WITH UI)
         # ============================================================
-
-        msg = final_resp.get("message", {})
-
-        # 🔥 SAFELY EXTRACT CONTENT
-        if isinstance(msg, dict):
-            final_answer = msg.get("content", "")
-        else:
-            final_answer = str(msg)
 
         # ============================================================
         # 🔥 FORCE STRING (HARD GUARANTEE)

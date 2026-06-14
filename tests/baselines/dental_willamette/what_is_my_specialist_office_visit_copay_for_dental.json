@@ -1,10 +1,17 @@
 {
   "query": "What is my specialist office visit copay for dental?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:10.648524",
+  "timestamp": "2026-06-14T13:39:21.027381",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Office Visit Copayments | Specialist Office Visit | $30 | Not covered | Data Not Found |\n| Office Visit Copayments | General Office Visit | $15 | Not covered | Data Not Found |\n",
   "pages": [
     3
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

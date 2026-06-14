@@ -1,10 +1,24 @@
 {
   "query": "What does wisdom tooth removal cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-13T17:01:49.271156",
+  "timestamp": "2026-06-14T13:39:53.371789",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Oral Surgery | D7210 Extraction, erupted tooth requiring removal of bone | $125 copay | Not covered | Data Not Found |\n| Oral Surgery | D7220 Removal of impacted tooth - soft tissue | $125 copay | Not covered | Data Not Found |\n| Oral Surgery | D7230 Removal of impacted tooth - partially bony | $125 copay | Not covered | Data Not Found |\n",
   "pages": [
     10
   ],
-  "source": "Willamette Dental Plan"
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 552,
+    "total_output_tokens": 22,
+    "total_tokens": 574,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 552,
+        "output_tokens": 22,
+        "total_tokens": 574
+      }
+    ]
+  }
 }

@@ -1,12 +1,9 @@
 import re
 import json
 import os
-import ollama
 
 from config import settings
 from .utils import smart_match
-
-LOCAL_MODEL = settings.OLLAMA_MODEL
 
 # ── Conversational patterns — queries that are NOT benefit questions ──────────
 _CONVERSATIONAL_PATTERNS = [
@@ -110,17 +107,13 @@ def build_category_prompt(query: str) -> str:
 
 
 def get_category_from_llm(query: str) -> str | None:
+    from utility.llm import llm_chat
+
     prompt = build_category_prompt(query)
     llm_messages = [{"role": "user", "content": prompt}]
 
     try:
-        llm_response = ollama.chat(
-            model=LOCAL_MODEL,
-            messages=llm_messages,
-            format="json",
-            options={"temperature": 0.0, "num_ctx": 8192},
-        )
-        content = llm_response["message"]["content"]
+        content = llm_chat(messages=llm_messages, format="json", max_tokens=50)
         print(f"[*] RAW LLM CATEGORY RESPONSE: {content}")
         data = json.loads(content)
         category = data.get("category", "").strip().lower()
@@ -408,7 +401,9 @@ def detect_category(query_words, query):
         print("[*] CATEGORY MATCH → vision")
         return "vision"
 
-    # ── Step 4: Medical — expanded keyword list
+    # ── Step 4: Medical — specific medical terms only
+    # Note: generic words like "covered", "plan", "benefit", "network" removed
+    # to avoid false positives on drug name queries like "is vivjoa covered?"
     _medical_terms = [
         "medical",
         "doctor",
@@ -448,13 +443,31 @@ def detect_category(query_words, query):
         "infusion",
         "chemotherapy",
         "radiation",
-        "prescription",
-        "coverage",
-        "benefit",
-        "covered",
-        "plan",
-        "network",
-        "prior",
+        # Additional unambiguously medical terms — eliminates LLM category calls
+        "immunotherapy",
+        "therapeutic",
+        "vasectomy",
+        "dialysis",
+        "reconstruction",
+        "gender",
+        "affirming",
+        "clinical",
+        "trial",
+        "trials",
+        "foot",
+        "home",
+        "health",
+        "electronic",
+        "virtual",
+        "nicotine",
+        "psychological",
+        "blood",
+        "products",
+        "transplants",
+        "authorization",
+        "transportation",
+        "newborn",
+        "impatient",
     ]
 
     if any(w in query_words for w in _medical_terms):

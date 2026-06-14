@@ -1,8 +1,15 @@
 {
   "query": "What is included in Class III major dental services?",
   "category": "dental_premera",
-  "timestamp": "2026-06-13T21:25:51.687770",
+  "timestamp": "2026-06-14T13:40:46.659336",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Class III - Major Services | Labial veneers | 20% coinsurance after calendar year deductible | Benefits based on allowed amount | are limited to anterior teeth and subject to review for dental necessity. Labial veneers are often considered cosmetic and not covered by this dental plan. For this reason, a dental estimate of your benefits is strongly recommended. |\n| Class III - Major Services | Implants and implant services. Replacement implant/abutment supported crowns, dentures and bridges | 20% coinsurance after calendar year deductible | Benefits based on allowed amount | are limited to once every 5 calendar years from the original seat date. Benefits are subject to our review for dental necessity |\n| Class III - Major Services | Inlays, onlays, crowns and labial veneers for a tooth that is decayed, or fractured or where there is significant loss of clinical crown and no other dentally appropriate restoration will restore the tooth | 20% coinsurance after calendar year deductible | Benefits based on allowed amount | are limited to once every 5 calendar years from the original seat date. |\n",
   "pages": [],
-  "source": "Premera Dental Plan"
+  "source": "Premera Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
 }

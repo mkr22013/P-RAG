@@ -1,5 +1,5 @@
 [//]: # (markdownlint-disable MD013 MD033 MD041)
-# P-RAG Codebase Guide
+# BENJI Codebase Guide
 
 A practical reference for developers. Explains what each file does, why it exists, and how files connect to each other.
 
@@ -8,7 +8,7 @@ A practical reference for developers. Explains what each file does, why it exist
 ## Project Structure
 
 ```
-P-RAG/
+BENJI/
 ├── main/
 │   ├── main.py                  ← FastAPI application entry point
 │   ├── auth0middleware.py        ← JWT authentication middleware

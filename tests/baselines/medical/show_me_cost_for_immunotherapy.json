@@ -1,11 +1,31 @@
 {
   "query": "show me cost for immunotherapy",
   "category": "medical",
-  "timestamp": "2026-06-13T16:56:56.051008",
+  "timestamp": "2026-06-14T13:35:56.922269",
   "answer": "Medically necessary immunotherapy is covered under the plan subject to prior authorization and meeting Premera's medical policy requirements.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Cellular Immunotherapy And Gene Therapy | Cellular Immunotherapy And Gene Therapy | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | You may have additional costs for other services such as x-rays, labs, prescription drugs, and hospital facility charges. See those covered services for details. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Cellular Immunotherapy And Gene Therapy | Benefits are provided for medically necessary immunotherapy and gene therapy, such as CAR-T immunotherapy. Services must meet Premera’s medical policy. You can access our medical policies by contacting customer service or going to premera.com. Services also require prior authorization. See Prior Authorization. |\n",
   "pages": [
     7,
     27
   ],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 747,
+    "total_output_tokens": 46,
+    "total_tokens": 793,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 551,
+        "output_tokens": 21,
+        "total_tokens": 572
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 196,
+        "output_tokens": 25,
+        "total_tokens": 221
+      }
+    ]
+  }
 }

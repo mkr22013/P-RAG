@@ -500,9 +500,18 @@ def build_info_response(context: str, user_query: str, keywords: list):
 
         def _relevant(event_name):
             ev = event_name.lower()
-            return any(
+            # Check if any specific keyword matches
+            if not any(
                 re.search(r"\b" + re.escape(k) + r"\b", ev) for k in _specific_kws
-            )
+            ):
+                return False
+            # Exclude "non-X" events when querying for X
+            # e.g. "Non-Emergency Services" should not show for "emergency room" query
+            for k in _specific_kws:
+                if re.search(r"\b" + re.escape(k) + r"\b", ev):
+                    if ev.startswith("non-") or ev.startswith("non "):
+                        return False
+            return True
 
         filtered = [(e, i, pg) for e, i, pg in rows if _relevant(e)]
         if filtered:

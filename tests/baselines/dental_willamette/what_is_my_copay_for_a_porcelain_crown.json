@@ -1,0 +1,11 @@
+{
+  "query": "What is my copay for a porcelain crown?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:01:16.374518",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Crowns | D2740 Crown - porcelain/ceramic | $250 copay | Not covered | Data Not Found |\n| Crowns | D2750 Crown - porcelain fused to high noble metal | $250 copay | Not covered | Data Not Found |\n| Prosthodontics - Fixed | D6750 Retainer crown - porcelain fused to high noble metal | $250 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    5,
+    10
+  ],
+  "source": "Willamette Dental Plan"
+}

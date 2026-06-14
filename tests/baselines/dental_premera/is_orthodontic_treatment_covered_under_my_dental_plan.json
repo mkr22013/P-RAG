@@ -1,0 +1,10 @@
+{
+  "query": "Is orthodontic treatment covered under my dental plan?",
+  "category": "dental_premera",
+  "timestamp": "2026-06-13T21:25:58.590819",
+  "answer": "Orthodontic treatment is covered if a participating provider prepares the treatment plan before starting, based on an examination showing a diagnosis of abnormal occlusion that can be corrected by orthodontic treatment.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Orthodontic Treatment | • Orthodontic treatment is covered only if the Participating Provider prepares the treatment plan prior to starting treatment. The treatment plan is based on an examination that must take place while you are covered under the plan. The examination must show a diagnosis of an abnormal occlusion that can be corrected by orthodontic treatment. • You must remain covered under the plan for the entire length of treatment. You must follow the post-treatment plan and keep all appointments after you are de-banded to avoid additional Copayments. • Copayments may be adjusted based upon the services necessary to complete the treatment if orthodontic treatment is started prior to the member’s effective date. • The Copayment may be prorated if coverage terminates prior to completion of treatment. The services necessary to complete treatment will be based on the Reasonable Cash Value after coverage terminates. • You are responsible for payment of the Copayments listed below for pre-orthodontic and... |\n",
+  "pages": [
+    13
+  ],
+  "source": "Premera Dental Plan"
+}

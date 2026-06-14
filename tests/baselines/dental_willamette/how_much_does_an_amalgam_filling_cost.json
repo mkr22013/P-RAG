@@ -1,0 +1,10 @@
+{
+  "query": "How much does an amalgam filling cost?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:01:15.417216",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Restorative Services | D2140 Amalgam - 1 surface, primary or permanent | $25 copay | Not covered | Data Not Found |\n| Restorative Services | D2150 Amalgam - 2 surfaces, primary or permanent | $25 copay | Not covered | Data Not Found |\n| Restorative Services | D2160 Amalgam - 3 surfaces, primary or permanent | $25 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    4
+  ],
+  "source": "Willamette Dental Plan"
+}

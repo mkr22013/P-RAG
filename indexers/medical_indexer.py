@@ -7,6 +7,7 @@ No docling required.
 
 import re, os
 import json as json_lib
+import asyncio
 import ollama
 import pdfplumber
 
@@ -1144,6 +1145,15 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
+
+
+PLAN_CATEGORY = "medical"
+
+
+if __name__ == "__main__":
+    from indexers.run_indexer import run
+
+    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # ==========================Previous working code before page number addition==========================#

@@ -1,0 +1,10 @@
+{
+  "query": "What does nitrous oxide cost at the dentist?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:02:02.134706",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Adjunctive General Services | D9230 Inhalation of nitrous oxide/analgesia, anxiolysis | $40 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    12
+  ],
+  "source": "Willamette Dental Plan"
+}

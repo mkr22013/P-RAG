@@ -1,4 +1,5 @@
 import os
+import asyncio
 
 """
 SBC (Summary of Benefits and Coverage) booklet indexer.
@@ -243,72 +244,6 @@ def classify_document(pdf_path):
     except Exception as e:
         print(f"[!] SBC classification failed: {e}")
         return None
-
-
-# def classify_document(pdf_path):
-#     """Extract plan identity from an SBC PDF using docling markdown."""
-#     md_content = _pdf_to_markdown(pdf_path)
-#     if not md_content:
-#         return None
-#     try:
-#         header_snippet = md_content[:6500].strip()
-
-#         prompt = f"""
-#             ACT AS A STRICT STRUCTURED DATA EXTRACTOR.
-
-#             Extract ONLY if explicitly present in the text.
-
-#             Rules:
-
-#             1. year:
-#             - Extract from "Coverage Period"
-
-#             2. type:
-#             - ONLY extract if "Plan Type: <VALUE>" exists
-#             - Allowed: HMO, PPO, EPO, HSA
-
-#             3. tier:
-#             - Extract from plan title (Gold, Silver, Bronze, Catastrophic)
-
-#             4. product_line:
-#             - Extract plan name after "Premera Blue Cross:"
-#             - Remove metal tier words
-
-#             5. variant:
-#             - Extract modifiers like Standard, CSR, etc
-#             - Else return "Standard"
-
-#             6. network:
-#             - ONLY extract if explicitly labeled (e.g. "Network: Sherwood")
-#             - DO NOT infer from provider names
-#             - If not found → return null
-
-#             RETURN STRICT JSON ONLY.
-
-#             TEXT:
-#             {header_snippet}
-#             """
-
-#         response = ollama.generate(
-#             model=os.getenv("OLLAMA_MODEL", "llama3.1"),
-#             prompt=prompt,
-#             format="json",
-#             options={"temperature": 0},
-#         )
-
-#         data = json_lib.loads(response["response"])
-
-#         return {
-#             "year": int(re.sub(r"\D", "", str(data.get("year", CURRENT_YEAR_INT)))),
-#             "type": str(data.get("type", "")).strip().upper(),
-#             "tier": str(data.get("tier", "Gold")).strip().capitalize(),
-#             "product_line": str(data.get("product_line", "Plan")).strip(),
-#             "variant": str(data.get("variant", "Standard")).strip(),
-#             "network": str(data.get("network", "Standard Network")).strip(),
-#         }
-#     except Exception as e:
-#         print(f"[!] Dynamic classification failed: {e}")
-#         return None
 
 
 def generate_sub_index(sub_index_path, pdf_path):
@@ -663,6 +598,10 @@ def generate_sub_index(sub_index_path, pdf_path):
     return sub_index
 
 
-# ═══════════════════════════════════════════════════════
-# MEDICAL BENEFITS BOOKLET — classify + index functions
-# ═══════════════════════════════════════════════════════
+PLAN_CATEGORY = "sbc"
+
+
+if __name__ == "__main__":
+    from indexers.run_indexer import run
+
+    run(PLAN_CATEGORY, classify_document, generate_sub_index)

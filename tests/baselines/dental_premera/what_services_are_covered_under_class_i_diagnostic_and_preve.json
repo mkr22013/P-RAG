@@ -1,0 +1,8 @@
+{
+  "query": "What services are covered under Class I diagnostic and preventive?",
+  "category": "dental_premera",
+  "timestamp": "2026-06-13T21:25:51.611020",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Class I - Diagnostic and Preventive Services | Routine oral examinations | Covered in full (0% coinsurance, no deductible) | Benefits based on allowed amount | are limited to two per calendar year. Initial consultations, second opinion consultations and office visits count toward the limit for oral examinations. |\n| Class I - Diagnostic and Preventive Services | Problem focused (including emergency) oral evaluations and re-evaluations | Covered in full (0% coinsurance, no deductible) | Benefits based on allowed amount | No additional limitations. |\n| Class I - Diagnostic and Preventive Services | Prophylaxis (cleaning, scaling, and polishing of teeth) | Covered in full (0% coinsurance, no deductible) | Benefits based on allowed amount | is limited to 2 per calendar year |\n",
+  "pages": [],
+  "source": "Premera Dental Plan"
+}

@@ -11,6 +11,7 @@ Output schema matches all other indexers:
 """
 
 import os, re, json as json_lib
+import asyncio
 import pdfplumber
 import ollama
 from dotenv import load_dotenv
@@ -575,6 +576,15 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
+
+
+PLAN_CATEGORY = "vision"
+
+
+if __name__ == "__main__":
+    from indexers.run_indexer import run
+
+    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # =============================Previous working code before page number addition============================

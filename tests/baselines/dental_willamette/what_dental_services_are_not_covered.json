@@ -1,0 +1,10 @@
+{
+  "query": "What dental services are not covered?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:02:25.623403",
+  "answer": "The plan does not provide benefits for services covered by other insurance policies, such as motor vehicle medical/dental or personal injury protection.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Exclusions And Limitations | The plan does not provide benefits for any of the following conditions, treatments, services, or for any direct complications or consequences thereof. The plan does not provide benefits for excluded services even if approved, prescribed, or recommended by a Participating Provider. • Benefits aren’t available under this plan when coverage is available through: • Motor vehicle medical/dental or motor vehicle no-fault coverage • Personal injury protection (PIP) coverage • Commercial liability coverage • Homeowner policy • Other types of liability insurance • Worker's Compensation or similar coverage • Bridges, crowns, dentures, or prosthetic devices requiring multiple treatment dates or fittings, if the prosthetic item is installed or delivered more than 60 days after termination of coverage. • The completion or delivery of treatments or services performed or initiated prior to the member’s effective date, including the following: • Endodontic services and prosthodontic services; • An... |\n",
+  "pages": [
+    14
+  ],
+  "source": "Willamette Dental Plan"
+}

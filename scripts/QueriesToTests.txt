@@ -155,12 +155,12 @@ What does my dental plan cover and how much will I pay for each type of service?
 Willamette Dental Plan Test Queries
 ==============================================================
 
-OFFICE VISIT queries (expect: Office Visit Copayments)
+====OFFICE VISIT queries (expect: Office Visit Copayments)
 
 What is my general office visit copay for dental?
 What is my specialist office visit copay for dental?
 
-DIAGNOSTIC AND PREVENTIVE queries (expect: cost table, D0xxx/D1xxx codes)
+====DIAGNOSTIC AND PREVENTIVE queries (expect: cost table, D0xxx/D1xxx codes)
 
 How much does a teeth cleaning cost?
 What is the cost for a dental x-ray?
@@ -169,54 +169,54 @@ What does a panoramic x-ray cost?
 What is the cost for fluoride treatment?
 How much are sealants?
 
-RESTORATIVE queries (expect: cost table, D2xxx codes)
+====RESTORATIVE queries (expect: cost table, D2xxx codes)
 
 What is the cost for a filling?
 How much does an amalgam filling cost?
 What is my copay for a composite filling?
 
-CROWNS queries (expect: cost table, D2710-D2792 codes)
+====CROWNS queries (expect: cost table, D2710-D2792 codes)
 
 How much does a crown cost?
 What is my copay for a porcelain crown?
 What does a stainless steel crown cost?
 
-ENDODONTIC queries (expect: cost table, D3xxx codes)
+====ENDODONTIC queries (expect: cost table, D3xxx codes)
 
 What does a root canal cost?
 How much is an apicoectomy?
 What is the cost for a pulp cap?
 
-PERIODONTIC queries (expect: cost table, D4xxx codes)
+====PERIODONTIC queries (expect: cost table, D4xxx codes)
 
 How much is periodontal scaling and root planing?
 What does periodontic maintenance cost?
 What is my copay for gum surgery?
 
-ORAL SURGERY queries (expect: cost table, D7xxx codes)
+====ORAL SURGERY queries (expect: cost table, D7xxx codes)
 
 How much does a tooth extraction cost?
 What is the cost to remove an impacted tooth?
 What does wisdom tooth removal cost?
 
-PROSTHODONTICS queries (expect: cost table, D5xxx/D6xxx codes)
+====PROSTHODONTICS queries (expect: cost table, D5xxx/D6xxx codes)
 
 How much does a complete denture cost?
 What is the cost for a partial denture?
 How much does a dental bridge cost?
 
-IMPLANTS queries (expect: cost table, D6010-D6011)
+====IMPLANTS queries (expect: cost table, D6010-D6011)
 
 How much does a dental implant cost?
 What is covered for dental implants?
 
-ADJUNCTIVE queries (expect: cost table, D9xxx codes)
+====ADJUNCTIVE queries (expect: cost table, D9xxx codes)
 
 What does nitrous oxide cost at the dentist?
 How much is general anesthesia for a dental procedure?
 What is my emergency dental visit copay?
 
-INFO queries (expect: info table, no cost)
+====INFO queries (expect: info table, no cost)
 
 Is TMJ treatment covered under my dental plan?
 What dental services are not covered?
@@ -224,7 +224,7 @@ What happens if I go to an out of network dentist?
 What are my orthodontic benefits?
 Is there a maximum benefit for implants?
 
-MIXED queries (expect: LLM)
+====MIXED queries (expect: LLM)
 
 What does my dental plan cover and what are the costs?
 ==============================================================

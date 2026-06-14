@@ -1,0 +1,10 @@
+{
+  "query": "What is the cost for a partial denture?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:01:49.596663",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Prosthodontics - Removable | D5211 Maxillary partial denture - resin base (including any | $350 copay | Not covered | Data Not Found |\n| Prosthodontics - Removable | D5212 Mandibular partial denture - resin base (including | $350 copay | Not covered | Data Not Found |\n| Prosthodontics - Removable | D5213 Maxillary partial denture - cast metal framework with | $350 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    8
+  ],
+  "source": "Willamette Dental Plan"
+}

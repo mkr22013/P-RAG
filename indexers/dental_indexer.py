@@ -14,6 +14,7 @@ assembled before emitting an entry.
 import os
 import re
 import json as json_lib
+import asyncio
 import ollama
 import pdfplumber
 
@@ -1047,6 +1048,15 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
+
+
+PLAN_CATEGORY = "dental"
+
+
+if __name__ == "__main__":
+    from indexers.run_indexer import run
+
+    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # ==================================Previous working code before page number addition==================================

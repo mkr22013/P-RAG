@@ -24,13 +24,14 @@ Local dev fallback:
 """
 
 import os
+from config import settings
 import json
 import logging
 
 logger = logging.getLogger(__name__)
 
-SERVICE_BUS_CONNECTION_STRING = os.getenv("AZURE_SERVICE_BUS_CONNECTION_STRING", "")
-QUEUE_NAME = os.getenv("AZURE_SERVICE_BUS_QUEUE_NAME", "cache-invalidation")
+SERVICE_BUS_CONNECTION_STRING = settings.AZURE_SERVICE_BUS_CONNECTION_STRING
+QUEUE_NAME = settings.AZURE_SERVICE_BUS_QUEUE_NAME
 
 
 async def send_cache_invalidation(

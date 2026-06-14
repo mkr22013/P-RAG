@@ -47,10 +47,9 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
         or smart_match("ambulance", query_words, query_lower)
     ):
         topics.append("emergency")
-        if smart_match("emergency room", query_words, query_lower):
-            add_keyword("emergency room")
-        else:
-            add_keyword("emergency")
+        # Always add "emergency room" — prevents matching "E-Visit" chunks
+        add_keyword("emergency room")
+        add_keyword("emergency")
 
     # 3. DIAGNOSTIC / IMAGING (Fuzzy Safe)
     _dental_xray_terms = ["panoramic", "bitewing", "periapical"]
@@ -143,6 +142,7 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             "sealant",
             "fluoride",
             "prophylaxis",
+            "cleaning",
             "class i",
             "class ii",
             "class iii",
@@ -166,9 +166,6 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             "oral exam",
             "dental exam",
             "exam",
-            "examination",
-            "checkup",
-            "check-up",
             "evaluation",
             "xray",
             "panoramic",
@@ -205,6 +202,18 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             "dental deductible",
         ]
 
+        # Specific procedure handling — must come before broad class detection
+        # so "all" in query doesn't trigger broad list fetch
+        SPECIFIC_PROCEDURES = {
+            "apicoectomy": ["apicoectomy"],
+            "retrograde": ["retrograde"],
+        }
+        for proc, kws in SPECIFIC_PROCEDURES.items():
+            if smart_match(proc, query_words, query_lower):
+                topics.append(proc)
+                for kw in kws:
+                    add_keyword(kw)
+
         if any(
             smart_match(w, query_words, query_lower) for w in CLASS_I_TERMS
         ) or CLASS_I_RE.search(query_lower):
@@ -220,6 +229,13 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
         # D-code service names for Willamette index compatibility
         _DENTAL_SYNONYMS = {
             "cleaning": ["prophylaxis"],
+            "exam": ["evaluation", "oral evaluation", "periodic", "comprehensive"],
+            "dental exam": [
+                "evaluation",
+                "oral evaluation",
+                "periodic",
+                "comprehensive",
+            ],
             "filling": ["amalgam", "composite", "restorative"],
             "extraction": ["erupted", "impacted"],
             "x-ray": ["radiographic", "bitewing", "periapical"],
@@ -299,10 +315,6 @@ def resolve_insurance_topic(query_words, full_query_text, p_type=None):
             add_keyword("copay")
 
         # Broad dental list query (no specific class/procedure found)
-        # → add all class topics so server fetches from every class.
-        # Safe for Willamette too: class i/ii/iii topics score near-zero
-        # against D-code entries so scoring falls back to keyword matching,
-        # which works the same as the LLM path would have.
         if not topics and any(
             w in query_lower for w in ["all", "list", "every", "covered services"]
         ):

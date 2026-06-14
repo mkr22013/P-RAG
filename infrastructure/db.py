@@ -19,12 +19,13 @@ Local dev fallback:
 """
 
 import os
+from config import settings
 import logging
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-POSTGRES_DSN = os.getenv("POSTGRES_DSN", "")
+POSTGRES_DSN = settings.POSTGRES_DSN
 
 # ── Async PostgreSQL pool (production) ────────────────────────────────────────
 _pg_pool = None
@@ -290,3 +291,56 @@ async def upsert_index_entry(
     except Exception as exc:
         logger.error("[db] upsert_index_entry failed: %s", exc)
         return False
+
+
+async def get_last_indexed(
+    year: str,
+    plan_category: str,
+    group_number: str,
+    variant: str = "",
+) -> Optional[str]:
+    """
+    Returns the last_indexed timestamp for a plan as ISO string.
+    Used by indexer to check if a PDF has changed since last indexing.
+    Returns None if plan not found or not yet indexed.
+    """
+    if not POSTGRES_DSN:
+        # Local dev — check SQLite
+        try:
+            import sqlite3 as _sqlite3
+
+            db_path = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                "indexers",
+                "p_insurance_index.db",
+            )
+            if not os.path.exists(db_path):
+                return None
+            with _sqlite3.connect(db_path) as conn:
+                row = conn.execute(
+                    "SELECT last_indexed FROM master_index WHERE year=? AND plan_category=? AND group_number=? AND variant LIKE ?",
+                    (year, plan_category, group_number, f"%{variant}%"),
+                ).fetchone()
+            return row[0] if row else None
+        except Exception:
+            return None
+
+    try:
+        pool = await get_pg_pool()
+        async with pool.acquire() as conn:
+            row = await conn.fetchrow(
+                """
+                SELECT last_indexed FROM master_index
+                WHERE year=$1 AND plan_category=$2
+                  AND group_number=$3 AND variant ILIKE $4
+                LIMIT 1
+                """,
+                year,
+                plan_category,
+                group_number,
+                f"%{variant}%",
+            )
+        return row["last_indexed"].isoformat() if row else None
+    except Exception as exc:
+        logger.error("[db] get_last_indexed failed: %s", exc)
+        return None

@@ -1,0 +1,10 @@
+{
+  "query": "How much is an apicoectomy?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:01:16.836882",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Endodontics | D3410 Apicoectomy - anterior | $155 copay | Not covered | Data Not Found |\n| Endodontics | D3421 Apicoectomy - premolar (first root) | $175 copay | Not covered | Data Not Found |\n| Endodontics | D3425 Apicoectomy - molar (first root) | $225 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    7
+  ],
+  "source": "Willamette Dental Plan"
+}

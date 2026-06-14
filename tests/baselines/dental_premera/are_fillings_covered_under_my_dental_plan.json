@@ -1,0 +1,8 @@
+{
+  "query": "Are fillings covered under my dental plan?",
+  "category": "dental_premera",
+  "timestamp": "2026-06-13T21:25:51.720249",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Class II - Basic Services | Fillings, consisting of amalgam and composite resins on any given tooth surface | 20% coinsurance after calendar year deductible | Benefits based on allowed amount | No additional limitations. |\n",
+  "pages": [],
+  "source": "Premera Dental Plan"
+}

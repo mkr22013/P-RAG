@@ -12,8 +12,8 @@ No TTL needed — keys live until explicitly invalidated.
 
 Environment variables:
     REDIS_CONNECTION_STRING — Redis connection string, e.g.:
-                              rediss://:password@host:6380/0
-                              (note: rediss:// for SSL, redis:// for non-SSL)
+                            rediss://:password@host:6380/0
+                            (note: rediss:// for SSL, redis:// for non-SSL)
 
 Local dev fallback:
     When REDIS_CONNECTION_STRING is not set, uses a simple in-process
@@ -26,13 +26,14 @@ Redis key format:
 """
 
 import os
+from config import settings
 import json
 import logging
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-REDIS_CONNECTION_STRING = os.getenv("REDIS_CONNECTION_STRING", "")
+REDIS_CONNECTION_STRING = settings.REDIS_CONNECTION_STRING
 
 # ── Local dev fallback — in-process dict ─────────────────────────────────────
 _local_cache: dict = {}

@@ -5,7 +5,7 @@ Validates every incoming request against Auth0 before it reaches any endpoint.
 
 Flow:
     Request → AuthMiddleware → validates Bearer token → passes to endpoint
-                             → missing/invalid token  → 401 Unauthorized
+                            → missing/invalid token  → 401 Unauthorized
 
 Configuration (environment variables):
     AUTH0_DOMAIN    — your Auth0 tenant, e.g. "your-tenant.auth0.com"
@@ -19,6 +19,7 @@ JWKS is refreshed automatically when a key ID is not found (key rotation).
 """
 
 import os
+from config import settings
 import logging
 import time
 from typing import Optional
@@ -33,10 +34,10 @@ from starlette.responses import JSONResponse
 logger = logging.getLogger(__name__)
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN", "")
-AUTH0_AUDIENCE = os.getenv("AUTH0_AUDIENCE", "")
-AUTH0_ALGORITHMS = os.getenv("AUTH0_ALGORITHMS", "RS256").split(",")
-AUTH_EXCLUDED_PATHS = set(os.getenv("AUTH_EXCLUDED_PATHS", "/health").split(","))
+AUTH0_DOMAIN = settings.AUTH0_DOMAIN
+AUTH0_AUDIENCE = settings.AUTH0_AUDIENCE
+AUTH0_ALGORITHMS = settings.AUTH0_ALGORITHMS.split(",")
+AUTH_EXCLUDED_PATHS = set(settings.AUTH_EXCLUDED_PATHS.split(","))
 
 # JWKS client — caches public keys from Auth0, handles key rotation automatically
 _jwks_client: Optional[PyJWKClient] = None

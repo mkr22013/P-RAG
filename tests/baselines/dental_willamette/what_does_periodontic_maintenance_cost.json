@@ -1,0 +1,11 @@
+{
+  "query": "What does periodontic maintenance cost?",
+  "category": "dental_willamette",
+  "timestamp": "2026-06-13T17:01:36.462794",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Periodontics | D4910 Periodontic maintenance | Covered In Full | Not covered | Data Not Found |\n| Periodontics | D4210 Gingivectomy or gingivoplasty - 4 or more | $175 copay | Not covered | Data Not Found |\n| Periodontics | D4211 Gingivectomy or gingivoplasty - 1 to 3 contiguous | $75 copay | Not covered | Data Not Found |\n",
+  "pages": [
+    7,
+    8
+  ],
+  "source": "Willamette Dental Plan"
+}

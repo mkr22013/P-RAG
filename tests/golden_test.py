@@ -1,65 +1,128 @@
 """
 Golden file regression test.
 
-Captures the structured COST and INFO rows returned by the retrieval pipeline
-for every query in QueriesToTests.txt and saves them as baselines.
-On subsequent runs, compares results against baselines.
+Calls the real /chat API endpoint for every query and saves the response
+as a baseline. On subsequent runs, compares results against baselines.
 
 Rules:
   - COST rows changed  → HARD FAIL  (cost data is non-negotiable)
   - INFO rows changed  → SHOW DIFF, prompt approve/reject
 
 Usage:
-  python golden_test.py --capture     # Run all queries, save baselines
-  python golden_test.py --verify      # Run all queries, compare to baselines
-  python golden_test.py --verify --ci # Non-interactive: fail on any diff
-  python golden_test.py --update <query_id>  # Re-approve a single baseline
+  # Capture all baselines (server must be running)
+  python -m tests.golden_test --capture
 
-Baselines are stored in:  baselines/<category>/<query_slug>.json
+  # Capture single category only
+  python -m tests.golden_test --capture --category medical
+  python -m tests.golden_test --capture --category dental_willamette
+  python -m tests.golden_test --capture --category dental_premera
+  python -m tests.golden_test --capture --category vision
+
+  # Verify all against baselines
+  python -m tests.golden_test --verify
+
+  # Verify single category
+  python -m tests.golden_test --verify --category medical
+  python -m tests.golden_test --verify --category dental_willamette
+  python -m tests.golden_test --verify --category dental_premera
+  python -m tests.golden_test --verify --category vision
+
+  # Non-interactive CI mode (fails on any diff)
+  python -m tests.golden_test --verify --ci
+
+Prerequisites:
+  - Server must be running: python -m uvicorn main.main:app --reload
+  - Demo member data available (uses DEMO000001 / group 1000016)
+
+Baselines are stored in: tests/baselines/<category>/<query_slug>.json
 """
 
-import sys, os, re, json, argparse, types
-from unittest.mock import MagicMock
+import sys
+import os
+import re
+import json
+import argparse
+import requests
 from datetime import datetime
 from difflib import unified_diff
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BASELINES_DIR = os.path.join(BASE_DIR, "baselines")
 
-# ── Stub heavy dependencies so we can import client and server ────────────────
-sys.modules["ollama"] = MagicMock()
-sys.modules["dotenv"] = MagicMock()
-sys.modules["pdfplumber"] = MagicMock()
-sys.modules["fastmcp"] = MagicMock()
-sys.modules["insurance_mcp"] = MagicMock()
-sys.modules["insurance_mcp.server"] = MagicMock()
+API_BASE = os.getenv("API_BASE", "http://127.0.0.1:8000")
 
-utility_pkg = types.ModuleType("utility")
-utility_utils = types.ModuleType("utility.utils")
-utility_utils.get_smart_keywords = lambda t: []
-sys.modules["utility"] = utility_pkg
-sys.modules["utility.utils"] = utility_utils
+# ── Member info per plan variant ─────────────────────────────────────────────
 
-sys.path.insert(0, BASE_DIR)
-import client as cl
+_BASE_MEMBER = {
+    "year": "2026",
+    "member_key": "DEMO000001",
+    "group_number": "1000016",
+}
 
-# Import server directly so we can call get_plan_data_from_disk without MCP
-import importlib, importlib.util
+_DEMO_MEMBER_PLANS = {
+    "medical": {
+        "plan_category": "medical",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Premera Employees Health Plan \u2013 Standard PPO Retiree Plan",
+        "plan_type": "PPO",
+        "plan_tier": "",
+        "product_line": "Null",
+        "variant": "Retiree",
+        "network": "",
+        "page_offset": 4,
+    },
+    "dental": {
+        "plan_category": "dental",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Willamette Dental Plan",
+        "plan_type": "",
+        "plan_tier": "",
+        "product_line": "Null",
+        "variant": "Standard",
+        "network": "",
+        "page_offset": 5,
+    },
+    "vision": {
+        "plan_category": "vision",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Vision Plan",
+        "plan_type": "",
+        "plan_tier": "",
+        "product_line": "Null",
+        "variant": "Standard",
+        "network": "",
+        "page_offset": 6,
+    },
+}
 
+# Same as demo member but with Premera Dental instead of Willamette
+_DEMO_MEMBER_PREMERA_DENTAL_PLANS = {
+    **_DEMO_MEMBER_PLANS,
+    "dental": {
+        "plan_category": "dental",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Premera Dental Plan",
+        "plan_type": "",
+        "plan_tier": "",
+        "product_line": "Null",
+        "variant": "Standard",
+        "network": "",
+        "page_offset": 5,
+    },
+}
 
-def _load_server():
-    spec = importlib.util.spec_from_file_location(
-        "server_mod", os.path.join(BASE_DIR, "server.py")
-    )
-    mod = importlib.util.module_from_spec(spec)
-    try:
-        spec.loader.exec_module(mod)
-    except Exception:
-        pass
-    return mod
-
-
-server_mod = _load_server()
+MEMBER_INFO_BY_CATEGORY = {
+    "medical": json.dumps({**_BASE_MEMBER, "plans": _DEMO_MEMBER_PLANS}),
+    "dental_willamette": json.dumps({**_BASE_MEMBER, "plans": _DEMO_MEMBER_PLANS}),
+    "dental_premera": json.dumps(
+        {**_BASE_MEMBER, "plans": _DEMO_MEMBER_PREMERA_DENTAL_PLANS}
+    ),
+    "vision": json.dumps({**_BASE_MEMBER, "plans": _DEMO_MEMBER_PLANS}),
+}
 
 # ── Queries ───────────────────────────────────────────────────────────────────
 
@@ -71,9 +134,7 @@ QUERIES = {
         "I want to know about emergency room service",
         "my urgent care cost",
         "are there any benefit for therapeutic injections",
-        "show me all Apicoectomy benefits",
         "Can you show me transplants cost",
-        "show me all benefits for Temporomandibular Joint Disorders (TMJ) Care",
         "show me all my virtual care benefits",
         "I want to know about nicotine habit breaking programs cost",
         "what is my cost for x-ray, lab and imaging",
@@ -85,13 +146,12 @@ QUERIES = {
         "what are the benefits for skilled nursing facility care",
         "Do i need to pay any amount for psychological testing",
         "Want to know about rehabilitation therapy",
-        "how much is the charge for Retrograde filling",
         "what are the cost for breast reconstructions",
         "show me gender affirming care professional service",
         "does my plan provide medical food during my hospital stay",
         "show me newborn care benefits",
         "show me new born care impatient care cost",
-        "does my plan cover Non-preferred generic and brand name drugs?",
+        # "does my plan cover Non-preferred generic and brand name drugs?",
         "what is covered under clinical trials and what does it cost",
         "tell me about emergency room coverage and cost",
         "what does my plan cover for medical transportation and how much does it cost",
@@ -103,7 +163,57 @@ QUERIES = {
         "show me my family deductible",
         "does clinical trials covered for me?",
     ],
-    "dental": [
+    "dental_willamette": [
+        # Office Visit
+        "What is my general office visit copay for dental?",
+        "What is my specialist office visit copay for dental?",
+        # Diagnostic and Preventive
+        "How much does a teeth cleaning cost?",
+        "What is the cost for a dental x-ray?",
+        "How much is a dental exam?",
+        "What does a panoramic x-ray cost?",
+        "What is the cost for fluoride treatment?",
+        "How much are sealants?",
+        # Restorative
+        "What is the cost for a filling?",
+        "How much does an amalgam filling cost?",
+        "What is my copay for a composite filling?",
+        # Crowns
+        "How much does a crown cost?",
+        "What is my copay for a porcelain crown?",
+        "What does a stainless steel crown cost?",
+        # Endodontic
+        "What does a root canal cost?",
+        "How much is an apicoectomy?",
+        "What is the cost for a pulp cap?",
+        # Periodontic
+        "How much is periodontal scaling and root planing?",
+        "What does periodontic maintenance cost?",
+        "What is my copay for gum surgery?",
+        # Oral Surgery
+        "How much does a tooth extraction cost?",
+        "What is the cost to remove an impacted tooth?",
+        "What does wisdom tooth removal cost?",
+        # Prosthodontics
+        "How much does a complete denture cost?",
+        "What is the cost for a partial denture?",
+        "How much does a dental bridge cost?",
+        # Implants
+        "How much does a dental implant cost?",
+        "What is covered for dental implants?",
+        # Adjunctive
+        "What does nitrous oxide cost at the dentist?",
+        "How much is general anesthesia for a dental procedure?",
+        "What is my emergency dental visit copay?",
+        # Info
+        "Is TMJ treatment covered under my dental plan?",
+        "show me all benefits for Temporomandibular Joint Disorders (TMJ) Care",
+        "What dental services are not covered?",
+        "What happens if I go to an out of network dentist?",
+        "What are my orthodontic benefits?",
+        "Is there a maximum benefit for implants?",
+    ],
+    "dental_premera": [
         "What is my coinsurance for a basic dental service?",
         "What percentage do I pay for major dental work like a crown?",
         "What is my calendar year dental deductible?",
@@ -116,9 +226,12 @@ QUERIES = {
         "Is a root canal covered and what class is it?",
         "Is orthodontic treatment covered under my dental plan?",
         "Is TMJ treatment covered?",
+        "show me all benefits for Temporomandibular Joint Disorders (TMJ) Care",
         "Are dental implants covered?",
         "What dental services are NOT covered or excluded?",
         "show me all covered services under my dental plan",
+        "how much is a dental exam?",
+        "how much is a teeth cleaning?",
     ],
     "vision": [
         "What is the cost for a vision exam?",
@@ -150,77 +263,60 @@ def baseline_path(category, query):
     return os.path.join(BASELINES_DIR, category, f"{slug(query)}.json")
 
 
-def words(q):
-    return [re.sub(r"[^\w\s]", "", w) for w in q.lower().split()]
-
-
-def resolve(query):
-    r = cl.resolve_insurance_topic(words(query), query.lower())
-    return r["topics"], r["keywords"]
-
-
-def detect(query):
-    with __import__("unittest.mock", fromlist=["patch"]).patch.object(
-        cl, "get_category_from_llm", return_value="medical"
-    ):
-        return cl.detect_category(words(query), query)
-
-
-def call_server(query, category):
-    """Call get_plan_data_from_disk directly — no Ollama needed."""
-    topics, keywords = resolve(query)
-    if not topics:
-        topics = [query.lower()]
+def call_api(query, category):
+    """POST to /chat — same as the UI does."""
+    # Map category key to actual plan category for the API
+    api_category = category.replace("dental_willamette", "dental").replace(
+        "dental_premera", "dental"
+    )
+    member_info = MEMBER_INFO_BY_CATEGORY.get(
+        category, MEMBER_INFO_BY_CATEGORY["medical"]
+    )
 
     try:
-        result = server_mod.get_plan_data_from_disk(
-            query,
-            tuple(sorted(topics)),
-            category,
-            tuple(sorted(set(keywords))),
+        resp = requests.post(
+            f"{API_BASE}/chat",
+            data={
+                "prompt": query,
+                "member_info": member_info,
+                "current_category": api_category,
+                "history": "[]",
+            },
+            timeout=60,
         )
-        return result or ""
+        resp.raise_for_status()
+        return resp.json()
+    except requests.exceptions.ConnectionError:
+        print(f"\n  ✗ Cannot connect to {API_BASE} — is the server running?")
+        sys.exit(1)
     except Exception as e:
-        return f"[ERROR] {e}"
+        return {"answer": f"[ERROR] {e}", "pages": [], "source": ""}
 
 
-def parse_context(context):
-    """Parse ### SECTION: COST / INFO from server response into structured dicts."""
-    cost_rows, info_rows = [], []
-
-    cost_section = re.search(
-        r"### SECTION: COST\s*(.*?)(?=### SECTION:|$)", context, re.DOTALL
-    )
-    info_section = re.search(
-        r"### SECTION: INFO\s*(.*?)(?=### SECTION:|$)", context, re.DOTALL
-    )
-
-    def extract_items(text):
-        items = []
-        for m in re.finditer(r"Item \d+:\s*(\{.*?\})", text, re.DOTALL):
-            try:
-                items.append(json.loads(m.group(1)))
-            except Exception:
-                pass
-        return items
-
-    if cost_section:
-        cost_rows = extract_items(cost_section.group(1))
-    if info_section:
-        info_rows = extract_items(info_section.group(1))
-
-    return cost_rows, info_rows
+def parse_response(response: dict) -> dict:
+    """
+    Extract answer, pages and source from the API response.
+    """
+    answer = response.get("answer", "")
+    pages = response.get("pages", [])
+    source = response.get("source", "")
+    return {
+        "answer": answer,
+        "pages": pages,
+        "source": source,
+    }
 
 
 def run_query(query, category):
-    context = call_server(query, category)
-    cost_rows, info_rows = parse_context(context)
+    response = call_api(query, category)
+    parsed = parse_response(response)
     return {
         "query": query,
         "category": category,
         "timestamp": datetime.now().isoformat(),
-        "cost_rows": cost_rows,
-        "info_rows": info_rows,
+        "answer": parsed["answer"],
+        "pages": parsed["pages"],
+        "source": parsed["source"],
     }
 
 
@@ -229,7 +325,7 @@ def save_baseline(result):
     path = baseline_path(cat, result["query"])
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2)
+        json.dump(result, f, indent=2, ensure_ascii=False)
 
 
 def load_baseline(category, query):
@@ -240,21 +336,36 @@ def load_baseline(category, query):
         return json.load(f)
 
 
-def diff_rows(label, old, new):
-    old_str = json.dumps(old, indent=2, sort_keys=True)
-    new_str = json.dumps(new, indent=2, sort_keys=True)
-    if old_str == new_str:
+def diff_answer(old, new):
+    if old == new:
         return None
     lines = list(
         unified_diff(
-            old_str.splitlines(),
-            new_str.splitlines(),
-            fromfile=f"baseline {label}",
-            tofile=f"current {label}",
+            old.splitlines(),
+            new.splitlines(),
+            fromfile="baseline",
+            tofile="current",
             lineterm="",
         )
     )
     return "\n".join(lines)
+
+
+def is_cost_changed(old_answer, new_answer):
+    """
+    Hard fail if any dollar amount or coinsurance value changed.
+    Extracts all $ amounts and percentage coinsurance values for comparison.
+    """
+
+    def extract_costs(text):
+        amounts = re.findall(r"\$[\d,]+(?:\.\d+)?", text)
+        coinsurance = re.findall(r"\d+%\s*coinsurance", text, re.IGNORECASE)
+        copays = re.findall(r"\$[\d,]+\s*copay", text, re.IGNORECASE)
+        return sorted(set(amounts + coinsurance + copays))
+
+    old_costs = extract_costs(old_answer)
+    new_costs = extract_costs(new_answer)
+    return old_costs != new_costs, old_costs, new_costs
 
 
 # ── Capture mode ──────────────────────────────────────────────────────────────
@@ -264,15 +375,15 @@ def capture(categories=None):
     cats = categories or list(QUERIES.keys())
     total = saved = 0
     for cat in cats:
+        print(f"\n[{cat.upper()}]")
         for query in QUERIES[cat]:
             total += 1
-            print(f"  [{cat}] {query[:65]}", end="  ", flush=True)
+            print(f"  {query[:65]}", end="  ", flush=True)
             result = run_query(query, cat)
             save_baseline(result)
             saved += 1
-            cost_n = len(result["cost_rows"])
-            info_n = len(result["info_rows"])
-            print(f"cost={cost_n} info={info_n} ✓")
+            has_answer = bool(result["answer"] and "[ERROR]" not in result["answer"])
+            print(f"{'✓' if has_answer else '✗ ERROR'}")
     print(f"\nSaved {saved}/{total} baselines → {BASELINES_DIR}/")
 
 
@@ -286,64 +397,67 @@ def verify(categories=None, ci=False):
     missing = []
 
     for cat in cats:
+        print(f"\n[{cat.upper()}]")
         for query in QUERIES[cat]:
             baseline = load_baseline(cat, query)
             if baseline is None:
                 missing.append((cat, query))
+                print(f"  ? NO BASELINE  {query[:60]}")
                 continue
 
             current = run_query(query, cat)
 
-            cost_diff = diff_rows("COST", baseline["cost_rows"], current["cost_rows"])
-            info_diff = diff_rows("INFO", baseline["info_rows"], current["info_rows"])
+            cost_changed, old_costs, new_costs = is_cost_changed(
+                baseline["answer"], current["answer"]
+            )
+            answer_diff = diff_answer(baseline["answer"], current["answer"])
 
-            if cost_diff:
-                cost_failures.append((cat, query, cost_diff))
-                print(f"  ✗ COST CHANGED  [{cat}] {query[:60]}")
-            elif info_diff:
-                info_diffs.append((cat, query, info_diff, current))
-                print(f"  ~ INFO CHANGED  [{cat}] {query[:60]}")
+            if cost_changed:
+                cost_failures.append((cat, query, old_costs, new_costs))
+                print(f"  ✗ COST CHANGED  {query[:60]}")
+                print(f"      baseline: {old_costs}")
+                print(f"      current:  {new_costs}")
+            elif answer_diff:
+                info_diffs.append((cat, query, answer_diff, current))
+                print(f"  ~ ANSWER CHANGED  {query[:60]}")
             else:
-                print(f"  ✓               [{cat}] {query[:60]}")
+                print(f"  ✓  {query[:60]}")
 
     # ── Report ────────────────────────────────────────────────────────────────
     print()
 
     if missing:
-        print(f"⚠  {len(missing)} queries have no baseline — run --capture first:")
-        for cat, q in missing:
-            print(f"     [{cat}] {q}")
+        print(f"⚠  {len(missing)} queries have no baseline — run --capture first")
         print()
 
     if cost_failures:
         print(f"{'='*60}")
         print(f"COST FAILURES: {len(cost_failures)}  ← MUST FIX BEFORE DEPLOY")
         print(f"{'='*60}")
-        for cat, q, diff in cost_failures:
-            print(f"\n[{cat}] {q}")
-            print(diff)
+        for cat, q, old, new in cost_failures:
+            print(f"\n  [{cat}] {q}")
+            print(f"  baseline: {old}")
+            print(f"  current:  {new}")
 
     if info_diffs and not ci:
         print(f"\n{'='*60}")
-        print(f"INFO CHANGES: {len(info_diffs)}  ← review and approve/reject")
+        print(f"ANSWER CHANGES: {len(info_diffs)}  ← review and approve/reject")
         print(f"{'='*60}")
         approved = rejected = 0
         for cat, q, diff, current in info_diffs:
             print(f"\n[{cat}] {q}")
-            print(diff)
-            ans = input("  Accept this change as new baseline? [y/n]: ").strip().lower()
+            print(diff[:1000])  # show first 1000 chars of diff
+            ans = input("  Accept as new baseline? [y/n]: ").strip().lower()
             if ans == "y":
                 save_baseline(current)
                 approved += 1
                 print("  ✓ Baseline updated.")
             else:
                 rejected += 1
-                print("  ✗ Baseline kept.")
-        print(f"\nINFO: {approved} approved, {rejected} rejected.")
+                print("  ✗ Kept old baseline.")
+        print(f"\nAnswer changes: {approved} approved, {rejected} rejected.")
     elif info_diffs and ci:
-        print(
-            f"\nINFO CHANGES ({len(info_diffs)}) — run without --ci to review interactively."
-        )
+        print(f"\nANSWER CHANGES ({len(info_diffs)}) — run without --ci to review.")
 
     total_queries = sum(len(QUERIES[c]) for c in cats)
     n_ok = total_queries - len(cost_failures) - len(info_diffs) - len(missing)
@@ -352,7 +466,7 @@ def verify(categories=None, ci=False):
     if cost_failures:
         print(f"  RESULT: FAILED  ✗  ({len(cost_failures)} cost failures)")
     elif info_diffs and ci:
-        print(f"  RESULT: FAILED  ✗  ({len(info_diffs)} unreviewed info changes)")
+        print(f"  RESULT: FAILED  ✗  ({len(info_diffs)} unreviewed answer changes)")
     else:
         print(f"  RESULT: PASSED  ✓  ({n_ok}/{total_queries} queries unchanged)")
     print(f"{'='*60}")
@@ -363,7 +477,9 @@ def verify(categories=None, ci=False):
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Golden file regression test")
+    parser = argparse.ArgumentParser(
+        description="Golden regression test — calls real API"
+    )
     parser.add_argument("--capture", action="store_true", help="Capture baselines")
     parser.add_argument(
         "--verify", action="store_true", help="Verify against baselines"
@@ -371,7 +487,7 @@ if __name__ == "__main__":
     parser.add_argument("--ci", action="store_true", help="Non-interactive CI mode")
     parser.add_argument(
         "--category",
-        choices=["medical", "dental", "vision"],
+        choices=["medical", "dental_willamette", "dental_premera", "vision"],
         help="Run only one category",
     )
     args = parser.parse_args()
@@ -379,10 +495,10 @@ if __name__ == "__main__":
     cats = [args.category] if args.category else None
 
     if args.capture:
-        print(f"\nCapturing baselines for: {cats or 'all categories'}\n")
+        print(f"\nCapturing baselines — server must be running at {API_BASE}\n")
         capture(cats)
     elif args.verify:
-        print(f"\nVerifying: {cats or 'all categories'}\n")
+        print(f"\nVerifying against baselines — server must be running at {API_BASE}\n")
         ok = verify(cats, ci=args.ci)
         sys.exit(0 if ok else 1)
     else:

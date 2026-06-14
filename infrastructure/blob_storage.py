@@ -14,15 +14,16 @@ Local dev fallback:
 """
 
 import os
+from config import settings
 import json
 import logging
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-AZURE_BLOB_CONNECTION_STRING = os.getenv("AZURE_BLOB_CONNECTION_STRING", "")
-PDF_CONTAINER = os.getenv("AZURE_BLOB_PDF_CONTAINER", "insurance-pdfs")
-INDEX_CONTAINER = os.getenv("AZURE_BLOB_INDEX_CONTAINER", "insurance-indices")
+AZURE_BLOB_CONNECTION_STRING = settings.AZURE_BLOB_CONNECTION_STRING
+PDF_CONTAINER = settings.AZURE_BLOB_PDF_CONTAINER
+INDEX_CONTAINER = settings.AZURE_BLOB_INDEX_CONTAINER
 
 # ── Blob client (lazy init) ───────────────────────────────────────────────────
 _blob_service_client = None
@@ -32,6 +33,7 @@ def _get_blob_service_client():
     global _blob_service_client
     if _blob_service_client is None:
         from azure.storage.blob import BlobServiceClient
+
         _blob_service_client = BlobServiceClient.from_connection_string(
             AZURE_BLOB_CONNECTION_STRING
         )
@@ -40,6 +42,7 @@ def _get_blob_service_client():
 
 
 # ── Public API ─────────────────────────────────────────────────────────────────
+
 
 async def download_index(blob_path: str) -> Optional[list]:
     """
@@ -128,7 +131,9 @@ async def upload_index(blob_path: str, chunks: list) -> Optional[str]:
         return None
 
 
-async def get_blob_last_modified(blob_path: str, container: Optional[str] = None) -> Optional[str]:
+async def get_blob_last_modified(
+    blob_path: str, container: Optional[str] = None
+) -> Optional[str]:
     """
     Returns the last_modified timestamp of a blob as ISO string.
     Used by indexer to check if a PDF has changed since last indexing.
@@ -139,6 +144,7 @@ async def get_blob_last_modified(blob_path: str, container: Optional[str] = None
         # Local dev — use file mtime
         if os.path.exists(blob_path):
             import datetime
+
             mtime = os.path.getmtime(blob_path)
             return datetime.datetime.utcfromtimestamp(mtime).isoformat()
         return None
@@ -186,3 +192,67 @@ async def download_pdf(blob_path: str, local_temp_path: str) -> bool:
     except Exception as exc:
         logger.error("[blob] download_pdf failed for %s: %s", blob_path, exc)
         return False
+
+
+async def list_pdf_blobs(prefix: str = "") -> list:
+    """
+    Lists all PDF blobs in the PDF container.
+
+    Parameters:
+        prefix — optional path prefix to filter, e.g. "2026/1000016/"
+
+    Returns list of dicts:
+        [{ "name": "2026/1000016/medical/Medical.pdf",
+        "last_modified": "2026-01-15T10:30:00+00:00",
+        "size": 1234567 }, ...]
+
+    Local dev fallback:
+        Walks the local docs folder and returns equivalent structure.
+    """
+    if not AZURE_BLOB_CONNECTION_STRING:
+        # Local dev — walk docs folder
+        import datetime
+
+        docs_base = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs")
+        results = []
+        for root, _, files in os.walk(docs_base):
+            for filename in files:
+                if not filename.lower().endswith(".pdf"):
+                    continue
+                full_path = os.path.join(root, filename)
+                mtime = os.path.getmtime(full_path)
+                results.append(
+                    {
+                        "name": full_path,  # local path as blob name in dev
+                        "last_modified": datetime.datetime.utcfromtimestamp(
+                            mtime
+                        ).isoformat(),
+                        "size": os.path.getsize(full_path),
+                        "metadata": {},  # no metadata in local dev — LLM classification runs
+                    }
+                )
+        return results
+
+    try:
+        client = _get_blob_service_client()
+        container_client = client.get_container_client(PDF_CONTAINER)
+        results = []
+        for blob in container_client.list_blobs(
+            name_starts_with=prefix, include=["metadata"]
+        ):
+            if blob.name.lower().endswith(".pdf"):
+                results.append(
+                    {
+                        "name": blob.name,
+                        "last_modified": blob.last_modified.isoformat(),
+                        "size": blob.size,
+                        "metadata": blob.metadata or {},
+                    }
+                )
+        logger.info(
+            "[blob] Listed %d PDFs in %s/%s", len(results), PDF_CONTAINER, prefix
+        )
+        return results
+    except Exception as exc:
+        logger.error("[blob] list_pdf_blobs failed: %s", exc)
+        return []

@@ -1,0 +1,13 @@
+{
+  "query": "Can you show me transplants cost",
+  "category": "medical",
+  "timestamp": "2026-06-13T16:57:25.621500",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Transplants (Includes donor search and donation costs.) | Inpatient facility care | Deductible, then 20% coinsurance | Not covered* | Data Not Found |\n| Transplants (Includes donor search and donation costs.) | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Not covered* | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Reimbursement Of Travel Claims | • Transplants: You must pay for all travel expenses yourself and submit a Claim Reimbursement Form. • Premera-Designated Centers of Excellence: There are some covered travel services, such as parking or tolls, that are not arranged by Premera’s travel partner. For these services, you must submit a Claim Reimbursement Form. • Cellular Immunotherapy and Gene Therapy: You must pay for all travel expenses yourself and submit a Claim Reimbursement Form. A separate Claim Reimbursement Form is needed for each patient and each commercial carrier or transportation service used. You can get Claim Reimbursement Forms on our website at premera.com. You can also call us for a copy of the form. You must attach the following documents to the Claim Reimbursement Form: • A copy of the detailed itinerary as issued by the transportation carrier, travel agency or online travel website. The itinerary must identify the names of the passengers, the dates of travel and total cost of travel, and the... |\n| Recipient Costs | This benefit covers transplant and reinfusion-related expenses, including the preparation regiment for a bone marrow or stem cell reinfusion. Also covered are anti-rejection drugs administered by the transplant center during the inpatient or outpatient stay in which the transplant was performed. 54 |\n| Hair Loss | • Drugs, supplies, equipment, or procedures to replace hair, slow hair loss, or stimulate hair growth • Hair prostheses, such as wigs or hair weaves, transplants and implants |\n",
+  "pages": [
+    17,
+    37,
+    54,
+    63
+  ],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan"
+}

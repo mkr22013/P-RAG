@@ -1,10 +1,12 @@
 [//]: # "markdownlint-disable MD013 MD033 MD041"
 
-# BENJI — Benefits Engine for Navigation & Intelligent Guidance
+# BENJI — Benefit Exploration & Navigation with Just-in-time Intelligence
 
 ## Token Efficiency Report
 
 ## Executive Summary
+
+> **"BENJI costs 86% less than the next cheapest alternative and is the only approach that guarantees 100% numerical accuracy — because it never asks an LLM to generate a dollar amount."**
 
 BENJI (Vectorless RAG) uses **80% fewer LLM tokens** than Traditional RAG and **75% fewer LLM tokens** than Vectorized RAG, while delivering **100% numerical accuracy** — something neither LLM-based approach can guarantee.
 

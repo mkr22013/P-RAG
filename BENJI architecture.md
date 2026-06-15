@@ -1,5 +1,5 @@
 [//]: # (markdownlint-disable MD013 MD033 MD041)
-# BENJI — Insurance Benefit Assistant — Architecture & Performance
+# BENJI — Benefit Exploration & Navigation with Just-in-time Intelligence
 
 ## Executive Summary
 

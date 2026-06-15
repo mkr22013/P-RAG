@@ -8,7 +8,7 @@ A practical reference for developers. Explains what each file does, why it exist
 ## Project Structure
 
 ```
-BENJI/
+P-RAG/
 ├── main/
 │   ├── main.py                  ← FastAPI application entry point
 │   ├── auth0middleware.py        ← JWT authentication middleware

@@ -1,22 +1,15 @@
 {
   "query": "is fluconazole on my formulary?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:43:14.001802",
-  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "timestamp": "2026-06-24T09:20:05.968872",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| fluconazole oral suspension for reconstitution 10 mg/ml, 40 mg/ml | Preferred Generic | Covered | — |\n| fluconazole oral tablet 100 mg, 150 mg, 200 mg, 50 mg | Preferred Generic | Covered | — |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
   "pages": [],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 6 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 1,
-    "total_input_tokens": 554,
-    "total_output_tokens": 20,
-    "total_tokens": 574,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 554,
-        "output_tokens": 20,
-        "total_tokens": 574
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

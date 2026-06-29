@@ -1,22 +1,15 @@
 {
   "query": "what tier is lisinopril?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:42:24.019308",
-  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "timestamp": "2026-06-24T09:19:49.361477",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| lisinopril oral tablet 10 mg, 2.5 mg, 20 mg, 30 mg, 40 mg, 5 mg | Preferred Generic | Covered | — |\n| lisinopril-hydrochlorothiazide oral tablet 10-12.5 mg, 20-12.5 mg, 20-25 mg | Preferred Generic | Covered | — |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
   "pages": [],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 73 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 1,
-    "total_input_tokens": 553,
-    "total_output_tokens": 17,
-    "total_tokens": 570,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 553,
-        "output_tokens": 17,
-        "total_tokens": 570
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

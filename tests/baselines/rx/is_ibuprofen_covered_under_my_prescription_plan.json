@@ -1,22 +1,15 @@
 {
   "query": "is ibuprofen covered under my prescription plan?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:43:22.099526",
-  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "timestamp": "2026-06-24T09:20:08.479102",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| hydrocodone-ibuprofen oral tablet 10-200 mg, 5- 200 mg, 7.5-200 mg | Preferred Generic | Covered | Prior Authorization |\n| ibuprofen oral suspension 100 mg/5 ml | Preferred Generic | Covered | — |\n| ibuprofen oral tablet 300 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n| ibuprofen oral tablet 400 mg, 600 mg, 800 mg | Preferred Generic | Covered | — |\n| ibuprofen-famotidine oral tablet 800-26.6 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
   "pages": [],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 46, 50 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 1,
-    "total_input_tokens": 217,
-    "total_output_tokens": 10,
-    "total_tokens": 227,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 217,
-        "output_tokens": 10,
-        "total_tokens": 227
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

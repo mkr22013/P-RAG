@@ -1,7 +1,7 @@
 {
   "query": "How much is general anesthesia for a dental procedure?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-14T13:40:10.273582",
+  "timestamp": "2026-06-19T20:38:16.493931",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Adjunctive General Services | D9222 & D9223 Deep sedation/general anesthesia First 30 Minutes: | $250 copay | Not covered | Data Not Found |\n| Adjunctive General Services | D9110 Palliative (emergency) treatment of dental pain - minor | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     12

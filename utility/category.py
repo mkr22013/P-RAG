@@ -1,9 +1,144 @@
 import re
 import json
 import os
+import glob
 
 from config import settings
 from .utils import smart_match
+
+# ── Drug name word lookup ──────────────────────────────────────────────────────
+# Built once from all Rx index files on disk. Used to detect drug-name queries
+# like "does metformin require prior authorization?" where the only signal
+# that this is an Rx question is the drug name itself — no other rx keyword
+# like "drug", "formulary", "pharmacy" appears in the query.
+#
+# This is safe (not fragile) because it checks against REAL drug names from
+# the actual indexed documents — not guessed patterns. "metformin" matches
+# because it IS a drug name in the index. "bariatric" never matches because
+# it is not a drug name anywhere in the Rx index.
+
+_DRUG_NAME_WORDS: set[str] = set()
+_drug_words_loaded = False
+
+# Common English/medical words that appear in drug names but aren't drug names
+# themselves — must be excluded so they don't cause false positives elsewhere
+_DRUG_WORD_STOPLIST = {
+    "oral",
+    "tablet",
+    "tablets",
+    "capsule",
+    "capsules",
+    "injection",
+    "injectable",
+    "solution",
+    "suspension",
+    "cream",
+    "ointment",
+    "gel",
+    "patch",
+    "spray",
+    "drops",
+    "extended",
+    "release",
+    "delayed",
+    "for",
+    "and",
+    "with",
+    "the",
+    "mg",
+    "ml",
+    "mcg",
+    "unit",
+    "units",
+    "per",
+    "reconstitution",
+    "dispersion",
+    "topical",
+    "inhalation",
+    "nasal",
+    "vaginal",
+    "rectal",
+    "subcutaneous",
+    "intramuscular",
+    "intravenous",
+    # Generic descriptor words that appear in drug names but aren't drug
+    # identifiers themselves — would cause false positives in category detection
+    "dental",
+    "paste",
+    "sensitive",
+    "defense",
+    "protect",
+    "booster",
+    "kids",
+    "daily",
+    "plus",
+    "starter",
+    "package",
+    "kit",
+    "complete",
+    "implant",
+    "maintenance",
+    "emergency",
+    "fluoride",
+    "nicotine",
+}
+
+
+def _load_drug_name_words() -> set:
+    """
+    Loads all drug name words from Rx index files in the indices/ folder.
+    Cached after first call — only loads once per process.
+    """
+    global _DRUG_NAME_WORDS, _drug_words_loaded
+
+    if _drug_words_loaded:
+        return _DRUG_NAME_WORDS
+
+    indices_dir = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "indices"
+    )
+    rx_index_files = glob.glob(os.path.join(indices_dir, "*rx*.json"))
+
+    words = set()
+    for index_path in rx_index_files:
+        try:
+            with open(index_path, encoding="utf-8") as f:
+                chunks = json.load(f)
+            for chunk in chunks:
+                content = chunk.get("content", {})
+                if not isinstance(content, dict):
+                    continue
+                drug_name = content.get("drug_name", "")
+                if not drug_name:
+                    continue
+                for word in re.findall(r"[a-zA-Z]+", drug_name.lower()):
+                    if len(word) > 4 and word not in _DRUG_WORD_STOPLIST:
+                        words.add(word)
+        except Exception as e:
+            print(f"[!] Failed to load drug names from {index_path}: {e}")
+
+    _DRUG_NAME_WORDS = words
+    _drug_words_loaded = True
+    print(f"[*] Loaded {len(words)} drug name words for rx category detection")
+    return _DRUG_NAME_WORDS
+
+
+def is_drug_name_query(query_words: list) -> bool:
+    """
+    Returns True if any word in the query matches a real drug name word
+    from the Rx index. Used to catch drug-specific questions that don't
+    contain any other rx signal word.
+
+    Example: "does metformin require prior authorization?"
+        → "metformin" is in the Rx index → returns True
+    Example: "is bariatric surgery covered?"
+        → "bariatric" is not a drug name → returns False
+    """
+    drug_words = _load_drug_name_words()
+    if not drug_words:
+        return False
+    return any(w in drug_words for w in query_words)
+
 
 # ── Conversational patterns — queries that are NOT benefit questions ──────────
 _CONVERSATIONAL_PATTERNS = [
@@ -331,6 +466,13 @@ def detect_category(query_words, query):
         ]
     ) or any(w.replace("mg", "").isdigit() for w in query_words if "mg" in w):
         print("[*] CATEGORY MATCH → rx")
+        return "rx"
+
+    # ── Step 1b: Drug name match — catches queries with no other rx signal
+    # e.g. "does metformin require prior authorization?"
+    # Checked against real drug names from the Rx index — not guessed patterns
+    if is_drug_name_query(query_words):
+        print("[*] CATEGORY MATCH → rx (drug name found in query)")
         return "rx"
 
     # ── Step 2: Dental procedure terms (high precision)

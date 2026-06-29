@@ -577,16 +577,67 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
         answer += "| :--- | :--- | :--- | :--- |\n"
         for drug_name, tier_label, status, requirements, _ in drug_rows:
             req = requirements if requirements else "—"
-            answer += f"| {drug_name} | {tier_label} | {status} | {req} |\n"
+            # Clarify "Not on Formulary" with plain-English meaning so members
+            # don't have to look up what the term means.
+            display_status = (
+                f"{status} (Not Covered)" if status == "Not on Formulary" else status
+            )
+            answer += f"| {drug_name} | {tier_label} | {display_status} | {req} |\n"
         answer += "\n"
 
     # Section 2 - Your Cost from Medical Plan
-    if cost_rows:
-        answer += "## Your Cost\n\n"
-        answer += "| Drug Type | In-Network | Out-of-Network |\n"
-        answer += "| :--- | :--- | :--- |\n"
-        for service, in_network, out_of_network, _ in cost_rows:
-            answer += f"| {service} | {in_network} | {out_of_network} |\n"
+    covered_drugs = [
+        (tier_label, requirements)
+        for _, tier_label, status, requirements, _ in drug_rows
+        if status == "Covered"
+    ]
+    all_not_covered = bool(drug_rows) and not covered_drugs
+    all_preventive = bool(covered_drugs) and all(
+        "preventive no cost" in req.lower() for _, req in covered_drugs
+    )
+
+    if all_not_covered:
+        # No covered drug at all — cost table would be meaningless here.
+        answer += (
+            "_These drugs are not on your formulary, which means they are not "
+            "covered by your plan. You may need to pay full price, or ask your "
+            "provider about a covered alternative._\n"
+        )
+    elif all_preventive:
+        # Every covered drug is ACA preventive — federal law mandates $0
+        # cost-share. Showing the generic tier cost table here would be
+        # misleading (it would suggest a copay applies when it does not).
+        answer += (
+            "_This drug is classified as an ACA Preventive Drug. Federal law "
+            "requires $0 cost-sharing for preventive drugs — no copay or "
+            "coinsurance applies._\n"
+        )
+    elif cost_rows:
+        # Only show cost rows matching tiers actually present in Drug Coverage.
+        # Avoids showing irrelevant tier pricing — e.g. Specialty drug costs
+        # when the matched drug is actually Preferred Generic.
+        # Not a perfect match (cost row wording varies) but meaningfully
+        # reduces noise in most cases.
+        tiers_present = {tier_label.lower() for tier_label, _ in covered_drugs}
+
+        relevant_cost_rows = cost_rows
+        if tiers_present:
+            filtered = [
+                row
+                for row in cost_rows
+                if any(tier_word in row[0].lower() for tier_word in tiers_present)
+            ]
+            # Fallback to all rows if filtering removed everything —
+            # better to show extra info than none at all
+            if filtered:
+                relevant_cost_rows = filtered
+
+        if relevant_cost_rows:
+            answer += "## Your Cost\n\n"
+            answer += "| Drug Type | In-Network | Out-of-Network |\n"
+            answer += "| :--- | :--- | :--- |\n"
+            for service, in_network, out_of_network, _ in relevant_cost_rows:
+                answer += f"| {service} | {in_network} | {out_of_network} |\n"
 
     if not answer:
         answer = "Drug coverage information not found for this query."

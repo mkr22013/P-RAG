@@ -1,0 +1,22 @@
+{
+  "query": "what is formulary drugs?",
+  "category": "rx",
+  "timestamp": "2026-06-24T09:20:54.748204",
+  "answer": "According to the Formulary Drug List, formulary drugs refer to the list of covered drugs under your plan. They are categorized into four tiers: Preferred Generic (1), Preferred Brand (2), Preferred Specialty (3), and non-Preferred (4). The list includes generic, brand, and specialty drugs that are covered by your plan.",
+  "pages": [],
+  "source": "Essentials Formulary Drug List (E4)",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 888,
+    "total_output_tokens": 69,
+    "total_tokens": 957,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 888,
+        "output_tokens": 69,
+        "total_tokens": 957
+      }
+    ]
+  }
+}

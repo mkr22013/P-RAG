@@ -1,28 +1,15 @@
 {
   "query": "is ozempic covered under my plan?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:43:09.165200",
-  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "timestamp": "2026-06-24T09:20:04.874346",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| OZEMPIC ORAL TABLET 1.5 MG, | Non-Preferred | Covered | MG, 9 2 PA; Quantity Limit (30 per 30 days) |\n| OZEMPIC SUBCUTANEOUS PEN INJECTOR | Preferred Brand | Covered | Prior Authorization; Quantity Limit (1 PEN PER 30 DAYS) |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n",
   "pages": [],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 123 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 2,
-    "total_input_tokens": 770,
-    "total_output_tokens": 26,
-    "total_tokens": 796,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 216,
-        "output_tokens": 10,
-        "total_tokens": 226
-      },
-      {
-        "call_type": "ollama",
-        "input_tokens": 554,
-        "output_tokens": 16,
-        "total_tokens": 570
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

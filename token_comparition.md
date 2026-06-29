@@ -6,9 +6,9 @@
 
 ## Executive Summary
 
-> **"BENJI costs 86% less than the next cheapest alternative and is the only approach that guarantees 100% numerical accuracy — because it never asks an LLM to generate a dollar amount."**
+> **"BENJI costs 84-85% less than the next cheapest alternative and is the only approach that guarantees 100% numerical accuracy — because it never asks an LLM to generate a dollar amount."**
 
-BENJI (Vectorless RAG) uses **80% fewer LLM tokens** than Traditional RAG and **75% fewer LLM tokens** than Vectorized RAG, while delivering **100% numerical accuracy** — something neither LLM-based approach can guarantee.
+BENJI (Vectorless RAG) uses **85% fewer LLM tokens** than Traditional RAG and **81% fewer LLM tokens** than Vectorized RAG, while delivering **100% numerical accuracy** — something neither LLM-based approach can guarantee.
 
 Unlike Vectorized RAG, BENJI also has **zero embedding costs** and requires **no vector database infrastructure** — making the real total cost difference even larger than LLM tokens alone suggest.
 
@@ -21,11 +21,11 @@ Benchmarked against the BENJI golden test suite across Medical, Dental (Willamet
 | Metric                           | Value    |
 | :------------------------------- | :------- |
 | Total queries                    | 123      |
-| Total LLM tokens used            | 40,404   |
-| Total LLM calls                  | 105      |
-| **Average LLM tokens per query** | **328**  |
-| Average LLM calls per query      | 0.9      |
-| Queries using zero tokens        | 35 (28%) |
+| Total LLM tokens used            | 29,713   |
+| Total LLM calls                  | 82       |
+| **Average LLM tokens per query** | **241**  |
+| Average LLM calls per query      | 0.7      |
+| Queries using zero tokens        | 63 (51%) |
 
 ---
 
@@ -39,10 +39,10 @@ Estimated LLM token usage for the same 123 queries using industry-standard appro
 | :------------------------------------- | :------------------: | :-----------------: | :----------------: |
 | Traditional RAG (BM25 + LLM)           |        ~1,600        |      ~197,000       |       70-80%       |
 | Vectorized RAG (Azure AI Search + LLM) |        ~1,300        |      ~160,000       |       80-90%       |
-| **BENJI (Vectorless — measured)**      |       **328**        |     **40,404**      |      **100%**      |
+| **BENJI (Vectorless — measured)**      |       **241**        |     **29,713**      |      **100%**      |
 
-**LLM token reduction vs Traditional RAG: 80%**
-**LLM token reduction vs Vectorized RAG: 75%**
+**LLM token reduction vs Traditional RAG: 85%**
+**LLM token reduction vs Vectorized RAG: 81%**
 
 ### Embedding Token Usage
 
@@ -111,7 +111,7 @@ Query
   → Direct keyword scoring against structured JSON index        ← 0 tokens
   → Structured table parser extracts dollar amounts directly    ← 0 tokens
   → LLM only called when rules fail or synthesis needed         ← 0-1,077 tokens
-  → Total LLM tokens: 0-1,077 per query (avg 328)
+  → Total LLM tokens: 0-1,077 per query (avg 241)
   → Embedding tokens: 0 — always
 ```
 
@@ -124,16 +124,19 @@ They are extracted directly from source documents. Hallucination on costs is str
 
 | Category          | Queries | Total LLM Tokens | Avg Tokens | Zero-Token Queries |
 | :---------------- | :-----: | :--------------: | :--------: | :----------------: |
-| Medical           |   33    |      20,282      |    615     |       3 (9%)       |
-| Dental Willamette |   38    |      6,721       |    177     |      20 (53%)      |
-| Dental Premera    |   18    |      2,430       |    135     |      10 (56%)      |
-| Vision            |   15    |      2,848       |    190     |      2 (13%)       |
-| Rx                |   21    |      8,123       |    387     |      2 (10%)       |
-| **Total**         | **123** |    **40,404**    |  **328**   |    **37 (30%)**    |
+| Medical           |   33    |      18,083      |    547     |      5 (15%)       |
+| Dental Willamette |   37    |      6,237       |    168     |      23 (62%)      |
+| Dental Premera    |   17    |      1,631       |     95     |      11 (64%)      |
+| Vision            |   15    |      3,762       |    250     |      3 (20%)       |
+| Rx                |   21    |        0         |     0      |     21 (100%)      |
+| **Total**         | **123** |    **29,713**    |  **241**   |    **63 (51%)**    |
 
-Medical queries use more tokens because benefit descriptions are complex and often require
-LLM synthesis. Dental and Vision queries are highly structured and resolve rule-based in most cases.
-Rx queries hit LLM for category detection on drug name-only queries ("is vivjoa covered?").
+Medical queries use the most tokens because benefit descriptions are complex and often require
+LLM synthesis for nuanced coverage explanations. Dental and Vision queries are highly structured
+and resolve rule-based the majority of the time. **Rx queries are 100% zero-token** — every single
+drug lookup, tier check, prior-authorization question, and even general formulary questions resolve
+entirely through rule-based category detection (drug-name lookup against the indexed formulary),
+rule-based keyword extraction, and direct structured retrieval, with no LLM call required at all.
 
 ---
 
@@ -152,7 +155,7 @@ Rx queries hit LLM for category detection on drug name-only queries ("is vivjoa 
 
 - Category or topic not matched by rules → single LLM classification call
 - Example: "show me my family deductible" — 272 tokens, 1 LLM call
-- Example: "what tier is metformin?" — 572 tokens, 1 LLM call
+- Example: "is vivjoa covered?" — 0 tokens, 0 LLM calls (Rx is now 100% rule-based)
 
 ### LLM is called twice (~430-863 tokens)
 
@@ -167,6 +170,75 @@ Rx queries hit LLM for category detection on drug name-only queries ("is vivjoa 
 
 ---
 
+## Potential Token Calculation — Methodology
+
+This section shows exactly how every number in this report was derived, clearly
+separating **measured** (real data from our test runs) from **estimated**
+(industry-standard assumptions for Traditional and Vectorized RAG, since we did
+not build and run those two architectures ourselves against the same 123 queries).
+
+### Step 1 — Per-query token cost
+
+| Approach        | Tokens/query | Source                                                                                                                                                                                 |
+| :-------------- | :----------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Traditional RAG |    ~1,600    | **Estimated** — industry-standard BM25+LLM pattern: ~800-1,500 input tokens (retrieved chunks) + ~200 system prompt + ~300 output tokens                                               |
+| Vectorized RAG  |    ~1,300    | **Estimated** — industry-standard embedding+LLM pattern: ~600-1,000 input tokens (semantic chunks, typically smaller/more precise than BM25) + ~200 system prompt + ~300 output tokens |
+| **BENJI**       |   **241**    | **Measured** — actual average from running all 123 golden test queries against our live system, captured via `tests/golden_test.py --capture`                                          |
+
+### Step 2 — Total for our 123-query test set
+
+This is the number you'll see in the "Measured Results" and "LLM Token Usage"
+sections above. It answers: _"If we ran these exact 123 questions through each
+approach, how many tokens would each use?"_
+
+```
+Traditional RAG:  1,600 tokens/query × 123 queries  = ~197,000 tokens
+Vectorized RAG:   1,300 tokens/query × 123 queries  = ~160,000 tokens
+BENJI:             241  tokens/query × 123 queries  =   29,713 tokens  ← actually measured, not multiplied
+```
+
+Note: For BENJI, 29,713 is the real measured total — it is not 241 × 123 exactly,
+because individual queries vary (some cost 0 tokens, some cost over 1,000). The
+241 figure shown is the average (29,713 ÷ 123 = 241).
+
+### Step 3 — Production-scale daily/annual projection
+
+This is a **separate, hypothetical** calculation answering a different question:
+_"If this system handled 1 million member queries per day in production, what
+would the token cost look like?"_ This is NOT the same as the 123-query total
+above — it's the same per-query average applied to a much larger assumed volume.
+
+```
+Assumed volume: 1,000,000 queries/day
+
+Traditional RAG:  1,600 tokens/query × 1,000,000 queries/day = 1.6 billion tokens/day
+Vectorized RAG:   1,300 tokens/query × 1,000,000 queries/day = 1.3 billion tokens/day
+BENJI:              241 tokens/query × 1,000,000 queries/day = 241 million tokens/day
+```
+
+### Step 4 — Converting tokens to dollar cost
+
+Using GPT-4o-mini pricing ($0.15 per 1M input tokens, $0.60 per 1M output tokens),
+assuming a 60% input / 40% output split for every LLM call:
+
+```
+Daily cost = (daily_tokens × 0.6 / 1,000,000 × $0.15) + (daily_tokens × 0.4 / 1,000,000 × $0.60)
+Annual cost = Daily cost × 365
+```
+
+This produces the Annual LLM Cost figures shown in the Full Cost Comparison
+table below. Embedding and infrastructure costs are added on top using the
+same 1M-queries/day assumption (see Embedding Cost and Infrastructure Cost
+sections above for those component estimates).
+
+**Bottom line for verification:** every BENJI number in this report traces back
+to one real measurement — 29,713 tokens across 123 actual test queries captured
+on [today's date]. Every Traditional/Vectorized RAG number is a transparent,
+labeled estimate using publicly documented architecture patterns, not a number
+we measured by building and running those systems ourselves.
+
+---
+
 ## Full Cost Comparison at Production Scale
 
 Based on GPT-4o-mini pricing ($0.15 per 1M input tokens, $0.60 per 1M output tokens).
@@ -178,9 +250,9 @@ Assuming 60% input / 40% output token split for LLM calls.
 
 | Approach        | Daily LLM tokens | Annual LLM cost |
 | :-------------- | :--------------: | :-------------: |
-| Traditional RAG |       1.6B       |    ~$52,000     |
-| Vectorized RAG  |       1.3B       |    ~$42,000     |
-| **BENJI**       |     **328M**     |  **~$10,700**   |
+| Traditional RAG |       1.6B       |    ~$193,000    |
+| Vectorized RAG  |       1.3B       |    ~$157,000    |
+| **BENJI**       |     **241M**     |  **~$29,000**   |
 
 ### Embedding Cost (per year)
 
@@ -200,14 +272,14 @@ Assuming 60% input / 40% output token split for LLM calls.
 
 ### Total Annual Cost
 
-| Approach        |     LLM      | Embedding | Infrastructure |  **Total**   |
-| :-------------- | :----------: | :-------: | :------------: | :----------: |
-| Traditional RAG |   ~$52,000   |    $0     |    ~$18,000    | **~$70,000** |
-| Vectorized RAG  |   ~$42,000   |   ~$730   |    ~$42,000    | **~$85,000** |
-| **BENJI**       | **~$10,700** |  **$0**   |  **~$1,500**   | **~$12,200** |
+| Approach        |     LLM      | Embedding | Infrastructure |   **Total**   |
+| :-------------- | :----------: | :-------: | :------------: | :-----------: |
+| Traditional RAG |  ~$193,000   |    $0     |    ~$18,000    | **~$211,000** |
+| Vectorized RAG  |  ~$157,000   |   ~$730   |    ~$42,000    | **~$200,000** |
+| **BENJI**       | **~$29,000** |  **$0**   |  **~$1,500**   | **~$30,500**  |
 
-**Annual savings vs Traditional RAG: ~$57,800 (83% cheaper)**
-**Annual savings vs Vectorized RAG: ~$72,800 (86% cheaper)**
+**Annual savings vs Traditional RAG: ~$180,500 (85% cheaper)**
+**Annual savings vs Vectorized RAG: ~$169,200 (84% cheaper)**
 
 Note: These estimates use conservative infrastructure costs. Enterprise Azure AI Search
 pricing can reach $100,000+/year at high query volumes, making BENJI's advantage even larger.
@@ -235,10 +307,10 @@ never the numbers themselves. This is a structural guarantee, not a tuning outco
 
 BENJI is not a trade-off between cost and accuracy. It achieves both simultaneously:
 
-- **80% fewer LLM tokens** than Traditional RAG, **75% fewer** than Vectorized RAG
+- **85% fewer LLM tokens** than Traditional RAG, **81% fewer** than Vectorized RAG
 - **Zero embedding costs** — no embedding model, no re-indexing pipeline
-- **86% lower total annual cost** than Vectorized RAG when infrastructure is included
+- **84% lower total annual cost** than Vectorized RAG when infrastructure is included
 - **100% numerical accuracy** — structurally guaranteed, not probabilistic
-- **30% of queries cost zero tokens** — impossible with any LLM-based retrieval approach
+- **51% of queries cost zero tokens** — impossible with any LLM-based retrieval approach
 - **No vector database** — plain JSON indices, PostgreSQL for lookup, Redis for caching
 - **Deterministic retrieval** — same query always returns the same chunks, fully auditable

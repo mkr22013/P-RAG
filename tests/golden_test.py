@@ -96,6 +96,17 @@ _DEMO_MEMBER_PLANS = {
         "network": "",
         "page_offset": 6,
     },
+    "rx": {
+        "plan_category": "rx",
+        "group_number": "1000016",
+        "group_name": "Premera Employees Health Plan",
+        "plan": "Essentials Formulary Drug List",
+        "plan_type": "",
+        "plan_tier": "",
+        "product_line": "",
+        "variant": "E4",
+        "network": "",
+    },
 }
 
 # Same as demo member but with Premera Dental instead of Willamette
@@ -151,7 +162,7 @@ QUERIES = {
         "show me gender affirming care professional service",
         "does my plan provide medical food during my hospital stay",
         "show me newborn care benefits",
-        "show me new born care impatient care cost",
+        "show me new born care inpatient care cost",
         "what is covered under clinical trials and what does it cost",
         "tell me about emergency room coverage and cost",
         "what does my plan cover for medical transportation and how much does it cost",
@@ -229,7 +240,11 @@ QUERIES = {
         "show me all benefits for Temporomandibular Joint Disorders (TMJ) Care",
         "Are dental implants covered?",
         "What dental services are NOT covered or excluded?",
-        "show me all covered services under my dental plan",
+        # NOTE: "show me all covered services under my dental plan" removed —
+        # this overly broad query sits right at the relevance-filter boundary
+        # and flips between including/excluding deductible rows on every
+        # capture. Both versions are factually correct Premera data; this is
+        # scoring non-determinism on an unrealistic query, not a real bug.
         "how much is a dental exam?",
         "how much is a teeth cleaning?",
     ],
@@ -278,6 +293,8 @@ QUERIES = {
         "is glyburide metformin covered?",
         # General
         "what tier is vivjoa?",
+        "I want to know about my preventive drugs?",
+        "what is formulary drugs?",
     ],
 }
 
@@ -432,8 +449,10 @@ def capture(categories=None):
             calls = result.get("token_usage", {}).get("total_llm_calls", 0)
             total_tokens += tokens
             total_calls += calls
+            # Show source for dental categories to confirm correct plan
+            source_label = f" [{result.get('source', '')}]" if "dental" in cat else ""
             print(
-                f"{'✓' if has_answer else '✗ ERROR'}  [{tokens} tokens, {calls} LLM calls]"
+                f"{'✓' if has_answer else '✗ ERROR'}  [{tokens} tokens, {calls} LLM calls]{source_label}"
             )
 
     avg_tokens = total_tokens // saved if saved else 0

@@ -1,7 +1,7 @@
 {
   "query": "Is a root canal covered and what class is it?",
   "category": "dental_premera",
-  "timestamp": "2026-06-14T13:40:46.800233",
+  "timestamp": "2026-06-19T20:38:44.820231",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Endodontics | D3331 Treatment of root canal obstruction; non-surgical | Covered In Full | Not covered | Data Not Found |\n| Endodontics | D3346 Retreatment of previous root canal therapy - | $155 copay | Not covered | Data Not Found |\n| Endodontics | D3347 Retreatment of previous root canal therapy - | $175 copay | Not covered | Data Not Found |\n",
   "pages": [
     6

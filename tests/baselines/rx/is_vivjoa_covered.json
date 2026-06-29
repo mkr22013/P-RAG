@@ -1,22 +1,15 @@
 {
   "query": "is vivjoa covered?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:42:40.974209",
-  "answer": "I'm not sure what area of your plan that relates to. I can help with specific questions about your benefits.\n\nHere are some examples:\n\n🏥 **Medical** — *\"What is my PCP copay?\"* · *\"What is my deductible?\"* · *\"How much is urgent care?\"*\n\n🦷 **Dental** — *\"How much is a cleaning?\"* · *\"Are crowns covered?\"* · *\"What is my dental annual maximum benefit?\"*\n\n👁️ **Vision** — *\"What is my vision exam cost?\"* · *\"How much is my glasses allowance?\"*\n\nTry asking a specific question and I'll pull up your exact benefits.",
+  "timestamp": "2026-06-24T09:19:55.242339",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| VIVJOA ORAL CAPSULE 150 MG | Non-Preferred | Covered | Prior Authorization |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n",
   "pages": [],
-  "source": "",
+  "source": "Essentials Formulary Drug List (E4) | Pages 7 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 1,
-    "total_input_tokens": 213,
-    "total_output_tokens": 10,
-    "total_tokens": 223,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 213,
-        "output_tokens": 10,
-        "total_tokens": 223
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

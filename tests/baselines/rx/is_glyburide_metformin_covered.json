@@ -1,28 +1,15 @@
 {
   "query": "is glyburide metformin covered?",
   "category": "rx",
-  "timestamp": "2026-06-14T13:43:51.314218",
-  "answer": "## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
+  "timestamp": "2026-06-24T09:20:21.998927",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| glyburide-metformin oral tablet 1.25-250 mg, 2.5- 500 mg, 5-500 mg | Preferred Generic | Covered | — |\n| glyburide oral tablet 1.25 mg, 2.5 mg, 5 mg | Preferred Generic | Covered | — |\n| ALOGLIPTIN-METFORMIN ORAL TABLET 12.5-1,000 MG, 12.5-500 MG | Not on Formulary | Not on Formulary (Not Covered) | — |\n| dapagliflozin-metformin oral tablet, ir - er, biphasic 24hr 10-1,000 mg, 10-500 mg, 5-1,000 mg, 5-500 mg | Preferred Generic | Covered | — |\n| glipizide-metformin oral tablet 2.5-250 mg, 2.5- 500 mg, 5-500 mg | Preferred Generic | Covered | — |\n| metformin oral solution 500 mg/5 ml | Non-Preferred | Covered | Step Therapy |\n| metformin oral tablet 1,000 mg, 500 mg, 850 mg | Preferred Generic | Covered | — |\n| metformin oral tablet 625 mg, 750 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n| metformin oral tablet extended release 24 hr 500 mg, 750 mg | Preferred Generic | Covered | — |\n| metformin oral tablet extended release 24hr 1,000 mg, 500 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n| metformin oral tablet, er gast.retention 24 hr 1,000 mg, 500 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n| pioglitazone-metformin oral tablet 15-500 mg, 15- 850 mg | Not on Formulary | Not on Formulary (Not Covered) | — |\n| saxagliptin-metformin oral tablet, er multiphase 24 hr 2.5-1,000 mg, 5-1,000 mg, 5-500 mg 118 | Preferred Generic | Covered | — |\n| SITAGLIPTIN-METFORMIN ORAL TABLET, ER MULTIPHASE 24 HR 100-1,000 MG, 50- 1,000 MG, 50-500 MG | Non-Preferred | Covered | Prior Authorization |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Preferred Generic drugs | $25 copay | Not covered |\n",
   "pages": [],
-  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 121, 122, 123, 124 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
   "token_usage": {
-    "total_llm_calls": 2,
-    "total_input_tokens": 770,
-    "total_output_tokens": 35,
-    "total_tokens": 805,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 216,
-        "output_tokens": 10,
-        "total_tokens": 226
-      },
-      {
-        "call_type": "ollama",
-        "input_tokens": 554,
-        "output_tokens": 25,
-        "total_tokens": 579
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

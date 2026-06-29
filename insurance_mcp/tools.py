@@ -476,19 +476,28 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                 # This prevents long prose info entries from crowding out cost entries.
                 cost_chunks = [p for p in prioritized if p.get("category") == "cost"]
                 info_chunks = [p for p in prioritized if p.get("category") == "info"]
+                rx_chunks = [p for p in prioritized if p.get("category") == "rx"]
                 other_chunks = [
-                    p for p in prioritized if p.get("category") not in ("cost", "info")
+                    p
+                    for p in prioritized
+                    if p.get("category") not in ("cost", "info", "rx")
                 ]
 
                 # Cost: take top 10 independently
                 cost_selected = cost_chunks[:10]
                 # Info: take top 3 independently (prose is verbose, keep focused)
                 info_selected = info_chunks[:3]
+                # Rx: take top 15 — drug formularies have many dosage variants
+                # of the same drug name (e.g. metformin has 10+ forms/combinations)
+                # A low limit here would hide the plain/common form of a drug
+                rx_selected = rx_chunks[:15]
                 # Other (qa, excluded): keep as before
                 other_selected = other_chunks[:5]
 
                 # Recombine — cost always first so it's never trimmed out
-                prioritized = cost_selected + other_selected + info_selected
+                prioritized = (
+                    cost_selected + other_selected + rx_selected + info_selected
+                )
 
                 # ============================================================
                 # 🔥 LIST QUERY DETECTION
@@ -661,7 +670,11 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                     elif chunk_type == "info":
                         # Info entries carry prose coverage details.
                         # Truncate to 1000 chars so they don't fill the context trim limit.
-                        raw_info = content.get("limitations") or "Data Not Found"
+                        raw_info = (
+                            content.get("information")
+                            or content.get("limitations")
+                            or "Data Not Found"
+                        )
                         if len(raw_info) > 1000:
                             raw_info = raw_info[:1000].rsplit(" ", 1)[0] + "..."
                         structured = {

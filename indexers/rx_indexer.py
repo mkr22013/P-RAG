@@ -64,9 +64,10 @@ REQUIREMENT_LABELS = {
 #   "VIVJOA ORAL CAPSULE 150 MG  4  PA"        ✓ tier=4, requirements="PA"
 #   "ANTI - INFECTIVES"                         ✗ no match — category header
 #   "200 mg/5 ml (40 mg/ml)"                   ✗ no match — continuation line
-TIER_RE = re.compile(r"\s+(1|2|3|4|NF)(\s+.+)?$")
+TIER_RE = re.compile(r'\s+(1|2|3|4|NF)(\s+.+)?$')
 
 COLUMN_HEADER = "Drug Name Drug Tier Requirements / Limits"
+
 
 
 def is_category_header(line: str) -> bool:
@@ -92,7 +93,7 @@ def is_category_header(line: str) -> bool:
     # Real category headers never contain digits
     if any(char.isdigit() for char in line):
         return False
-    words = re.findall(r"[A-Za-z]+", line)
+    words = re.findall(r'[A-Za-z]+', line)
     return bool(words) and all(w.isupper() for w in words) and len(words) <= 8
 
 
@@ -125,7 +126,7 @@ def parse_drug_line(line: str) -> tuple | None:
         return None
     tier = match.group(1)
     requirements = (match.group(2) or "").strip()
-    drug_name = line[: match.start()].strip()
+    drug_name = line[:match.start()].strip()
     return drug_name, tier, requirements
 
 
@@ -146,9 +147,9 @@ def expand_requirements(req_str: str) -> str:
     parts = []
     for part in req_str.split(";"):
         part = part.strip()
-        abbr = part.split("(")[0].strip()  # "QL" from "QL (30 per 30 days)"
-        detail = part[len(abbr) :].strip()  # "(30 per 30 days)"
-        label = REQUIREMENT_LABELS.get(abbr, abbr)  # "Quantity Limit"
+        abbr = part.split("(")[0].strip()           # "QL" from "QL (30 per 30 days)"
+        detail = part[len(abbr):].strip()            # "(30 per 30 days)"
+        label = REQUIREMENT_LABELS.get(abbr, abbr)   # "Quantity Limit"
         parts.append(f"{label} {detail}".strip())
     return "; ".join(parts)
 
@@ -185,7 +186,7 @@ def classify_document(pdf_path: str) -> dict:
     In local dev, we use hardcoded DEV_METADATA values for those fields.
     """
     variant = DEV_METADATA["variant"]  # fallback
-    year = DEV_METADATA["year"]  # fallback
+    year = DEV_METADATA["year"]        # fallback
     plan = "Formulary Drug List"
 
     try:
@@ -198,24 +199,24 @@ def classify_document(pdf_path: str) -> dict:
                 first_line = lines[0]
 
                 # Extract variant — take the LAST code (member is on last listed variant)
-                paren_match = re.search(r"\(([^)]+)\)", first_line)
+                paren_match = re.search(r'\(([^)]+)\)', first_line)
                 if paren_match:
                     # "Essentials (E1/E4)" → codes=["E1","E4"] → variant="E4"
                     codes = paren_match.group(1).split("/")
                     variant = codes[-1].strip()
                     # Plan name = text before parentheses + "Formulary Drug List"
-                    plan_prefix = first_line[: paren_match.start()].strip()
+                    plan_prefix = first_line[:paren_match.start()].strip()
                     plan = f"{plan_prefix} Formulary Drug List"
                 else:
                     # "Open A1/Preferred A2" → take last code: "A2"
-                    code_match = re.search(r"\b([A-Z]\d+)\s*$", first_line)
+                    code_match = re.search(r'\b([A-Z]\d+)\s*$', first_line)
                     if code_match:
                         variant = code_match.group(1)
                     plan = f"{first_line} Formulary Drug List"
 
             # Extract year from "Effective MM-DD-YYYY"
             for line in lines[:5]:
-                year_match = re.search(r"(\d{4})", line)
+                year_match = re.search(r'(\d{4})', line)
                 if year_match:
                     year = year_match.group(1)
                     break
@@ -225,20 +226,14 @@ def classify_document(pdf_path: str) -> dict:
 
     return {
         **DEV_METADATA,
-        "plan": plan,
+        "plan":    plan,
         "variant": variant,
-        "year": year,
+        "year":    year,
     }
 
 
-def build_drug_chunk(
-    drug_name: str,
-    tier: str,
-    requirements: str,
-    page: int,
-    drug_category: str,
-    drug_subcategory: str,
-) -> dict:
+def build_drug_chunk(drug_name: str, tier: str, requirements: str, page: int,
+                     drug_category: str, drug_subcategory: str) -> dict:
     """
     Builds a single drug chunk dict from all the fields we have collected.
 
@@ -249,33 +244,111 @@ def build_drug_chunk(
     """
     tier_label = TIER_LABELS.get(tier, tier)
 
-    # Build keywords from drug name words + category + tier label
-    # Skip very short words, punctuation, and pure numbers
-    kw_text = f"{drug_name} {drug_category} {drug_subcategory} {tier_label}".lower()
-    keywords = list(
-        dict.fromkeys(
-            w
-            for w in re.sub(r"[^a-z\s]", "", kw_text).split()
-            if len(w) > 2 and not w.isdigit()
-        )
-    )
+    # Build keywords from drug name + category words only.
+    # tier_label is deliberately NOT included here — it's a coverage STATUS
+    # ("Not on Formulary", "Preferred Generic" etc.), not a drug identity word.
+    # Including it caused ~30% of drugs to share noisy keywords like "not",
+    # "formulary", "preferred", "generic" purely based on their tier bucket,
+    # unrelated to what the drug actually is. tier_label is still fully
+    # available in content.tier_label for anything that needs it directly.
+    kw_text = f"{drug_name} {drug_category} {drug_subcategory}".lower()
+    keywords = list(dict.fromkeys(
+        w for w in re.sub(r'[^a-z\s]', '', kw_text).split()
+        if len(w) > 2 and not w.isdigit()
+    ))
 
     return {
         "topic": drug_name.lower(),
         "category": "rx",
         "benefit_category": "rx",
         "content": {
-            "drug_name": drug_name,
-            "tier": tier,
-            "tier_label": tier_label,
-            "requirements": requirements,
+            "drug_name":         drug_name,
+            "tier":              tier,
+            "tier_label":        tier_label,
+            "requirements":      requirements,
             "requirements_text": expand_requirements(requirements),
-            "drug_category": drug_category,
-            "drug_subcategory": drug_subcategory,
+            "drug_category":     drug_category,
+            "drug_subcategory":  drug_subcategory,
         },
         "keywords": keywords,
         "page_number": page,
     }
+
+
+def parse_intro_pages(pdf, drug_list_start: int) -> list:
+    """
+    Parses the intro pages (before the drug list) as INFO chunks.
+    These pages contain:
+        - What is a formulary
+        - How to use the drug list
+        - Tier explanations
+        - Requirement abbreviation definitions (PA, QL, ST etc.)
+        - Special coverage rules (ACA, OCh, OPT)
+
+    Each page becomes one INFO chunk so members can ask general questions
+    like "what is a formulary?" or "what does tier 1 mean?" and get answers
+    from the actual booklet — not from LLM generation.
+    """
+    info_chunks = []
+
+    # Section headers that help identify what each paragraph is about
+    INTRO_TOPICS = {
+        "what is the list of covered drugs":    "formulary drug list",
+        "formulary drug list":                  "formulary drug list",
+        "how does the formulary":               "formulary drug list",
+        "will the formulary drug list change":  "formulary updates",
+        "preferred generic":                    "drug tiers",
+        "preferred brand":                      "drug tiers",
+        "preferred specialty":                  "drug tiers",
+        "non-preferred":                        "drug tiers",
+        "prior authorization":                  "prior authorization",
+        "quantity limit":                       "quantity limit",
+        "step therapy":                         "step therapy",
+        "affordable care act":                  "aca preventive drugs",
+        "oral chemotherapy":                    "oral chemotherapy",
+        "optional benefit":                     "optional benefits",
+        "formulary exception":                  "formulary exception",
+        "not on formulary":                     "not on formulary",
+    }
+
+    for page_num, page in enumerate(pdf.pages[:drug_list_start - 1], start=1):
+        text = page.extract_text() or ""
+        if not text.strip():
+            continue
+
+        # Determine the best topic for this page based on content
+        text_lower = text.lower()
+        topic = "formulary drug list"  # default
+        for phrase, mapped_topic in INTRO_TOPICS.items():
+            if phrase in text_lower:
+                topic = mapped_topic
+                break
+
+        # Build keywords from meaningful words on this page
+        words = re.sub(r'[^a-z\s]', '', text_lower).split()
+        keywords = list(dict.fromkeys(
+            w for w in words
+            if len(w) > 3 and w not in {
+                "this", "your", "that", "with", "from", "will", "have",
+                "plan", "drug", "drugs", "page", "list", "covered", "coverage"
+            }
+        ))[:20]  # top 20 keywords
+
+        info_chunks.append({
+            "topic":            topic,
+            "category":         "info",
+            "benefit_category": "rx",
+            "content": {
+                "event":       topic.title(),
+                "service":     "Coverage Information",
+                "information": text.strip(),
+            },
+            "keywords":    keywords,
+            "page_number": page_num,
+        })
+
+    print(f"[*] Rx indexer: {len(info_chunks)} intro info chunks indexed")
+    return info_chunks
 
 
 def generate_sub_index(output_path: str, pdf_path: str) -> list:
@@ -336,9 +409,10 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
 
     with pdfplumber.open(pdf_path) as pdf:
         drug_list_start = find_drug_list_start(pdf)
-        print(
-            f"[*] Rx indexer: {len(pdf.pages)} pages, drug list starts page {drug_list_start}"
-        )
+        print(f"[*] Rx indexer: {len(pdf.pages)} pages, drug list starts page {drug_list_start}")
+
+        # Parse intro pages as INFO chunks first
+        info_chunks = parse_intro_pages(pdf, drug_list_start)
 
         for page_num, page in enumerate(pdf.pages, start=1):
             # Skip intro pages before the drug list
@@ -356,9 +430,10 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
                 if not line or line == COLUMN_HEADER:
                     continue
 
-                # Skip alphabetical drug index lines — they contain "...." separators
-                # e.g. "fluconazole.......... 6  DIFLUCAN .............. NF"
-                if "......" in line:
+                # Skip alphabetical drug index lines — they use dot leaders
+                # e.g. "fluconazole.......... 6  DIFLUCAN .... NF"
+                # Catches 2+ dots (was 6+ before, too narrow — missed some index lines)
+                if re.search(r'\.{2,}', line):
                     continue
 
                 # Category or subcategory header (ALL CAPS, no tier)
@@ -377,9 +452,7 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
                 parsed = parse_drug_line(line)
                 if parsed:
                     finish_current_drug()
-                    current_drug_name, current_drug_tier, current_drug_requirements = (
-                        parsed
-                    )
+                    current_drug_name, current_drug_tier, current_drug_requirements = parsed
                     current_drug_page = page_num
                     continue
 
@@ -391,15 +464,17 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
     # Save the last drug entry after loop ends
     finish_current_drug()
 
-    print(f"[*] Rx indexer: {len(chunks)} drug entries indexed")
+    # Combine intro info chunks + drug chunks
+    all_chunks = info_chunks + chunks
+
+    print(f"[*] Rx indexer: {len(chunks)} drug entries + {len(info_chunks)} info chunks = {len(all_chunks)} total")
 
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(chunks, f, indent=2, ensure_ascii=False)
+        json.dump(all_chunks, f, indent=2, ensure_ascii=False)
 
-    return chunks
+    return all_chunks
 
 
 if __name__ == "__main__":
     from indexers.run_indexer import run
-
     run(PLAN_CATEGORY, classify_document, generate_sub_index)

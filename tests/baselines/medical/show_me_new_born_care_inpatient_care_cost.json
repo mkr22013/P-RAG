@@ -1,0 +1,31 @@
+{
+  "query": "show me new born care inpatient care cost",
+  "category": "medical",
+  "timestamp": "2026-06-28T22:09:42.644865",
+  "answer": "Inpatient newborn care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Newborn Care | Inpatient care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Other outpatient services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Inpatient Care | Inpatient rehabilitation care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital. If you are already an inpatient, this benefit will start when your care becomes mainly rehabilitative and you are transferred to an inpatient rehabilitation center. This benefit only covers care you receive within 24 months from the onset of the injury or illness or from the date of the surgery that made rehabilitation necessary. You must get prior authorization from us before you get treatment in an inpatient rehabilitation center. See Prior Authorization for details. |\n",
+  "pages": [
+    13,
+    51
+  ],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 787,
+    "total_output_tokens": 52,
+    "total_tokens": 839,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 554,
+        "output_tokens": 24,
+        "total_tokens": 578
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 233,
+        "output_tokens": 28,
+        "total_tokens": 261
+      }
+    ]
+  }
+}

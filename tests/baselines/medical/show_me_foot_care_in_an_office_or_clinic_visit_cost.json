@@ -1,7 +1,7 @@
 {
   "query": "show me foot care in an office or clinic visit cost",
   "category": "medical",
-  "timestamp": "2026-06-14T13:37:11.666207",
+  "timestamp": "2026-06-28T22:08:19.166571",
   "answer": "Foot care services for medically necessary conditions are covered by this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Foot Care | In an office or clinic | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Foot Care | All other settings | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies | Foot orthotics and therapeutic shoes; calendar year limit: None | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Foot Care | This benefit covers the following medically necessary foot care services that need care from a provider: • Foot care for members with impaired blood flow to the legs and feet when it puts the member at risk • Treatment of corns, calluses and toenails This benefit does not cover routine foot care, such as trimming nails or removing corns and calluses that do not need care from a provider. |\n",
   "pages": [
     9,

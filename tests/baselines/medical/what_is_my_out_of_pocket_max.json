@@ -1,7 +1,7 @@
 {
   "query": "what is my out-of-pocket max?",
   "category": "medical",
-  "timestamp": "2026-06-14T13:39:03.239920",
+  "timestamp": "2026-06-28T22:10:38.038449",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Out-of-Pocket Maximum | Individual out-of-pocket maximum | $3,500 | None | Data Not Found |\n| Out-of-Pocket Maximum | Family out-of-pocket maximum | $10,500 | None | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Out-Of-Pocket Maximum | The “individual out-of-pocket maximum” is the maximum amount, made up of the cost shares below, that each individual could pay each calendar year for certain covered services and supplies. Refer to the Summary Of Your Costs for the amount of out-of-pocket maximums you're responsible for. Once the out-of-pocket maximum has been satisfied, the benefits of this plan will be provided at 100% of allowed amounts for the remainder of that calendar year for covered services that are subject to the maximum. Cost shares that apply toward the out-of-pocket maximum are: • Your coinsurance • The calendar year deductible Once the family deductible is met, your individual deductible will be satisfied. However, you must still pay any other cost shares shown in the Summary Of Your Costs until your individual out-of-pocket maximum is reached. • Copays • The difference in cost between a brand name drug and an equivalent generic drug when the plan requires the generic drug to be dispensed in place of the... |\n",
   "pages": [
     24
@@ -10,8 +10,8 @@
   "token_usage": {
     "total_llm_calls": 2,
     "total_input_tokens": 768,
-    "total_output_tokens": 35,
-    "total_tokens": 803,
+    "total_output_tokens": 33,
+    "total_tokens": 801,
     "calls": [
       {
         "call_type": "ollama",
@@ -22,8 +22,8 @@
       {
         "call_type": "ollama",
         "input_tokens": 553,
-        "output_tokens": 25,
-        "total_tokens": 578
+        "output_tokens": 23,
+        "total_tokens": 576
       }
     ]
   }

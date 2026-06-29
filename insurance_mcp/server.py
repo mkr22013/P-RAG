@@ -99,7 +99,7 @@ async def query_benefits(
         f"[TOOL CALL] query_benefits: {query} | member={member_key} | group={group_number}"
     )
 
-    member_info = await get_member_info(member_key=member_key, group_number=group_number)
+    member_info = get_member_info(member_key=member_key, group_number=group_number)
     result = await get_ai_response(
         query=query,
         history=[],

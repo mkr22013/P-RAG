@@ -100395,11 +100395,11 @@
     "page_number": 193
   },
   {
-    "topic": "zingiber oral tablet 1.2 mg-40 mg- 124.1 mg-100 mg 188 index 189 190 191 192 193 194 195 196",
+    "topic": "zingiber oral tablet 1.2 mg-40 mg- 124.1 mg-100 mg 188",
     "category": "rx",
     "benefit_category": "rx",
     "content": {
-      "drug_name": "zingiber oral tablet 1.2 mg-40 mg- 124.1 mg-100 mg 188 Index 189 190 191 192 193 194 195 196",
+      "drug_name": "zingiber oral tablet 1.2 mg-40 mg- 124.1 mg-100 mg 188",
       "tier": "4",
       "tier_label": "Non-Preferred",
       "requirements": "",
@@ -100410,36 +100410,8 @@
     "keywords": [
       "zingiber",
       "oral",
-      "tablet",
-      "index"
+      "tablet"
     ],
     "page_number": 193
-  },
-  {
-    "topic": "intro(g6/libre2plus) orenitram month 205 206 207 208 209 210 211 212 213 214",
-    "category": "rx",
-    "benefit_category": "rx",
-    "content": {
-      "drug_name": "INTRO(G6/LIBRE2PLUS) ORENITRAM MONTH 205 206 207 208 209 210 211 212 213 214",
-      "tier": "3",
-      "tier_label": "Preferred Specialty",
-      "requirements": "P",
-      "requirements_text": "P",
-      "drug_category": "MG",
-      "drug_subcategory": "HUMIRA (ONLY NDCS HYDROCORTISONE- IMOVAX RABIES VACCINE"
-    },
-    "keywords": [
-      "introglibreplus",
-      "orenitram",
-      "month",
-      "humira",
-      "only",
-      "ndcs",
-      "hydrocortisone",
-      "imovax",
-      "rabies",
-      "vaccine"
-    ],
-    "page_number": 210
   }
 ]

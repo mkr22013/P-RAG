@@ -1,7 +1,7 @@
 {
   "query": "What is the cost for a dental x-ray?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-19T20:37:37.537379",
+  "timestamp": "2026-06-30T16:29:02.905155",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Diagnostic and Preventive Services | D0220 Intraoral - periapical-first radiographic image | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0230 Intraoral - periapical each additional radiographic image | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0270 Bitewing - single radiographic image | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0272 Bitewings - two radiographic images | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0273 Bitewings - three radiographic images | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0274 Bitewings - four radiographic images | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0277 Vertical bitewings - 7 to 8 radiographic images | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0210 Intraoral - complete series of radiographic images | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0240 Intraoral - occlusal radiographic image | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0250 Extra-oral - 2D projection radiographic image | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     3

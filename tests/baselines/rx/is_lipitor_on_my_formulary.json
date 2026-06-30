@@ -1,10 +1,10 @@
 {
   "query": "is lipitor on my formulary?",
   "category": "rx",
-  "timestamp": "2026-06-24T09:20:03.584852",
+  "timestamp": "2026-06-30T16:32:37.251187",
   "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| LIPITOR ORAL TABLET 10 MG, 20 MG, 40 MG, 80 MG | Not on Formulary | Not on Formulary (Not Covered) | — |\n\n_These drugs are not on your formulary, which means they are not covered by your plan. You may need to pay full price, or ask your provider about a covered alternative._\n",
   "pages": [],
-  "source": "Essentials Formulary Drug List (E4) | Pages 82 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 82 || Premera Employees Health Plan – Standard PPO Retiree Plan | Pages 13, 18",
   "token_usage": {
     "total_llm_calls": 0,
     "total_input_tokens": 0,

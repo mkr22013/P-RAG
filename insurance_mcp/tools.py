@@ -6,6 +6,7 @@ import logging
 from functools import lru_cache
 from fastmcp import FastMCP
 from dotenv import load_dotenv
+from utility.utils import RX_NOISE_WORDS
 
 # ============================================================
 # INIT
@@ -47,12 +48,36 @@ def clean_content(text):
 
 
 @lru_cache(maxsize=128)
-def get_plan_data_from_disk(query, topics, category, keywords, member_info: str = "{}"):
+def get_plan_data_from_disk(
+    query,
+    topics,
+    category,
+    keywords,
+    member_info: str = "{}",
+    include_requirements_text: bool = False,
+    include_limitations_text: bool = False,
+):
     """
     INTERNAL HELPER: Reads JSON index and returns best matching chunks.
     Uses topic (primary) + query (secondary) with scoring.
     member_info: JSON string from /member-info endpoint.
     Must contain 'plans' dict with category keys and 'year' at top level.
+
+    include_requirements_text: Rx only. See earlier docstring section —
+        enables condition/category-style Rx queries to search requirements_text
+        (e.g. "Preventive No Cost") without reopening false-positive risk for
+        specific-drug-name queries.
+
+    include_limitations_text: Medical/dental/vision INFO chunks only. Some
+        INFO chunks (e.g. "Out-Of-Area Care", travel coverage explanations)
+        have event/service fields that are just generic labels — the actual
+        substantive explanation lives entirely in 'limitations'. Without this
+        flag, such chunks are unfindable via topic/keyword search, since
+        searchable content defaults to event+service only (to prevent dollar
+        amounts and cost-share details in limitations from causing false-
+        positive matches on COST queries). Only set True for genuinely
+        conceptual/info-seeking queries — same opt-in safety pattern as Rx's
+        include_requirements_text.
     """
 
     print(
@@ -248,7 +273,58 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                     chunk_keywords = " ".join(
                         [normalize_text(k) for k in p.get("keywords", [])]
                     )
-                    content = normalize_text(p.get("content", ""))
+
+                    # EXPERIMENT: only search IDENTITY fields, not the entire
+                    # content dict. See RX_INDEXER_FLOW.md discussion — testing
+                    # in isolation now that the phonetic category-detection bug
+                    # (the actual root cause of the earlier "regression") has
+                    # been confirmed and removed separately.
+                    content_dict = p.get("content", {})
+                    if isinstance(content_dict, dict):
+                        chunk_type_for_fields = p.get("category", "")
+                        if chunk_type_for_fields == "rx":
+                            searchable_content = (
+                                f"{content_dict.get('drug_name', '')} "
+                                f"{content_dict.get('tier_label', '')} "
+                                f"{content_dict.get('drug_category', '')} "
+                                f"{content_dict.get('drug_subcategory', '')}"
+                            )
+                            # Only include requirements_text when explicitly
+                            # requested for condition/category-style queries
+                            # (no specific drug name in the query) — see
+                            # function docstring for why this must stay
+                            # opt-in, not default-on.
+                            if include_requirements_text:
+                                searchable_content += (
+                                    f" {content_dict.get('requirements_text', '')}"
+                                )
+                        else:
+                            searchable_content = (
+                                f"{content_dict.get('event', '')} "
+                                f"{content_dict.get('service', '')}"
+                            )
+                            # For INFO chunks specifically, the actual
+                            # explanatory content often lives ENTIRELY in
+                            # 'limitations' (e.g. "Out-Of-Area Care" — the
+                            # event/service fields are just labels; the real
+                            # travel-coverage explanation is in limitations).
+                            # Same opt-in pattern as Rx's requirements_text:
+                            # only included when explicitly requested for
+                            # conceptual/info-seeking queries, never for
+                            # specific cost-lookup queries, to avoid
+                            # reopening the dollar-amount leakage bug this
+                            # scoping fix was built to prevent.
+                            if (
+                                include_limitations_text
+                                and chunk_type_for_fields == "info"
+                            ):
+                                searchable_content += (
+                                    f" {content_dict.get('limitations', '')}"
+                                )
+                    else:
+                        searchable_content = str(content_dict)
+
+                    content = normalize_text(searchable_content)
 
                     full_text = f"{chunk_topic} {chunk_keywords} {content}"
 
@@ -454,7 +530,22 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                             score += 40
 
                     # 🔥 ONLY STRONG QUERY WORDS (FIX)
-                    for w in strong_query_words:
+                    # For Rx chunks specifically, filter out RX_NOISE_WORDS —
+                    # same shared stoplist client.py uses for rx_keywords
+                    # extraction. Without this, generic words like "drugs"
+                    # soft-match against EVERY Rx chunk's drug_category/
+                    # drug_subcategory field (e.g. "...Immunosuppressant
+                    # DRUGS"), causing near-universal false-positive scoring
+                    # for queries like "I want to know about my preventive
+                    # drugs?" — every chunk gets the same baseline score from
+                    # "drugs" alone, regardless of actual relevance.
+                    chunk_category_for_noise = p.get("category", "")
+                    effective_strong_query_words = (
+                        [w for w in strong_query_words if w not in RX_NOISE_WORDS]
+                        if chunk_category_for_noise == "rx"
+                        else strong_query_words
+                    )
+                    for w in effective_strong_query_words:
                         if soft_match(w, chunk_topic):
                             score += 20
                         elif soft_match(w, content):
@@ -556,6 +647,9 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
                     "diagnostic",
                     "hospital",
                     "rehabilitation",
+                    "prescription drug",  # Rx dual-index needs ALL tier rows
+                    # (generic, brand, specialty, non-preferred)
+                    # not just the top 3
                 }
 
                 if topic in MULTI_ROW_TOPICS:
@@ -669,14 +763,19 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
 
                     elif chunk_type == "info":
                         # Info entries carry prose coverage details.
-                        # Truncate to 1000 chars so they don't fill the context trim limit.
+                        # Truncate to 2500 chars to avoid filling context window
+                        # while still showing full coverage for most real
+                        # explanations (median=577, 90th percentile=2215 chars).
+                        # Original 1000-char limit was too aggressive — it was
+                        # truncating important coverage details like TMJ limits
+                        # ($1,000/$5,000 max) and exclusion lists mid-sentence.
                         raw_info = (
                             content.get("information")
                             or content.get("limitations")
                             or "Data Not Found"
                         )
-                        if len(raw_info) > 1000:
-                            raw_info = raw_info[:1000].rsplit(" ", 1)[0] + "..."
+                        if len(raw_info) > 2500:
+                            raw_info = raw_info[:2500].rsplit(" ", 1)[0] + "..."
                         structured = {
                             "event": content.get("event", selected.get("topic", "")),
                             "service": content.get("service", "Coverage Information"),
@@ -726,7 +825,13 @@ def get_plan_data_from_disk(query, topics, category, keywords, member_info: str 
 
 @mcp.tool()
 def query_insurance_benefits(
-    query, topics, category, keywords, member_info: str = "{}"
+    query,
+    topics,
+    category,
+    keywords,
+    member_info: str = "{}",
+    include_requirements_text: bool = False,
+    include_limitations_text: bool = False,
 ):
     """
     RETRIEVAL TOOL
@@ -735,7 +840,13 @@ def query_insurance_benefits(
     topics_tuple = tuple(topics) if isinstance(topics, list) else topics
     keywords_tuple = tuple(keywords) if isinstance(keywords, list) else keywords
     result = get_plan_data_from_disk(
-        query, topics_tuple, category, keywords_tuple, member_info
+        query,
+        topics_tuple,
+        category,
+        keywords_tuple,
+        member_info,
+        include_requirements_text=include_requirements_text,
+        include_limitations_text=include_limitations_text,
     )
     print(f"[*] RESULT RETURNED FROM SERVER : {result}")
 
@@ -754,26 +865,14 @@ if __name__ == "__main__":
     logger.info("Starting FastMCP server...")
     mcp.run(transport="stdio")
 
-# # ===========================================================Previously working version before Rx===========================
-# # """
-# # insurance_mcp/tools.py
-# # ────────────────────────────────────────────────────────────────────────────
-# # Pure scoring and chunk fetching logic — no MCP decorators.
-
-# # Imported by:
-# #     server.py  — wraps functions with @mcp.tool() decorators
-# #     client.py  — calls directly to avoid circular MCP dependency
-
-# # This separation allows server.py to safely import client.py
-# # for the get_vetted_response tool without creating a circular import.
-# # """
-
+# # ============================================================Previously working code==============================================
 # # import json
 # # import os
 # # import re
 # # import sqlite3
 # # import logging
 # # from functools import lru_cache
+# # from fastmcp import FastMCP
 # # from dotenv import load_dotenv
 
 # # # ============================================================
@@ -785,6 +884,7 @@ if __name__ == "__main__":
 # # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # # DB_PATH = os.path.join(BASE_DIR, "indexers", "p_insurance_index.db")
 
+# # mcp = FastMCP("Insurance-Secure-RAG")
 
 # # logging.basicConfig(
 # #     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -1100,7 +1200,16 @@ if __name__ == "__main__":
 # #                             if kw_parts and all(p in WEAK_WORDS for p in kw_parts):
 # #                                 continue  # all-weak keyword — skip phrase match
 # #                             if kw_lower in event_lower or event_lower in kw_lower:
-# #                                 info_score += 400
+# #                                 # Penalise "non-X" events when query is about X
+# #                                 if event_lower.startswith(
+# #                                     "non-"
+# #                                 ) or event_lower.startswith("non "):
+# #                                     info_score += 100
+# #                                 # Boost exact event name match
+# #                                 elif event_lower == kw_lower or kw_lower == event_lower:
+# #                                     info_score += 600
+# #                                 else:
+# #                                     info_score += 400
 # #                                 break
 
 # #                         # Word-by-word match (single words or when no phrase matched)
@@ -1163,17 +1272,24 @@ if __name__ == "__main__":
 # #                                 min(2, len(info_words)) if len(info_words) > 1 else 1
 # #                             )
 
-# #                             # Also count single-word keyword matches.
-# #                             # Check chunk_keywords too — short terms like "tmj" (len=3)
-# #                             # are filtered from info_words but ARE in chunk_keywords,
-# #                             # so they must be matched there instead of event_lower.
+# #                             # Single-word keyword matches against event name only.
+# #                             # Deliberately NOT matching against chunk_keywords to avoid
+# #                             # false positives where a keyword appears in content text
+# #                             # but not in the event name.
+# #                             # e.g. "emergency" appears in E-Visit Exclusions chunk keywords
+# #                             # because the content mentions "Emergency consultations" —
+# #                             # but the event is NOT about emergency room.
+# #                             # Exception: short terms like "tmj" (len<=3) that are filtered
+# #                             # from info_words still need chunk_keywords matching.
 # #                             for kw in keywords:
 # #                                 kw_lower = kw.lower().strip()
-# #                                 if " " not in kw_lower and (
-# #                                     soft_match(kw_lower, event_lower)
-# #                                     or soft_match(kw_lower, chunk_keywords)
-# #                                 ):
-# #                                     matched.append(kw_lower)
+# #                                 if " " not in kw_lower:
+# #                                     if soft_match(kw_lower, event_lower):
+# #                                         matched.append(kw_lower)
+# #                                     elif len(kw_lower) <= 3 and soft_match(
+# #                                         kw_lower, chunk_keywords
+# #                                     ):
+# #                                         matched.append(kw_lower)
 
 # #                             if len(matched) >= required:
 # #                                 info_score = 200 * len(set(matched))
@@ -1228,19 +1344,28 @@ if __name__ == "__main__":
 # #                 # This prevents long prose info entries from crowding out cost entries.
 # #                 cost_chunks = [p for p in prioritized if p.get("category") == "cost"]
 # #                 info_chunks = [p for p in prioritized if p.get("category") == "info"]
+# #                 rx_chunks = [p for p in prioritized if p.get("category") == "rx"]
 # #                 other_chunks = [
-# #                     p for p in prioritized if p.get("category") not in ("cost", "info")
+# #                     p
+# #                     for p in prioritized
+# #                     if p.get("category") not in ("cost", "info", "rx")
 # #                 ]
 
 # #                 # Cost: take top 10 independently
 # #                 cost_selected = cost_chunks[:10]
 # #                 # Info: take top 3 independently (prose is verbose, keep focused)
 # #                 info_selected = info_chunks[:3]
+# #                 # Rx: take top 15 — drug formularies have many dosage variants
+# #                 # of the same drug name (e.g. metformin has 10+ forms/combinations)
+# #                 # A low limit here would hide the plain/common form of a drug
+# #                 rx_selected = rx_chunks[:15]
 # #                 # Other (qa, excluded): keep as before
 # #                 other_selected = other_chunks[:5]
 
 # #                 # Recombine — cost always first so it's never trimmed out
-# #                 prioritized = cost_selected + other_selected + info_selected
+# #                 prioritized = (
+# #                     cost_selected + other_selected + rx_selected + info_selected
+# #                 )
 
 # #                 # ============================================================
 # #                 # 🔥 LIST QUERY DETECTION
@@ -1360,7 +1485,8 @@ if __name__ == "__main__":
 
 # #                     chunk_type = selected.get("category", "").lower().strip()
 
-# #                     if chunk_type not in {"qa", "cost", "excluded", "info"}:
+# #                     # rx chunks are handled like cost chunks but with drug-specific fields
+# #                     if chunk_type not in {"qa", "cost", "excluded", "info", "rx"}:
 # #                         continue
 
 # #                     if chunk_type not in sectioned_context:
@@ -1371,7 +1497,21 @@ if __name__ == "__main__":
 # #                     if not isinstance(content, dict):
 # #                         continue
 
-# #                     if chunk_type == "cost":
+# #                     if chunk_type == "rx":
+# #                         structured = {
+# #                             "drug_name": content.get(
+# #                                 "drug_name", selected.get("topic", "")
+# #                             ),
+# #                             "tier": content.get("tier", ""),
+# #                             "tier_label": content.get("tier_label", ""),
+# #                             "requirements": content.get("requirements", ""),
+# #                             "requirements_text": content.get("requirements_text", ""),
+# #                             "drug_category": content.get("drug_category", ""),
+# #                             "drug_subcategory": content.get("drug_subcategory", ""),
+# #                             "page_number": selected.get("page_number", 0),
+# #                         }
+
+# #                     elif chunk_type == "cost":
 # #                         structured = {
 # #                             "event": content.get("event", selected.get("topic", "")),
 # #                             "service": content.get(
@@ -1398,7 +1538,11 @@ if __name__ == "__main__":
 # #                     elif chunk_type == "info":
 # #                         # Info entries carry prose coverage details.
 # #                         # Truncate to 1000 chars so they don't fill the context trim limit.
-# #                         raw_info = content.get("limitations") or "Data Not Found"
+# #                         raw_info = (
+# #                             content.get("information")
+# #                             or content.get("limitations")
+# #                             or "Data Not Found"
+# #                         )
 # #                         if len(raw_info) > 1000:
 # #                             raw_info = raw_info[:1000].rsplit(" ", 1)[0] + "..."
 # #                         structured = {
@@ -1446,3 +1590,34 @@ if __name__ == "__main__":
 # # # ============================================================
 # # # MCP TOOL
 # # # ============================================================
+
+
+# # @mcp.tool()
+# # def query_insurance_benefits(
+# #     query, topics, category, keywords, member_info: str = "{}"
+# # ):
+# #     """
+# #     RETRIEVAL TOOL
+# #     """
+# #     logger.info(f"[TOOL CALL] query_insurance_benefits: {query}")
+# #     topics_tuple = tuple(topics) if isinstance(topics, list) else topics
+# #     keywords_tuple = tuple(keywords) if isinstance(keywords, list) else keywords
+# #     result = get_plan_data_from_disk(
+# #         query, topics_tuple, category, keywords_tuple, member_info
+# #     )
+# #     print(f"[*] RESULT RETURNED FROM SERVER : {result}")
+
+# #     if result is None:
+# #         logger.warning("[!] No FTS result, using fallback")
+# #         # return fallback_to_summary(query, "medical")
+
+# #     return str(result)  # 🔥 ALWAYS STRING
+
+
+# # # ============================================================
+# # # SERVER START
+# # # ============================================================
+
+# # if __name__ == "__main__":
+# #     logger.info("Starting FastMCP server...")
+# #     mcp.run(transport="stdio")

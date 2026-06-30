@@ -4,7 +4,7 @@ import os
 
 from config import settings
 from utility.llm import llm_chat, llm_generate, llm_chat_with_tools
-from utility.utils import flatten_message_content, smart_match
+from utility.utils import flatten_message_content, smart_match, RX_NOISE_WORDS
 from utility.category import (
     detect_category,
     detect_category_rule_based,
@@ -12,6 +12,8 @@ from utility.category import (
     extract_user_queries,
     is_conversational,
     is_drug_name_query,
+    is_drug_match,
+    correct_drug_spelling,
 )
 from utility.topic_resolver import resolve_insurance_topic, NOISE_WORDS
 from utility.response_builder import (
@@ -30,7 +32,6 @@ from utility.prompts import (
 )
 
 from infrastructure.cache import get_query_result, set_query_result
-
 last_type_global = None
 
 
@@ -566,76 +567,12 @@ async def get_ai_response(
                 # process/action words that dilute scoring (need, require, does,
                 # prior, authorization etc.) so the actual drug name dominates
                 # the topic/keyword match instead of being diluted by these.
-                _RX_NOISE_WORDS = {
-                    "what",
-                    "tier",
-                    "covered",
-                    "cost",
-                    "much",
-                    "show",
-                    "does",
-                    "plan",
-                    "cover",
-                    "drug",
-                    "prescription",
-                    "medication",
-                    "formulary",
-                    "generic",
-                    "brand",
-                    "pharmacy",
-                    "refill",
-                    "drugs",
-                    "tiers",
-                    "mean",
-                    "means",
-                    "explain",
-                    "definition",
-                    "list",
-                    "covered",
-                    "benefits",
-                    "need",
-                    "needs",
-                    "require",
-                    "requires",
-                    "requirement",
-                    "prior",
-                    "authorization",
-                    "step",
-                    "therapy",
-                    "quantity",
-                    "limit",
-                    "specialty",
-                    "under",
-                    "your",
-                    "this",
-                    # Conversational filler words — carry no drug-name signal
-                    "want",
-                    "know",
-                    "about",
-                    "tell",
-                    "please",
-                    "could",
-                    "would",
-                    "like",
-                    "they",
-                    "them",
-                    "have",
-                    "give",
-                    "more",
-                    "information",
-                    "details",
-                    "find",
-                    "looking",
-                    # General concept words also in GENERAL_RX_TERMS — these
-                    # signal an info question, not a drug name, so they
-                    # should never survive into rx_keywords either
-                    "preventive",
-                    "exception",
-                    "optional",
-                    "chemotherapy",
-                }
+                # RX_NOISE_WORDS imported from utility.utils — single shared
+                # source used by BOTH client.py (here) and tools.py (chunk
+                # scoring), so the two layers can never silently diverge again.
                 rx_keywords = tuple(
-                    w for w in query_words if len(w) > 3 and w not in _RX_NOISE_WORDS
+                    w for w in query_words
+                    if len(w) > 3 and w not in RX_NOISE_WORDS
                 )
                 # No fallback to raw `keywords` here — that variable comes from
                 # the generic topic_resolver.py pipeline and is NOT noise-filtered,
@@ -643,6 +580,14 @@ async def get_ai_response(
                 # just filtered out (e.g. "formulary", "drugs"). An empty
                 # rx_keywords is the correct signal for "no real drug name in
                 # this query" — it's handled below by query_has_real_drug_name.
+
+                # Apply spelling correction to each keyword BEFORE passing to
+                # scoring — this is the right place to fix "ozempick" → "ozempic"
+                # so tools.py scores against the REAL drug name word and finds
+                # actual matches, rather than scoring zero against a misspelled word
+                if rx_keywords:
+                    rx_keywords = tuple(correct_drug_spelling(w) for w in rx_keywords)
+                    print(f"[*] RX KEYWORDS AFTER CORRECTION: {rx_keywords}")
 
                 print(f"[DIRECT CALL]: rx dual-index | keywords={rx_keywords} | rx")
                 try:
@@ -657,58 +602,44 @@ async def get_ai_response(
                     # drugs?" — nothing left to search by except the concept
                     # of formulary itself).
                     _PURE_NOISE_WORDS = {
-                        "want",
-                        "know",
-                        "about",
-                        "tell",
-                        "please",
-                        "could",
-                        "would",
-                        "like",
-                        "they",
-                        "them",
-                        "have",
-                        "give",
-                        "more",
-                        "information",
-                        "details",
-                        "find",
-                        "looking",
-                        "what",
-                        "drug",
-                        "drugs",
-                        "formulary",
-                        "list",
-                        "covered",
-                        "cost",
-                        "much",
-                        "show",
-                        "does",
-                        "plan",
-                        "cover",
-                        "prescription",
-                        "medication",
+                        "want", "know", "about", "tell", "please", "could",
+                        "would", "like", "they", "them", "have", "give",
+                        "more", "information", "details", "find", "looking",
+                        "what", "drug", "drugs", "formulary", "list",
+                        "covered", "cost", "much", "show", "does", "plan",
+                        "cover", "prescription", "medication",
                     }
                     concept_terms = tuple(
-                        w
-                        for w in query_words
+                        w for w in query_words
                         if len(w) > 3 and w not in _PURE_NOISE_WORDS
                     )
-                    search_terms = (
-                        rx_keywords
-                        or concept_terms
-                        or ("formulary", "drug", "list", "tier", "coverage")
-                    )
+                    search_terms = rx_keywords or concept_terms or ("formulary", "drug", "list", "tier", "coverage")
+
+                    # Determine UP FRONT whether the query names a specific
+                    # drug. This decides whether requirements_text (e.g.
+                    # "Preventive No Cost", "Prior Authorization") is safe to
+                    # search:
+                    #   - Specific drug name present (e.g. "humira") → keep
+                    #     requirements_text OUT of search, since it's shared
+                    #     by hundreds of unrelated drugs and would cause
+                    #     false-positive matches against the WRONG drugs.
+                    #   - No specific drug name (e.g. "preventive drugs") →
+                    #     a list-shaped answer IS the correct response shape,
+                    #     so searching requirements_text is safe and necessary
+                    #     to find genuinely condition-flagged drugs (ACA
+                    #     preventive, oral chemotherapy etc.) — see
+                    #     get_plan_data_from_disk's docstring for full reasoning.
+                    query_has_real_drug_name = is_drug_name_query(query_words)
+
                     rx_result = query_insurance_benefits(
                         query=query,
                         topics=search_terms,
                         category="rx",
                         keywords=search_terms,
                         member_info=json.dumps(member_info) if member_info else "{}",
+                        include_requirements_text=not query_has_real_drug_name,
                     )
-                    print(
-                        f"[*] RX INDEX RESULT: {rx_result[:200] if rx_result else 'empty'}"
-                    )
+                    print(f"[*] RX INDEX RESULT: {rx_result[:200] if rx_result else 'empty'}")
 
                     # Filter rx chunks to only keep entries where drug name
                     # matches the search keyword — removes category noise.
@@ -721,7 +652,6 @@ async def get_ai_response(
                     # name in them — applying the filter there would incorrectly
                     # discard correctly-scored results (e.g. ACA-flagged drugs
                     # that tools.py found via requirement matching, not name match).
-                    query_has_real_drug_name = is_drug_name_query(query_words)
                     used_generic_fallback = not rx_keywords and not concept_terms
 
                     if used_generic_fallback:
@@ -732,68 +662,31 @@ async def get_ai_response(
                         # anything the member actually asked about — strip it
                         # so only INFO content remains for LLM synthesis.
                         import re as _re
-
                         rx_result = _re.sub(
-                            r"### SECTION: RX.*?(?=### SECTION:|$)",
-                            "",
-                            rx_result or "",
-                            flags=_re.DOTALL,
+                            r'### SECTION: RX.*?(?=### SECTION:|$)', '',
+                            rx_result or "", flags=_re.DOTALL,
                         ).strip()
                         print("[*] NO RX KEYWORDS — stripped RX section, INFO only")
 
                     elif rx_result and query_has_real_drug_name:
                         import re as _re
-                        from difflib import SequenceMatcher
-
-                        def is_drug_match(keyword: str, drug_name: str) -> bool:
-                            """
-                            Returns True if keyword matches drug name exactly or closely.
-                            Exact match: "metformin" in "metformin oral tablet 500 mg"
-                            Fuzzy match: "metfromin" → 0.94 similarity → matches
-                            Threshold 0.82 catches one/two letter typos without false positives.
-                            """
-                            kw = keyword.lower()
-                            dn = drug_name.lower()
-                            # Exact substring match first (fast path)
-                            if kw in dn:
-                                return True
-                            # Fuzzy match against each word in drug name
-                            for word in dn.split():
-                                if len(word) > 4 and len(kw) > 4:
-                                    score = SequenceMatcher(None, kw, word).ratio()
-                                    if score >= 0.82:
-                                        return True
-                            return False
+                        # is_drug_match imported from utility.category —
+                        # handles exact, character-similarity, and phonetic matching
 
                         filtered_items = []
-                        for item_match in _re.finditer(
-                            r"Item \d+:\s*\{[^{}]+\}", rx_result, _re.DOTALL
-                        ):
+                        for item_match in _re.finditer(r'Item \d+:\s*\{[^{}]+\}', rx_result, _re.DOTALL):
                             item_text = item_match.group()
-                            drug_name_match = _re.search(
-                                r'"drug_name":\s*"([^"]+)"', item_text
-                            )
+                            drug_name_match = _re.search(r'"drug_name":\s*"([^"]+)"', item_text)
                             if drug_name_match:
                                 drug_name = drug_name_match.group(1).lower()
-                                if any(
-                                    is_drug_match(kw, drug_name) for kw in rx_keywords
-                                ):
+                                if any(is_drug_match(kw, drug_name) for kw in rx_keywords):
                                     filtered_items.append(item_text)
                         if filtered_items:
-                            rx_result = "### SECTION: RX\n\n" + "\n".join(
-                                filtered_items
-                            )
+                            rx_result = "### SECTION: RX\n\n" + "\n".join(filtered_items)
                         else:
                             # No matching drug entries — strip RX section, keep INFO only
-                            rx_result = _re.sub(
-                                r"### SECTION: RX.*?(?=### SECTION:|$)",
-                                "",
-                                rx_result or "",
-                                flags=_re.DOTALL,
-                            ).strip()
-                        print(
-                            f"[*] RX FILTERED: {len(filtered_items)} matching drug entries"
-                        )
+                            rx_result = _re.sub(r'### SECTION: RX.*?(?=### SECTION:|$)', '', rx_result or "", flags=_re.DOTALL).strip()
+                        print(f"[*] RX FILTERED: {len(filtered_items)} matching drug entries")
 
                     # After filtering — check if only INFO remains (general formulary question)
                     # Return info directly without drug table or cost table
@@ -802,33 +695,23 @@ async def get_ai_response(
 
                     if has_info_section and not has_rx_section:
                         print(f"[*] RX INFO ONLY — sending to LLM for synthesis")
-                        rx_plan_info = (
-                            member_info.get("plans", {}).get("rx", {})
-                            if member_info
-                            else {}
-                        )
+                        rx_plan_info = member_info.get("plans", {}).get("rx", {}) if member_info else {}
                         rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
                         rx_variant = rx_plan_info.get("variant", "")
-                        rx_source = (
-                            f"{rx_plan_name} ({rx_variant})"
-                            if rx_variant
-                            else rx_plan_name
-                        )
+                        rx_source = f"{rx_plan_name} ({rx_variant})" if rx_variant else rx_plan_name
 
                         # Send to LLM to synthesize readable answer from raw INFO chunks
                         synthesis_messages = [
                             {
                                 "role": "system",
-                                "content": "You are a health insurance assistant. Answer the member's question using only the information provided. Be clear and concise. Do not add information not in the context.",
+                                "content": "You are a health insurance assistant. Answer the member's question using only the information provided. Be clear and concise. Do not add information not in the context."
                             },
                             {
                                 "role": "user",
-                                "content": f"Member question: {query}\n\nContext from formulary booklet:\n{rx_result}",
-                            },
+                                "content": f"Member question: {query}\n\nContext from formulary booklet:\n{rx_result}"
+                            }
                         ]
-                        synthesized = llm_chat(
-                            messages=synthesis_messages, max_tokens=500
-                        )
+                        synthesized = llm_chat(messages=synthesis_messages, max_tokens=500)
                         return {
                             "answer": synthesized or rx_result,
                             "pages": [],
@@ -847,14 +730,7 @@ async def get_ai_response(
                         query="prescription drug tier cost",
                         topics=("prescription drug",),
                         category=cost_category,
-                        keywords=(
-                            "prescription",
-                            "drug",
-                            "generic",
-                            "brand",
-                            "specialty",
-                            "tier",
-                        ),
+                        keywords=("prescription", "drug", "generic", "brand", "specialty", "tier"),
                         member_info=json.dumps(member_info) if member_info else "{}",
                     )
                     print(f"[*] COST INDEX RESULT: {cost_result}")
@@ -868,24 +744,12 @@ async def get_ai_response(
                     print(f"[*] RX RESPONSE BUILT: {len(all_pages)} pages")
 
                     # Source shows both booklets with their respective page numbers
-                    rx_plan_info = (
-                        member_info.get("plans", {}).get("rx", {})
-                        if member_info
-                        else {}
-                    )
+                    rx_plan_info = member_info.get("plans", {}).get("rx", {}) if member_info else {}
                     rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
                     rx_variant = rx_plan_info.get("variant", "")
-                    rx_source_name = (
-                        f"{rx_plan_name} ({rx_variant})" if rx_variant else rx_plan_name
-                    )
+                    rx_source_name = f"{rx_plan_name} ({rx_variant})" if rx_variant else rx_plan_name
 
-                    medical_plan = (
-                        member_info.get("plans", {})
-                        .get("medical", {})
-                        .get("plan", "Medical Plan")
-                        if member_info
-                        else "Medical Plan"
-                    )
+                    medical_plan = member_info.get("plans", {}).get("medical", {}).get("plan", "Medical Plan") if member_info else "Medical Plan"
 
                     # Build source string with per-booklet page numbers
                     source_parts = []
@@ -893,38 +757,46 @@ async def get_ai_response(
                         rx_page_str = ", ".join(str(p) for p in sorted(set(rx_pages)))
                         source_parts.append(f"{rx_source_name} | Pages {rx_page_str}")
                     if cost_pages:
-                        cost_page_str = ", ".join(
-                            str(p) for p in sorted(set(cost_pages))
-                        )
-                        source_parts.append(
-                            f"{medical_plan} | Page {cost_page_str}"
-                            if len(set(cost_pages)) == 1
-                            else f"{medical_plan} | Pages {cost_page_str}"
-                        )
+                        cost_page_str = ", ".join(str(p) for p in sorted(set(cost_pages)))
+                        source_parts.append(f"{medical_plan} | Page {cost_page_str}" if len(set(cost_pages)) == 1 else f"{medical_plan} | Pages {cost_page_str}")
 
-                    source = (
-                        " || ".join(source_parts) if source_parts else rx_source_name
-                    )
+                    source = " || ".join(source_parts) if source_parts else rx_source_name
 
                     return {
                         "answer": answer,
-                        "pages": [],  # pages encoded in source string for rx queries
+                        "pages": [],   # pages encoded in source string for rx queries
                         "source": source,
                     }
 
                 except Exception as e:
                     print(f"[!] RX RETRIEVAL FAILURE: {e}")
-                    return {
-                        "answer": "Unable to retrieve drug coverage information. Please try again.",
-                        "pages": [],
-                        "source": "",
-                    }
+                    return {"answer": "Unable to retrieve drug coverage information. Please try again.", "pages": [], "source": ""}
 
             elif p_type in DIRECT_CATEGORIES:
                 # Direct call — bypass LLM tool decision entirely
                 print(
                     f"[DIRECT CALL]: query_insurance_benefits | {found_topics} | {p_type}"
                 )
+
+                # Determine whether this looks like a cost-specific query
+                # (asking "how much"/"what does X cost"/"copay"/etc.) versus
+                # a conceptual/info-seeking query (e.g. "is X covered when
+                # travelling", "what does X mean", "how does X work").
+                # Cost-specific queries should NOT search limitations text
+                # (avoids reopening dollar-amount/cost-share leakage into
+                # unrelated topic matches). Conceptual queries SHOULD search
+                # it, since that's often where the only substantive
+                # explanation lives (e.g. "Out-Of-Area Care" travel coverage).
+                _COST_SIGNAL_WORDS = {
+                    "cost", "costs", "copay", "copays", "coinsurance",
+                    "much", "price", "fee", "fees", "deductible",
+                    "pay", "paying", "charge", "charges", "amount",
+                }
+                is_cost_specific_query = any(
+                    w in query_words for w in _COST_SIGNAL_WORDS
+                )
+                include_limitations = not is_cost_specific_query
+
                 try:
                     tool_result = query_insurance_benefits(
                         query=query,
@@ -932,6 +804,7 @@ async def get_ai_response(
                         category=p_type,
                         keywords=tuple(keywords),
                         member_info=json.dumps(member_info) if member_info else "{}",
+                        include_limitations_text=include_limitations,
                     )
                     print(
                         f"[*] TOOL RESULT after calling query_insurance_benefits : {tool_result}"
@@ -1393,14 +1266,14 @@ async def get_ai_response(
         print(f"❌ SYNTHESIS ERROR: {e}")
         return f"⚠️ Client Logic Error: {str(e)}"
 
-
-##========================================Previous working code before LLM cost changes========================================
+# # ##========================================Previous working code before Rx spelling mistake changes========================================
 
 # # import re
 # # import json
 # # import os
-# # import ollama
 
+# # from config import settings
+# # from utility.llm import llm_chat, llm_generate, llm_chat_with_tools
 # # from utility.utils import flatten_message_content, smart_match
 # # from utility.category import (
 # #     detect_category,
@@ -1408,11 +1281,13 @@ async def get_ai_response(
 # #     detect_category_from_history,
 # #     extract_user_queries,
 # #     is_conversational,
+# #     is_drug_name_query,
 # # )
 # # from utility.topic_resolver import resolve_insurance_topic, NOISE_WORDS
 # # from utility.response_builder import (
 # #     build_cost_table,
 # #     build_info_response,
+# #     build_rx_response,
 # #     generate_ironclad_instruction,
 # # )
 # # from utility.prompts import (
@@ -1424,9 +1299,8 @@ async def get_ai_response(
 # #     GUIDANCE_VISION_VAGUE,
 # # )
 
-# # LOCAL_MODEL = os.getenv("OLLAMA_MODEL", "llama3.1")
+# # from infrastructure.cache import get_query_result, set_query_result
 
-# # TOOL_RESULT_CACHE = {}
 # # last_type_global = None
 
 
@@ -1504,12 +1378,12 @@ async def get_ai_response(
 # #             f"Query: {query}\n"
 # #             f"Benefits data:\n{content}"
 # #         )
-# #         response = ollama.chat(
-# #             model=LOCAL_MODEL,
+# #         response_text = llm_chat(
 # #             messages=[{"role": "user", "content": prompt}],
-# #             options={"temperature": 0.0, "num_predict": 40},
+# #             max_tokens=40,
+# #             temperature=0.0,
 # #         )
-# #         summary = response["message"]["content"].strip()
+# #         summary = response_text.strip()
 
 # #         # Post-process: strip any leaked cost figures the model included anyway
 # #         import re as _re
@@ -1538,8 +1412,15 @@ async def get_ai_response(
 # #     found_topics = []
 # #     keywords = []
 
+# #     # Categories that bypass LLM tool call — direct to tools.py
+# #     # These have well-defined scoring and structured indices
+# #     # Add new categories here ONLY when they have a proper indexer + scoring logic
+# #     DIRECT_CATEGORIES = {"medical", "dental", "vision", "rx"}
+
 # #     try:
-# #         from insurance_mcp.server import query_insurance_benefits
+# #         from insurance_mcp.tools import (
+# #             get_plan_data_from_disk as query_insurance_benefits,
+# #         )
 
 # #         # --- 2. CONTEXT MERGING (MEMORY) ---
 # #         # Limit to last 5 turns (10 messages) — avoids stale context polluting
@@ -1555,9 +1436,9 @@ async def get_ai_response(
 # #         print(f"[*] Query Words for Matching: {query_words}")
 # #         print("[DEBUG] urgent match:", smart_match("urgent", query_words, query_lower))
 
-# #         # --- 2b. CONVERSATIONAL INTENT CHECK ---
-# #         # Short-circuit before any RAG pipeline if query is greeting,
-# #         # follow-up, acknowledgement or clearly non-benefit
+# #         # --- CONVERSATIONAL INTENT CHECK ---
+# #         # Short-circuit before any RAG pipeline if query is a greeting,
+# #         # follow-up, or clearly non-benefit question.
 # #         if is_conversational(query):
 # #             print("[*] CONVERSATIONAL QUERY DETECTED → returning guidance")
 # #             return GUIDANCE_CONVERSATIONAL
@@ -1629,8 +1510,11 @@ async def get_ai_response(
 
 # #         # ========================================================================
 # #         # IF STILL TOPIC IS BLANK THEN WE NEED TO TAKE LLM HELP TO IDENTIFY TOPIC
+# #         # Skip this for rx — the rx block below builds drug-name keywords
+# #         # directly from query_words, so the generic topic LLM call would be
+# #         # wasted work that gets immediately discarded.
 # #         # ========================================================================
-# #         if not found_topics:
+# #         if not found_topics and p_type != "rx":
 # #             print(f"[*] TURNING TO LLM TO FIND THE TOPIC FROM QUERY : {query}")
 # #             topic_prompt = TOPIC_EXTRACTION_PROMPT
 
@@ -1643,14 +1527,11 @@ async def get_ai_response(
 # #             # 🔥 LLM TOPIC + KEYWORD EXTRACTION (PRODUCTION SAFE)
 # #             # ============================================================
 
-# #             llm_response = ollama.chat(
-# #                 model=LOCAL_MODEL,
+# #             raw_content = llm_chat(
 # #                 messages=llm_messages,
 # #                 format="json",
-# #                 options={"temperature": 0.0, "num_ctx": 8192},
+# #                 max_tokens=200,
 # #             )
-
-# #             raw_content = llm_response["message"].get("content", "")
 # #             print(f"[*] ROW CONTENT BY LLM AFTER TOPIC SEARCH : {raw_content}")
 
 # #             match = re.search(r"\{.*\}", raw_content, re.DOTALL)
@@ -1858,7 +1739,7 @@ async def get_ai_response(
 
 # #         print(f"[*] CACHE KEY: {cache_key}")
 
-# #         cached_context = TOOL_RESULT_CACHE.get(cache_key)
+# #         cached_context = await get_query_result(cache_key)
 # #         cache_hit = False
 # #         clean_context = ""
 
@@ -1942,63 +1823,441 @@ async def get_ai_response(
 # #             print(f"[*] TOPICS (fallback only): {found_topics}")
 
 # #             # ============================================================
-# #             # STEP 1 — TOOL CALL
+# #             # STEP 1 — RETRIEVE CHUNKS
+# #             # Direct call for known categories — no LLM tool overhead
+# #             # LLM tool orchestration reserved for future unknown categories
 # #             # ============================================================
-# #             resp = ollama.chat(
-# #                 model=LOCAL_MODEL,
-# #                 messages=messages,
-# #                 tools=tools,
-# #                 options={"temperature": 0},
-# #             )
-
-# #             msg = resp["message"]
-# #             tool_calls = msg.get("tool_calls", [])
-
 # #             tool_result = None
 
-# #             # ============================================================
-# #             # STEP 2 — EXECUTE TOOL
-# #             # ============================================================
-# #             # Ensure keywords exists (from your LLM detection block). Default to empty list if not.
-# #             if tool_calls:
-# #                 tool = tool_calls[0]
-# #                 function_name = tool["function"]["name"]
-# #                 arguments = tool["function"]["arguments"]
+# #             if p_type == "rx":
+# #                 # ── Rx: dual-index query ──────────────────────────────────────
 
-# #                 print(f"[TOOL CALL]: {function_name} | {found_topics} | {p_type}")
+# #                 # Extract drug name keywords — skip general terms AND
+# #                 # process/action words that dilute scoring (need, require, does,
+# #                 # prior, authorization etc.) so the actual drug name dominates
+# #                 # the topic/keyword match instead of being diluted by these.
+# #                 _RX_NOISE_WORDS = {
+# #                     "what",
+# #                     "tier",
+# #                     "covered",
+# #                     "cost",
+# #                     "much",
+# #                     "show",
+# #                     "does",
+# #                     "plan",
+# #                     "cover",
+# #                     "drug",
+# #                     "prescription",
+# #                     "medication",
+# #                     "formulary",
+# #                     "generic",
+# #                     "brand",
+# #                     "pharmacy",
+# #                     "refill",
+# #                     "drugs",
+# #                     "tiers",
+# #                     "mean",
+# #                     "means",
+# #                     "explain",
+# #                     "definition",
+# #                     "list",
+# #                     "covered",
+# #                     "benefits",
+# #                     "need",
+# #                     "needs",
+# #                     "require",
+# #                     "requires",
+# #                     "requirement",
+# #                     "prior",
+# #                     "authorization",
+# #                     "step",
+# #                     "therapy",
+# #                     "quantity",
+# #                     "limit",
+# #                     "specialty",
+# #                     "under",
+# #                     "your",
+# #                     "this",
+# #                     # Conversational filler words — carry no drug-name signal
+# #                     "want",
+# #                     "know",
+# #                     "about",
+# #                     "tell",
+# #                     "please",
+# #                     "could",
+# #                     "would",
+# #                     "like",
+# #                     "they",
+# #                     "them",
+# #                     "have",
+# #                     "give",
+# #                     "more",
+# #                     "information",
+# #                     "details",
+# #                     "find",
+# #                     "looking",
+# #                     # General concept words also in GENERAL_RX_TERMS — these
+# #                     # signal an info question, not a drug name, so they
+# #                     # should never survive into rx_keywords either
+# #                     "preventive",
+# #                     "exception",
+# #                     "optional",
+# #                     "chemotherapy",
+# #                 }
+# #                 rx_keywords = tuple(
+# #                     w for w in query_words if len(w) > 3 and w not in _RX_NOISE_WORDS
+# #                 )
+# #                 # No fallback to raw `keywords` here — that variable comes from
+# #                 # the generic topic_resolver.py pipeline and is NOT noise-filtered,
+# #                 # so falling back to it would reintroduce exactly the words we
+# #                 # just filtered out (e.g. "formulary", "drugs"). An empty
+# #                 # rx_keywords is the correct signal for "no real drug name in
+# #                 # this query" — it's handled below by query_has_real_drug_name.
 
+# #                 print(f"[DIRECT CALL]: rx dual-index | keywords={rx_keywords} | rx")
 # #                 try:
-# #                     if function_name == "query_insurance_benefits":
-# #                         tool_result = query_insurance_benefits(
-# #                             query=arguments.get("query", query),
-# #                             topics=found_topics,
-# #                             category=p_type,
-# #                             keywords=keywords,
-# #                             member_info=(
-# #                                 json.dumps(member_info) if member_info else "{}"
-# #                             ),
+# #                     # Step 1 — drug coverage from Rx formulary index
+# #                     #
+# #                     # When rx_keywords is empty, the query has no drug name —
+# #                     # but it may still have a meaningful CONCEPT word (e.g.
+# #                     # "preventive", "ACA") that should drive the search, just
+# #                     # via requirement-matching instead of name-matching.
+# #                     # Only fall back to the generic formulary search when
+# #                     # there's truly no signal at all (e.g. "what is formulary
+# #                     # drugs?" — nothing left to search by except the concept
+# #                     # of formulary itself).
+# #                     _PURE_NOISE_WORDS = {
+# #                         "want",
+# #                         "know",
+# #                         "about",
+# #                         "tell",
+# #                         "please",
+# #                         "could",
+# #                         "would",
+# #                         "like",
+# #                         "they",
+# #                         "them",
+# #                         "have",
+# #                         "give",
+# #                         "more",
+# #                         "information",
+# #                         "details",
+# #                         "find",
+# #                         "looking",
+# #                         "what",
+# #                         "drug",
+# #                         "drugs",
+# #                         "formulary",
+# #                         "list",
+# #                         "covered",
+# #                         "cost",
+# #                         "much",
+# #                         "show",
+# #                         "does",
+# #                         "plan",
+# #                         "cover",
+# #                         "prescription",
+# #                         "medication",
+# #                     }
+# #                     concept_terms = tuple(
+# #                         w
+# #                         for w in query_words
+# #                         if len(w) > 3 and w not in _PURE_NOISE_WORDS
+# #                     )
+# #                     search_terms = (
+# #                         rx_keywords
+# #                         or concept_terms
+# #                         or ("formulary", "drug", "list", "tier", "coverage")
+# #                     )
+# #                     rx_result = query_insurance_benefits(
+# #                         query=query,
+# #                         topics=search_terms,
+# #                         category="rx",
+# #                         keywords=search_terms,
+# #                         member_info=json.dumps(member_info) if member_info else "{}",
+# #                     )
+# #                     print(
+# #                         f"[*] RX INDEX RESULT: {rx_result[:200] if rx_result else 'empty'}"
+# #                     )
+
+# #                     # Filter rx chunks to only keep entries where drug name
+# #                     # matches the search keyword — removes category noise.
+# #                     # Uses fuzzy matching to handle spelling mistakes in drug names
+# #                     # e.g. "metfromin" matches "metformin", "flucanazole" matches "fluconazole"
+# #                     #
+# #                     # IMPORTANT: only apply this filter when the query actually
+# #                     # contains a real drug name word. Requirement/category-style
+# #                     # queries like "what preventive drugs do I have" have no drug
+# #                     # name in them — applying the filter there would incorrectly
+# #                     # discard correctly-scored results (e.g. ACA-flagged drugs
+# #                     # that tools.py found via requirement matching, not name match).
+# #                     query_has_real_drug_name = is_drug_name_query(query_words)
+# #                     used_generic_fallback = not rx_keywords and not concept_terms
+
+# #                     if used_generic_fallback:
+# #                         # No specific drug name AND no meaningful concept word —
+# #                         # this is a purely conceptual question (e.g. "what is
+# #                         # formulary drugs?"). The RX section (if any) contains
+# #                         # arbitrary drugs from the generic fallback search, not
+# #                         # anything the member actually asked about — strip it
+# #                         # so only INFO content remains for LLM synthesis.
+# #                         import re as _re
+
+# #                         rx_result = _re.sub(
+# #                             r"### SECTION: RX.*?(?=### SECTION:|$)",
+# #                             "",
+# #                             rx_result or "",
+# #                             flags=_re.DOTALL,
+# #                         ).strip()
+# #                         print("[*] NO RX KEYWORDS — stripped RX section, INFO only")
+
+# #                     elif rx_result and query_has_real_drug_name:
+# #                         import re as _re
+# #                         from difflib import SequenceMatcher
+
+# #                         def is_drug_match(keyword: str, drug_name: str) -> bool:
+# #                             """
+# #                             Returns True if keyword matches drug name exactly or closely.
+# #                             Exact match: "metformin" in "metformin oral tablet 500 mg"
+# #                             Fuzzy match: "metfromin" → 0.94 similarity → matches
+# #                             Threshold 0.82 catches one/two letter typos without false positives.
+# #                             """
+# #                             kw = keyword.lower()
+# #                             dn = drug_name.lower()
+# #                             # Exact substring match first (fast path)
+# #                             if kw in dn:
+# #                                 return True
+# #                             # Fuzzy match against each word in drug name
+# #                             for word in dn.split():
+# #                                 if len(word) > 4 and len(kw) > 4:
+# #                                     score = SequenceMatcher(None, kw, word).ratio()
+# #                                     if score >= 0.82:
+# #                                         return True
+# #                             return False
+
+# #                         filtered_items = []
+# #                         for item_match in _re.finditer(
+# #                             r"Item \d+:\s*\{[^{}]+\}", rx_result, _re.DOTALL
+# #                         ):
+# #                             item_text = item_match.group()
+# #                             drug_name_match = _re.search(
+# #                                 r'"drug_name":\s*"([^"]+)"', item_text
+# #                             )
+# #                             if drug_name_match:
+# #                                 drug_name = drug_name_match.group(1).lower()
+# #                                 if any(
+# #                                     is_drug_match(kw, drug_name) for kw in rx_keywords
+# #                                 ):
+# #                                     filtered_items.append(item_text)
+# #                         if filtered_items:
+# #                             rx_result = "### SECTION: RX\n\n" + "\n".join(
+# #                                 filtered_items
+# #                             )
+# #                         else:
+# #                             # No matching drug entries — strip RX section, keep INFO only
+# #                             rx_result = _re.sub(
+# #                                 r"### SECTION: RX.*?(?=### SECTION:|$)",
+# #                                 "",
+# #                                 rx_result or "",
+# #                                 flags=_re.DOTALL,
+# #                             ).strip()
+# #                         print(
+# #                             f"[*] RX FILTERED: {len(filtered_items)} matching drug entries"
 # #                         )
+
+# #                     # After filtering — check if only INFO remains (general formulary question)
+# #                     # Return info directly without drug table or cost table
+# #                     has_rx_section = "### SECTION: RX" in (rx_result or "")
+# #                     has_info_section = "### SECTION: INFO" in (rx_result or "")
+
+# #                     if has_info_section and not has_rx_section:
+# #                         print(f"[*] RX INFO ONLY — sending to LLM for synthesis")
+# #                         rx_plan_info = (
+# #                             member_info.get("plans", {}).get("rx", {})
+# #                             if member_info
+# #                             else {}
+# #                         )
+# #                         rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
+# #                         rx_variant = rx_plan_info.get("variant", "")
+# #                         rx_source = (
+# #                             f"{rx_plan_name} ({rx_variant})"
+# #                             if rx_variant
+# #                             else rx_plan_name
+# #                         )
+
+# #                         # Send to LLM to synthesize readable answer from raw INFO chunks
+# #                         synthesis_messages = [
+# #                             {
+# #                                 "role": "system",
+# #                                 "content": "You are a health insurance assistant. Answer the member's question using only the information provided. Be clear and concise. Do not add information not in the context.",
+# #                             },
+# #                             {
+# #                                 "role": "user",
+# #                                 "content": f"Member question: {query}\n\nContext from formulary booklet:\n{rx_result}",
+# #                             },
+# #                         ]
+# #                         synthesized = llm_chat(
+# #                             messages=synthesis_messages, max_tokens=500
+# #                         )
+# #                         return {
+# #                             "answer": synthesized or rx_result,
+# #                             "pages": [],
+# #                             "source": rx_source,
+# #                         }
+
+# #                     # Step 2 — tier cost from medical index
+# #                     # Use plan_type from member_info to decide medical vs sbc
+# #                     plan_type = ""
+# #                     if member_info and "plans" in member_info:
+# #                         medical_plan = member_info["plans"].get("medical", {})
+# #                         plan_type = medical_plan.get("plan_type", "").lower()
+
+# #                     cost_category = "sbc" if "hsa" in plan_type else "medical"
+# #                     cost_result = query_insurance_benefits(
+# #                         query="prescription drug tier cost",
+# #                         topics=("prescription drug",),
+# #                         category=cost_category,
+# #                         keywords=(
+# #                             "prescription",
+# #                             "drug",
+# #                             "generic",
+# #                             "brand",
+# #                             "specialty",
+# #                             "tier",
+# #                         ),
+# #                         member_info=json.dumps(member_info) if member_info else "{}",
+# #                     )
+# #                     print(f"[*] COST INDEX RESULT: {cost_result}")
+
+# #                     # Step 3 — build two-section response and return directly
+# #                     answer, rx_pages, cost_pages = build_rx_response(
+# #                         rx_context=rx_result or "",
+# #                         cost_context=cost_result or "",
+# #                     )
+# #                     all_pages = sorted(set(rx_pages + cost_pages))
+# #                     print(f"[*] RX RESPONSE BUILT: {len(all_pages)} pages")
+
+# #                     # Source shows both booklets with their respective page numbers
+# #                     rx_plan_info = (
+# #                         member_info.get("plans", {}).get("rx", {})
+# #                         if member_info
+# #                         else {}
+# #                     )
+# #                     rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
+# #                     rx_variant = rx_plan_info.get("variant", "")
+# #                     rx_source_name = (
+# #                         f"{rx_plan_name} ({rx_variant})" if rx_variant else rx_plan_name
+# #                     )
+
+# #                     medical_plan = (
+# #                         member_info.get("plans", {})
+# #                         .get("medical", {})
+# #                         .get("plan", "Medical Plan")
+# #                         if member_info
+# #                         else "Medical Plan"
+# #                     )
+
+# #                     # Build source string with per-booklet page numbers
+# #                     source_parts = []
+# #                     if rx_pages:
+# #                         rx_page_str = ", ".join(str(p) for p in sorted(set(rx_pages)))
+# #                         source_parts.append(f"{rx_source_name} | Pages {rx_page_str}")
+# #                     if cost_pages:
+# #                         cost_page_str = ", ".join(
+# #                             str(p) for p in sorted(set(cost_pages))
+# #                         )
+# #                         source_parts.append(
+# #                             f"{medical_plan} | Page {cost_page_str}"
+# #                             if len(set(cost_pages)) == 1
+# #                             else f"{medical_plan} | Pages {cost_page_str}"
+# #                         )
+
+# #                     source = (
+# #                         " || ".join(source_parts) if source_parts else rx_source_name
+# #                     )
+
+# #                     return {
+# #                         "answer": answer,
+# #                         "pages": [],  # pages encoded in source string for rx queries
+# #                         "source": source,
+# #                     }
+
+# #                 except Exception as e:
+# #                     print(f"[!] RX RETRIEVAL FAILURE: {e}")
+# #                     return {
+# #                         "answer": "Unable to retrieve drug coverage information. Please try again.",
+# #                         "pages": [],
+# #                         "source": "",
+# #                     }
+
+# #             elif p_type in DIRECT_CATEGORIES:
+# #                 # Direct call — bypass LLM tool decision entirely
+# #                 print(
+# #                     f"[DIRECT CALL]: query_insurance_benefits | {found_topics} | {p_type}"
+# #                 )
+# #                 try:
+# #                     tool_result = query_insurance_benefits(
+# #                         query=query,
+# #                         topics=tuple(found_topics),
+# #                         category=p_type,
+# #                         keywords=tuple(keywords),
+# #                         member_info=json.dumps(member_info) if member_info else "{}",
+# #                     )
 # #                     print(
 # #                         f"[*] TOOL RESULT after calling query_insurance_benefits : {tool_result}"
 # #                     )
 # #                 except Exception as e:
-# #                     print(f"[!] TOOL FAILURE: {e}")
+# #                     print(f"[!] RETRIEVAL FAILURE: {e}")
 # #                     tool_result = "RETRIEVAL ERROR"
 
 # #             else:
-# #                 print("[!] No tool call — forcing retrieval")
+# #                 # LLM tool orchestration — for unknown/future categories
+# #                 # Works with both Ollama (dev) and OpenAI-compatible gateways (prod)
+# #                 print(f"[LLM TOOL CALL]: category={p_type} — using LLM orchestration")
+# #                 tool_response = llm_chat_with_tools(
+# #                     messages=messages,
+# #                     tools=tools,
+# #                 )
+# #                 msg_content = tool_response.get("content", "")
+# #                 tool_calls = tool_response.get("tool_calls", [])
 
-# #                 try:
-# #                     tool_result = query_insurance_benefits(
-# #                         query=query,
-# #                         topics=found_topics,
-# #                         category=p_type,
-# #                         keywords=keywords,
-# #                         member_info=json.dumps(member_info) if member_info else "{}",
-# #                     )
-# #                 except Exception as e:
-# #                     print(f"[!] TOOL FAILURE: {e}")
-# #                     tool_result = "RETRIEVAL ERROR"
+# #                 if tool_calls:
+# #                     tool = tool_calls[0]
+# #                     function_name = tool["function"]["name"]
+# #                     arguments = tool["function"]["arguments"]
+# #                     print(f"[TOOL CALL]: {function_name} | {found_topics} | {p_type}")
+# #                     try:
+# #                         if function_name == "query_insurance_benefits":
+# #                             tool_result = query_insurance_benefits(
+# #                                 query=arguments.get("query", query),
+# #                                 topics=tuple(found_topics),
+# #                                 category=p_type,
+# #                                 keywords=tuple(keywords),
+# #                                 member_info=(
+# #                                     json.dumps(member_info) if member_info else "{}"
+# #                                 ),
+# #                             )
+# #                         print(
+# #                             f"[*] TOOL RESULT after calling query_insurance_benefits : {tool_result}"
+# #                         )
+# #                     except Exception as e:
+# #                         print(f"[!] TOOL FAILURE: {e}")
+# #                         tool_result = "RETRIEVAL ERROR"
+# #                 else:
+# #                     print("[!] No tool call from LLM — forcing direct retrieval")
+# #                     try:
+# #                         tool_result = query_insurance_benefits(
+# #                             query=query,
+# #                             topics=tuple(found_topics),
+# #                             category=p_type,
+# #                             keywords=tuple(keywords),
+# #                             member_info=(
+# #                                 json.dumps(member_info) if member_info else "{}"
+# #                             ),
+# #                         )
+# #                     except Exception as e:
+# #                         print(f"[!] RETRIEVAL FAILURE: {e}")
+# #                         tool_result = "RETRIEVAL ERROR"
 
 # #             # ============================================================
 # #             # STEP 3 — KEYWORD FILTERING (HEADER-AWARE)
@@ -2060,8 +2319,8 @@ async def get_ai_response(
 # #             # ============================================================
 # #             # STEP 6 — SETUP THE CACHE
 # #             # ============================================================
-# #             # After getting clean context store the value in cache
-# #             TOOL_RESULT_CACHE[cache_key] = clean_context
+# #             # After getting clean context store the value in cache (24h TTL)
+# #             await set_query_result(cache_key, clean_context)
 # #         sections = []
 
 # #         if "### SECTION: QA" in clean_context:
@@ -2213,15 +2472,11 @@ async def get_ai_response(
 # #                         f'  "blood products coverage and cost" → {{"benefit": "Blood Products And Services", "intent": "both"}}\n'
 # #                         f"Query: {query}"
 # #                     )
-# #                     import ollama as _ollama, json as _json, os as _os
+# #                     from utility.llm import llm_generate
+# #                     import json as _json
 
-# #                     mini_resp = _ollama.generate(
-# #                         model=_os.getenv("OLLAMA_MODEL", "llama3.1"),
-# #                         prompt=mini_prompt,
-# #                         format="json",
-# #                         options={"temperature": 0, "num_predict": 60},
-# #                     )
-# #                     mini_data = _json.loads(mini_resp["response"])
+# #                     mini_content = llm_generate(prompt=mini_prompt, max_tokens=60)
+# #                     mini_data = _json.loads(mini_content) if mini_content else {}
 # #                     benefit_name = mini_data.get("benefit", "")
 # #                     intent = mini_data.get("intent", "both")
 # #                     print(f"[*] MINI-LLM: benefit={benefit_name!r}  intent={intent}")
@@ -2333,23 +2588,14 @@ async def get_ai_response(
 # #             },
 # #         ]
 
-# #         final_resp = ollama.chat(
-# #             model=LOCAL_MODEL,
+# #         final_answer = llm_chat(
 # #             messages=final_messages,
-# #             options={"temperature": 0},
+# #             temperature=0.0,
 # #         )
 
 # #         # ============================================================
 # #         # FINAL RESPONSE (STRICT CONTRACT WITH UI)
 # #         # ============================================================
-
-# #         msg = final_resp.get("message", {})
-
-# #         # 🔥 SAFELY EXTRACT CONTENT
-# #         if isinstance(msg, dict):
-# #             final_answer = msg.get("content", "")
-# #         else:
-# #             final_answer = str(msg)
 
 # #         # ============================================================
 # #         # 🔥 FORCE STRING (HARD GUARANTEE)

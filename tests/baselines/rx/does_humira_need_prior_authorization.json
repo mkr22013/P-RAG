@@ -1,10 +1,10 @@
 {
   "query": "does humira need prior authorization?",
   "category": "rx",
-  "timestamp": "2026-06-24T09:20:11.830907",
+  "timestamp": "2026-06-30T16:32:44.841859",
   "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| HUMIRA (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS SYRINGE KIT 40 MG/0.8 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n| HUMIRA PEN (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS PEN INJECTOR KIT 40 MG/0.8 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n| HUMIRA(CF) (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS SYRINGE KIT 10 MG/0.1 ML, 20 MG/0.2 ML, 40 MG/0.4 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n| HUMIRA(CF) PEN (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS PEN INJECTOR KIT 40 MG/0.4 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n| HUMIRA(CF) PEN CROHNS-UC-HS (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS PEN INJECTOR KIT 80 MG/0.8 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n| HUMIRA(CF) PEN PSOR-UV-ADOL HS (ONLY NDCS STARTING WITH 00074) SUBCUTANEOUS PEN INJECTOR KIT 80 MG/0.8 ML-40 MG/0.4 ML | Not on Formulary | Not on Formulary (Not Covered) | — |\n\n_These drugs are not on your formulary, which means they are not covered by your plan. You may need to pay full price, or ask your provider about a covered alternative._\n",
   "pages": [],
-  "source": "Essentials Formulary Drug List (E4) | Pages 149 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 149 || Premera Employees Health Plan – Standard PPO Retiree Plan | Pages 13, 18",
   "token_usage": {
     "total_llm_calls": 0,
     "total_input_tokens": 0,

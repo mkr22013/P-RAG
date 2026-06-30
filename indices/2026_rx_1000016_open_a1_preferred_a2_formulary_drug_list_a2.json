@@ -99894,11 +99894,11 @@
     "page_number": 194
   },
   {
-    "topic": "zingiber oral tablet 1.2 mg-40 mg-124.1 mg-100 mg 189 index 190 191 192 193 194 195 196 197 198 genotropin miniquick gvoke hypopen 2-pack humalog junior 199 humira (only ndcs hydrocortisone- imitrex statdose pen35 200 201 202 203 204 205",
+    "topic": "zingiber oral tablet 1.2 mg-40 mg-124.1 mg-100 mg 189",
     "category": "rx",
     "benefit_category": "rx",
     "content": {
-      "drug_name": "zingiber oral tablet 1.2 mg-40 mg-124.1 mg-100 mg 189 Index 190 191 192 193 194 195 196 197 198 GENOTROPIN MINIQUICK GVOKE HYPOPEN 2-PACK HUMALOG JUNIOR 199 HUMIRA (ONLY NDCS HYDROCORTISONE- IMITREX STATDOSE PEN35 200 201 202 203 204 205",
+      "drug_name": "zingiber oral tablet 1.2 mg-40 mg-124.1 mg-100 mg 189",
       "tier": "1",
       "tier_label": "Preferred Generic",
       "requirements": "",
@@ -99909,43 +99909,8 @@
     "keywords": [
       "zingiber",
       "oral",
-      "tablet",
-      "index",
-      "genotropin",
-      "miniquick",
-      "gvoke",
-      "hypopen",
-      "pack",
-      "humalog",
-      "junior",
-      "humira",
-      "only",
-      "ndcs",
-      "hydrocortisone",
-      "imitrex",
-      "statdose",
-      "pen"
+      "tablet"
     ],
     "page_number": 194
-  },
-  {
-    "topic": "intro(g6/libre2plus) orenitram month 206 207 208 209 210 211 212 213 214 215",
-    "category": "rx",
-    "benefit_category": "rx",
-    "content": {
-      "drug_name": "INTRO(G6/LIBRE2PLUS) ORENITRAM MONTH 206 207 208 209 210 211 212 213 214 215",
-      "tier": "3",
-      "tier_label": "Preferred Specialty",
-      "requirements": "P",
-      "requirements_text": "P",
-      "drug_category": "MG",
-      "drug_subcategory": ""
-    },
-    "keywords": [
-      "introglibreplus",
-      "orenitram",
-      "month"
-    ],
-    "page_number": 211
   }
 ]

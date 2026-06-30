@@ -613,28 +613,99 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
             "coinsurance applies._\n"
         )
     elif cost_rows:
-        # Only show cost rows matching tiers actually present in Drug Coverage.
-        # Avoids showing irrelevant tier pricing — e.g. Specialty drug costs
-        # when the matched drug is actually Preferred Generic.
-        # Not a perfect match (cost row wording varies) but meaningfully
-        # reduces noise in most cases.
-        tiers_present = {tier_label.lower() for tier_label, _ in covered_drugs}
+        # Filter cost rows to show only what's relevant for this specific drug result.
+        #
+        # TWO categories of relevant rows:
+        #
+        # 1. TIER rows — only show tiers actually present in the Drug Coverage
+        #    table above, prefixed with tier number so members can easily map
+        #    "my drug is Non-Preferred → I pay Tier 4 cost"
+        #
+        # 2. SPECIAL rows — only shown when matched drugs have the relevant
+        #    requirement flag (ACA preventive, oral chemotherapy etc.)
 
-        relevant_cost_rows = cost_rows
-        if tiers_present:
-            filtered = [
-                row
-                for row in cost_rows
-                if any(tier_word in row[0].lower() for tier_word in tiers_present)
-            ]
-            # Fallback to all rows if filtering removed everything —
-            # better to show extra info than none at all
-            if filtered:
-                relevant_cost_rows = filtered
+        # Map Rx tier_label → (tier number prefix, service term to match in medical index)
+        TIER_MAP = {
+            "preferred generic": ("Tier 1 — Preferred Generic", "preferred generic"),
+            "preferred brand": ("Tier 2 — Preferred Brand", "preferred brand"),
+            "preferred specialty": (
+                "Tier 3 — Preferred Specialty",
+                "preferred specialty",
+            ),
+            "non-preferred": ("Tier 4 — Non-Preferred", "non-preferred"),
+        }
+
+        # Which tiers are actually present in Drug Coverage (covered drugs only)
+        tiers_in_results = {tier_label.lower() for tier_label, _ in covered_drugs}
+
+        # Conditional special-topic terms
+        has_aca = any(
+            "aca" in req.lower() or "preventive" in req.lower()
+            for _, req in covered_drugs
+            if req
+        )
+        has_chemo = any(
+            "chemotherapy" in req.lower() or "och" in req.lower()
+            for _, req in covered_drugs
+            if req
+        )
+
+        # Build relevant cost rows — only for tiers actually present
+        relevant_cost_rows = []
+        for tier_label_lower, (tier_prefix, service_term) in TIER_MAP.items():
+            if tier_label_lower not in tiers_in_results:
+                continue  # skip tiers not present in this drug result
+            # Find matching cost row from medical index
+            for row in cost_rows:
+                service_lower = row[0].lower()
+
+                # BUG FIX: plain substring matching has a collision —
+                # "preferred generic" in "preferred generic" matches correctly,
+                # but "preferred generic" is ALSO a substring of "non-preferred
+                # generic and brand name drugs" (since "non-preferred generic"
+                # literally contains "preferred generic"). This caused Tier 1
+                # (Preferred Generic) to incorrectly pull in Non-Preferred's
+                # percentage-based specialty/mail-order pricing rows.
+                # Fix: when matching any "preferred X" tier (not "non-preferred"
+                # itself), explicitly reject rows whose service text starts
+                # with "non-preferred" — those belong to the Non-Preferred tier
+                # only, regardless of what substring happens to appear later
+                # in the sentence.
+                if (
+                    tier_label_lower != "non-preferred"
+                    and service_lower.strip().startswith("non-preferred")
+                ):
+                    continue
+
+                if service_term in service_lower:
+                    # Prefix with tier number for plain-English clarity
+                    prefixed_row = (f"{tier_prefix} drugs", row[1], row[2], row[3])
+                    if prefixed_row not in relevant_cost_rows:
+                        relevant_cost_rows.append(prefixed_row)
+
+        # Add conditional special rows
+        for row in cost_rows:
+            service_lower = row[0].lower()
+            if has_aca and ("preventive" in service_lower or "aca" in service_lower):
+                if row not in relevant_cost_rows:
+                    relevant_cost_rows.append(row)
+            elif has_chemo and "chemotherapy" in service_lower:
+                if row not in relevant_cost_rows:
+                    relevant_cost_rows.append(row)
+
+        # Fallback — if filtering removed everything, show all cost rows
+        if not relevant_cost_rows:
+            relevant_cost_rows = cost_rows
 
         if relevant_cost_rows:
+            # Bridging sentence — helps member connect Drug Coverage table above
+            # to Your Cost table below without needing any medical knowledge
+            answer += (
+                "_Find your drug's tier in the Drug Coverage table above, "
+                "then locate that tier below to see what you'll pay._\n\n"
+            )
             answer += "## Your Cost\n\n"
-            answer += "| Drug Type | In-Network | Out-of-Network |\n"
+            answer += "| Drug Tier | In-Network | Out-of-Network |\n"
             answer += "| :--- | :--- | :--- |\n"
             for service, in_network, out_of_network, _ in relevant_cost_rows:
                 answer += f"| {service} | {in_network} | {out_of_network} |\n"
@@ -646,7 +717,7 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
     return answer, sorted(set(rx_pages)), sorted(set(cost_pages))
 
 
-# # =================================================Previous working version before Rx addition============================================================
+# # ==========================================================Previously working code before spelling check and tier mapping for Rx=================================
 # # import re
 # # import json
 
@@ -1149,18 +1220,9 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
 
 # #         def _relevant(event_name):
 # #             ev = event_name.lower()
-# #             # Check if any specific keyword matches
-# #             if not any(
+# #             return any(
 # #                 re.search(r"\b" + re.escape(k) + r"\b", ev) for k in _specific_kws
-# #             ):
-# #                 return False
-# #             # Exclude "non-X" events when querying for X
-# #             # e.g. "Non-Emergency Services" should not show for "emergency room" query
-# #             for k in _specific_kws:
-# #                 if re.search(r"\b" + re.escape(k) + r"\b", ev):
-# #                     if ev.startswith("non-") or ev.startswith("non "):
-# #                         return False
-# #             return True
+# #             )
 
 # #         filtered = [(e, i, pg) for e, i, pg in rows if _relevant(e)]
 # #         if filtered:
@@ -1174,3 +1236,131 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
 # #         if pg and pg > 0:
 # #             pages.append(pg)
 # #     return table, sorted(set(pages))
+
+
+# # def build_rx_response(rx_context: str, cost_context: str) -> tuple:
+# #     """
+# #     Builds a two-section response for Rx drug queries.
+
+# #     Section 1 — Drug Coverage: what the Rx formulary says about the drug
+# #     Section 2 — Your Cost: what the medical plan charges for that tier
+
+# #     Returns (answer_markdown, rx_pages, cost_pages)
+# #     - rx_pages: page numbers from the Rx formulary booklet
+# #     - cost_pages: page numbers from the medical booklet
+# #     """
+# #     import re as _re
+
+# #     drug_rows = []
+# #     cost_rows = []
+# #     rx_pages = []
+# #     cost_pages = []
+
+# #     # Parse Rx index chunks
+# #     for match in _re.finditer(r"\{[^{}]+\}", rx_context, _re.DOTALL):
+# #         try:
+# #             item = json.loads(match.group())
+# #             drug_name = item.get("drug_name", "")
+# #             tier_label = item.get("tier_label", "")
+# #             tier = item.get("tier", "")
+# #             requirements = item.get("requirements_text", "")
+# #             page = item.get("page_number", 0)
+# #             if drug_name and tier:
+# #                 status = "Not on Formulary" if tier == "NF" else "Covered"
+# #                 drug_rows.append((drug_name, tier_label, status, requirements, page))
+# #                 if page:
+# #                     rx_pages.append(page)
+# #         except Exception:
+# #             continue
+
+# #     # Parse medical/sbc cost chunks
+# #     for match in _re.finditer(r"\{[^{}]+\}", cost_context, _re.DOTALL):
+# #         try:
+# #             item = json.loads(match.group())
+# #             service = item.get("service", "")
+# #             in_network = item.get("in_network", "")
+# #             out_of_network = item.get("out_of_network", "")
+# #             page = item.get("page_number", 0)
+# #             if service and in_network:
+# #                 cost_rows.append((service, in_network, out_of_network, page))
+# #                 if page:
+# #                     cost_pages.append(page)
+# #         except Exception:
+# #             continue
+
+# #     answer = ""
+
+# #     # Section 1 - Drug Coverage from Rx Formulary
+# #     if drug_rows:
+# #         answer += "## Drug Coverage\n\n"
+# #         answer += "| Drug | Tier | Status | Requirements |\n"
+# #         answer += "| :--- | :--- | :--- | :--- |\n"
+# #         for drug_name, tier_label, status, requirements, _ in drug_rows:
+# #             req = requirements if requirements else "—"
+# #             # Clarify "Not on Formulary" with plain-English meaning so members
+# #             # don't have to look up what the term means.
+# #             display_status = (
+# #                 f"{status} (Not Covered)" if status == "Not on Formulary" else status
+# #             )
+# #             answer += f"| {drug_name} | {tier_label} | {display_status} | {req} |\n"
+# #         answer += "\n"
+
+# #     # Section 2 - Your Cost from Medical Plan
+# #     covered_drugs = [
+# #         (tier_label, requirements)
+# #         for _, tier_label, status, requirements, _ in drug_rows
+# #         if status == "Covered"
+# #     ]
+# #     all_not_covered = bool(drug_rows) and not covered_drugs
+# #     all_preventive = bool(covered_drugs) and all(
+# #         "preventive no cost" in req.lower() for _, req in covered_drugs
+# #     )
+
+# #     if all_not_covered:
+# #         # No covered drug at all — cost table would be meaningless here.
+# #         answer += (
+# #             "_These drugs are not on your formulary, which means they are not "
+# #             "covered by your plan. You may need to pay full price, or ask your "
+# #             "provider about a covered alternative._\n"
+# #         )
+# #     elif all_preventive:
+# #         # Every covered drug is ACA preventive — federal law mandates $0
+# #         # cost-share. Showing the generic tier cost table here would be
+# #         # misleading (it would suggest a copay applies when it does not).
+# #         answer += (
+# #             "_This drug is classified as an ACA Preventive Drug. Federal law "
+# #             "requires $0 cost-sharing for preventive drugs — no copay or "
+# #             "coinsurance applies._\n"
+# #         )
+# #     elif cost_rows:
+# #         # Only show cost rows matching tiers actually present in Drug Coverage.
+# #         # Avoids showing irrelevant tier pricing — e.g. Specialty drug costs
+# #         # when the matched drug is actually Preferred Generic.
+# #         # Not a perfect match (cost row wording varies) but meaningfully
+# #         # reduces noise in most cases.
+# #         tiers_present = {tier_label.lower() for tier_label, _ in covered_drugs}
+
+# #         relevant_cost_rows = cost_rows
+# #         if tiers_present:
+# #             filtered = [
+# #                 row
+# #                 for row in cost_rows
+# #                 if any(tier_word in row[0].lower() for tier_word in tiers_present)
+# #             ]
+# #             # Fallback to all rows if filtering removed everything —
+# #             # better to show extra info than none at all
+# #             if filtered:
+# #                 relevant_cost_rows = filtered
+
+# #         if relevant_cost_rows:
+# #             answer += "## Your Cost\n\n"
+# #             answer += "| Drug Type | In-Network | Out-of-Network |\n"
+# #             answer += "| :--- | :--- | :--- |\n"
+# #             for service, in_network, out_of_network, _ in relevant_cost_rows:
+# #                 answer += f"| {service} | {in_network} | {out_of_network} |\n"
+
+# #     if not answer:
+# #         answer = "Drug coverage information not found for this query."
+
+# #     # Return rx pages and cost pages separately so UI can show both sources
+# #     return answer, sorted(set(rx_pages)), sorted(set(cost_pages))

@@ -1,10 +1,10 @@
 {
   "query": "is vivjoa covered?",
   "category": "rx",
-  "timestamp": "2026-06-24T09:19:55.242339",
-  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| VIVJOA ORAL CAPSULE 150 MG | Non-Preferred | Covered | Prior Authorization |\n\n## Your Cost\n\n| Drug Type | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Non-preferred generic and brand name drugs Specialty Drugs (per prescription or refill). You must use a specialty pharmacy for these drugs to be covered. | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Non-preferred generic and brand name drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n",
+  "timestamp": "2026-06-30T16:32:30.498068",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| VIVJOA ORAL CAPSULE 150 MG | Non-Preferred | Covered | Prior Authorization |\n\n_Find your drug's tier in the Drug Coverage table above, then locate that tier below to see what you'll pay._\n\n## Your Cost\n\n| Drug Tier | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Retail or Mail-Order Pharmacy | Not covered Out-Of-Network Retail or Mail-Order Pharmacy |\n",
   "pages": [],
-  "source": "Essentials Formulary Drug List (E4) | Pages 7 || Premera Employees Health Plan – Standard PPO Retiree Plan | Page 18",
+  "source": "Essentials Formulary Drug List (E4) | Pages 7 || Premera Employees Health Plan – Standard PPO Retiree Plan | Pages 13, 18",
   "token_usage": {
     "total_llm_calls": 0,
     "total_input_tokens": 0,

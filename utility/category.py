@@ -146,7 +146,8 @@ def is_drug_name_query(query_words: list) -> bool:
     drug_words = _load_drug_name_words()
     if not drug_words:
         return False
-    return any(w in drug_words for w in query_words)
+    ##Below code will check if drug name is minimum 5 characters long to avoid false positives for short words like "plan" or "new" which are common in drug names but not actually drug names themselves.
+    return any(w in drug_words for w in query_words if len(w) >= 5)
 
 
 def correct_drug_spelling(keyword: str) -> str:
@@ -628,28 +629,6 @@ def detect_category(query_words, query):
         print("[*] CATEGORY MATCH → rx")
         return "rx"
 
-    # ── Step 1b: Drug name match — catches queries with no other rx signal
-    # e.g. "does metformin require prior authorization?"
-    # Checked against real drug names from the Rx index — not guessed patterns
-    if is_drug_name_query(query_words):
-        print("[*] CATEGORY MATCH → rx (drug name found in query)")
-        return "rx"
-
-    # NOTE: Step 1c (phonetic/fuzzy drug name match for category detection)
-    # was removed — confirmed to cause false positives on ordinary English
-    # words that coincidentally resemble a drug name by character similarity
-    # alone (e.g. "testing" vs "estring" — a real drug — scored 0.857 on
-    # SequenceMatcher, above the 0.82 threshold, despite having NO phonetic
-    # relationship via Soundex). This broke medical category routing for
-    # queries like "allergy testing and treatment cost".
-    # Misspelled drug names now correctly fall through to the LLM category
-    # fallback instead — a small token cost for that specific case, but
-    # removes the risk of false-positive category misrouting for ordinary
-    # medical/dental/vision queries. correct_drug_spelling() and is_drug_match()
-    # remain in use within the Rx dual-index query path itself (client.py),
-    # where they are scoped only to confirmed Rx queries — that usage is
-    # unaffected by this change.
-
     # ── Step 2: Dental procedure terms (high precision)
     # NOTE: "implant" deliberately removed from this list. Unlike the other
     # terms here, "implant" is genuinely ambiguous across categories —
@@ -728,7 +707,14 @@ def detect_category(query_words, query):
         print("[*] CATEGORY MATCH → vision")
         return "vision"
 
-    # ── Step 4: Medical — specific medical terms only
+    # ── Step 4: Drug name match — catches queries with no other rx signal
+    # e.g. "does metformin require prior authorization?"
+    # Checked against real drug names from the Rx index — not guessed patterns
+    if is_drug_name_query(query_words):
+        print("[*] CATEGORY MATCH → rx (drug name found in query)")
+        return "rx"
+
+    # ── Step 5: Medical — specific medical terms only
     # Note: generic words like "covered", "plan", "benefit", "network" removed
     # to avoid false positives on drug name queries like "is vivjoa covered?"
     _medical_terms = [
@@ -801,7 +787,7 @@ def detect_category(query_words, query):
         print(f"[*] CATEGORY MATCH → medical")
         return "medical"
 
-    # NOTE: Step 5 (last-resort phonetic drug-name match, placed AFTER
+    # NOTE: Step 6 (last-resort phonetic drug-name match, placed AFTER
     # Steps 1-4 so it can't steal a legitimately medical/dental/vision
     # query) was attempted and reverted tonight. The STRUCTURAL placement
     # was confirmed correct — it never fired on a query any other category

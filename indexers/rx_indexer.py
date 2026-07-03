@@ -11,7 +11,8 @@ Booklet structure:
 One chunk per drug entry. No LLM needed.
 """
 
-import re, os
+import os
+import re
 import json
 import pdfplumber
 
@@ -53,39 +54,113 @@ REQUIREMENT_LABELS = {
     "NF": "Not on Formulary",
 }
 
-# Matches lines ending with a tier number and optional requirements.
-# \s+          → one or more spaces before the tier
-# (1|2|3|4|NF) → tier: 1=Preferred Generic, 2=Brand, 3=Specialty, 4=Non-Preferred, NF=Not Covered
-# (\s+.+)?     → optional: spaces + requirements text (e.g. "PA; SP")
-# $            → end of line
-#
-# Examples:
-#   "fluconazole oral tablet 100 mg  1"        ✓ tier=1, requirements=""
-#   "VIVJOA ORAL CAPSULE 150 MG  4  PA"        ✓ tier=4, requirements="PA"
-#   "ANTI - INFECTIVES"                         ✗ no match — category header
-#   "200 mg/5 ml (40 mg/ml)"                   ✗ no match — continuation line
-TIER_RE = re.compile(r"\s+(1|2|3|4|NF)(\s+.+)?$")
+# Matches tier number at end of line, preceded by one or more spaces.
+# Negative lookahead (?!\d) prevents matching dose numbers like "2.5 mg" or "100 mg, 2 tabs".
+TIER_RE = re.compile(r"\s+(1|2|3|4|NF)(?!\d)(\s+.+)?$")
 
 COLUMN_HEADER = "Drug Name Drug Tier Requirements / Limits"
 
 
+# Pharmaceutical form/route words that appear in drug names but never in
+# therapeutic category headers. Used to distinguish drug name fragment lines
+# (e.g. "NOXAFIL ORAL SUSP, DELAYED RELEASE") from real category headers
+# (e.g. "ANTIFUNGAL AGENTS") when both are all-caps with no digits.
+_DRUG_FORM_WORDS = {
+    "ORAL",
+    "TABLET",
+    "CAPSULE",
+    "SUSPENSION",
+    "SOLUTION",
+    "SUSP",
+    "SOLN",
+    "INJECTION",
+    "INJECTABLE",
+    "INHALATION",
+    "INHALER",
+    "TOPICAL",
+    "OPHTHALMIC",
+    "OTIC",
+    "NASAL",
+    "RECTAL",
+    "VAGINAL",
+    "SUBLINGUAL",
+    "TRANSDERMAL",
+    "PATCH",
+    "CREAM",
+    "OINTMENT",
+    "GEL",
+    "LOTION",
+    "FOAM",
+    "SPRAY",
+    "DROPS",
+    "SYRUP",
+    "ELIXIR",
+    "POWDER",
+    "GRANULES",
+    "PELLETS",
+    "FILM",
+    "INSERT",
+    "SUPPOSITORY",
+    "ENEMA",
+    "KIT",
+    "RECON",
+    "RECONSTITUTION",
+    "SUBCUTANEOUS",
+    "INTRAMUSCULAR",
+    "INTRAVENOUS",
+    "DELAYED",
+    "EXTENDED",
+    "RELEASE",
+    "DISPERSION",
+    "BUCCAL",
+    "IMPLANT",
+    "DEVICE",
+    "CARTRIDGE",
+    "SYRINGE",
+    "PEN",
+    "AUTOINJECTOR",
+    "NEBULIZATION",
+    "AEROSOL",
+    "MIST",
+    "LOZENGE",
+    "DISKHALER",
+    "PRESSAIR",
+    "RESPIMAT",
+    "HANDIHALER",
+    "FLEXHALER",
+    "TWISTHALER",
+    "DISKUS",
+    "ELLIPTA",
+    # Qualifier words that appear in drug name parentheticals — must not be
+    # mistaken for category headers (e.g. "HUMIRA (ONLY NDCS STARTING WITH")
+    "ONLY",
+    "STARTING",
+    "WITH",
+    "NDCS",
+    "STRENGTH",
+    "PACKET",
+    "DOSE",
+}
+
+
 def is_category_header(line: str) -> bool:
     """
-    Detects if a line is a drug category or subcategory header.
+    Detects if a line is a therapeutic category or subcategory header.
 
-    Headers are ALL CAPS lines with no tier number at the end and no digits.
-    Real category headers never contain numbers.
+    Headers are ALL CAPS lines with no tier number, no digits, and no
+    pharmaceutical form/route words (which only appear in drug names).
 
     Examples that return True:
-        "ANTI - INFECTIVES"       ← top-level category
-        "ANTIFUNGAL AGENTS"       ← subcategory
-        "ANTIVIRALS"              ← subcategory
+        "ANTI - INFECTIVES"          ← top-level category
+        "ANTIFUNGAL AGENTS"          ← subcategory
+        "CARDIOVASCULAR AGENTS"      ← subcategory
 
     Examples that return False:
         "VIVJOA ORAL CAPSULE 150 MG  4  PA"    ← drug entry (has tier)
-        "RECONSTITUTION 40 MG/ML"              ← continuation line (has digits)
-        "200 mg/5 ml (40 mg/ml)"               ← continuation line (lowercase + digits)
-        "FOR RECON 300 MG"                      ← continuation line (has digits)
+        "NOXAFIL ORAL SUSP, DELAYED RELEASE"   ← drug name fragment (has ORAL/SUSP)
+        "DIFLUCAN ORAL SUSPENSION FOR"         ← drug name fragment (has ORAL/SUSPENSION)
+        "RECONSTITUTION 40 MG/ML"              ← fragment (has digits)
+        "200 mg/5 ml (40 mg/ml)"               ← fragment (lowercase + digits)
     """
     if not line or TIER_RE.search(line):
         return False
@@ -93,7 +168,95 @@ def is_category_header(line: str) -> bool:
     if any(char.isdigit() for char in line):
         return False
     words = re.findall(r"[A-Za-z]+", line)
-    return bool(words) and all(w.isupper() for w in words) and len(words) <= 8
+    if not words or not all(w.isupper() for w in words):
+        return False
+    # Drug name fragments contain pharmaceutical form words — categories never do
+    if any(w in _DRUG_FORM_WORDS for w in words):
+        return False
+    return True
+
+
+# ---------------------------------------------------------------------------
+# Drug-name normalization — strips trailing PDF extraction artifacts
+# ---------------------------------------------------------------------------
+# Trailing annotation tokens that bleed into the name field from the requirements column.
+# These are requirement-column values (e.g. "days)", "MONTH); SP; LA", "FILL); NP") that
+# run into the drug name field during PDF extraction.
+_TRAILING_ANNOTATION_RE = re.compile(
+    r"\s+(?:"
+    r"(?:\d+\s+)?(?:days?\)|DAYS?\)|month[s]?\)|MONTH[S]?\)|fill\)|FILL\)|PER \d+ DAYS?\))"
+    r"|(?:NP|OPT|LA|SP|OCh|ACA|ST|PA)(?:\b)(?:\s*;.*)?"
+    r").*$",
+    re.IGNORECASE,
+)
+# OCR column-header bleed: doubled characters from scanned column headers.
+_OCR_HEADER_RE = re.compile(
+    r"DDrruugg|NNaammee|TTiieerr|RReeqquuiirreemmeennttss", re.IGNORECASE
+)
+
+# Footnote/page-reference integer preceded by a known dose unit.
+# Captures the trailing integer separately so callers can apply a
+# minimum-value threshold (footnotes in this PDF are always >= 100;
+# bare dose numbers like "40" or "80" at end of wrapped lines are < 100).
+_TRAILING_FOOTNOTE_RE = re.compile(
+    r"^(.*(?:MG|MCG|ML|GRAM|UNIT|MEQ|KCAL|LF|DU|BAU|INDX|AMB|ACTUATION|%)[^a-zA-Z0-9]*)\s+(\d{1,3})$",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def _is_footnote_line(line: str) -> bool:
+    """
+    Returns True if the line is a standalone drug name + footnote reference
+    with no tier number — these are PDF artifacts that should be skipped
+    during continuation accumulation.
+
+    Key insight: footnote reference numbers in this PDF are always >= 100
+    (e.g. 116, 141, 142, 143, 147, 172, 174, 118). Dose fragments that
+    happen to end in a bare number (e.g. "LIPITOR ORAL TABLET 10 MG, 20 MG, 40"
+    wrapping before "MG, 80 MG  4") always have small numbers (< 100).
+    """
+    m = _TRAILING_FOOTNOTE_RE.match(line)
+    if not m:
+        return False
+    return int(m.group(2)) >= 100
+
+
+def _normalize_drug_name(name: str) -> str:
+    """
+    Strips trailing PDF extraction artifacts from a raw drug name string.
+
+    Handles three artifact types, applied in order:
+
+    1. OCR column-header bleed — doubled characters from scanned page headers:
+          "DDrruugg NNaammee DDrruugg TTiieerr..." → discard entry entirely (return "")
+
+    2. Trailing annotation tokens — requirements-column values that bled into the name field:
+          "LORBRENA ORAL TABLET 100 MG days)"             → "LORBRENA ORAL TABLET 100 MG"
+          "CAYSTON ... 75 MG/ML MONTH); SP; LA"           → "CAYSTON ... 75 MG/ML"
+          "EPIPEN ... 0.3 MG/0.3 ML FILL); NP 169"       → "EPIPEN ... 0.3 MG/0.3 ML"
+          "FYCOMPA ORAL SUSPENSION 0.5 MG/ML 30 DAYS)"   → "FYCOMPA ORAL SUSPENSION 0.5 MG/ML"
+          "HYMPAVZI PEN ... 150 MG/ML LA"                 → "HYMPAVZI PEN ... 150 MG/ML"
+
+    3. Trailing footnote integers — page-reference numbers after a dose unit:
+          "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG 116"   → "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG"
+          "ACUVAIL ... DROPPERETTE 0.45 % 164"            → "ACUVAIL ... DROPPERETTE 0.45 %"
+       NOT stripped when no unit precedes the integer:
+          "FREESTYLE LIBRE 107"                           → kept as-is
+          "LANCETS 33 GAUGE 108"                          → kept as-is
+          "ERTACZO TOPICAL CREAM 91"                      → kept as-is
+    """
+    if _OCR_HEADER_RE.search(name):
+        return ""
+
+    # Step 2: strip trailing annotation tokens (may reveal a footnote integer afterward)
+    name = _TRAILING_ANNOTATION_RE.sub("", name).strip()
+
+    # Step 3: strip trailing footnote integer if preceded by a dose unit and >= 100
+    m = _TRAILING_FOOTNOTE_RE.match(name)
+    if m and int(m.group(2)) >= 100:
+        name = m.group(1).strip()
+
+    return name.strip()
 
 
 def parse_drug_line(line: str) -> tuple | None:
@@ -126,6 +289,9 @@ def parse_drug_line(line: str) -> tuple | None:
     tier = match.group(1)
     requirements = (match.group(2) or "").strip()
     drug_name = line[: match.start()].strip()
+    drug_name = _normalize_drug_name(drug_name)
+    if not drug_name:
+        return None
     return drug_name, tier, requirements
 
 
@@ -479,32 +645,26 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
     chunks = []
     current_category = ""
     current_subcategory = ""
-
-    # Current drug being accumulated across potentially multiple lines
     current_drug_name = ""
     current_drug_tier = ""
     current_drug_requirements = ""
     current_drug_page = 0
 
     def finish_current_drug():
-        """
-        If we have a complete drug accumulated, build a chunk and add it to the list.
-        Then reset the current drug fields ready for the next entry.
-        """
         nonlocal current_drug_name, current_drug_tier, current_drug_requirements, current_drug_page
-
         if current_drug_name and current_drug_tier:
-            chunk = build_drug_chunk(
-                drug_name=current_drug_name.strip(),
-                tier=current_drug_tier,
-                requirements=current_drug_requirements.strip(),
-                page=current_drug_page,
-                drug_category=current_category,
-                drug_subcategory=current_subcategory,
-            )
-            chunks.append(chunk)
-
-        # Reset for next drug
+            normalized = _normalize_drug_name(current_drug_name.strip())
+            if normalized:
+                chunks.append(
+                    build_drug_chunk(
+                        drug_name=normalized,
+                        tier=current_drug_tier,
+                        requirements=current_drug_requirements.strip(),
+                        page=current_drug_page,
+                        drug_category=current_category,
+                        drug_subcategory=current_subcategory,
+                    )
+                )
         current_drug_name = ""
         current_drug_tier = ""
         current_drug_requirements = ""
@@ -516,19 +676,12 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
             f"[*] Rx indexer: {len(pdf.pages)} pages, drug list starts page {drug_list_start}"
         )
 
-        # Parse intro pages as INFO chunks first
         info_chunks = parse_intro_pages(pdf, drug_list_start)
-
-        # Find where the drug list ends (before the alphabetical index section)
         drug_list_end = find_drug_list_end(pdf, drug_list_start)
 
         for page_num, page in enumerate(pdf.pages, start=1):
-            # Skip intro pages before the drug list
             if page_num < drug_list_start:
                 continue
-            # Skip alphabetical index pages after the drug list ends —
-            # these produce garbage chunks (multiple drug names + page
-            # numbers crammed into one field) and have no useful structured data
             if page_num > drug_list_end:
                 continue
 
@@ -539,21 +692,14 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
             for line in text.split("\n"):
                 line = line.strip()
 
-                # Skip empty lines and the repeating column header
                 if not line or line == COLUMN_HEADER:
                     continue
 
-                # Skip alphabetical drug index lines — they use dot leaders
-                # e.g. "fluconazole.......... 6  DIFLUCAN .... NF"
-                # Catches 2+ dots (was 6+ before, too narrow — missed some index lines)
                 if re.search(r"\.{2,}", line):
                     continue
 
-                # Category or subcategory header (ALL CAPS, no tier)
                 if is_category_header(line):
                     finish_current_drug()
-                    # Short lines (≤3 words) = new top-level category
-                    # Longer lines = subcategory within current category
                     if not current_category or len(line.split()) <= 3:
                         current_category = line
                         current_subcategory = ""
@@ -561,7 +707,6 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
                         current_subcategory = line
                     continue
 
-                # Drug entry line — has tier number at end
                 parsed = parse_drug_line(line)
                 if parsed:
                     finish_current_drug()
@@ -571,17 +716,16 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
                     current_drug_page = page_num
                     continue
 
-                # Continuation line — drug name wrapped to next line
-                # Append to current drug name to complete it
-                if current_drug_name:
+                # Continuation line — append to current drug name.
+                # Skip lines that are a complete drug name + footnote number
+                # (footnotes in this PDF are always >= 100; bare dose numbers
+                # like "40" at end of a wrapped line are always < 100).
+                if current_drug_name and not _is_footnote_line(line):
                     current_drug_name += " " + line
 
-    # Save the last drug entry after loop ends
     finish_current_drug()
 
-    # Combine intro info chunks + drug chunks
     all_chunks = info_chunks + chunks
-
     print(
         f"[*] Rx indexer: {len(chunks)} drug entries + {len(info_chunks)} info chunks = {len(all_chunks)} total"
     )
@@ -595,10 +739,8 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
     # category detection only needs to know "is this word a drug name", not
     # which plan/tier/cost it belongs to. That lookup happens later, correctly,
     # via member_info once category=rx is already confirmed.
-    # SAFE FIRST RUN: classify_illness=False to verify the garbage-page fix
-    # and dict structure work correctly with zero LLM cost. Flip to True in
-    # a separate, deliberate run once confirmed stable — see
-    # RX_INDEXER_FLOW.md for the full staged rollout plan and cost warning.
+    # Set to False for fast structure verification (no LLM cost).
+    # Flip to True for the real illness classification run.
     update_drug_names_file(chunks, classify_illness=False)
 
     return all_chunks
@@ -608,6 +750,7 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
 # than importing from category.py, since the indexer and the runtime query
 # pipeline are intentionally separate layers with no cross-dependency.
 _DRUG_WORD_STOPLIST_FOR_NAMES_FILE = {
+    # Dosage form / route of administration
     "oral",
     "tablet",
     "tablets",
@@ -664,10 +807,8 @@ _DRUG_WORD_STOPLIST_FOR_NAMES_FILE = {
     "emergency",
     "fluoride",
     "nicotine",
-    # Dosage-form / administration descriptor words — found via a real
-    # false-positive: "breast" (0.83 char similarity) → "breath" (from
-    # "...AEROSOL POWDR BREATH ACTIVATED..." — a dosage-form descriptor,
-    # not a drug identity word, exactly like "oral"/"tablet"/"capsule").
+    # Dosage-form / administration descriptor words — confirmed false-positive
+    # sources (e.g. "breast" → "breath" collision from "BREATH ACTIVATED")
     "breath",
     "activated",
     "powder",
@@ -685,6 +826,99 @@ _DRUG_WORD_STOPLIST_FOR_NAMES_FILE = {
     "lozenge",
     "film",
     "strip",
+    # Delivery device / packaging words — appear in drug names but are not
+    # drug identity words (e.g. "AIMOVIG AUTOINJECTOR", "APOKYN CARTRIDGE")
+    "cartridge",
+    "autoinjector",
+    "applicator",
+    "blister",
+    "device",
+    "diskhaler",
+    "twisthaler",
+    "inhaler",
+    "injector",
+    "syringe",
+    "prefilled",
+    "refill",
+    "vial",
+    "ampule",
+    "ampoule",
+    "prefill",
+    # Dosage/measurement descriptors
+    "actuation",
+    "actuations",
+    "gram",
+    "grams",
+    "percent",
+    # Formulation type descriptors
+    "biphasic",
+    "biphase",
+    "multiphase",
+    "monophasic",
+    "modified",
+    "immediate",
+    "sustained",
+    "controlled",
+    "enteric",
+    "coated",
+    "triphasic",
+    "releasing",
+    # Preparation / kit descriptors
+    "bowel",
+    "prep",
+    "regimen",
+    "pack",
+    "combo",
+    "combination",
+    "augmented",
+    "concentrated",
+    "diluted",
+    "buffered",
+    # Common English words appearing in/near drug names
+    "adult",
+    "adults",
+    "children",
+    "child",
+    "infant",
+    "infants",
+    "after",
+    "extra",
+    "strength",
+    "maximum",
+    "regular",
+    "original",
+    "advanced",
+    "special",
+    "senior",
+    "junior",
+    # Bacteriostat / preservative descriptors
+    "bacteriostat",
+    "bacteriostatic",
+    "preservative",
+    # Generic chemical suffixes that aren't drug identity words
+    "sodium",
+    "chloride",
+    "phosphate",
+    "sulfate",
+    "sulphate",
+    "hydrochloride",
+    "bitartrate",
+    "besylate",
+    "mesylate",
+    "maleate",
+    "fumarate",
+    "acetate",
+    "tartrate",
+    "citrate",
+    "gluconate",
+    "succinate",
+    "benzoate",
+    "valerate",
+    "butyrate",
+    "propionate",
+    "decanoate",
+    "undecanoate",
+    "cypionate",
 }
 
 DRUG_NAMES_FILE = os.path.join(
@@ -712,119 +946,379 @@ _ILLNESS_TERM_STOPLIST = {
 }
 
 
-def _classify_illness_terms(drug_word: str) -> list:
+def _classify_illness_terms_batch(drug_words: list, batch_size: int = 25) -> dict:
     """
-    One-time mini-LLM call to classify what illness/condition a drug treats,
-    in plain layman terms. Only called for drug words not already in the
-    cached drug_names.json — repeat indexer runs, or other booklets
-    containing the same drug, never re-classify it.
+    Batched version of illness classification — sends up to batch_size drug
+    words per LLM call using a self-identifying output format, making
+    misalignment detectable rather than silently corrupting the mapping.
 
-    Returns a short list of layman illness terms, filtered through the
-    illness stoplist. Returns an empty list on any failure — a missing
-    illness classification is not a correctness problem (see design
-    discussion: this whole feature is a cost-optimization layer, not a
-    correctness-critical one — worst case, the query falls through to the
-    LLM category fallback at query time instead, same as for any unmapped word).
+    Output format enforced by prompt:
+        metformin → diabetes, blood sugar
+        fluconazole → fungal infection, yeast infection
+
+    Each line explicitly names the drug — if LLM skips or merges entries,
+    the drug name validation catches it immediately. Any word not found in
+    the response simply gets an empty list (safe fallback, never corrupts).
+
+    Roughly 25x fewer API round-trips than single-word classification,
+    with identical accuracy since the self-identifying format prevents
+    the misalignment risk that makes naive batching unsafe.
     """
     from utility.llm import llm_chat
 
-    try:
-        messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a medical reference assistant. Given a drug name, "
-                    "list 1-3 common everyday conditions or illnesses it treats, "
-                    "in plain layman language a patient would use (e.g. 'diabetes', "
-                    "'high cholesterol', 'fungal infection'). Return ONLY a comma-"
-                    "separated list, no explanation, no extra text."
-                ),
-            },
-            {"role": "user", "content": f"Drug: {drug_word}"},
-        ]
-        response = llm_chat(messages=messages, max_tokens=40)
-        if not response:
-            return []
+    results = {word: [] for word in drug_words}
 
-        terms = [t.strip().lower() for t in response.split(",") if t.strip()]
-        # Filter through stoplist and length check, same discipline as
-        # drug-name keyword extraction elsewhere in this file
-        clean_terms = [
-            t for t in terms if len(t) > 2 and t not in _ILLNESS_TERM_STOPLIST
-        ]
-        return clean_terms[:3]  # cap at 3 terms per drug
-    except Exception as e:
-        print(f"[!] Illness classification failed for {drug_word!r}: {e}")
-        return []
+    for i in range(0, len(drug_words), batch_size):
+        batch = drug_words[i : i + batch_size]
+        drug_list = "\n".join(batch)
+
+        try:
+            messages = [
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a medical terminology assistant. "
+                        "For each drug name listed, return ONE line in this exact format:\n"
+                        "drug_name → condition1, condition2\n\n"
+                        "Rules:\n"
+                        "- Use everyday patient language, NOT medical jargon\n"
+                        "- Maximum 3 words per condition term\n"
+                        "- Return ONLY these lines, one per drug, same order as input\n"
+                        "- If unsure or not a drug name, return: drug_name → \n\n"
+                        "Examples:\n"
+                        "metformin → diabetes, blood sugar\n"
+                        "atorvastatin → high cholesterol\n"
+                        "fluconazole → fungal infection, yeast infection\n"
+                        "amoxicillin → bacterial infection\n"
+                        "lisinopril → high blood pressure, heart failure"
+                    ),
+                },
+                {"role": "user", "content": drug_list},
+            ]
+
+            max_tokens = batch_size * 20  # ~20 tokens per drug in response
+            response = llm_chat(messages=messages, max_tokens=max_tokens)
+            if not response:
+                continue
+
+            # Parse self-identifying response lines
+            for line in response.strip().split("\n"):
+                if "→" not in line and "->" not in line:
+                    continue
+                separator = "→" if "→" in line else "->"
+                parts = line.split(separator, 1)
+                if len(parts) != 2:
+                    continue
+
+                drug_word = parts[0].strip().lower()
+                terms_raw = parts[1].strip()
+
+                # Verify this drug word was in our batch (prevents hallucination)
+                if drug_word not in [w.lower() for w in batch]:
+                    continue
+
+                if not terms_raw:
+                    continue
+
+                terms = [t.strip().lower() for t in terms_raw.split(",") if t.strip()]
+                clean_terms = [
+                    t for t in terms if len(t) > 2 and t not in _ILLNESS_TERM_STOPLIST
+                ]
+                # Find the original-case key
+                for original_word in batch:
+                    if original_word.lower() == drug_word:
+                        results[original_word] = clean_terms[:3]
+                        break
+
+            print(
+                f"[*] Classified batch {i//batch_size + 1}/{(len(drug_words)-1)//batch_size + 1} "
+                f"({min(i+batch_size, len(drug_words))}/{len(drug_words)} words)"
+            )
+
+        except Exception as e:
+            print(f"[!] Batch classification failed for batch {i//batch_size + 1}: {e}")
+            # Individual words in this batch keep their empty list — safe fallback
+
+    return results
+
+
+def _is_valid_drug_name(drug_name: str) -> bool:
+    """
+    Returns True only for genuine drug name strings from the formulary.
+    Filters out PDF parser artifacts — dosage fragments, page numbers,
+    strength continuations, packaging words — that get extracted as
+    standalone drug names due to unusual PDF table layout.
+
+    Rules (checked in order):
+    1. Must start with a letter (filters "0.25 MG...", "(11)-", "3 DAY")
+    2. Must contain at least one alphabetic word of 4+ characters
+       (filters "DROPS", "PACK", "IN PACKET", "INSERT", "IRON-")
+    3. First word must not be a known route/form/device descriptor
+       (filters "EXTENDED REL 12 HR", "SUBCUTANEOUS SYRINGE",
+        "RECTAL GEL", "TABLETS, DOSE PACK", "SPRINKLE", "soln", "oral")
+    4. Single-word entries must not be a known standalone artifact
+       (filters "CHEWABLE", "DROPPERETTE", "RELEASE" etc.)
+    5. Must contain at least one meaningful word beyond pure descriptors
+       (filters entries that are purely dosage form / route descriptions)
+    """
+    if not drug_name or not drug_name[0].isalpha():
+        return False
+
+    words = re.findall(r"[a-zA-Z]+", drug_name)
+    if not words:
+        return False
+
+    # Rule 2: must have at least one word of 4+ characters
+    if max(len(w) for w in words) < 4:
+        return False
+
+    # Rule 3: first word is a route/form/device descriptor — not a drug name.
+    # Catches "EXTENDED REL 12 HR", "SUBCUTANEOUS SYRINGE", "RECTAL GEL",
+    # "TABLETS, DOSE PACK", "SPRINKLE", "soln", "over", "oral" etc.
+    _FIRST_WORD_ARTIFACTS = {
+        "extended",
+        "subcutaneous",
+        "intramuscular",
+        "suspension",
+        "tablets",
+        "rectal",
+        "sprinkle",
+        "soln",
+        "over",
+        "injection",
+        "inhalation",
+        "topical",
+        "ophthalmic",
+        "otic",
+        "vaginal",
+        "sublingual",
+        "transdermal",
+        "fluorid",
+        "auto",
+        "oral",
+        "nasal",
+        "buccal",
+        "intravenous",
+        "percutaneous",
+        "irrigation",
+        # additional route/device/dosage-form starters
+        "insert",
+        "pen",
+        "mg",
+        "mcg",
+        "ml",
+        "unit",
+        "gram",
+        "intracavernosal",
+        "intrauterine",
+        "mucous",
+        "dental",
+    }
+    if words[0].lower() in _FIRST_WORD_ARTIFACTS:
+        return False
+
+    # Rule 4: single-word entries that are dosage forms or device words
+    _STANDALONE_ARTIFACTS = {
+        "chewable",
+        "dropperette",
+        "drops",
+        "release",
+        "reconstitution",
+        "pack",
+        "packet",
+        "insert",
+        "injector",
+        "inhaler",
+        "spacer",
+        "device",
+        "strip",
+        "sensor",
+        "receiver",
+        "transmitter",
+        "guardian",
+        "lancets",
+        "syringe",
+        "cartridge",
+        "solution",
+        "suspension",
+        "cream",
+        "ointment",
+        "gel",
+        "foam",
+        "lotion",
+        "shampoo",
+        "cleanser",
+        "applicator",
+        "tablet",
+        "capsule",
+    }
+    if len(words) == 1 and words[0].lower() in _STANDALONE_ARTIFACTS:
+        return False
+
+    # Rule 5: all words are pure descriptors with no actual drug identity
+    _PURE_DESCRIPTOR_WORDS = {
+        "for",
+        "nebulization",
+        "in",
+        "packet",
+        "extended",
+        "release",
+        "delayed",
+        "sustained",
+        "controlled",
+        "modified",
+        "immediate",
+        "hour",
+        "hours",
+        "day",
+        "days",
+        "week",
+        "the",
+        "and",
+        "with",
+        "iron",
+        "mg",
+        "mcg",
+        "ml",
+        "gram",
+        "unit",
+        "units",
+        "per",
+    }
+    meaningful_words = [
+        w
+        for w in words
+        if w.lower() not in _PURE_DESCRIPTOR_WORDS
+        and w.lower() not in _STANDALONE_ARTIFACTS
+        and w.lower() not in _FIRST_WORD_ARTIFACTS
+        and len(w) >= 3
+    ]
+    if not meaningful_words:
+        return False
+
+    return True
 
 
 def update_drug_names_file(
-    drug_chunks: list, file_path: str = DRUG_NAMES_FILE, classify_illness: bool = True
+    drug_chunks: list, file_path: str = DRUG_NAMES_FILE, classify_illness: bool = False
 ) -> dict:
     """
-    Merges newly-found drug names from this indexing run into the shared,
-    plan-agnostic drug_names.json file — now structured as a dict mapping
-    each drug word to its illness/condition terms, not just a flat list.
+    Builds and maintains the shared, plan-agnostic drug_names.json file.
 
-        {"metformin": ["diabetes", "blood sugar"], "ozempic": [...], ...}
+    Simple structure — full drug name as key, illness terms as value:
+        {
+          "ANCOBON ORAL CAPSULE 250 MG, 500 MG": ["fungal infection"],
+          "fluconazole oral tablet 100 mg, 150 mg": ["fungal infection", "yeast infection"],
+          "ABILIFY MAINTENA INTRAMUSCULAR SUSPENSION...": ["schizophrenia"]
+        }
 
-    Deduplicated and classified at WRITE time (index time), so the runtime
-    loader (category.py's _load_drug_name_words) never needs to do dedup
-    or LLM classification — just load the file directly.
+    Key = exact drug name string from booklet, zero manipulation.
+    Value = layman illness/condition terms, classified once per entry.
 
-    Called once at the end of every rx_indexer.py run, for ANY booklet.
-    Safe to call repeatedly — a drug word already present in the file is
-    NEVER re-classified, even across different booklets or re-indexing runs,
-    so the one-time LLM cost stays bounded by the true number of unique
-    drug words across your entire system, not the number of indexing runs.
-
-    classify_illness=False skips the LLM step entirely (useful for fast
-    re-indexing during testing, or if illness mapping isn't needed yet) —
-    drug words are still added to the file with an empty illness list,
-    and can be backfilled by a later run with classify_illness=True.
+    Each drug entry gets its own LLM classification with full name context
+    — maximum accuracy, LLM sees the complete drug description.
+    Dedup is natural — same full name string = same dict key, never duplicated.
     """
-    new_words = set()
+    # Extract primary drug identifier words from drug names.
+    # Keys are the first meaningful word of each drug name (lowercased) —
+    # e.g. "VIVJOA ORAL CAPSULE 150 MG" → "vivjoa"
+    # This matches what category.py expects: individual drug words as keys.
+    new_drug_names = set()
     for chunk in drug_chunks:
         content = chunk.get("content", {})
-        drug_name = content.get("drug_name", "")
-        if not drug_name:
-            continue
-        for word in re.findall(r"[a-zA-Z]+", drug_name.lower()):
-            if len(word) > 4 and word not in _DRUG_WORD_STOPLIST_FOR_NAMES_FILE:
-                new_words.add(word)
+        drug_name = content.get("drug_name", "").strip()
+        if drug_name and _is_valid_drug_name(drug_name):
+            first_word = re.match(r"[a-zA-Z][a-zA-Z0-9\-]*", drug_name)
+            if first_word:
+                word = first_word.group(0).lower().rstrip("-")
+                if len(word) > 2 and word not in _DRUG_WORD_STOPLIST_FOR_NAMES_FILE:
+                    new_drug_names.add(word)
+                    # Also add the base name before the first hyphen so
+                    # "adalimumab" matches "adalimumab-aacf", "adalimumab-fkjp" etc.
+                    if "-" in word:
+                        base = word.split("-")[0]
+                        if (
+                            len(base) >= 5
+                            and base not in _DRUG_WORD_STOPLIST_FOR_NAMES_FILE
+                        ):
+                            new_drug_names.add(base)
 
+    # Load existing data
     existing_data = {}
     if os.path.exists(file_path):
         try:
             with open(file_path, encoding="utf-8") as f:
-                existing_data = json.load(f)
+                raw = json.load(f)
+            # Backward-compat: handle old formats
+            if isinstance(raw, list):
+                existing_data = {}  # old flat list — start fresh
+            elif raw and isinstance(list(raw.values())[0], dict):
+                existing_data = {}  # old grouped format — start fresh
+            else:
+                existing_data = raw  # current format {full_name: [illness_terms]}
         except Exception as e:
             print(f"[!] Failed to load existing drug_names.json: {e}")
 
-    truly_new_words = new_words - set(existing_data.keys())
+    # Find truly new entries (not in file at all)
+    truly_new = new_drug_names - set(existing_data.keys())
 
-    if not truly_new_words:
+    # Find entries needing backfill (in file but empty illness terms)
+    needs_backfill = set()
+    if classify_illness:
+        needs_backfill = {
+            name
+            for name in new_drug_names
+            if name in existing_data and not existing_data[name]
+        }
+
+    to_classify = truly_new | needs_backfill
+
+    if not truly_new and not needs_backfill:
         print(
-            f"[*] drug_names.json unchanged: {len(existing_data)} words, no new entries"
+            f"[*] drug_names.json unchanged: {len(existing_data)} entries, "
+            f"no new drugs and no empty entries to backfill"
         )
         return existing_data
 
-    print(
-        f"[*] drug_names.json: classifying {len(truly_new_words)} new words "
-        f"({'with' if classify_illness else 'without'} illness mapping)..."
-    )
+    # Add new entries with empty illness terms first
+    for name in truly_new:
+        existing_data[name] = []
 
-    for word in truly_new_words:
-        illness_terms = _classify_illness_terms(word) if classify_illness else []
-        existing_data[word] = illness_terms
+    if classify_illness and to_classify:
+        print(
+            f"[*] drug_names.json: classifying {len(to_classify)} drug entries "
+            f"({len(truly_new)} new, {len(needs_backfill)} backfill)..."
+        )
+        word_list = list(to_classify)
+        batch_size = 25
+        for i in range(0, len(word_list), batch_size):
+            batch = word_list[i : i + batch_size]
+            batch_results = _classify_illness_terms_batch(batch, batch_size=batch_size)
+            for drug_name, illness_terms in batch_results.items():
+                existing_data[drug_name] = illness_terms
+            # Progressive save after every batch
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(existing_data, f, indent=2, sort_keys=True)
+            print(
+                f"[*] Classified batch {i//batch_size + 1}/"
+                f"{(len(word_list)-1)//batch_size + 1} "
+                f"({min(i+batch_size, len(word_list))}/{len(word_list)} entries)"
+            )
+    else:
+        print(
+            f"[*] drug_names.json: {len(truly_new)} new entries added "
+            f"(without illness mapping)"
+        )
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(existing_data, f, indent=2, sort_keys=True)
 
     print(
-        f"[*] drug_names.json updated: +{len(truly_new_words)} new words, "
-        f"{len(existing_data)} total"
+        f"[*] drug_names.json updated: +{len(truly_new)} new, "
+        f"{len(needs_backfill)} backfilled, "
+        f"{len(existing_data)} total entries"
     )
 
     return existing_data

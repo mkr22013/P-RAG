@@ -5,8 +5,8 @@ Booklet structure:
     Pages 1-5:  Intro, tier explanations, abbreviations (skipped)
     Page 6+:    Drug list
                 CATEGORY (ALL CAPS)
-                  SUBCATEGORY (ALL CAPS)
-                    Drug Name    Tier    Requirements
+                SUBCATEGORY (ALL CAPS)
+                Drug Name    Tier    Requirements
 
 One chunk per drug entry. No LLM needed.
 """
@@ -228,22 +228,22 @@ def _normalize_drug_name(name: str) -> str:
     Handles three artifact types, applied in order:
 
     1. OCR column-header bleed — doubled characters from scanned page headers:
-          "DDrruugg NNaammee DDrruugg TTiieerr..." → discard entry entirely (return "")
+        "DDrruugg NNaammee DDrruugg TTiieerr..." → discard entry entirely (return "")
 
     2. Trailing annotation tokens — requirements-column values that bled into the name field:
-          "LORBRENA ORAL TABLET 100 MG days)"             → "LORBRENA ORAL TABLET 100 MG"
-          "CAYSTON ... 75 MG/ML MONTH); SP; LA"           → "CAYSTON ... 75 MG/ML"
-          "EPIPEN ... 0.3 MG/0.3 ML FILL); NP 169"       → "EPIPEN ... 0.3 MG/0.3 ML"
-          "FYCOMPA ORAL SUSPENSION 0.5 MG/ML 30 DAYS)"   → "FYCOMPA ORAL SUSPENSION 0.5 MG/ML"
-          "HYMPAVZI PEN ... 150 MG/ML LA"                 → "HYMPAVZI PEN ... 150 MG/ML"
+        "LORBRENA ORAL TABLET 100 MG days)"             → "LORBRENA ORAL TABLET 100 MG"
+        "CAYSTON ... 75 MG/ML MONTH); SP; LA"           → "CAYSTON ... 75 MG/ML"
+        "EPIPEN ... 0.3 MG/0.3 ML FILL); NP 169"       → "EPIPEN ... 0.3 MG/0.3 ML"
+        "FYCOMPA ORAL SUSPENSION 0.5 MG/ML 30 DAYS)"   → "FYCOMPA ORAL SUSPENSION 0.5 MG/ML"
+        "HYMPAVZI PEN ... 150 MG/ML LA"                 → "HYMPAVZI PEN ... 150 MG/ML"
 
     3. Trailing footnote integers — page-reference numbers after a dose unit:
-          "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG 116"   → "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG"
-          "ACUVAIL ... DROPPERETTE 0.45 % 164"            → "ACUVAIL ... DROPPERETTE 0.45 %"
-       NOT stripped when no unit precedes the integer:
-          "FREESTYLE LIBRE 107"                           → kept as-is
-          "LANCETS 33 GAUGE 108"                          → kept as-is
-          "ERTACZO TOPICAL CREAM 91"                      → kept as-is
+        "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG 116"   → "ACTOS ORAL TABLET 15 MG, 30 MG, 45 MG"
+        "ACUVAIL ... DROPPERETTE 0.45 % 164"            → "ACUVAIL ... DROPPERETTE 0.45 %"
+        NOT stripped when no unit precedes the integer:
+        "FREESTYLE LIBRE 107"                           → kept as-is
+        "LANCETS 33 GAUGE 108"                          → kept as-is
+        "ERTACZO TOPICAL CREAM 91"                      → kept as-is
     """
     if _OCR_HEADER_RE.search(name):
         return ""
@@ -1152,6 +1152,9 @@ def _classify_synonyms_batch(illness_terms: list, batch_size: int = 25) -> dict:
             print(f"[!] Synonym batch failed for batch {i//batch_size + 1}: {e}")
 
     return results
+
+
+def _is_valid_drug_name(drug_name: str) -> bool:
     """
     Returns True only for genuine drug name strings from the formulary.
     Filters out PDF parser artifacts — dosage fragments, page numbers,
@@ -1161,14 +1164,9 @@ def _classify_synonyms_batch(illness_terms: list, batch_size: int = 25) -> dict:
     Rules (checked in order):
     1. Must start with a letter (filters "0.25 MG...", "(11)-", "3 DAY")
     2. Must contain at least one alphabetic word of 4+ characters
-       (filters "DROPS", "PACK", "IN PACKET", "INSERT", "IRON-")
     3. First word must not be a known route/form/device descriptor
-       (filters "EXTENDED REL 12 HR", "SUBCUTANEOUS SYRINGE",
-        "RECTAL GEL", "TABLETS, DOSE PACK", "SPRINKLE", "soln", "oral")
     4. Single-word entries must not be a known standalone artifact
-       (filters "CHEWABLE", "DROPPERETTE", "RELEASE" etc.)
     5. Must contain at least one meaningful word beyond pure descriptors
-       (filters entries that are purely dosage form / route descriptions)
     """
     if not drug_name or not drug_name[0].isalpha():
         return False
@@ -1177,13 +1175,11 @@ def _classify_synonyms_batch(illness_terms: list, batch_size: int = 25) -> dict:
     if not words:
         return False
 
-    # Rule 2: must have at least one word of 4+ characters
+    # Rule 2
     if max(len(w) for w in words) < 4:
         return False
 
-    # Rule 3: first word is a route/form/device descriptor — not a drug name.
-    # Catches "EXTENDED REL 12 HR", "SUBCUTANEOUS SYRINGE", "RECTAL GEL",
-    # "TABLETS, DOSE PACK", "SPRINKLE", "soln", "over", "oral" etc.
+    # Rule 3
     _FIRST_WORD_ARTIFACTS = {
         "extended",
         "subcutaneous",
@@ -1210,7 +1206,6 @@ def _classify_synonyms_batch(illness_terms: list, batch_size: int = 25) -> dict:
         "intravenous",
         "percutaneous",
         "irrigation",
-        # additional route/device/dosage-form starters
         "insert",
         "pen",
         "mg",
@@ -1319,9 +1314,9 @@ def update_drug_names_file(
 
     Simple structure — full drug name as key, illness terms as value:
         {
-          "ANCOBON ORAL CAPSULE 250 MG, 500 MG": ["fungal infection"],
-          "fluconazole oral tablet 100 mg, 150 mg": ["fungal infection", "yeast infection"],
-          "ABILIFY MAINTENA INTRAMUSCULAR SUSPENSION...": ["schizophrenia"]
+            "ANCOBON ORAL CAPSULE 250 MG, 500 MG": ["fungal infection"],
+            "fluconazole oral tablet 100 mg, 150 mg": ["fungal infection", "yeast infection"],
+            "ABILIFY MAINTENA INTRAMUSCULAR SUSPENSION...": ["schizophrenia"]
         }
 
     Key = exact drug name string from booklet, zero manipulation.
@@ -1457,9 +1452,9 @@ def update_condition_synonyms_file(
 
     Structure:
         {
-          "diabetes": ["blood sugar", "type 2", "high blood sugar", "T2D"],
-          "hypertension": ["blood pressure", "high blood pressure", "high bp", "bp"],
-          ...
+            "diabetes": ["blood sugar", "type 2", "high blood sugar", "T2D"],
+            "hypertension": ["blood pressure", "high blood pressure", "high bp", "bp"],
+            ...
         }
     """
     # Collect all unique illness terms across all drugs

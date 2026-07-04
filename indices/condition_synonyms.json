@@ -1,0 +1,5823 @@
+{
+  "(no match)": [],
+  "(not a drug name)": [],
+  "abortion": [
+    "termination",
+    "miscarriage",
+    "pregnancy termination",
+    "induced abortion",
+    "d&c"
+  ],
+  "acetaminophen overdose": [
+    "acetaminophen toxicity",
+    "apap overdose",
+    "tylenol overdose",
+    "painkiller overdose",
+    "liver damage",
+    "liver failure"
+  ],
+  "acid reflux": [
+    "heartburn",
+    "gerd",
+    "indigestion",
+    "stomach acid",
+    "burning sensation"
+  ],
+  "acidosis condition": [
+    "acid reflux",
+    "metabolic acidosis",
+    "diabetic ketoacidosis",
+    "kidney disease",
+    "electrolyte imbalance",
+    "dka"
+  ],
+  "acne": [
+    "pimples",
+    "zits",
+    "acne vulgaris",
+    "breakouts",
+    "skin blemishes",
+    "comedones"
+  ],
+  "acne prevention": [
+    "acne treatment",
+    "zits",
+    "pimples",
+    "skin care",
+    "clear skin",
+    "prevent breakouts"
+  ],
+  "acne treatment": [
+    "acne",
+    "pimples",
+    "zits",
+    "skin breakout",
+    "comedones",
+    "benzoyl peroxide"
+  ],
+  "acromegaly": [
+    "giantism",
+    "growth disorder",
+    "pituitary tumor",
+    "excessive growth",
+    "hormonal imbalance"
+  ],
+  "acromegaly condition": [
+    "giantism",
+    "growth hormone disorder",
+    "acro",
+    "gh imbalance",
+    "pituitary tumor"
+  ],
+  "actinic keratosis": [
+    "sun damage",
+    "skin lesions",
+    "solar keratoses",
+    "precancerous growths",
+    "skin cancer precursor"
+  ],
+  "addiction": [
+    "substance abuse",
+    "addiction disorder",
+    "dependence",
+    "chemical dependency",
+    "compulsive behavior"
+  ],
+  "addiction issues": [
+    "substance abuse",
+    "addiction",
+    "dependence",
+    "chemical dependency",
+    "recovery",
+    "rehab"
+  ],
+  "addiction risk": [
+    "substance abuse",
+    "addiction potential",
+    "dependence risk",
+    "substance use disorder",
+    "sud",
+    "aud"
+  ],
+  "adhd": [
+    "attention deficit",
+    "hyperactivity disorder",
+    "add",
+    "inattention",
+    "impulsivity"
+  ],
+  "adhd medication": [
+    "adderall",
+    "ritalin",
+    "focus meds",
+    "adhd meds",
+    "attention meds",
+    "stimulants"
+  ],
+  "adhd symptoms": [
+    "hyperactivity",
+    "attention deficit disorder",
+    "add",
+    "adhd",
+    "inattention",
+    "impulsivity"
+  ],
+  "adrenal insufficiency": [
+    "addison's disease",
+    "adrenal crisis",
+    "cortisol deficiency",
+    "hormone imbalance",
+    "cushing's syndrome",
+    "hypoadrenalism"
+  ],
+  "adrenocortical insufficiency": [
+    "addison's disease",
+    "adrenal crisis",
+    "cortisol deficiency",
+    "hormone imbalance",
+    "hypoadrenalism",
+    "cushing's syndrome"
+  ],
+  "aids": [
+    "hiv",
+    "immune system problem",
+    "compromised immune system",
+    "hiv/aids",
+    "immunodeficiency"
+  ],
+  "aids prevention": [
+    "hiv prevention",
+    "aids meds",
+    "antiretroviral therapy",
+    "art",
+    "hiv treatment",
+    "prevent hiv transmission"
+  ],
+  "aids treatment": [
+    "hiv meds",
+    "antiretroviral therapy",
+    "art",
+    "haart",
+    "combination therapy"
+  ],
+  "aids virus": [
+    "hiv",
+    "human immunodeficiency virus",
+    "hiv infection",
+    "hiv/aids"
+  ],
+  "alcohol dependence": [
+    "alcoholism",
+    "addiction",
+    "substance abuse",
+    "drinking problem",
+    "booze issue",
+    "liver disease"
+  ],
+  "alertness": [
+    "energy levels",
+    "fatigue",
+    "sleepiness",
+    "drowsiness",
+    "lethargy",
+    "mental clarity"
+  ],
+  "allergic conjunctivitis": [
+    "pink eye",
+    "itchy eyes",
+    "allergic reaction",
+    "eye irritation",
+    "conjunctival inflammation",
+    "eye allergy"
+  ],
+  "allergic reaction": [
+    "allergic attack",
+    "anaphylaxis",
+    "hives",
+    "skin irritation",
+    "allergy symptoms",
+    "allergic response"
+  ],
+  "allergic reactions": [
+    "anaphylaxis",
+    "allergic reaction",
+    "hypersensitivity",
+    "intolerance",
+    "allergy attack"
+  ],
+  "allergic rhinitis": [
+    "hay fever",
+    "allergies",
+    "sinus pressure",
+    "postnasal drip",
+    "runny nose",
+    "allergic congestion"
+  ],
+  "allergies": [
+    "allergic reactions",
+    "sensitivities",
+    "intolerance",
+    "hypersensitivity",
+    "atopy",
+    "anaphylaxis"
+  ],
+  "allergies skin rash": [
+    "allergies",
+    "skin allergy",
+    "hives",
+    "allergic reaction",
+    "anaphylaxis",
+    "atopy"
+  ],
+  "allergy": [
+    "allergic reaction",
+    "allergy attack",
+    "hypersensitivity",
+    "anaphylaxis",
+    "immune system disorder",
+    "adr"
+  ],
+  "allergy prevention": [
+    "allergy management",
+    "immunotherapy",
+    "desensitization",
+    "allergy shots",
+    "allergen avoidance"
+  ],
+  "allergy relief": [
+    "allergy meds",
+    "antihistamines",
+    "benadryl",
+    "allergy shots",
+    "immunotherapy",
+    "allergy treatment"
+  ],
+  "allergy symptoms": [],
+  "alzheimer's disease": [
+    "alzheimers",
+    "alzheimer's",
+    "dementia",
+    "memory loss",
+    "cognitive decline",
+    "ad"
+  ],
+  "ammonia levels": [
+    "ammonia test",
+    "ammonia level",
+    "blood ammonia",
+    "nh3",
+    "nitrogen waste",
+    "urea cycle disorder"
+  ],
+  "amyloidosis": [
+    "amyloid disease",
+    "amyloid deposition",
+    "protein misfolding",
+    "amyloidosis syndrome",
+    "aa"
+  ],
+  "amyotrophic lateral sclerosis": [
+    "als",
+    "lou gehrig's disease",
+    "motor neuron disease",
+    "mnd",
+    "amyotrophy"
+  ],
+  "anal itching": [
+    "hemorrhoids",
+    "anal irritation",
+    "rectal itch",
+    "perianal itching",
+    "anal pruritus",
+    "anal discomfort"
+  ],
+  "anaphylactic shock": [
+    "anaphylaxis",
+    "allergic reaction",
+    "severe allergy",
+    "life-threatening allergy",
+    "epipen",
+    "anaphylactic emergency"
+  ],
+  "anaphylaxis": [
+    "anaphylactic shock",
+    "severe allergic reaction",
+    "life-threatening allergy",
+    "allergic emergency",
+    "anaphylactic episode",
+    "severe sensitivity"
+  ],
+  "anemia": [
+    "low iron",
+    "anemic",
+    "fatigue",
+    "weakness",
+    "pale skin",
+    "microcytic anemia"
+  ],
+  "anemia treatment": [
+    "iron supplements",
+    "anemic blood",
+    "low red blood count",
+    "fatigue treatment",
+    "weakness treatment",
+    "vitamin deficiency"
+  ],
+  "angina": [
+    "chest pain",
+    "heart attack",
+    "cardiac pain",
+    "coronary artery disease",
+    "cad",
+    "angina pectoris"
+  ],
+  "angina symptoms": [
+    "chest pain",
+    "heart attack",
+    "angina pectoris",
+    "cardiac pain",
+    "coronary artery disease",
+    "cad"
+  ],
+  "anthrax infection": [
+    "anthrax disease",
+    "b. anthracis",
+    "inhalation anthrax",
+    "cutaneous anthrax",
+    "bioterrorism agent"
+  ],
+  "antibiotic resistance": [
+    "superbugs",
+    "antibiotic overuse",
+    "mrsa",
+    "resistant bacteria",
+    "bacterial resistance",
+    "ar"
+  ],
+  "antibiotic resistant": [
+    "superbug",
+    "mrsa",
+    "antibiotic-resistant bacteria",
+    "resistant infection",
+    "drug-resistant infection"
+  ],
+  "antibiotic resistant infections": [
+    "superbugs",
+    "mrsa",
+    "antibiotic-resistant bacteria",
+    "resistant infection",
+    "nosocomial infection",
+    "hospital-acquired infection"
+  ],
+  "antifungal": [
+    "antifungals",
+    "fungal meds",
+    "fungus treatment",
+    "yeast infection meds",
+    "antifungal meds",
+    "fungus"
+  ],
+  "anxiety": [
+    "anxiety attack",
+    "panic attack",
+    "stress",
+    "nerves",
+    "high anxiety",
+    "anxiety disorder"
+  ],
+  "anxiety disorder": [
+    "anxiety attack",
+    "panic attack",
+    "stress",
+    "nervousness",
+    "high anxiety",
+    "anxiety meds"
+  ],
+  "anxiety disorders": [
+    "anxiety",
+    "stress",
+    "panic attacks",
+    "phobias",
+    "ptsd",
+    "generalized anxiety"
+  ],
+  "appetite loss": [
+    "weight loss",
+    "anorexia",
+    "decreased appetite",
+    "poor appetite",
+    "loss of hunger",
+    "cachexia"
+  ],
+  "appetite stimulant": [
+    "hunger meds",
+    "appetite enhancer",
+    "weight gain pills",
+    "food craving meds",
+    "eating disorder treatment",
+    "anorexia meds"
+  ],
+  "appetite suppressant": [
+    "diet pill",
+    "weight loss aid",
+    "appetite reducer",
+    "slimming tablet",
+    "wl aid"
+  ],
+  "appetite suppression": [
+    "weight loss",
+    "appetite suppressant",
+    "diet pills",
+    "low appetite",
+    "anorexia",
+    "wl"
+  ],
+  "arrhythmia": [
+    "irregular heartbeat",
+    "abnormal heart rhythm",
+    "palpitations",
+    "tachycardia",
+    "bradycardia"
+  ],
+  "arthritis": [
+    "joint pain",
+    "arthritis pain",
+    "rheumatism",
+    "inflammation",
+    "oa",
+    "ra"
+  ],
+  "arthritis pain": [
+    "joint ache",
+    "arthritis symptoms",
+    "arthritic pain",
+    "rheumatism",
+    "inflammation",
+    "joint inflammation"
+  ],
+  "arthritis treatment": [
+    "joint pain relief",
+    "arthritis medication",
+    "anti-inflammatory",
+    "pain management",
+    "oa treatment",
+    "ra treatment"
+  ],
+  "asthma": [
+    "asthma attack",
+    "wheezing",
+    "bronchitis",
+    "chronic cough",
+    "respiratory problem",
+    "airway inflammation"
+  ],
+  "asthma attack": [
+    "asthma flare-up",
+    "wheezing episode",
+    "bronchospasm",
+    "respiratory crisis",
+    "asthma exacerbation",
+    "ae"
+  ],
+  "asthma control": [
+    "asthma symptoms",
+    "breathing difficulties",
+    "wheezing",
+    "coughing",
+    "allergy attacks",
+    "respiratory issues"
+  ],
+  "asthma inhaler": [
+    "inhaler",
+    "asthma meds",
+    "breathing aid",
+    "airway treatment",
+    "bronchodilator",
+    "rescue inhaler"
+  ],
+  "asthma symptoms": [
+    "asthma attack",
+    "wheezing",
+    "shortness of breath",
+    "coughing",
+    "bronchitis",
+    "respiratory issues"
+  ],
+  "asthma treatment": [
+    "asthma meds",
+    "inhaler",
+    "breathing treatment",
+    "respiratory therapy",
+    "lung medication",
+    "bronchodilator"
+  ],
+  "athlete's foot": [
+    "athlete's foot fungus",
+    "fungal infection",
+    "toe fungus",
+    "foot fungus",
+    "tinea pedis",
+    "fungal rash"
+  ],
+  "atrial fibrillation": [
+    "irregular heartbeat",
+    "heart arrhythmia",
+    "afib",
+    "atrial flutter",
+    "abnormal heart rhythm",
+    "cardiac arrhythmia"
+  ],
+  "attention deficit": [
+    "adhd",
+    "attention deficit hyperactivity disorder",
+    "add",
+    "inattentive type",
+    "hyperactive child",
+    "ad"
+  ],
+  "attention deficit disorder": [
+    "adhd",
+    "add",
+    "attention deficit hyperactivity disorder",
+    "focus issues",
+    "inattentive behavior",
+    "adha"
+  ],
+  "attention deficit hyperactivity disorder": [
+    "adhd",
+    "add",
+    "hyperactivity disorder",
+    "attention deficit disorder",
+    "behavioral issues"
+  ],
+  "attention issues": [
+    "adhd",
+    "attention deficit hyperactivity disorder",
+    "add",
+    "focus problems",
+    "concentration difficulties",
+    "learning disability"
+  ],
+  "autoimmune disease": [
+    "autoimmune",
+    "autoimmunity",
+    "immune system disorder",
+    "chronic illness",
+    "inflammatory disease",
+    "chronic condition"
+  ],
+  "autoimmune diseases": [
+    "autoimmune disorder",
+    "chronic illness",
+    "immune system disease",
+    "inflammatory disease",
+    "rheumatoid arthritis",
+    "lupus"
+  ],
+  "back pain": [
+    "lower back pain",
+    "upper back pain",
+    "lumbar strain",
+    "sciatica",
+    "spinal pain"
+  ],
+  "back pain relief": [
+    "backache",
+    "lower back pain",
+    "sciatica",
+    "herniated disc",
+    "spinal stenosis",
+    "lumbar strain"
+  ],
+  "bacterial diarrhea": [
+    "traveler's diarrhea",
+    "food poisoning",
+    "stomach bug",
+    "gastroenteritis",
+    "bacterial gut",
+    "loose stools"
+  ],
+  "bacterial infection": [
+    "bacterial illness",
+    "infection",
+    "germ infection",
+    "microbial infection",
+    "sepsis",
+    "antibiotic treatment"
+  ],
+  "bacterial infections": [
+    "bacterial infection",
+    "bug",
+    "germ",
+    "illness",
+    "sickness"
+  ],
+  "bacterial pneumonia": [
+    "walking pneumonia",
+    "bronchitis",
+    "lung infection",
+    "bacterial infection",
+    "pneumonia",
+    "cap"
+  ],
+  "bacterial vaginosis": [
+    "bv",
+    "bacterial infection",
+    "vaginal yeast",
+    "vaginal discharge",
+    "vaginitis",
+    "yeast infection"
+  ],
+  "baldness": [
+    "hair loss",
+    "thinning hair",
+    "receding hairline",
+    "bald spot",
+    "going bald",
+    "alopecia"
+  ],
+  "basal cell carcinoma": [
+    "skin cancer",
+    "basal cell tumor",
+    "non-melanoma skin cancer",
+    "bcc",
+    "skin growth",
+    "skin lesion"
+  ],
+  "bedwetting": [
+    "nocturnal enuresis",
+    "nighttime wetting",
+    "bedwet",
+    "sleep wetting",
+    "nighttime incontinence",
+    "urinary incontinence"
+  ],
+  "bipolar": [
+    "bipolar disorder",
+    "manic depression",
+    "mood swings",
+    "emotional ups and downs",
+    "manic episodes",
+    "bp"
+  ],
+  "bipolar disorder": [
+    "bipolar",
+    "manic depression",
+    "mood swings",
+    "bp",
+    "manic episodes",
+    "depressive episodes"
+  ],
+  "birth control": [
+    "birth control pills",
+    "bcps",
+    "the pill",
+    "contraception",
+    "family planning",
+    "fertility control"
+  ],
+  "birth control pills": [
+    "oral contraceptives",
+    "hormonal birth control",
+    "fertility regulation",
+    "menstrual suppression",
+    "oc pills"
+  ],
+  "bladder control": [
+    "incontinence",
+    "overactive bladder",
+    "oab",
+    "urinary issues",
+    "bladder problems"
+  ],
+  "bleeding disorder": [
+    "hemophilia",
+    "clotting disorder",
+    "bleeding problem",
+    "coagulopathy",
+    "blood disease"
+  ],
+  "bleeding disorders": [
+    "hemophilia",
+    "von willebrand disease",
+    "platelet disorder",
+    "blood clotting disorder",
+    "coagulopathy",
+    "bleeding condition"
+  ],
+  "blood cancer": [
+    "leukemia",
+    "lymphoma",
+    "blood disorder",
+    "hematological malignancy",
+    "myeloproliferative neoplasm",
+    "mpn"
+  ],
+  "blood clot": [
+    "blood clots",
+    "thrombosis",
+    "deep vein thrombosis",
+    "dvt",
+    "clotting disorder",
+    "coagulopathy"
+  ],
+  "blood clot prevention": [
+    "blood thinners",
+    "anticoagulation",
+    "warfarin",
+    "aspirin therapy",
+    "stroke prevention",
+    "dvt prevention"
+  ],
+  "blood clots": [
+    "clots",
+    "clotting",
+    "blood clot",
+    "coagulation",
+    "clotting disorder",
+    "thrombosis"
+  ],
+  "blood clotting": [
+    "blood thinners",
+    "coagulation disorder",
+    "bleeding disorder",
+    "hemostasis",
+    "thrombosis",
+    "clotting factor deficiency"
+  ],
+  "blood clotting disorder": [
+    "blood clots",
+    "clotting issue",
+    "bleeding disorder",
+    "coagulopathy",
+    "hemophilia",
+    "thrombosis"
+  ],
+  "blood clotting disorders": [
+    "coagulopathy",
+    "bleeding disorder",
+    "hemophilia",
+    "thrombocytopenia",
+    "platelet disorder",
+    "anticoagulant therapy"
+  ],
+  "blood disorder": [
+    "anemia",
+    "hemophilia",
+    "leukemia",
+    "sickle cell",
+    "platelet disorder",
+    "coagulopathy"
+  ],
+  "blood flow": [
+    "blood circulation",
+    "circulatory problems",
+    "poor circulation",
+    "low blood pressure",
+    "hypotension",
+    "anemia"
+  ],
+  "blood glucose": [
+    "blood sugar",
+    "high blood sugar",
+    "low blood sugar",
+    "sugar levels",
+    "diabetes management",
+    "blood glucose control"
+  ],
+  "blood sugar": [
+    "blood glucose",
+    "diabetes",
+    "high blood sugar",
+    "t2d",
+    "hyperglycemia",
+    "hypoglycemia"
+  ],
+  "blood sugar control": [
+    "blood sugar management",
+    "diabetes control",
+    "glucose regulation",
+    "insulin therapy",
+    "sugar levels",
+    "t2d"
+  ],
+  "bone cancer": [
+    "bone tumor",
+    "osteosarcoma",
+    "bone metastasis",
+    "bone cancer spread",
+    "cancer in the bones",
+    "bone malignancy"
+  ],
+  "bone density": [
+    "osteoporosis",
+    "brittle bones",
+    "bone loss",
+    "thinning bones",
+    "low bone mass",
+    "osteo"
+  ],
+  "bone health": [
+    "bone density",
+    "osteoporosis prevention",
+    "bone care",
+    "skeletal health",
+    "orthopedic wellness"
+  ],
+  "bone infection": [
+    "osteomyelitis",
+    "bone abscess",
+    "septic arthritis",
+    "joint infection",
+    "osteitis"
+  ],
+  "bone loss": [
+    "osteoporosis",
+    "bone density loss",
+    "brittle bones",
+    "porous bones",
+    "vertebral compression fractures",
+    "spinal stenosis"
+  ],
+  "bone marrow disease": [
+    "bone marrow failure",
+    "myelodysplastic syndrome",
+    "mds",
+    "anemia of chronic disease",
+    "aplastic anemia",
+    "bone marrow failure syndrome"
+  ],
+  "bone marrow disorder": [
+    "bone marrow failure",
+    "myelodysplastic syndrome",
+    "mds",
+    "anemia",
+    "low blood count",
+    "pancytopenia"
+  ],
+  "bone thinning": [
+    "osteoporosis",
+    "bone loss",
+    "brittle bones",
+    "porous bones",
+    "vertebral compression fractures"
+  ],
+  "bone weakness": [
+    "osteoporosis",
+    "brittle bones",
+    "fragile bones",
+    "bone fragility",
+    "spinal compression fractures"
+  ],
+  "bowel movement": [
+    "bowel movements",
+    "bms",
+    "stool",
+    "poop",
+    "defecation",
+    "elimination"
+  ],
+  "bowel prep": [
+    "colon cleanse",
+    "prep",
+    "colonoscopy prep",
+    "laxative",
+    "prep work"
+  ],
+  "brain cancer": [
+    "brain tumor",
+    "glioblastoma",
+    "meningioma",
+    "astrocytoma",
+    "brain lesion",
+    "cancerous growth"
+  ],
+  "breast cancer": [
+    "breast tumor",
+    "breast lump",
+    "mastectomy",
+    "lumpectomy",
+    "breast surgery",
+    "bc"
+  ],
+  "breast cancer treatment": [
+    "breast cancer surgery",
+    "mastectomy",
+    "lumpectomy",
+    "chemotherapy",
+    "radiation therapy"
+  ],
+  "breathing difficulty": [
+    "shortness of breath",
+    "respiratory distress",
+    "breathing problems",
+    "airway issues",
+    "oxygen needs"
+  ],
+  "breathing issues": [
+    "asthma",
+    "copd",
+    "shortness of breath",
+    "wheezing",
+    "respiratory problems",
+    "rsv"
+  ],
+  "breathing problems": [
+    "asthma",
+    "copd",
+    "shortness of breath",
+    "respiratory issues",
+    "lung problems",
+    "breathing difficulties"
+  ],
+  "bronchitis": [
+    "bronchi",
+    "chronic cough",
+    "smoker's cough",
+    "lung infection",
+    "pneumonia",
+    "copd"
+  ],
+  "burn care": [
+    "burn treatment",
+    "burn wound care",
+    "scalded skin",
+    "second-degree burns",
+    "third-degree burns"
+  ],
+  "c difficile infection": [
+    "c. diff",
+    "cdi",
+    "clostridioides difficile",
+    "antibiotic-associated diarrhea",
+    "pseudomembranous colitis"
+  ],
+  "c-diff infection": [
+    "c. diff",
+    "clostridioides difficile",
+    "c. difficile",
+    "c. diff symptoms",
+    "c. diff treatment",
+    "antibiotic-associated diarrhea"
+  ],
+  "cancer": [
+    "tumor",
+    "cancerous growth",
+    "malignant cells",
+    "abnormal cells",
+    "cancer diagnosis",
+    "cancer treatment"
+  ],
+  "cancer cells": [
+    "tumor",
+    "cancer growth",
+    "malignant cells",
+    "abnormal cells",
+    "cancerous cells",
+    "neoplastic cells"
+  ],
+  "cancer growth": [
+    "tumor growth",
+    "cancer spread",
+    "metastasis",
+    "neoplasm",
+    "malignant growth",
+    "oncogenesis"
+  ],
+  "cancer treatment": [
+    "chemo",
+    "radiation",
+    "oncology",
+    "cancer meds",
+    "cancer therapy"
+  ],
+  "carcinoid syndrome": [
+    "flushing",
+    "diarrhea",
+    "wheezing",
+    "heart palpitations",
+    "carcinoid tumor",
+    "neuroendocrine tumor"
+  ],
+  "cataract": [
+    "cataracts",
+    "cloudy lens",
+    "vision loss",
+    "eye surgery",
+    "lens implant",
+    "iol"
+  ],
+  "cataracts": [
+    "cloudy vision",
+    "eye cloudiness",
+    "lens opacity",
+    "age-related macular degeneration",
+    "armd"
+  ],
+  "cervical cancer": [
+    "cervix cancer",
+    "cin",
+    "cervical dysplasia",
+    "abnormal pap smear",
+    "cc"
+  ],
+  "chemotherapy": [
+    "chemo",
+    "cancer treatment",
+    "oncology",
+    "radiation therapy",
+    "cancer medication",
+    "cancer care"
+  ],
+  "chest pain": [
+    "heart pain",
+    "angina",
+    "cardiac pain",
+    "chest discomfort",
+    "precordial catch syndrome",
+    "cva"
+  ],
+  "chickenpox": [
+    "varicella",
+    "chicken pox rash",
+    "shingles",
+    "herpes zoster",
+    "viral exanthem"
+  ],
+  "childhood vaccinations": [
+    "immunizations",
+    "shots",
+    "vaccines",
+    "pediatric care",
+    "well-child visits",
+    "booster shots"
+  ],
+  "chorea symptoms": [
+    "chorea movements",
+    "dance-like movements",
+    "involuntary movements",
+    "jerky movements",
+    "choreiform movements"
+  ],
+  "chronic bronchitis": [
+    "copd",
+    "chronic cough",
+    "smoker's cough",
+    "lung disease",
+    "emphysema",
+    "cbb"
+  ],
+  "chronic coughing": [
+    "chronic cough",
+    "persistent cough",
+    "long-term cough",
+    "dry cough",
+    "productive cough",
+    "hacking cough"
+  ],
+  "chronic granulomatosis": [
+    "cgd",
+    "chronic granulomatous disease",
+    "granulomatosis with polyangiitis",
+    "gpa",
+    "vasculitis",
+    "wg"
+  ],
+  "chronic lung disease": [
+    "copd",
+    "chronic bronchitis",
+    "emphysema",
+    "lung damage",
+    "respiratory problems",
+    "breathing difficulties"
+  ],
+  "chronic nephritis": [
+    "kidney inflammation",
+    "kidney damage",
+    "nephrotic syndrome",
+    "kidney disease",
+    "ckd"
+  ],
+  "chronic obstructive": [
+    "copd",
+    "chronic bronchitis",
+    "emphysema",
+    "lung disease",
+    "breathing problems",
+    "respiratory issues"
+  ],
+  "chronic obstructive pulmonary disease": [
+    "copd",
+    "lung disease",
+    "chronic bronchitis",
+    "emphysema",
+    "breathing problems",
+    "lung condition"
+  ],
+  "chronic pain": [
+    "chronic ache",
+    "long-term pain",
+    "ongoing pain",
+    "persistent pain",
+    "constant pain",
+    "chronic discomfort"
+  ],
+  "chronic pain management": [
+    "chronic pain relief",
+    "pain control",
+    "pain management plan",
+    "opioid use",
+    "medication management",
+    "pain therapy"
+  ],
+  "clotting issue": [
+    "clotting problem",
+    "bleeding disorder",
+    "blood clot",
+    "thrombosis",
+    "coagulopathy",
+    "platelet issue"
+  ],
+  "cluster headaches": [
+    "cluster headache",
+    "ch",
+    "migraines",
+    "migrainous neuralgia",
+    "severe headaches",
+    "one-sided headaches"
+  ],
+  "cml treatment": [
+    "leukemia treatment",
+    "cml meds",
+    "cancer meds",
+    "blood disorder treatment",
+    "chronic myeloid leukemia treatment"
+  ],
+  "cold sore": [
+    "fever blister",
+    "canker sore",
+    "herpes simplex",
+    "lip blister",
+    "oral herpes"
+  ],
+  "cold sores": [
+    "fever blisters",
+    "herpes simplex",
+    "hsv",
+    "cold sore outbreak",
+    "lip sores",
+    "herpes simplex virus"
+  ],
+  "cold symptoms": [
+    "cold and flu",
+    "upper respiratory infection",
+    "uri",
+    "sniffles",
+    "runny nose"
+  ],
+  "colon cancer": [
+    "colorectal cancer",
+    "bowel cancer",
+    "rectal cancer",
+    "polyps",
+    "crc"
+  ],
+  "colonoscopy": [
+    "colon scope",
+    "colon exam",
+    "bowel prep",
+    "colon screening",
+    "colon test"
+  ],
+  "colonoscopy prep": [
+    "bowel prep",
+    "cleanse",
+    "laxative",
+    "enema",
+    "prep meds"
+  ],
+  "congestion": [
+    "stuffy nose",
+    "runny nose",
+    "sinus pressure",
+    "nasal congestion",
+    "blocked sinuses"
+  ],
+  "conjunctivitis": [
+    "pink eye",
+    "eye infection",
+    "red eye",
+    "itchy eyes",
+    "eye irritation"
+  ],
+  "constipation": [
+    "hard stool",
+    "bowel movement issues",
+    "irregular bowel movements",
+    "ibs",
+    "irritable bowel syndrome",
+    "constipated"
+  ],
+  "constipation relief": [
+    "bowel regularity",
+    "stool softener",
+    "laxative use",
+    "bowel movement issues",
+    "digestive health",
+    "gut health"
+  ],
+  "convulsions": [
+    "seizures",
+    "fits",
+    "epilepsy",
+    "seizure activity",
+    "convulsive episodes"
+  ],
+  "copd": [
+    "chronic bronchitis",
+    "emphysema",
+    "lung disease",
+    "respiratory failure",
+    "breathing problems"
+  ],
+  "copd symptoms": [
+    "breathing problems",
+    "copd",
+    "lung disease",
+    "wheezing",
+    "shortness of breath",
+    "respiratory issues"
+  ],
+  "copd treatment": [
+    "lung disease management",
+    "copd medication",
+    "bronchodilators",
+    "oxygen therapy",
+    "respiratory care",
+    "pulmonary rehabilitation"
+  ],
+  "copper iud": [
+    "copper intrauterine device",
+    "copper iud birth control",
+    "copper t",
+    "copper coil",
+    "copper iud contraceptive",
+    "copper iud implant"
+  ],
+  "copper overload": [
+    "copper toxicity",
+    "wilson's disease",
+    "copper accumulation",
+    "copper poisoning",
+    "liver damage"
+  ],
+  "corneal damage": [
+    "cornea injury",
+    "eye abrasion",
+    "scratched cornea",
+    "corneal erosion",
+    "keratitis"
+  ],
+  "cough": [
+    "bronchitis",
+    "pneumonia",
+    "respiratory infection",
+    "hacking cough",
+    "dry cough",
+    "productive cough"
+  ],
+  "cough and cold relief": [
+    "cough syrup",
+    "cold medicine",
+    "decongestant",
+    "expectorant",
+    "allergy meds",
+    "over-the-counter meds"
+  ],
+  "cough and cold symptoms": [
+    "cold",
+    "cough",
+    "flu",
+    "upper respiratory infection",
+    "uri",
+    "bronchitis"
+  ],
+  "cough suppression": [
+    "cough control",
+    "cough relief",
+    "cough medicine",
+    "cough suppressant",
+    "c/s",
+    "coughing"
+  ],
+  "covid vaccine": [
+    "covid shot",
+    "covid-19 vaccination",
+    "sars-cov-2 vaccine",
+    "coronavirus vaccine"
+  ],
+  "covid-19": [
+    "coronavirus infection",
+    "covid-19 illness",
+    "respiratory virus",
+    "sars-cov-2",
+    "pandemic disease"
+  ],
+  "covid-19 treatment": [
+    "covid meds",
+    "coronavirus treatment",
+    "respiratory infection treatment",
+    "pneumonia treatment",
+    "flu-like symptoms",
+    "covid care"
+  ],
+  "cushing's disease": [
+    "cushing's syndrome",
+    "cushings",
+    "cortisol imbalance",
+    "adrenal disorder",
+    "steroid imbalance"
+  ],
+  "cushing's syndrome": [
+    "cushing's disease",
+    "cortisol imbalance",
+    "adrenal gland disorder",
+    "excess cortisol",
+    "weight gain"
+  ],
+  "cystic fibrosis": [
+    "cf",
+    "cystic fibrosis disease",
+    "mucus buildup",
+    "lung disease",
+    "respiratory failure",
+    "genetic disorder"
+  ],
+  "cystinosis": [
+    "cystine disease",
+    "cystinuria",
+    "kidney stones",
+    "kidney damage",
+    "fanconi syndrome"
+  ],
+  "dandruff": [
+    "scalp flaking",
+    "seborrheic dermatitis",
+    "itchy scalp",
+    "scalp irritation",
+    "skin flakes"
+  ],
+  "deep vein thrombosis": [
+    "blood clots",
+    "dvt",
+    "clot in leg",
+    "deep vein clot",
+    "blood clot in leg",
+    "clotting disorder"
+  ],
+  "dehydration": [
+    "water loss",
+    "fluid imbalance",
+    "electrolyte imbalance",
+    "dka symptoms"
+  ],
+  "dementia": [
+    "memory loss",
+    "cognitive decline",
+    "alzheimer's disease",
+    "senile dementia",
+    "age-related dementia"
+  ],
+  "dengue fever prevention": [
+    "dengue vaccine",
+    "dengue prevention",
+    "mosquito-borne illness",
+    "tropical fever",
+    "dengue shot",
+    "dengue protection"
+  ],
+  "depression": [
+    "blues",
+    "low mood",
+    "anxiety",
+    "mental health issues",
+    "clinical depression"
+  ],
+  "depression treatment": [
+    "antidepressants",
+    "mood stabilizers",
+    "mental health meds",
+    "anxiety meds",
+    "therapy"
+  ],
+  "dermatitis": [
+    "skin rash",
+    "eczema",
+    "dry skin",
+    "itchy skin",
+    "skin irritation"
+  ],
+  "diabetes": [
+    "blood sugar",
+    "high blood sugar",
+    "t2d",
+    "type 2",
+    "sugar levels"
+  ],
+  "diabetes insipidus": [
+    "di",
+    "water diabetes",
+    "polydipsia",
+    "excessive thirst",
+    "adh deficiency"
+  ],
+  "diabetes management": [
+    "blood sugar control",
+    "t2d",
+    "insulin management",
+    "high blood sugar",
+    "sugar levels",
+    "diabetes care"
+  ],
+  "diabetes medication": [
+    "blood sugar control",
+    "insulin therapy",
+    "glucose regulation",
+    "diabetes meds",
+    "oral hypoglycemics"
+  ],
+  "diabetes monitoring": [
+    "blood sugar",
+    "diabetes management",
+    "glucose levels",
+    "insulin therapy",
+    "t1d",
+    "t2d"
+  ],
+  "diarrhea": [
+    "loose stools",
+    "runny stool",
+    "the runs",
+    "loose bowels",
+    "ibs"
+  ],
+  "diarrhea treatment": [
+    "diarrhea",
+    "loose stools",
+    "stomach issues",
+    "ibs",
+    "irritable bowel syndrome",
+    "gastroenteritis"
+  ],
+  "digestive issues": [
+    "digestive problems",
+    "gut issues",
+    "stomach troubles",
+    "bowel issues",
+    "ibs",
+    "gastrointestinal issues"
+  ],
+  "diphtheria": [
+    "croup",
+    "membrane throat",
+    "throat infection",
+    "pseudomembranous croup",
+    "bacterial throat"
+  ],
+  "discharge": [
+    "pus",
+    "infection",
+    "abscess",
+    "boil",
+    "cyst"
+  ],
+  "dizziness": [
+    "lightheadedness",
+    "vertigo",
+    "spinning",
+    "wooziness",
+    "feeling faint"
+  ],
+  "droopy eyelids": [
+    "ptosis",
+    "drooping eyelid",
+    "eyelid sagging",
+    "eyelid droop",
+    "blepharoptosis",
+    "eye lid droop"
+  ],
+  "dry eye relief": [
+    "dry eyes",
+    "eye dryness",
+    "itchy eyes",
+    "watery eyes",
+    "tear duct problems",
+    "eye irritation"
+  ],
+  "dry eyes": [
+    "dry eye syndrome",
+    "keratoconjunctivitis sicca",
+    "kcs",
+    "sjogren's syndrome",
+    "dry eye disease",
+    "dry eye"
+  ],
+  "dry mouth": [
+    "dry lips",
+    "xerostomia",
+    "cottonmouth",
+    "parched mouth",
+    "oral dryness"
+  ],
+  "dry mouth relief": [
+    "saliva substitute",
+    "oral spray",
+    "dry mouth drops",
+    "xerostomia treatment",
+    "mouth moisturizer",
+    "lip balm"
+  ],
+  "dry skin": [
+    "dryness",
+    "xerosis",
+    "eczema",
+    "dermatitis",
+    "skin flakiness"
+  ],
+  "dystonia": [
+    "muscle spasm",
+    "involuntary movement",
+    "muscle twitching",
+    "dystonic disorder",
+    "dyt",
+    "movement disorder"
+  ],
+  "ear infection": [
+    "middle ear infection",
+    "otitis media",
+    "earaches",
+    "ear pain",
+    "ear tube placement"
+  ],
+  "eczema": [
+    "eczematous skin",
+    "atopic dermatitis",
+    "dry skin",
+    "itchy skin",
+    "skin allergy",
+    "dermatitis"
+  ],
+  "eczema relief": [
+    "eczema treatment",
+    "skin cream",
+    "moisturizer",
+    "steroid cream",
+    "skin ointment"
+  ],
+  "eczema treatment": [
+    "atopic dermatitis management",
+    "skin allergy treatment",
+    "moisturizing therapy",
+    "topical corticosteroids",
+    "phototherapy"
+  ],
+  "edema": [
+    "swelling",
+    "water retention",
+    "fluid buildup",
+    "puffiness",
+    "bloating",
+    "lymphedema"
+  ],
+  "edema swelling": [
+    "edema",
+    "swelling",
+    "water retention",
+    "fluid buildup",
+    "pitting edema",
+    "lymphedema"
+  ],
+  "electrolyte imbalance": [
+    "electrolyte disorder",
+    "fluid and electrolyte imbalance",
+    "dehydration",
+    "hyponatremia",
+    "hypokalemia"
+  ],
+  "emergency birth control": [
+    "morning-after pill",
+    "plan b",
+    "emergency contraception",
+    "ec",
+    "iud insertion",
+    "backup birth control"
+  ],
+  "emergency contraception": [
+    "emergency birth control",
+    "morning after pill",
+    "plan b",
+    "iud",
+    "copper t",
+    "backup plan"
+  ],
+  "endometrial cancer": [
+    "endo cancer",
+    "uterine cancer",
+    "womb cancer",
+    "cancer of the uterus",
+    "uterine tumor",
+    "endometrial tumor"
+  ],
+  "endometrial growth": [
+    "endometrial polyp",
+    "uterine lining growth",
+    "endometriosis",
+    "fibroids",
+    "menstrual irregularities",
+    "abnormal uterine bleeding"
+  ],
+  "endometrial lining": [
+    "endometrium",
+    "uterine lining",
+    "womb lining",
+    "endometrial tissue",
+    "uterine mucosa",
+    "endometrial layer"
+  ],
+  "endometriosis": [
+    "endo",
+    "uterine growths",
+    "pelvic pain",
+    "menstrual cramps",
+    "heavy bleeding",
+    "fibroids"
+  ],
+  "energy boost": [
+    "energy drink",
+    "energy supplement",
+    "vitality booster",
+    "pick-me-up",
+    "energy shot",
+    "vitality aid"
+  ],
+  "enlarged prostate": [
+    "bph",
+    "enlarged prostate gland",
+    "prostatitis",
+    "prostate enlargement",
+    "benign prostatic hyperplasia",
+    "prostate issues"
+  ],
+  "enzyme deficiency": [
+    "enzyme problem",
+    "metabolic disorder",
+    "genetic disorder",
+    "enzyme imbalance",
+    "enzyme insufficiency"
+  ],
+  "epilepsy": [
+    "seizures",
+    "seizure disorder",
+    "convulsions",
+    "epilepsy syndrome",
+    "seizure meds",
+    "anticonvulsants"
+  ],
+  "epilepsy management": [
+    "seizure control",
+    "epilepsy meds",
+    "anti-seizure meds",
+    "seizure medication",
+    "seizure management",
+    "epilepsy treatment"
+  ],
+  "epilepsy seizure": [
+    "seizures",
+    "epilepsy",
+    "convulsions",
+    "fits",
+    "seizure disorder",
+    "seizure activity"
+  ],
+  "epilepsy seizure control": [
+    "epilepsy treatment",
+    "seizure control",
+    "seizure medication",
+    "anticonvulsants",
+    "seizure management",
+    "seizure prevention"
+  ],
+  "epilepsy seizures": [
+    "seizures",
+    "convulsions",
+    "epilepsy",
+    "seizure disorder",
+    "petit mal",
+    "grand mal"
+  ],
+  "epilepsy treatment": [
+    "seizure meds",
+    "epilepsy meds",
+    "anti-seizure meds",
+    "aeds",
+    "seizure control",
+    "epilepsy management"
+  ],
+  "erectile dysfunction": [
+    "ed",
+    "impotence",
+    "sex problem",
+    "intimacy issues",
+    "male infertility"
+  ],
+  "excessive sleepiness": [
+    "fatigue",
+    "tiredness",
+    "exhaustion",
+    "lethargy",
+    "somnolence",
+    "hypersomnia"
+  ],
+  "excessive sweating": [
+    "hyperhidrosis",
+    "excessive perspiration",
+    "night sweats",
+    "hot flashes",
+    "clammy skin"
+  ],
+  "eye allergy": [
+    "itchy eyes",
+    "conjunctivitis",
+    "pink eye",
+    "allergic conjunctivitis",
+    "seasonal allergies"
+  ],
+  "eye allergy relief": [
+    "itchy eyes",
+    "red eyes",
+    "allergic conjunctivitis",
+    "eye allergies",
+    "seasonal allergies",
+    "pink eye"
+  ],
+  "eye cancer": [
+    "eye tumor",
+    "ocular cancer",
+    "eye disease",
+    "eye health issues",
+    "vision problems",
+    "eye malignancy"
+  ],
+  "eye care": [
+    "eye exam",
+    "vision check",
+    "glasses prescription",
+    "contact lens fitting",
+    "eye surgery",
+    "lasik"
+  ],
+  "eye dilation": [
+    "eye drops",
+    "dilated pupils",
+    "pupil enlargement",
+    "eye exam prep",
+    "eye dilation drops",
+    "mydriasis"
+  ],
+  "eye drops": [
+    "artificial tears",
+    "lubricating eye drops",
+    "red eye relief",
+    "dry eye treatment",
+    "ocular lubricant",
+    "preservative-free eye drops"
+  ],
+  "eye infection": [
+    "conjunctivitis",
+    "pink eye",
+    "eye irritation",
+    "corneal ulcers",
+    "blepharitis",
+    "uveitis"
+  ],
+  "eye infection treatment": [
+    "pink eye",
+    "conjunctivitis",
+    "eye drops",
+    "eye infection",
+    "pinkeye",
+    "conjunct"
+  ],
+  "eye inflammation": [
+    "eye infection",
+    "conjunctivitis",
+    "pink eye",
+    "uveitis",
+    "iritis",
+    "keratitis"
+  ],
+  "eye irritation": [
+    "itchy eyes",
+    "watery eyes",
+    "dry eyes",
+    "red eyes",
+    "eye inflammation"
+  ],
+  "eye pain": [
+    "eye strain",
+    "eye irritation",
+    "conjunctivitis",
+    "dry eyes",
+    "red eyes",
+    "ocular discomfort"
+  ],
+  "eye pain relief": [
+    "eye pain",
+    "eye discomfort",
+    "eye strain",
+    "red eyes",
+    "irritated eyes",
+    "eye burning"
+  ],
+  "eye pressure": [
+    "glaucoma",
+    "intraocular pressure",
+    "iop",
+    "ocular hypertension",
+    "eye strain"
+  ],
+  "eye problems": [
+    "eye strain",
+    "eye fatigue",
+    "blurred vision",
+    "double vision",
+    "vision loss"
+  ],
+  "eye redness": [
+    "pink eye",
+    "conjunctivitis",
+    "eye irritation",
+    "eye infection",
+    "blepharitis",
+    "red eyes"
+  ],
+  "fabry disease": [
+    "genetic disorder",
+    "lysosomal storage disease",
+    "fabry syndrome",
+    "alpha-gal a deficiency",
+    "gla deficiency",
+    "fabry's"
+  ],
+  "facial redness": [
+    "rosacea",
+    "acne",
+    "flushing",
+    "facial rash",
+    "erythema",
+    "sunburn"
+  ],
+  "fatigue": [
+    "tiredness",
+    "exhaustion",
+    "lethargy",
+    "lack of energy",
+    "weakness",
+    "malaise"
+  ],
+  "female fertility issues": [
+    "infertility",
+    "female factor infertility",
+    "reproductive problems",
+    "menstrual irregularities",
+    "ffi"
+  ],
+  "fertility issues": [
+    "fertility problems",
+    "infertility",
+    "unable to conceive",
+    "ttc",
+    "trying to get pregnant",
+    "infertility"
+  ],
+  "fertility problems": [
+    "infertility",
+    "reproductive issues",
+    "low sperm count",
+    "ovulation disorder",
+    "fertility treatment",
+    "conception difficulties"
+  ],
+  "fever reduction": [
+    "fever control",
+    "temperature regulation",
+    "cooling down",
+    "reducing fever",
+    "antipyretic"
+  ],
+  "fibrocystic breast": [
+    "fibrocystic disease",
+    "lumpy breasts",
+    "tender breasts",
+    "cystic breasts",
+    "breast tenderness"
+  ],
+  "fibromyalgia pain": [
+    "fibro pain",
+    "chronic pain",
+    "muscle pain",
+    "body aches",
+    "widespread pain",
+    "fibro"
+  ],
+  "flea infestation": [
+    "flea bites",
+    "flea allergy dermatitis",
+    "dog fleas",
+    "cat fleas",
+    "pet parasites"
+  ],
+  "flu": [
+    "flu bug",
+    "cold and flu",
+    "respiratory virus",
+    "upper respiratory infection",
+    "viral illness",
+    "influenza"
+  ],
+  "flu medication": [
+    "flu meds",
+    "antiviral meds",
+    "tamiflu",
+    "relenza",
+    "flu treatment",
+    "influenza medication"
+  ],
+  "flu prevention": [
+    "flu shot",
+    "flu vaccine",
+    "seasonal flu",
+    "influenza prevention",
+    "flu protection",
+    "flu immunity"
+  ],
+  "flu season protection": [
+    "flu shot",
+    "flu vaccine",
+    "seasonal flu",
+    "winter flu",
+    "flu prevention"
+  ],
+  "flu shot": [
+    "flu vaccine",
+    "flu jab",
+    "seasonal flu shot",
+    "flu immunization",
+    "flu protection",
+    "flu prevention"
+  ],
+  "flu vaccine": [
+    "flu shot",
+    "seasonal flu vaccine",
+    "influenza vaccine",
+    "flu immunization",
+    "annual flu vaccination"
+  ],
+  "flu virus": [
+    "flu",
+    "influenza",
+    "the flu",
+    "flu bug",
+    "seasonal flu",
+    "flu season"
+  ],
+  "flu virus treatment": [
+    "flu medication",
+    "antiviral medication",
+    "flu shot",
+    "influenza vaccine",
+    "flu prevention"
+  ],
+  "fluid buildup": [
+    "edema",
+    "fluid retention",
+    "swelling",
+    "water retention",
+    "excess fluids",
+    "fluid overload"
+  ],
+  "fluid retention": [
+    "water retention",
+    "swelling",
+    "edema",
+    "bloating",
+    "puffiness",
+    "fluid overload"
+  ],
+  "fungal infection": [
+    "fungal disease",
+    "yeast infection",
+    "mold infection",
+    "fungal overgrowth",
+    "fungal growth",
+    "fungal colonization"
+  ],
+  "fungal infections": [
+    "fungal infection",
+    "yeast infection",
+    "athlete's foot",
+    "ringworm",
+    "jock itch",
+    "fungal overgrowth"
+  ],
+  "fungal nail infection": [
+    "fungal toenail",
+    "onychomycosis",
+    "toe fungus",
+    "nail fungus",
+    "fungal toenail infection"
+  ],
+  "fungal rash": [
+    "fungal infection",
+    "ringworm",
+    "athlete's foot",
+    "jock itch",
+    "fungal dermatitis",
+    "skin fungus"
+  ],
+  "fungal skin infection": [
+    "fungal infection",
+    "ringworm",
+    "athlete's foot",
+    "jock itch",
+    "fungal rash",
+    "tinea"
+  ],
+  "gallstones": [
+    "gallbladder stones",
+    "cholelithiasis",
+    "biliary colic",
+    "gallstone disease",
+    "gb stones",
+    "gbs"
+  ],
+  "gaucher disease": [
+    "gaucher's",
+    "glucocerebrosidase deficiency",
+    "storage disorder",
+    "lipid storage disease",
+    "gm1 gangliosidosis"
+  ],
+  "genetic disorder": [
+    "genetic condition",
+    "inherited disease",
+    "birth defect",
+    "chromosomal abnormality",
+    "genetic mutation"
+  ],
+  "genetic disorder treatment": [
+    "genetic therapy",
+    "gene editing",
+    "genetic counseling",
+    "genetic testing",
+    "genetic diagnosis",
+    "genetic treatment options"
+  ],
+  "genital warts": [
+    "genital moles",
+    "hpv",
+    "human papillomavirus",
+    "sex warts",
+    "genital growths",
+    "std symptoms"
+  ],
+  "glaucoma": [
+    "glaucomatous eye disease",
+    "pressure in the eyes",
+    "optic nerve damage",
+    "eye pressure",
+    "glauco"
+  ],
+  "glaucoma eye pressure": [
+    "glaucoma disease",
+    "high eye pressure",
+    "increased intraocular pressure",
+    "iop",
+    "eye pressure disorder",
+    "optic nerve damage"
+  ],
+  "glaucoma treatment": [
+    "glaucoma meds",
+    "eye drops",
+    "pressure pills",
+    "eye medication",
+    "intraocular pressure meds",
+    "iop meds"
+  ],
+  "gout": [
+    "gouty arthritis",
+    "uric acid buildup",
+    "joint pain",
+    "swollen joints",
+    "high uric acid"
+  ],
+  "gout attack prevention": [
+    "gout meds",
+    "urate-lowering therapy",
+    "allopurinol",
+    "colchicine",
+    "anti-inflammatory medication",
+    "gout treatment"
+  ],
+  "gout attacks": [
+    "gout attack",
+    "gout flare",
+    "uric acid attack",
+    "joint pain",
+    "gouty arthritis",
+    "gout"
+  ],
+  "gout attacks prevention": [
+    "gout management",
+    "urate crystals",
+    "joint pain prevention",
+    "crystal formation",
+    "hyperuricemia"
+  ],
+  "gout prevention": [
+    "uric acid management",
+    "gout meds",
+    "joint pain prevention",
+    "anti-inflammatory treatment"
+  ],
+  "gout treatment": [
+    "gouty arthritis",
+    "uric acid buildup",
+    "joint inflammation",
+    "gout attack",
+    "gout flare-up",
+    "allopurinol"
+  ],
+  "growth hormone deficiency": [
+    "growth hormone problem",
+    "pituitary issue",
+    "gh deficiency",
+    "short stature",
+    "dwarfism"
+  ],
+  "gum disease": [
+    "gum infection",
+    "periodontitis",
+    "gingivitis",
+    "receding gums",
+    "loose teeth",
+    "tooth loss"
+  ],
+  "gum infection": [
+    "gum disease",
+    "periodontitis",
+    "gingivitis",
+    "receding gums",
+    "gum recession",
+    "pd"
+  ],
+  "h. pylori infection": [
+    "stomach bug",
+    "h. pylori",
+    "ulcers",
+    "stomach infection",
+    "gastric infection",
+    "peptic ulcer disease"
+  ],
+  "hair loss": [
+    "alopecia",
+    "hair thinning",
+    "baldness",
+    "hair shedding",
+    "male/female pattern baldness"
+  ],
+  "hay fever": [
+    "allergies",
+    "allergic rhinitis",
+    "sinusitis",
+    "postnasal drip",
+    "congestion"
+  ],
+  "headache": [
+    "headache pain",
+    "migraines",
+    "tension headaches",
+    "cluster headaches",
+    "sinus pressure"
+  ],
+  "headache pain": [
+    "headache meds",
+    "migraines",
+    "tension headaches",
+    "cluster headaches",
+    "sinus headaches"
+  ],
+  "headache relief": [
+    "headache meds",
+    "painkillers",
+    "ibuprofen",
+    "acetaminophen",
+    "over-the-counter pain relievers"
+  ],
+  "headaches": [
+    "migraines",
+    "tension headaches",
+    "cluster headaches",
+    "sinus pressure",
+    "cephalalgia"
+  ],
+  "heart attack": [
+    "heart failure",
+    "cardiac arrest",
+    "myocardial infarction",
+    "mi",
+    "coronary artery disease",
+    "cvd"
+  ],
+  "heart attack prevention": [
+    "heart health",
+    "cardiac care",
+    "cardiovascular wellness",
+    "heart meds",
+    "statins"
+  ],
+  "heart disease": [
+    "cardiac disease",
+    "cardiovascular disease",
+    "heart condition",
+    "coronary artery disease",
+    "cvd"
+  ],
+  "heart failure": [
+    "heart condition",
+    "cardiac disease",
+    "congestive heart failure",
+    "chf",
+    "cardiomyopathy"
+  ],
+  "heart failure treatment": [
+    "heart meds",
+    "hf meds",
+    "chf meds",
+    "congestive heart failure",
+    "cardiac meds",
+    "heart failure management"
+  ],
+  "heart health": [
+    "heart care",
+    "cardiovascular health",
+    "cardiac wellness",
+    "heart disease prevention",
+    "coronary health",
+    "cardiology"
+  ],
+  "heart palpitations": [
+    "irregular heartbeat",
+    "heart racing",
+    "skipped beats",
+    "rapid heartbeat",
+    "abnormal rhythm",
+    "arrhythmia"
+  ],
+  "heart rate": [
+    "pulse",
+    "bpm",
+    "beats per minute",
+    "cardiac rhythm",
+    "tachycardia"
+  ],
+  "heart rhythm": [
+    "arrhythmia",
+    "irregular heartbeat",
+    "heart palpitations",
+    "cardiac rhythm",
+    "abnormal heart rate"
+  ],
+  "heart rhythm disorder": [
+    "arrhythmia",
+    "irregular heartbeat",
+    "palpitations",
+    "tachycardia",
+    "bradycardia",
+    "afib"
+  ],
+  "heart rhythm problems": [
+    "irregular heartbeat",
+    "arrhythmia",
+    "afib",
+    "heart palpitations",
+    "abnormal heart rhythms",
+    "cardiac arrhythmias"
+  ],
+  "heartburn": [
+    "acid reflux",
+    "gerd",
+    "indigestion",
+    "stomach acid",
+    "burning sensation"
+  ],
+  "heavy bleeding": [
+    "menstrual cramps",
+    "heavy periods",
+    "excessive bleeding",
+    "prolonged bleeding",
+    "menorrhagia",
+    "uterine bleeding"
+  ],
+  "heavy menstrual": [
+    "heavy flow",
+    "period",
+    "menstruation",
+    "pms",
+    "pmdd",
+    "hmb"
+  ],
+  "heavy menstrual bleeding": [
+    "heavy periods",
+    "menorrhagia",
+    "pmb",
+    "pms",
+    "uterine bleeding",
+    "hmb"
+  ],
+  "heavy metal poisoning": [
+    "heavy metal toxicity",
+    "toxic exposure",
+    "environmental poisoning",
+    "chemical poisoning",
+    "hmp"
+  ],
+  "hemochromatosis": [
+    "iron overload",
+    "iron excess",
+    "hereditary hemochromatosis",
+    "hh",
+    "iron storage disease"
+  ],
+  "hemophilia": [
+    "hemophilia a",
+    "hemophilia b",
+    "bleeding disorder",
+    "clotting factor deficiency",
+    "blood disease"
+  ],
+  "hemorrhoid cream": [
+    "hemorrhoids",
+    "piles",
+    "anal fissures",
+    "rectal issues",
+    "bowel problems",
+    "proctalgia"
+  ],
+  "hemorrhoid treatment": [
+    "hemorrhoid cream",
+    "hemorrhoid surgery",
+    "piles treatment",
+    "anal fissure treatment",
+    "rectal bleeding treatment",
+    "proctology"
+  ],
+  "hemorrhoids": [
+    "piles",
+    "anal fissures",
+    "rectal bleeding",
+    "swollen veins",
+    "varicose veins"
+  ],
+  "hepatitis": [
+    "liver disease",
+    "liver inflammation",
+    "viral hepatitis",
+    "liver infection",
+    "jaundice",
+    "liver failure"
+  ],
+  "hepatitis a": [
+    "hep a",
+    "liver virus",
+    "viral hepatitis",
+    "hav",
+    "liver infection"
+  ],
+  "hepatitis a prevention": [
+    "hep a vaccine",
+    "hav vaccine",
+    "hepatitis a shot",
+    "liver protection",
+    "liver vaccination"
+  ],
+  "hepatitis b": [
+    "hbv",
+    "hepatitis b virus",
+    "liver infection",
+    "viral hepatitis",
+    "liver disease",
+    "hep b"
+  ],
+  "hepatitis c": [
+    "hcv",
+    "hep c",
+    "liver virus",
+    "viral hepatitis",
+    "chronic liver disease"
+  ],
+  "hepatitis c treatment": [
+    "hcv meds",
+    "hep c meds",
+    "antiviral meds",
+    "liver meds",
+    "hcv therapy"
+  ],
+  "hereditary angioedema": [
+    "hae",
+    "hereditary edema",
+    "swelling disorder",
+    "angioedema",
+    "allergic reaction",
+    "anaphylaxis"
+  ],
+  "herpes outbreak": [
+    "cold sore",
+    "herpes simplex",
+    "hsv",
+    "fever blister",
+    "oral herpes",
+    "herpes simplex virus"
+  ],
+  "herpes simplex": [
+    "cold sore",
+    "fever blister",
+    "herpes",
+    "hsv",
+    "oral herpes",
+    "genital herpes"
+  ],
+  "herpes simplex virus": [
+    "hsv",
+    "herpes",
+    "cold sore virus",
+    "genital herpes",
+    "oral herpes",
+    "fever blisters"
+  ],
+  "high blood pressure": [
+    "hypertension",
+    "high bp",
+    "elevated blood pressure",
+    "bp",
+    "blood pressure",
+    "hbp"
+  ],
+  "high blood sugar": [
+    "high bp",
+    "t2d",
+    "diabetes",
+    "hyperglycemia",
+    "elevated sugars"
+  ],
+  "high cholesterol": [
+    "high lipids",
+    "bad cholesterol",
+    "ldl",
+    "lipid levels",
+    "cholesterol management",
+    "hyperlipidemia"
+  ],
+  "high cholesterol management": [
+    "lipid control",
+    "cholesterol reduction",
+    "statin therapy",
+    "blood lipid management",
+    "hyperlipidemia treatment",
+    "cardiovascular health"
+  ],
+  "high cholesterol reduction": [
+    "statins",
+    "lipid management",
+    "cholesterol control",
+    "heart health",
+    "cardiovascular disease",
+    "ldl"
+  ],
+  "high cholesterol treatment": [
+    "lipid-lowering therapy",
+    "statin therapy",
+    "cholesterol meds",
+    "high cholesterol meds",
+    "hyperlipidemia treatment"
+  ],
+  "high eye pressure": [
+    "glaucoma",
+    "high pressure",
+    "intraocular pressure",
+    "iop",
+    "ocular hypertension",
+    "eye strain"
+  ],
+  "high phosphate levels": [
+    "hyperphosphatemia",
+    "high phosphorus",
+    "elevated phosphate",
+    "phos imbalance",
+    "hpt"
+  ],
+  "high phosphorus levels": [
+    "hyperphosphatemia",
+    "elevated phosphate",
+    "high phosphate levels",
+    "abnormal phosphate levels",
+    "phosphate imbalance",
+    "hypocalcemia"
+  ],
+  "high potassium": [
+    "hyperkalemia",
+    "high k levels",
+    "elevated potassium",
+    "potassium imbalance",
+    "k+ issues"
+  ],
+  "high triglycerides": [
+    "high lipids",
+    "lipid disorder",
+    "hypertriglyceridemia",
+    "elevated triglycerides",
+    "abnormal lipid levels",
+    "dyslipidemia"
+  ],
+  "hiv infection": [
+    "hiv",
+    "aids",
+    "immune system weak",
+    "viral infection",
+    "human immunodeficiency virus",
+    "hiv positive"
+  ],
+  "hiv prevention": [
+    "hiv testing",
+    "hiv screening",
+    "hiv vaccine",
+    "pre-exposure prophylaxis",
+    "prep"
+  ],
+  "hiv treatment": [
+    "hiv meds",
+    "antiretroviral therapy",
+    "art",
+    "haart",
+    "hiv meds",
+    "retrovir"
+  ],
+  "hiv virus": [
+    "hiv",
+    "aids",
+    "human immunodeficiency virus",
+    "hiv infection",
+    "acquired immune deficiency syndrome",
+    "hiv/aids"
+  ],
+  "hives": [
+    "hivelike rash",
+    "urticaria",
+    "itchy bumps",
+    "skin welts",
+    "allergic reaction",
+    "hive rash"
+  ],
+  "hives rash": [
+    "hives",
+    "itchy bumps",
+    "skin rash",
+    "allergic reaction",
+    "urticaria",
+    "hives outbreak"
+  ],
+  "hives reaction": [
+    "hives",
+    "allergic reaction",
+    "skin rash",
+    "urticaria",
+    "anaphylaxis",
+    "severe allergy"
+  ],
+  "homocystinuria": [
+    "homocysteine disorder",
+    "genetic disorder",
+    "metabolic disorder",
+    "amino acid imbalance",
+    "cystathionine beta-synthase deficiency"
+  ],
+  "homocystinuria treatment": [
+    "homocysteine treatment",
+    "vitamin b6 treatment",
+    "homocysteine management",
+    "homocysteine reduction",
+    "homocysteine lowering"
+  ],
+  "hormonal imbalance": [
+    "hormone disorder",
+    "thyroid problems",
+    "adrenal fatigue",
+    "menopause symptoms",
+    "endocrine issues"
+  ],
+  "hormone imbalance": [
+    "thyroid issues",
+    "hormone replacement",
+    "hormonal imbalances",
+    "endocrine disorders",
+    "adrenal problems",
+    "menopause symptoms"
+  ],
+  "hormone regulation": [
+    "hormone imbalance",
+    "hormonal issues",
+    "menopause symptoms",
+    "hot flashes",
+    "mood swings",
+    "hrt"
+  ],
+  "hormone replacement": [
+    "hormone therapy",
+    "hrt",
+    "menopause treatment",
+    "estrogen replacement",
+    "female hormones",
+    "women's health"
+  ],
+  "hormone replacement therapy": [
+    "hrt",
+    "hormone pills",
+    "estrogen replacement",
+    "menopause treatment",
+    "female hormones",
+    "hormone supplements"
+  ],
+  "hormone therapy": [
+    "hormone replacement",
+    "hrt",
+    "estrogen therapy",
+    "testosterone therapy",
+    "hormone treatment",
+    "menopause relief"
+  ],
+  "hot flashes": [
+    "night sweats",
+    "flushes",
+    "heat waves",
+    "sweating spells",
+    "vasomotor symptoms"
+  ],
+  "hpv prevention": [
+    "cervical cancer screening",
+    "pap smear",
+    "hpv vaccine",
+    "human papillomavirus vaccine",
+    "cervical health"
+  ],
+  "hydration": [
+    "staying hydrated",
+    "drinking water",
+    "fluid intake",
+    "hydration therapy",
+    "rehydration",
+    "drinking fluids"
+  ],
+  "hyperactivity": [
+    "adhd",
+    "hyperactive child",
+    "attention deficit disorder",
+    "restless child",
+    "fidgety child",
+    "excessive energy"
+  ],
+  "hyperactivity disorder": [
+    "adhd",
+    "hyperactive",
+    "attention deficit",
+    "add",
+    "impulsive behavior",
+    "restless child"
+  ],
+  "hyperparathyroidism": [
+    "parathyroid problem",
+    "high calcium levels",
+    "overactive parathyroid gland",
+    "parathyroid gland disorder"
+  ],
+  "hyperthyroidism": [
+    "overactive thyroid",
+    "hyperthyroid",
+    "thyroid storm",
+    "thyrotoxicosis",
+    "rapid heartbeat"
+  ],
+  "hypothyroidism": [
+    "underactive thyroid",
+    "low thyroid",
+    "hypothyroid",
+    "thyroid deficiency",
+    "thyroid problem"
+  ],
+  "idiopathic pulmonary fibrosis": [
+    "ipf",
+    "lung scarring",
+    "pulmonary fibrosis",
+    "breathing disease",
+    "respiratory failure"
+  ],
+  "immune system": [
+    "immune function",
+    "immune response",
+    "autoimmune disease",
+    "immunodeficiency",
+    "immune disorder",
+    "body's defense"
+  ],
+  "impotence": [
+    "erectile dysfunction",
+    "ed",
+    "low libido",
+    "sex drive issues",
+    "male impotence"
+  ],
+  "incontinence": [
+    "bladder control issues",
+    "urinary incontinence",
+    "loss of bladder control",
+    "wetting the bed",
+    "ui"
+  ],
+  "infantile hemangioma": [
+    "strawberry birthmark",
+    "port wine stain",
+    "hemangioma",
+    "vascular malformation",
+    "birthmark",
+    "port wine spot"
+  ],
+  "infection": [
+    "illness",
+    "sickness",
+    "disease",
+    "viral or bacterial",
+    "health issue"
+  ],
+  "infection prevention": [
+    "infection control",
+    "germ prevention",
+    "disease prevention",
+    "hygiene",
+    "hand sanitizer",
+    "ipc"
+  ],
+  "infertility": [
+    "unable to conceive",
+    "ttc",
+    "trying to conceive",
+    "childless",
+    "reproductive issues"
+  ],
+  "infertility treatment": [
+    "fertility issues",
+    "reproductive problems",
+    "ivf",
+    "in vitro fertilization",
+    "assisted reproduction"
+  ],
+  "inflammation": [
+    "swelling",
+    "redness",
+    "heat",
+    "pain",
+    "infection",
+    "inflammation response"
+  ],
+  "inflammation treatment": [
+    "anti-inflammatory meds",
+    "inflammation reduction",
+    "swelling treatment",
+    "redness relief",
+    "pain management",
+    "nsaids"
+  ],
+  "inflammatory arthritis": [
+    "ra",
+    "rheumatoid arthritis",
+    "joint pain",
+    "inflammation",
+    "autoimmune disease",
+    "inflammatory joint disease"
+  ],
+  "inflammatory bowel": [
+    "ibs",
+    "irritable bowel syndrome",
+    "inflammatory bowel disease",
+    "crohn's",
+    "ulcerative colitis",
+    "gut issues"
+  ],
+  "inflammatory bowel disease": [
+    "ibd",
+    "crohn's",
+    "ulcerative colitis",
+    "inflammatory bowel syndrome",
+    "gut inflammation",
+    "ibs"
+  ],
+  "inflammatory disease": [
+    "inflammation",
+    "swelling",
+    "redness",
+    "pain",
+    "arthritis",
+    "autoimmune disorder"
+  ],
+  "influenza": [
+    "flu",
+    "cold",
+    "respiratory virus",
+    "flu bug",
+    "seasonal illness"
+  ],
+  "insect bites": [
+    "bug bites",
+    "insect stings",
+    "mosquito bites",
+    "ant bites",
+    "spider bites",
+    "skin irritation"
+  ],
+  "insomnia": [
+    "sleep disorder",
+    "sleeplessness",
+    "lack of sleep",
+    "poor sleep quality",
+    "sleep deprivation"
+  ],
+  "insomnia relief": [
+    "sleep aid",
+    "insomnia meds",
+    "sleeping pills",
+    "zzzs",
+    "restful sleep",
+    "insomnia"
+  ],
+  "insomnia sleep aid": [
+    "insomnia",
+    "sleep disorder",
+    "sleep apnea",
+    "restlessness",
+    "difficulty sleeping",
+    "lack of sleep"
+  ],
+  "insomnia treatment": [
+    "sleep aid",
+    "insomnia meds",
+    "sleeping pills",
+    "restful sleep",
+    "sleep help",
+    "zzz's"
+  ],
+  "insulin deficiency": [
+    "type 1 diabetes",
+    "t1d",
+    "insulin resistance",
+    "blood sugar imbalance",
+    "glucose regulation",
+    "diabetic meds"
+  ],
+  "insulin delivery": [
+    "insulin pump",
+    "insulin shots",
+    "injectable insulin",
+    "insulin pen",
+    "diabetes meds",
+    "glucose control"
+  ],
+  "insulin resistance": [
+    "insulin sensitivity",
+    "pre-diabetes",
+    "blood sugar issues",
+    "glucose intolerance",
+    "metabolic syndrome",
+    "insulin problem"
+  ],
+  "intermittent claudication": [
+    "ic",
+    "intermittent leg pain",
+    "calf cramps",
+    "leg fatigue",
+    "peripheral artery disease symptoms"
+  ],
+  "interstitial cystitis": [
+    "ic",
+    "bladder pain syndrome",
+    "bps",
+    "chronic pelvic pain",
+    "interstitial cystitis syndrome"
+  ],
+  "iodine deficiency": [
+    "iodine insufficiency",
+    "goiter",
+    "hypothyroidism",
+    "thyroid problems",
+    "thyroid nodules",
+    "id"
+  ],
+  "iron deficiency": [
+    "iron levels",
+    "low iron",
+    "anemia",
+    "lack of iron",
+    "iron poor",
+    "ida"
+  ],
+  "iron deficiency anemia": [
+    "ida",
+    "low iron levels",
+    "anemia of chronic disease",
+    "microcytic anemia",
+    "iron-poor blood"
+  ],
+  "iron overload": [
+    "hemochromatosis",
+    "iron deficiency anemia",
+    "iron toxicity",
+    "iron poisoning",
+    "hfe"
+  ],
+  "irregular heartbeat": [
+    "irregular heart rhythm",
+    "arrhythmia",
+    "abnormal heartbeat",
+    "palpitations",
+    "skipped beats",
+    "heart racing"
+  ],
+  "irregular periods": [
+    "irregular cycle",
+    "menstrual irregularity",
+    "amenorrhea",
+    "oligomenorrhea",
+    "polycystic ovary syndrome",
+    "pms symptoms"
+  ],
+  "irritable bowel syndrome": [
+    "ibs",
+    "irritable gut",
+    "bloated stomach",
+    "sensitive stomach",
+    "gut issues",
+    "digestive problems"
+  ],
+  "itching": [
+    "skin irritation",
+    "pruritus",
+    "hives",
+    "eczema",
+    "dermatitis"
+  ],
+  "itching eyes": [
+    "eye irritation",
+    "itchy eyes",
+    "conjunctivitis",
+    "pink eye",
+    "eye allergy",
+    "ocular itchiness"
+  ],
+  "itching relief": [
+    "itch relief",
+    "antihistamines",
+    "calamine lotion",
+    "hydrocortisone cream",
+    "skin allergy meds",
+    "eczema treatment"
+  ],
+  "itchy eyes": [
+    "conjunctivitis",
+    "pink eye",
+    "itchy peepers",
+    "red eyes",
+    "irritated eyes",
+    "eye irritation"
+  ],
+  "joint pain": [
+    "arthritis",
+    "joint ache",
+    "joint inflammation",
+    "rheumatism",
+    "arthralgia",
+    "joint stiffness"
+  ],
+  "kidney cancer": [
+    "renal cell carcinoma",
+    "kidney tumor",
+    "kidney stone",
+    "kidney failure",
+    "nephrectomy",
+    "rcc"
+  ],
+  "kidney damage": [
+    "kidney failure",
+    "renal failure",
+    "kidney disease",
+    "nephropathy",
+    "chronic kidney disease",
+    "ckd"
+  ],
+  "kidney disease": [
+    "kidney failure",
+    "renal disease",
+    "kidney damage",
+    "chronic kidney disease",
+    "ckd",
+    "kidney problems"
+  ],
+  "kidney failure": [
+    "kidney disease",
+    "renal failure",
+    "end-stage renal disease",
+    "esrd",
+    "kidney transplant",
+    "dialysis"
+  ],
+  "kidney inflammation": [
+    "kidney infection",
+    "pyelonephritis",
+    "nephritis",
+    "kidney disease",
+    "kidney stones",
+    "nephro"
+  ],
+  "kidney problems": [
+    "kidney disease",
+    "kidney failure",
+    "renal issues",
+    "nephritis",
+    "kidney stones",
+    "ckd"
+  ],
+  "kidney stone": [
+    "kidney stones",
+    "renal calculi",
+    "kidney gravel",
+    "small stones",
+    "kidney blockage",
+    "kidney pain"
+  ],
+  "kidney stone pain": [
+    "kidney stones",
+    "renal colic",
+    "stone pain",
+    "kidney ache",
+    "flank pain"
+  ],
+  "kidney stone prevention": [
+    "kidney stones",
+    "prevent stones",
+    "stone free",
+    "kidney health",
+    "prevent kidney stones"
+  ],
+  "kidney stones": [
+    "kidney pain",
+    "renal calculi",
+    "stone in the kidney",
+    "kidney gravel",
+    "kidney blockage"
+  ],
+  "labor induction": [
+    "labor stimulation",
+    "inducing labor",
+    "cervical ripening",
+    "oxytocin augmentation",
+    "labor augmentation"
+  ],
+  "leprosy": [
+    "hansen's disease",
+    "lepro",
+    "leprosy disease",
+    "bd",
+    "leproma"
+  ],
+  "leukemia": [
+    "blood cancer",
+    "leukemia disease",
+    "leukaemia",
+    "cancer of the blood",
+    "blood disorder",
+    "bone marrow cancer"
+  ],
+  "leukemia cancer": [
+    "blood cancer",
+    "leukemia disease",
+    "acute myeloid leukemia",
+    "aml",
+    "cll"
+  ],
+  "leukemia cancer treatment": [
+    "leukemia treatment",
+    "blood cancer treatment",
+    "chemotherapy",
+    "radiation therapy",
+    "bone marrow transplant"
+  ],
+  "leukemia treatment": [
+    "leukemia care",
+    "cancer treatment",
+    "chemotherapy",
+    "radiation therapy",
+    "bone marrow transplant",
+    "blood disorder management"
+  ],
+  "lice infestation": [
+    "lice",
+    "head lice",
+    "body lice",
+    "pubic lice",
+    "nits",
+    "crawling critters"
+  ],
+  "liver cancer": [
+    "liver tumor",
+    "liver disease",
+    "liver malignancy",
+    "hepatoma"
+  ],
+  "liver cancer treatment": [
+    "liver cancer meds",
+    "hepatocellular carcinoma treatment",
+    "liver transplant",
+    "liver surgery",
+    "targeted therapy",
+    "hcc"
+  ],
+  "liver damage": [
+    "liver injury",
+    "liver disease",
+    "liver scarring",
+    "cirrhosis",
+    "liver fibrosis"
+  ],
+  "liver disease": [
+    "liver failure",
+    "liver damage",
+    "liver cirrhosis",
+    "liver scarring",
+    "liver inflammation",
+    "liver condition"
+  ],
+  "liver failure": [
+    "liver disease",
+    "cirrhosis",
+    "liver damage",
+    "liver dysfunction",
+    "hepatic failure",
+    "end-stage liver disease"
+  ],
+  "liver health": [
+    "liver disease",
+    "fatty liver",
+    "liver damage",
+    "liver failure",
+    "cirrhosis",
+    "hepatitis"
+  ],
+  "liver infection": [
+    "hepatitis",
+    "liver flu",
+    "viral hepatitis",
+    "liver inflammation",
+    "liver damage",
+    "liver disease"
+  ],
+  "low aldosterone levels": [
+    "low aldosterone",
+    "adrenal insufficiency",
+    "addison's disease",
+    "cortisol deficiency",
+    "hypocortisolism",
+    "ai"
+  ],
+  "low blood pressure": [
+    "low bp",
+    "hypotension",
+    "bp",
+    "low blood pressure reading",
+    "low systolic pressure"
+  ],
+  "low blood sugar": [
+    "hypoglycemia",
+    "low blood glucose",
+    "low sugar levels",
+    "sugar crash",
+    "insulin reaction",
+    "blood sugar drop"
+  ],
+  "low calcium levels": [
+    "low calcium",
+    "hypocalcemia",
+    "calcium deficiency",
+    "weak bones",
+    "brittle bones",
+    "osteoporosis"
+  ],
+  "low choline levels": [
+    "low choline",
+    "choline deficiency",
+    "vitamin b5 deficiency",
+    "liver support",
+    "liver health",
+    "liver function"
+  ],
+  "low cortisol": [
+    "adrenal fatigue",
+    "cortisol imbalance",
+    "stress response",
+    "hpa axis dysfunction",
+    "cushing's syndrome"
+  ],
+  "low estrogen": [
+    "low hormones",
+    "menopause symptoms",
+    "perimenopause",
+    "estrogen deficiency",
+    "hormonal imbalance",
+    "female hormone levels"
+  ],
+  "low estrogen levels": [
+    "low estrogen",
+    "estrogen deficiency",
+    "menopause symptoms",
+    "hormonal imbalance",
+    "female hormone deficiency",
+    "estrogen levels"
+  ],
+  "low iron": [
+    "iron deficiency",
+    "low hemoglobin",
+    "anemia",
+    "fatigue syndrome",
+    "ida"
+  ],
+  "low libido": [
+    "low sex drive",
+    "decreased libido",
+    "reduced desire",
+    "sexual dysfunction",
+    "ed",
+    "hyposexuality"
+  ],
+  "low platelet count": [
+    "low platelets",
+    "thrombocytopenia",
+    "blood clotting issue",
+    "bleeding disorder",
+    "platelet deficiency",
+    "low plt count"
+  ],
+  "low platelets": [
+    "thrombocytopenia",
+    "low blood platelet count",
+    "platelet deficiency",
+    "small platelets",
+    "low plt count",
+    "petechiae"
+  ],
+  "low potassium": [
+    "low k",
+    "hypokalemia",
+    "potassium deficiency",
+    "potassium levels",
+    "low electrolytes",
+    "potassium imbalance"
+  ],
+  "low potassium levels": [
+    "low k",
+    "hypokalemia",
+    "potassium deficiency",
+    "adrenogenital syndrome",
+    "potassium imbalance",
+    "low electrolytes"
+  ],
+  "low red blood cells": [
+    "anemia",
+    "low hemoglobin",
+    "iron deficiency",
+    "rbc count",
+    "hematocrit",
+    "low red cell count"
+  ],
+  "low testosterone": [
+    "low t",
+    "hypogonadism",
+    "low sex drive",
+    "ed",
+    "erectile dysfunction",
+    "low libido"
+  ],
+  "low urine output": [
+    "not peeing much",
+    "decreased urination",
+    "low flow",
+    "oliguria",
+    "o2",
+    "decreased urine production"
+  ],
+  "low vitamin d": [
+    "vitamin d deficiency",
+    "low calcium",
+    "rickets",
+    "osteomalacia",
+    "hypovitaminosis d"
+  ],
+  "low white blood cell count": [
+    "low wbc",
+    "low white cells",
+    "neutropenia",
+    "low neutrophils",
+    "immune system weak",
+    "wbcs low"
+  ],
+  "lung cancer": [
+    "lung tumor",
+    "lung cancer disease",
+    "bronchogenic carcinoma",
+    "non-small cell lung cancer",
+    "nsclc",
+    "lung malignancy"
+  ],
+  "lung cancer treatment": [
+    "lung cancer",
+    "bronchogenic carcinoma",
+    "nsclc",
+    "sclc",
+    "chemotherapy for lungs",
+    "radiation therapy"
+  ],
+  "lung disease": [
+    "copd",
+    "emphysema",
+    "chronic bronchitis",
+    "lung cancer",
+    "respiratory illness"
+  ],
+  "lung disease treatment": [
+    "lung therapy",
+    "copd treatment",
+    "breathing treatments",
+    "oxygen therapy",
+    "respiratory care"
+  ],
+  "lung infection": [
+    "pneumonia",
+    "bronchitis",
+    "lung disease",
+    "respiratory infection",
+    "upper respiratory tract infection",
+    "uri"
+  ],
+  "lupus": [
+    "sle",
+    "systemic lupus erythematosus",
+    "autoimmune disease",
+    "connective tissue disorder",
+    "inflammation"
+  ],
+  "lupus nephritis": [
+    "lupus",
+    "sle",
+    "kidney inflammation",
+    "renal failure",
+    "glomerulonephritis",
+    "kidney damage"
+  ],
+  "lupus treatment": [
+    "sle management",
+    "systemic lupus erythematosus",
+    "immunosuppressive therapy",
+    "antimalarial medications",
+    "disease-modifying antirheumatic drugs"
+  ],
+  "lymphoma": [
+    "lymph cancer",
+    "non-hodgkin's lymphoma",
+    "nhl",
+    "hodgkin's disease",
+    "lymphatic cancer",
+    "cancer of the immune system"
+  ],
+  "malaria": [
+    "malaria parasite",
+    "malaria infection",
+    "mosquito-borne illness",
+    "tropical fever",
+    "plasmodium infection"
+  ],
+  "malaria prevention": [
+    "mosquito-borne illness",
+    "malaria meds",
+    "bug spray",
+    "insect repellent",
+    "malaria shot",
+    "prophylaxis"
+  ],
+  "malaria treatment": [
+    "malaria meds",
+    "antimalarial medication",
+    "malaria prevention",
+    "mosquito-borne illness",
+    "tropical fever",
+    "malaria cure"
+  ],
+  "male infertility": [
+    "low sperm count",
+    "male factor infertility",
+    "azoospermia",
+    "oligospermia",
+    "varicocele",
+    "vasectomy reversal"
+  ],
+  "malignant hyperthermia": [
+    "mh",
+    "malignant fever",
+    "heat stroke",
+    "muscle fever",
+    "anaphylactic reaction",
+    "mh reaction"
+  ],
+  "measles": [
+    "measles virus",
+    "rubeola",
+    "red rash disease",
+    "contagious fever",
+    "3-day measles",
+    "measles outbreak"
+  ],
+  "measles prevention": [
+    "measles vaccine",
+    "mmr shot",
+    "measles immunization",
+    "measles injection",
+    "measles protection",
+    "measles prevention shot"
+  ],
+  "melanoma": [
+    "skin cancer",
+    "moles",
+    "dark spots",
+    "abnormal growths",
+    "cancerous lesions"
+  ],
+  "melanoma skin cancer": [
+    "skin cancer",
+    "melanoma",
+    "moles",
+    "abnormal growths",
+    "skin lesions",
+    "skin tumor"
+  ],
+  "melanoma treatment": [
+    "skin cancer treatment",
+    "melanoma therapy",
+    "immunotherapy",
+    "targeted therapy",
+    "chemotherapy",
+    "radiation oncology"
+  ],
+  "memory loss": [
+    "memory problems",
+    "forgetfulness",
+    "dementia",
+    "alzheimer's disease",
+    "cognitive decline",
+    "brain fog"
+  ],
+  "meningitis": [
+    "brain inflammation",
+    "meningeal infection",
+    "viral meningitis",
+    "bacterial meningitis",
+    "encephalitis"
+  ],
+  "meningitis prevention": [
+    "meningococcal vaccine",
+    "mcv",
+    "bacterial meningitis prevention",
+    "meningitis shot",
+    "neisseria meningitidis"
+  ],
+  "meningococcal disease": [
+    "meningitis",
+    "meningococcus",
+    "bacterial meningitis",
+    "meningococcal sepsis",
+    "mc"
+  ],
+  "menopausal symptoms": [
+    "hot flashes",
+    "mood swings",
+    "night sweats",
+    "hormonal imbalance",
+    "menopause",
+    "hrt"
+  ],
+  "menopause": [
+    "change of life",
+    "menopausal symptoms",
+    "hot flashes",
+    "hormonal imbalance",
+    "perimenopause",
+    "pm"
+  ],
+  "menopause symptoms": [
+    "hot flashes",
+    "mood swings",
+    "night sweats",
+    "menopausal symptoms",
+    "perimenopause",
+    "postmenopause"
+  ],
+  "menstrual cramps": [
+    "period cramps",
+    "menstrual pain",
+    "pms",
+    "premenstrual syndrome",
+    "cramps",
+    "dysmenorrhea"
+  ],
+  "menstrual cycle": [
+    "period",
+    "menses",
+    "monthly cycle",
+    "female cycle",
+    "woman's time of the month"
+  ],
+  "menstrual irregularities": [
+    "irregular periods",
+    "pms",
+    "pmdd",
+    "menstrual cramps",
+    "heavy bleeding",
+    "abnormal menses"
+  ],
+  "menstrual irregularity": [
+    "irregular periods",
+    "menstrual cycle problems",
+    "pms symptoms",
+    "period cramps",
+    "amenorrhea",
+    "pmdd"
+  ],
+  "menstrual regulation": [
+    "period regulation",
+    "menstrual cycle control",
+    "birth control",
+    "fertility management",
+    "menstrual health",
+    "mirena"
+  ],
+  "mental health": [
+    "mental illness",
+    "depression",
+    "anxiety",
+    "mood disorder",
+    "psychological issues",
+    "mh"
+  ],
+  "mental illness": [
+    "mental health issues",
+    "anxiety",
+    "depression",
+    "mood disorder",
+    "bipolar",
+    "psychosis"
+  ],
+  "mercury poisoning": [
+    "heavy metal poisoning",
+    "mercury exposure",
+    "toxic overload",
+    "heavy metals",
+    "environmental toxins"
+  ],
+  "middle ear pain": [
+    "earache",
+    "ear infection",
+    "otitis media",
+    "middle ear infection",
+    "ear discomfort"
+  ],
+  "migraine": [
+    "tension headache",
+    "bad headache",
+    "pounding headache",
+    "throbbing headache"
+  ],
+  "migraine headache": [
+    "migraine attack",
+    "severe headache",
+    "throbbing pain",
+    "aura symptoms",
+    "hemiplegic migraine"
+  ],
+  "migraine headaches": [
+    "migraines",
+    "headache disorder",
+    "severe headaches",
+    "tension headaches",
+    "migraine attacks",
+    "cluster headaches"
+  ],
+  "migraine prevention": [
+    "migraines",
+    "cluster headaches",
+    "tension headaches",
+    "headache relief",
+    "pain management",
+    "mth"
+  ],
+  "migraine treatment": [
+    "migraine meds",
+    "triptans",
+    "ergots",
+    "beta blockers",
+    "preventative medication"
+  ],
+  "migraines": [
+    "headaches",
+    "migraine attacks",
+    "cluster headaches",
+    "tension headaches",
+    "migraine disorder"
+  ],
+  "miscarriage prevention": [
+    "pregnancy complications",
+    "fetal loss",
+    "miscarriage risk",
+    "ectopic pregnancy",
+    "recurrent miscarriage",
+    "pregnancy support"
+  ],
+  "moderate to severe pain": [
+    "chronic pain",
+    "severe pain",
+    "moderate pain",
+    "bad pain",
+    "aching pain",
+    "sharp pain"
+  ],
+  "mood stabilization": [
+    "mood meds",
+    "anxiety meds",
+    "depression treatment",
+    "bipolar meds",
+    "emotional stability",
+    "mental health meds"
+  ],
+  "mood swings": [
+    "mood disorder",
+    "emotional ups and downs",
+    "irritability",
+    "anxiety attacks",
+    "moodiness",
+    "md"
+  ],
+  "morning after pill": [
+    "emergency contraception",
+    "morning-after pill",
+    "plan b",
+    "ec",
+    "postcoital pill"
+  ],
+  "morning sickness": [
+    "morning queasiness",
+    "pregnancy nausea",
+    "prenatal nausea",
+    "morning vomiting",
+    "morning sickness of pregnancy",
+    "msl"
+  ],
+  "motion sickness": [
+    "seasickness",
+    "car sickness",
+    "travel sickness",
+    "motion sickness meds",
+    "sea legs",
+    "airsickness"
+  ],
+  "mouth sores": [
+    "mouth ulcers",
+    "canker sores",
+    "cold sores",
+    "oral ulcers",
+    "mouth blisters",
+    "stomatitis"
+  ],
+  "mouthwash": [
+    "oral rinse",
+    "mouth spray",
+    "gum wash",
+    "dental rinse",
+    "antibacterial mouthwash"
+  ],
+  "movement disorder": [
+    "parkinson's",
+    "tremors",
+    "shaking",
+    "rigidity",
+    "dystonia",
+    "pd"
+  ],
+  "multiple myeloma": [
+    "mm",
+    "bone marrow cancer",
+    "plasma cell disorder",
+    "blood cancer",
+    "cancer of the bone marrow"
+  ],
+  "multiple myeloma treatment": [
+    "myeloma treatment",
+    "bone marrow cancer treatment",
+    "plasma cell disorder treatment",
+    "multiple myeloma therapy",
+    "mm treatment",
+    "cancer treatment for blood cells"
+  ],
+  "multiple sclerosis": [
+    "ms disease",
+    "multiple sclerosis disorder",
+    "central nervous system disease",
+    "cns disease",
+    "demyelinating disease",
+    "autoimmune disease"
+  ],
+  "multiple sclerosis treatment": [
+    "ms meds",
+    "multiple sclerosis therapy",
+    "disease-modifying therapies",
+    "ms treatments",
+    "dmts",
+    "ms medications"
+  ],
+  "mumps": [
+    "parotitis",
+    "swollen glands",
+    "viral rash",
+    "contagious illness",
+    "parotid gland inflammation",
+    "mumps virus"
+  ],
+  "muscle cramps": [
+    "muscle spasms",
+    "charley horse",
+    "muscle twitches",
+    "muscle contractions",
+    "muscle pain",
+    "crampy legs"
+  ],
+  "muscle pain": [
+    "muscle aches",
+    "muscle strain",
+    "pulled muscles",
+    "sore muscles",
+    "back pain",
+    "body aches"
+  ],
+  "muscle relaxant": [
+    "muscle relaxer",
+    "pain reliever",
+    "muscle relaxers",
+    "muscle relaxants",
+    "sedatives",
+    "tranquilizers"
+  ],
+  "muscle spasms": [
+    "muscle cramps",
+    "muscle twitches",
+    "muscle contractions",
+    "muscle stiffness",
+    "muscle pain",
+    "muscle strain"
+  ],
+  "muscle spasticity": [
+    "muscle spasms",
+    "tight muscles",
+    "stiff muscles",
+    "cramps",
+    "dystonia",
+    "spasm"
+  ],
+  "muscle wasting": [
+    "muscle loss",
+    "muscle atrophy",
+    "sarcopenia",
+    "muscle weakness",
+    "muscle fatigue",
+    "muscle degeneration"
+  ],
+  "muscle weakness": [
+    "muscle fatigue",
+    "muscle pain",
+    "muscle strain",
+    "muscle cramps",
+    "muscle spasms",
+    "muscle atrophy"
+  ],
+  "muscular dystrophy": [
+    "muscle weakness",
+    "md",
+    "muscular dystrophy disease",
+    "progressive muscle weakness",
+    "muscle degeneration"
+  ],
+  "myasthenia gravis": [
+    "mg",
+    "muscle weakness",
+    "double vision",
+    "drooping eyelids",
+    "muscle weakness"
+  ],
+  "myelofibrosis": [
+    "bone marrow disease",
+    "fibrotic anemia",
+    "myelo",
+    "mf",
+    "blood cancer"
+  ],
+  "nail fungus": [
+    "fungal nail",
+    "onychomycosis",
+    "toenail fungus",
+    "fingernail fungus",
+    "nail infection",
+    "fungal infection"
+  ],
+  "narcolepsy": [
+    "sleep disorder",
+    "excessive daytime sleepiness",
+    "eds",
+    "sleep apnea",
+    "hypersomnia"
+  ],
+  "nasal congestion": [
+    "stuffy nose",
+    "nasal blockage",
+    "sinus pressure",
+    "runny nose",
+    "rhinitis"
+  ],
+  "nausea": [
+    "queasiness",
+    "stomach upset",
+    "stomach cramps",
+    "stomach pain",
+    "morning sickness",
+    "stomach flu"
+  ],
+  "nausea relief": [
+    "morning sickness",
+    "queasiness",
+    "stomach upset",
+    "motion sickness",
+    "seasickness",
+    "anti-nausea meds"
+  ],
+  "nearsightedness": [
+    "near sighted",
+    "myopia",
+    "short sighted",
+    "close vision",
+    "farsighted opposite",
+    "shortsighted"
+  ],
+  "nerve damage": [
+    "nerve injury",
+    "neuropathy",
+    "numbness",
+    "tingling",
+    "pins and needles",
+    "nerve pain"
+  ],
+  "nerve disorder": [
+    "nerve damage",
+    "neuropathy",
+    "peripheral neuropathy",
+    "numbness and tingling",
+    "nerve damage",
+    "neuropathic pain"
+  ],
+  "nerve pain": [
+    "nerve damage",
+    "neuropathy",
+    "numbness",
+    "tingling",
+    "pins and needles",
+    "neuralgia"
+  ],
+  "nicotine addiction": [
+    "nicotine habit",
+    "smoking addiction",
+    "vaping addiction",
+    "nic fit",
+    "smoking dependence"
+  ],
+  "night sweats": [
+    "hot flashes",
+    "excessive sweating",
+    "nocturnal sweating",
+    "nighttime sweating",
+    "sleep disorder"
+  ],
+  "non-small cell": [
+    "nsclc",
+    "lung cancer",
+    "bronchogenic carcinoma",
+    "adenocarcinoma",
+    "squamous cell carcinoma",
+    "lung tumor"
+  ],
+  "non-small cell lung cancer": [
+    "nsclc",
+    "non-small cell lung tumor",
+    "lung cancer",
+    "lung tumor",
+    "adenocarcinoma"
+  ],
+  "numbness": [
+    "tingling",
+    "neuropathy",
+    "nerve damage",
+    "paresthesia"
+  ],
+  "numbness treatment": [
+    "numbness relief",
+    "nerve therapy",
+    "neuropathy treatment",
+    "numbness medication",
+    "pain management",
+    "numbness remedy"
+  ],
+  "nutrient deficiency": [
+    "nutrient problem",
+    "malnutrition",
+    "vitamin deficiency",
+    "mineral deficiency",
+    "nutritional disorder",
+    "deficiency"
+  ],
+  "nutritional supplement": [
+    "vitamin",
+    "mineral supplement",
+    "dietary supplement",
+    "health food",
+    "wellness product",
+    "ns"
+  ],
+  "obesity": [
+    "being overweight",
+    "weight gain",
+    "excess weight",
+    "body fat",
+    "morbid obesity",
+    "bmi issues"
+  ],
+  "obesity treatment": [
+    "weight loss",
+    "weight management",
+    "diet and exercise",
+    "obesity surgery",
+    "bariatric surgery",
+    "gastric bypass"
+  ],
+  "opioid addiction": [
+    "opioid use disorder",
+    "oud",
+    "substance abuse",
+    "addiction",
+    "dependence",
+    "opiate addiction"
+  ],
+  "opioid addiction treatment": [
+    "opioid rehab",
+    "opiate addiction treatment",
+    "methadone maintenance",
+    "buprenorphine",
+    "naltrexone",
+    "oat"
+  ],
+  "opioid overdose": [
+    "opioid addiction",
+    "opioid use disorder",
+    "oud",
+    "opioid dependence",
+    "opioid abuse",
+    "od"
+  ],
+  "opioid overdose reversal": [
+    "naloxone",
+    "narcan",
+    "opioid antidote",
+    "overdose treatment",
+    "opiate overdose medication"
+  ],
+  "opioid withdrawal": [
+    "opioid detox",
+    "opiate withdrawal",
+    "opiate detox",
+    "od",
+    "substance abuse",
+    "addiction treatment"
+  ],
+  "organ rejection": [
+    "transplant rejection",
+    "organ failure",
+    "graft rejection",
+    "transplant complications",
+    "immunosuppression",
+    "transplant issues"
+  ],
+  "organ transplant": [
+    "organ donation",
+    "transplant surgery",
+    "donor organ",
+    "organ recipient",
+    "living donor",
+    "ot"
+  ],
+  "organ transplant rejection": [
+    "organ rejection",
+    "transplant failure",
+    "graft rejection",
+    "transplant complications",
+    "immunosuppression",
+    "transplant issues"
+  ],
+  "osteoporosis": [
+    "brittle bones",
+    "osteopenia",
+    "bone thinning",
+    "bone loss",
+    "postmenopausal osteoporosis",
+    "spinal fractures"
+  ],
+  "osteoporosis prevention": [
+    "bone density",
+    "osteoporosis treatment",
+    "calcium supplements",
+    "vitamin d deficiency",
+    "bone health",
+    "fracture risk reduction"
+  ],
+  "osteoporosis treatment": [
+    "bone health",
+    "osteo meds",
+    "calcium supplements",
+    "vitamin d therapy",
+    "bone density"
+  ],
+  "ovarian cancer": [
+    "ovarian tumor",
+    "egg cancer",
+    "female cancer",
+    "ovary cancer",
+    "gynecologic cancer"
+  ],
+  "ovarian cancer treatment": [
+    "ovarian tumor treatment",
+    "ovarian malignancy treatment",
+    "gynecologic cancer treatment",
+    "ovary cancer meds"
+  ],
+  "overactive bladder": [
+    "oab",
+    "overactive bladder syndrome",
+    "urinary incontinence",
+    "bladder control issues",
+    "nocturia",
+    "ui"
+  ],
+  "ovulation induction": [
+    "ovulation meds",
+    "fertility meds",
+    "ovulation stimulators",
+    "fertility treatments",
+    "iui",
+    "fertility drugs"
+  ],
+  "ovulation issues": [
+    "irregular periods",
+    "ovulation disorder",
+    "fertility problems",
+    "menstrual cycle issues",
+    "hormonal imbalance",
+    "pcos"
+  ],
+  "pain management": [
+    "pain meds",
+    "pain relief",
+    "chronic pain treatment",
+    "opioid therapy",
+    "pt"
+  ],
+  "pain relief": [
+    "pain meds",
+    "painkillers",
+    "analgesics",
+    "acetaminophen",
+    "ibuprofen",
+    "medication for pain"
+  ],
+  "pain relief arthritis": [
+    "joint pain",
+    "arthritis meds",
+    "ra pain",
+    "inflammation",
+    "oa pain",
+    "nsaids"
+  ],
+  "pancreatic enzyme deficiency": [
+    "pancreatic insufficiency",
+    "exocrine pancreatic insufficiency",
+    "epi",
+    "digestive enzyme deficiency"
+  ],
+  "panic attacks": [
+    "anxiety attack",
+    "panic disorder",
+    "anxiety crisis",
+    "stress attack",
+    "anxiety episode"
+  ],
+  "parasite control": [
+    "parasite meds",
+    "worm control",
+    "parasitic infection",
+    "antiparasitics",
+    "deworming",
+    "parasites"
+  ],
+  "parasite infection": [
+    "parasitic infection",
+    "worms",
+    "parasites",
+    "giardiasis",
+    "protozoal infection"
+  ],
+  "parasitic infection": [
+    "parasitosis",
+    "worm infestation",
+    "protozoal infection",
+    "helminthic infection",
+    "intestinal parasites"
+  ],
+  "parasitic worms": [
+    "parasites",
+    "intestinal worms",
+    "tapeworms",
+    "roundworms",
+    "hookworms",
+    "parasitic infection"
+  ],
+  "parathyroid disease": [
+    "hyperparathyroidism",
+    "parathyroid dysfunction",
+    "parathyroid disorder",
+    "pth imbalance",
+    "ptg"
+  ],
+  "parkinson's": [
+    "parkinson's disease",
+    "pd",
+    "tremors",
+    "muscle stiffness",
+    "balance problems",
+    "motor function issues"
+  ],
+  "parkinson's disease": [
+    "parkinson's",
+    "pd",
+    "parkinsonism",
+    "tremors",
+    "motor disorder",
+    "neurodegenerative disease"
+  ],
+  "parkinson's symptoms": [
+    "parkinson's disease",
+    "pd",
+    "tremors",
+    "muscle stiffness",
+    "balance problems",
+    "motor function issues"
+  ],
+  "peanut allergy": [
+    "anaphylaxis",
+    "severe food allergy",
+    "peanut intolerance",
+    "pna"
+  ],
+  "period pain": [
+    "cramps",
+    "menstrual cramps",
+    "period cramps",
+    "pms",
+    "dysmenorrhea",
+    "pmdd"
+  ],
+  "period regulation": [
+    "menstrual issues",
+    "period problems",
+    "irregular periods",
+    "pms",
+    "pmdd",
+    "female reproductive health"
+  ],
+  "peripheral artery disease": [
+    "pad",
+    "poor circulation",
+    "peripheral vascular disease",
+    "leg pain",
+    "cold feet",
+    "circulatory problems"
+  ],
+  "phenylketonuria": [
+    "pku",
+    "phenylalanine disorder",
+    "genetic disorder",
+    "metabolic disorder",
+    "amino acid deficiency",
+    "pku disease"
+  ],
+  "phenylketonuria treatment": [
+    "pku meds",
+    "phenylalanine management",
+    "amino acid disorder treatment",
+    "dietary restrictions",
+    "special diet"
+  ],
+  "pink eye": [
+    "conjunctivitis",
+    "red eye",
+    "pink eye infection",
+    "eye discharge",
+    "eye irritation"
+  ],
+  "pinworms": [
+    "pinworm infection",
+    "intestinal parasite",
+    "worm infestation",
+    "parasitic infection",
+    "worm treatment",
+    "deworming"
+  ],
+  "plaque buildup": [
+    "plaque",
+    "atherosclerosis",
+    "hardening of the arteries",
+    "arterial blockage",
+    "cardiovascular disease"
+  ],
+  "plaque psoriasis": [
+    "psoriasis",
+    "plaque psoriatic arthritis",
+    "skin condition",
+    "scaly skin",
+    "red patches",
+    "psa"
+  ],
+  "pneumocystis juncii": [
+    "pcp",
+    "pneumocystis pneumonia",
+    "pneumocystosis",
+    "opportunistic infection",
+    "fungal infection"
+  ],
+  "pneumonia": [
+    "lung infection",
+    "pneumonia shot",
+    "respiratory infection",
+    "bronchitis",
+    "walking pneumonia",
+    "flu-like symptoms"
+  ],
+  "porphyria": [
+    "porphyrin disorder",
+    "acute intermittent porphyria",
+    "aip",
+    "porphyrinemia",
+    "heme disorder",
+    "pct"
+  ],
+  "post surgery recovery": [
+    "post-op care",
+    "recovery time",
+    "healing process",
+    "aftercare",
+    "convalescence",
+    "rehabilitation"
+  ],
+  "postpartum bleeding": [
+    "postpartum hemorrhage",
+    "pph",
+    "lochia",
+    "menstrual cramps",
+    "afterbirth bleeding",
+    "ppb"
+  ],
+  "potassium deficiency": [
+    "low k",
+    "hypokalemia",
+    "potassium imbalance",
+    "electrolyte imbalance",
+    "potassium levels",
+    "potassium shortage"
+  ],
+  "pregnancy": [
+    "being pregnant",
+    "expecting",
+    "carrying a baby",
+    "having a child",
+    "gestation"
+  ],
+  "pregnancy care": [
+    "prenatal care",
+    "ob-gyn care",
+    "maternity care",
+    "pregnancy health",
+    "antenatal care",
+    "prenatal wellness"
+  ],
+  "pregnancy complications": [
+    "pregnancy problems",
+    "prenatal issues",
+    "gestational diabetes",
+    "preeclampsia",
+    "premature labor",
+    "high-risk pregnancy"
+  ],
+  "pregnancy prevention": [
+    "birth control",
+    "family planning",
+    "contraception",
+    "fertility treatment",
+    "pregnancy avoidance",
+    "reproductive health"
+  ],
+  "pregnancy support": [
+    "prenatal care",
+    "pre-natal care",
+    "maternity care",
+    "ob-gyn care",
+    "prenatal health"
+  ],
+  "preterm labor prevention": [
+    "preterm birth prevention",
+    "premature labor",
+    "early labor",
+    "pregnancy complications",
+    "high-risk pregnancy",
+    "gestational age management"
+  ],
+  "prolactinoma": [
+    "prolactin tumor",
+    "pituitary tumor",
+    "galactorrhea",
+    "milk production",
+    "hormonal imbalance",
+    "prolactinoma tumor"
+  ],
+  "prostate cancer": [
+    "prostate tumor",
+    "prostatitis",
+    "bph",
+    "enlarged prostate",
+    "psa test",
+    "pca"
+  ],
+  "prostate cancer treatment": [
+    "prostate surgery",
+    "prostate removal",
+    "radical prostatectomy",
+    "prostatectomy",
+    "rp"
+  ],
+  "prostate issues": [
+    "prostate health",
+    "prostate cancer",
+    "enlarged prostate",
+    "bph",
+    "prostatitis",
+    "urinary incontinence"
+  ],
+  "psoriasis": [
+    "skin condition",
+    "eczema",
+    "plaque buildup",
+    "autoimmune disease",
+    "skin rash"
+  ],
+  "psoriasis treatment": [
+    "psoriasis management",
+    "plaque treatment",
+    "skin condition treatment",
+    "scalp treatment",
+    "topical cream"
+  ],
+  "psychosis": [
+    "mental breakdown",
+    "psychotic episode",
+    "crazy thoughts",
+    "losing it",
+    "going off the rails"
+  ],
+  "ptosis": [
+    "droopy eyelid",
+    "eyelid sagging",
+    "eyelid droop",
+    "eyelid ptosis",
+    "eyelid weakness",
+    "eyelid paralysis"
+  ],
+  "pulmonary arterial hypertension": [
+    "pah",
+    "high blood pressure in lungs",
+    "pulmonary hypertension",
+    "right heart failure",
+    "ph",
+    "pphn"
+  ],
+  "pulmonary hypertension": [
+    "high blood pressure",
+    "pulmonary htn",
+    "ph",
+    "pah",
+    "lung disease",
+    "breathing problems"
+  ],
+  "pupil enlargement": [
+    "dilated pupils",
+    "wide eyes",
+    "pupil dilation",
+    "mydriasis",
+    "eye dilation",
+    "large pupils"
+  ],
+  "rabies prevention": [
+    "rabies shot",
+    "post-exposure prophylaxis",
+    "pep",
+    "animal bite treatment",
+    "rabies vaccine"
+  ],
+  "radiation poisoning": [
+    "radiation sickness",
+    "acute radiation syndrome",
+    "radiation exposure",
+    "radiation toxicity",
+    "radiation overdose",
+    "rad poisoning"
+  ],
+  "rapid heartbeat": [
+    "palpitations",
+    "racing heart",
+    "tachycardia",
+    "fast heart rate",
+    "rapid pulse",
+    "bp high"
+  ],
+  "redness": [
+    "inflammation",
+    "redness and swelling",
+    "erythema",
+    "skin irritation",
+    "dermatitis"
+  ],
+  "relapsing disease": [
+    "chronic condition",
+    "recurring illness",
+    "relapsing-remitting",
+    "flare-ups",
+    "ongoing health issue",
+    "persistent problem"
+  ],
+  "renal calculi": [
+    "kidney stones",
+    "renal stone disease",
+    "nephrolithiasis",
+    "kidney gravel",
+    "kidney pebbles",
+    "kidney blockage"
+  ],
+  "renal cell carcinoma": [
+    "kidney cancer",
+    "rcc",
+    "renal tumor",
+    "kidney tumor",
+    "renal cell adenocarcinoma",
+    "kca"
+  ],
+  "respiratory disease": [
+    "lung disease",
+    "respiratory problems",
+    "breathing difficulties",
+    "copd",
+    "asthma",
+    "lung conditions"
+  ],
+  "respiratory infection": [
+    "respiratory virus",
+    "lung infection",
+    "bronchitis",
+    "pneumonia",
+    "upper respiratory tract infection",
+    "urti"
+  ],
+  "respiratory issues": [
+    "breathing problems",
+    "respiratory failure",
+    "lung disease",
+    "copd",
+    "asthma",
+    "rads"
+  ],
+  "respiratory problems": [
+    "breathing difficulties",
+    "respiratory distress",
+    "lung issues",
+    "airway obstruction",
+    "shortness of breath"
+  ],
+  "restless leg syndrome": [
+    "rls",
+    "restless legs",
+    "leg cramps",
+    "twitchy legs",
+    "leg spasms",
+    "plmd"
+  ],
+  "restless legs syndrome": [
+    "rls",
+    "restless leg",
+    "leg cramps",
+    "leg twitching",
+    "restless leg syndrome",
+    "plmd"
+  ],
+  "rheumatoid arthritis": [
+    "ra",
+    "rheumatism",
+    "joint pain",
+    "inflammatory arthritis",
+    "autoimmune disease"
+  ],
+  "rickets": [
+    "rickets disease",
+    "vitamin d deficiency",
+    "softening of bones",
+    "bone deformity",
+    "osteomalacia",
+    "rda"
+  ],
+  "rosacea": [
+    "rosaceo",
+    "adult acne",
+    "red face",
+    "facial rash",
+    "skin condition",
+    "acne rosacea"
+  ],
+  "rosacea treatment": [
+    "rosacea",
+    "acne",
+    "red skin",
+    "facial rash",
+    "adult acne",
+    "sensitive skin"
+  ],
+  "rotavirus infection": [
+    "rotavirus",
+    "rv",
+    "stomach bug",
+    "viral gastroenteritis",
+    "stomach flu",
+    "rv infection"
+  ],
+  "rubella": [
+    "german measles",
+    "german rubella",
+    "3-day measles",
+    "childhood illness",
+    "viral infection",
+    "contagious disease"
+  ],
+  "scabies": [
+    "mites",
+    "itching",
+    "skin infestation",
+    "parasitic infection",
+    "ectoparasite"
+  ],
+  "scabies treatment": [
+    "scabie cream",
+    "scabies ointment",
+    "permethrin",
+    "scabicides",
+    "mite treatment",
+    "scabies medication"
+  ],
+  "scalp irritation": [
+    "scalp itch",
+    "dandruff",
+    "flaky scalp",
+    "itchy scalp",
+    "scalp psoriasis",
+    "seborrheic dermatitis"
+  ],
+  "scarring lungs": [
+    "lung scarring",
+    "pulmonary fibrosis",
+    "pf",
+    "interstitial lung disease",
+    "ild",
+    "scarred lungs"
+  ],
+  "schizophrenia": [
+    "psychosis",
+    "mental illness",
+    "bipolar",
+    "schizophrenia spectrum disorder",
+    "schizoaffective",
+    "sz"
+  ],
+  "schizophrenia management": [
+    "schizophrenia",
+    "schiz",
+    "mental health treatment",
+    "therapy",
+    "counseling",
+    "medication management"
+  ],
+  "schizophrenia symptoms": [
+    "schizophrenia",
+    "schiz",
+    "psychosis",
+    "mental illness",
+    "bipolar",
+    "paranoid thoughts"
+  ],
+  "schizophrenia treatment": [
+    "meds for schizophrenia",
+    "antipsychotics",
+    "psych meds",
+    "schizophrenia medication",
+    "sza",
+    "ap"
+  ],
+  "seasonal allergies": [
+    "hay fever",
+    "seasonal allergy",
+    "pollen allergy",
+    "spring allergy",
+    "fall allergy",
+    "ragweed allergy"
+  ],
+  "sedation": [
+    "sedative meds",
+    "sleep aids",
+    "tranquilizers",
+    "anxiolytics",
+    "anxiety meds",
+    "relaxation medication"
+  ],
+  "seizure": [
+    "convulsion",
+    "fit",
+    "epilepsy attack",
+    "seizure disorder",
+    "seizure activity"
+  ],
+  "seizure control": [
+    "seizure management",
+    "epilepsy treatment",
+    "seizure medication",
+    "anticonvulsant therapy",
+    "seizure prevention",
+    "ect"
+  ],
+  "seizure disorder": [
+    "epilepsy",
+    "seizure activity",
+    "convulsions",
+    "seizures",
+    "petit mal seizures",
+    "grand mal seizures"
+  ],
+  "seizure disorders": [
+    "epilepsy",
+    "seizures",
+    "convulsions",
+    "seizure activity",
+    "seizure control"
+  ],
+  "seizures": [
+    "fits",
+    "convulsions",
+    "epilepsy",
+    "seizure disorder",
+    "seizure attacks"
+  ],
+  "severe allergies": [
+    "severe allergy",
+    "anaphylaxis",
+    "life-threatening allergy",
+    "severe reaction",
+    "allergic emergency",
+    "severe sensitivity"
+  ],
+  "severe allergy": [
+    "severe reaction",
+    "anaphylaxis",
+    "allergic emergency",
+    "life-threatening allergy",
+    "severe intolerance"
+  ],
+  "severe bacterial infection": [
+    "sepsis",
+    "severe infection",
+    "bacterial sepsis",
+    "systemic infection",
+    "blood poisoning",
+    "sbi"
+  ],
+  "severe dehydration": [
+    "extreme thirst",
+    "electrolyte imbalance",
+    "dehydration symptoms",
+    "dehydration treatment",
+    "fluid loss"
+  ],
+  "severe depression": [
+    "clinical depression",
+    "major depressive disorder",
+    "mdd",
+    "bipolar depression",
+    "dysthymia",
+    "mood disorder"
+  ],
+  "severe headaches": [
+    "migraines",
+    "tension headaches",
+    "cluster headaches",
+    "headache pain",
+    "chronic headaches"
+  ],
+  "severe infections": [
+    "sepsis",
+    "severe illness",
+    "life-threatening infection",
+    "critical care",
+    "icu stay"
+  ],
+  "severe pain": [
+    "chronic pain",
+    "intense pain",
+    "sharp pain",
+    "stabbing pain",
+    "excruciating pain"
+  ],
+  "severe skin infections": [
+    "infected skin",
+    "skin abscesses",
+    "boils",
+    "cellulitis",
+    "folliculitis",
+    "impetigo"
+  ],
+  "shingles protection": [
+    "shingles vaccine",
+    "zoster shot",
+    "shingrix",
+    "herpes zoster vaccine",
+    "shingles prevention",
+    "zosert"
+  ],
+  "short stature": [
+    "dwarfism",
+    "short height",
+    "petite",
+    "small stature",
+    "vertically challenged",
+    "stunted growth"
+  ],
+  "sickle cell anemia": [
+    "sickle cell",
+    "sickle disease",
+    "hemoglobin s",
+    "sickle trait",
+    "anemic",
+    "blood disorder"
+  ],
+  "sickle cell disease": [
+    "sickle cell anemia",
+    "sickle cell trait",
+    "hemoglobin s",
+    "blood disorder",
+    "genetic condition",
+    "sickle cell"
+  ],
+  "sinus pressure": [
+    "sinus headache",
+    "sinus congestion",
+    "nasal pressure",
+    "facial pain",
+    "sinusitis",
+    "upper respiratory infection"
+  ],
+  "sinus relief": [
+    "sinus pressure",
+    "sinus congestion",
+    "sinus headache",
+    "sinus drainage",
+    "nasal congestion",
+    "allergy symptoms"
+  ],
+  "sinusitis": [
+    "sinus infection",
+    "sinusitis disease",
+    "nasal congestion",
+    "sinus headache",
+    "postnasal drip",
+    "chronic sinusitis"
+  ],
+  "skin allergies": [
+    "skin allergy",
+    "allergic reaction",
+    "hives",
+    "itchy skin",
+    "atopic dermatitis",
+    "eczema"
+  ],
+  "skin allergy": [
+    "skin allergies",
+    "allergy symptoms",
+    "allergic reaction",
+    "hives",
+    "itchy skin",
+    "atopic dermatitis"
+  ],
+  "skin allergy symptoms": [
+    "skin rash",
+    "hives",
+    "itchy skin",
+    "eczema",
+    "dermatitis",
+    "allergic reaction"
+  ],
+  "skin allergy treatment": [
+    "skin allergy",
+    "allergic reaction",
+    "hives",
+    "eczema",
+    "dermatitis",
+    "itchy skin"
+  ],
+  "skin cancer": [
+    "melanoma",
+    "basal cell carcinoma",
+    "squamous cell carcinoma",
+    "skin lesions",
+    "moles"
+  ],
+  "skin cancer prevention": [
+    "skin check",
+    "mole removal",
+    "sun protection",
+    "sunscreen",
+    "melanoma screening",
+    "skin exam"
+  ],
+  "skin cancer treatment": [
+    "skin cancer",
+    "melanoma",
+    "skin tumor",
+    "basal cell carcinoma",
+    "squamous cell carcinoma",
+    "mohs surgery"
+  ],
+  "skin care": [
+    "skin health",
+    "skincare routine",
+    "moisturizing",
+    "exfoliating",
+    "skin protection",
+    "dermatology"
+  ],
+  "skin condition": [
+    "skin rash",
+    "eczema",
+    "dermatitis",
+    "skin irritation",
+    "skin inflammation"
+  ],
+  "skin conditions": [
+    "skin problems",
+    "dermatitis",
+    "eczema",
+    "psoriasis",
+    "acne",
+    "skin rash"
+  ],
+  "skin infection": [
+    "boil",
+    "abscess",
+    "cellulitis",
+    "folliculitis",
+    "impetigo",
+    "bacterial skin infection"
+  ],
+  "skin infections": [
+    "acne",
+    "boils",
+    "abscesses",
+    "cellulitis",
+    "folliculitis",
+    "skin lesions"
+  ],
+  "skin inflammation": [
+    "skin rash",
+    "eczema",
+    "dermatitis",
+    "psoriasis",
+    "acne",
+    "inflammatory skin condition"
+  ],
+  "skin irritation": [
+    "itch",
+    "rash",
+    "skin allergy",
+    "eczema",
+    "dermatitis",
+    "hives"
+  ],
+  "skin itching": [
+    "itchiness",
+    "skin irritation",
+    "skin rash",
+    "hives",
+    "eczema",
+    "dermatitis"
+  ],
+  "skin lesions": [
+    "rashes",
+    "bumps",
+    "moles",
+    "warts",
+    "acne"
+  ],
+  "skin problem": [
+    "skin issues",
+    "rashes",
+    "eczema",
+    "acne",
+    "dermatitis",
+    "skin irritation"
+  ],
+  "skin rash": [
+    "skin irritation",
+    "redness",
+    "itchiness",
+    "bumps",
+    "rashes",
+    "acne"
+  ],
+  "skin rash treatment": [
+    "skin irritation",
+    "skin issue",
+    "skin problem",
+    "dermatitis",
+    "eczema",
+    "skin condition"
+  ],
+  "skin redness": [
+    "red skin",
+    "rosacea",
+    "eczema",
+    "hives",
+    "itchy skin",
+    "dermatitis"
+  ],
+  "skin ulcers": [
+    "skin sores",
+    "open wounds",
+    "ulcers",
+    "bedsores",
+    "pressure sores",
+    "decubitus ulcers"
+  ],
+  "sleep aid": [
+    "insomnia meds",
+    "sleep help",
+    "restful sleep",
+    "sleeping pills",
+    "zzz's"
+  ],
+  "sleep disorder": [
+    "sleep problems",
+    "insomnia",
+    "sleep apnea",
+    "restless leg syndrome",
+    "narcolepsy",
+    "sleep issues"
+  ],
+  "sleep disorders": [
+    "sleep problems",
+    "insomnia",
+    "sleep apnea",
+    "restless leg syndrome",
+    "narcolepsy",
+    "sleep disturbances"
+  ],
+  "sleeping sickness": [
+    "african sleeping sickness",
+    "trypanosomiasis",
+    "parasitic infection",
+    "tropical disease",
+    "mosquito-borne illness",
+    "african trypanosomiasis"
+  ],
+  "smoking cessation": [
+    "quitting smoking",
+    "nicotine free",
+    "smokeless",
+    "no cigarettes",
+    "giving up smoking"
+  ],
+  "smoking cessation aid": [
+    "quit smoking",
+    "nicotine gum",
+    "patches",
+    "stop smoking",
+    "smoking cessation",
+    "quit aids"
+  ],
+  "spinal muscular atrophy": [
+    "sma",
+    "spinal muscle weakness",
+    "muscle wasting disease",
+    "spinal atrophy",
+    "motor neuron disease",
+    "smard"
+  ],
+  "stomach acid issue": [
+    "heartburn",
+    "gerd",
+    "indigestion",
+    "acid reflux",
+    "stomach problems",
+    "digestive issues"
+  ],
+  "stomach cramps": [
+    "stomach pain",
+    "abdominal cramps",
+    "ibs",
+    "irritable bowel syndrome",
+    "gastroenteritis",
+    "food poisoning"
+  ],
+  "stomach pain": [
+    "stomach ache",
+    "abdominal pain",
+    "belly pain",
+    "indigestion",
+    "cramps",
+    "abdominal pain"
+  ],
+  "stomach ulcer": [
+    "ulcers",
+    "acid reflux",
+    "heartburn",
+    "gerd",
+    "stomach pain",
+    "peptic ulcer disease"
+  ],
+  "stomach ulcers": [
+    "stomach acid",
+    "peptic ulcer",
+    "digestive issues",
+    "gut problems",
+    "acid reflux",
+    "gastritis"
+  ],
+  "stress relief": [
+    "anxiety management",
+    "stress reduction",
+    "relaxation techniques",
+    "mindfulness",
+    "self-care",
+    "mental health"
+  ],
+  "stroke prevention": [
+    "stroke meds",
+    "blood thinners",
+    "anticoagulants",
+    "aspirin therapy",
+    "clot preventers",
+    "antiplatelets"
+  ],
+  "stroke risk": [
+    "stroke prevention",
+    "blood clot risk",
+    "cardiovascular disease",
+    "heart attack risk",
+    "cerebrovascular disease"
+  ],
+  "stroke risk reduction": [
+    "stroke prevention",
+    "heart health",
+    "blood pressure management",
+    "cardiovascular disease",
+    "atherosclerosis treatment",
+    "cardiac health"
+  ],
+  "substance abuse": [
+    "addiction",
+    "substance use disorder",
+    "chemical dependency",
+    "dependence",
+    "habit",
+    "substance misuse"
+  ],
+  "suicidal thoughts": [
+    "depression",
+    "mental health",
+    "anxiety",
+    "emotional distress",
+    "self-harm",
+    "psychological issues"
+  ],
+  "swelling": [
+    "edema",
+    "water retention",
+    "puffiness",
+    "bloating",
+    "fluid buildup"
+  ],
+  "swelling treatment": [
+    "swelling reduction",
+    "edema treatment",
+    "fluid retention",
+    "water retention",
+    "lymphedema",
+    "swelling relief"
+  ],
+  "tension pain": [
+    "muscle strain",
+    "back pain",
+    "neck pain",
+    "stress-related pain",
+    "tms"
+  ],
+  "tetanus": [
+    "lockjaw",
+    "tetanospasmin",
+    "muscle spasms",
+    "rigidity",
+    "tetanus infection",
+    "c. tetani"
+  ],
+  "tetanus booster": [
+    "tetanus shot",
+    "td",
+    "booster",
+    "vaccination",
+    "immunization",
+    "tdap"
+  ],
+  "tetanus infection": [
+    "lockjaw",
+    "tetanus toxoid",
+    "td",
+    "tetanus shot",
+    "tetanus booster",
+    "tetanus vaccination"
+  ],
+  "tetanus shot": [
+    "tdap",
+    "tetanus vaccine",
+    "booster shots",
+    "adult vaccinations",
+    "travel health",
+    "tdap"
+  ],
+  "tetanus vaccination": [
+    "tetanus shot",
+    "td",
+    "booster",
+    "vaccination",
+    "immunization",
+    "tdap"
+  ],
+  "thyroid cancer": [
+    "thyroid tumor",
+    "thyroid nodule",
+    "thyroid growth",
+    "abnormal thyroid cells",
+    "thyroid malignancy",
+    "papillary carcinoma"
+  ],
+  "thyroid cancer treatment": [
+    "thyroid surgery",
+    "radioactive iodine",
+    "t3",
+    "thyroid removal",
+    "cancer treatment",
+    "radiation therapy"
+  ],
+  "thyroid condition": [
+    "thyroid problem",
+    "thyroid issue",
+    "hypothyroidism",
+    "hyperthyroidism",
+    "thyroid nodules",
+    "goiter"
+  ],
+  "thyroid deficiency": [
+    "hypothyroidism",
+    "underactive thyroid",
+    "low thyroid",
+    "thyroid issues",
+    "thyroid nodules",
+    "thyroid disease"
+  ],
+  "thyroid disorder": [
+    "hypothyroidism",
+    "hyperthyroidism",
+    "thyroid nodules",
+    "goiter",
+    "thyroiditis",
+    "hashimoto's"
+  ],
+  "thyroid function": [
+    "thyroid issues",
+    "thyroid problems",
+    "hypothyroidism",
+    "hyperthyroidism",
+    "thyroid nodules",
+    "thyroid cancer"
+  ],
+  "thyroid hormone replacement": [
+    "thyroid medication",
+    "thyroid pills",
+    "thyroid supplements",
+    "t4 treatment",
+    "hypothyroidism treatment",
+    "thyroid hormone therapy"
+  ],
+  "thyroid medication": [
+    "thyroid meds",
+    "synthroid",
+    "levothyroxine",
+    "t4",
+    "hypothyroidism treatment",
+    "thyroid replacement therapy"
+  ],
+  "thyroid nodules": [
+    "thyroid lumps",
+    "goiter",
+    "thyroid growths",
+    "thyroid cysts",
+    "thyroid enlargement",
+    "thyroid masses"
+  ],
+  "thyroid problems": [
+    "thyroid issues",
+    "thyroid nodules",
+    "hypothyroidism",
+    "hyperthyroidism",
+    "thyroid cancer",
+    "thyroid disease"
+  ],
+  "thyroid support": [
+    "thyroid issues",
+    "thyroid problems",
+    "hypothyroidism",
+    "low thyroid",
+    "thyroid medication",
+    "tsh"
+  ],
+  "tooth decay": [
+    "cavities",
+    "tooth rot",
+    "tooth damage",
+    "dental caries",
+    "tooth erosion",
+    "tooth wear"
+  ],
+  "tooth decay prevention": [
+    "fluoride treatment",
+    "dental care",
+    "oral hygiene",
+    "cavity prevention",
+    "tooth protection",
+    "dental health"
+  ],
+  "toxoplasmosis": [
+    "toxo infection",
+    "cat scratch disease",
+    "parasitic infection",
+    "protozoal infection",
+    "toxo"
+  ],
+  "travel medicine": [
+    "travel health",
+    "exotic diseases",
+    "tropical illnesses",
+    "vaccinations",
+    "malaria prevention",
+    "travel clinic"
+  ],
+  "tremors": [
+    "shaking",
+    "tremor",
+    "parkinson's",
+    "essential tremor",
+    "muscle spasms",
+    "shaky hands"
+  ],
+  "triglycerides": [
+    "triglyceride levels",
+    "high triglycerides",
+    "lipids",
+    "lipid profile",
+    "blood fats",
+    "hyperlipidemia"
+  ],
+  "tuberculosis": [
+    "tb",
+    "tuberculosis disease",
+    "tb infection",
+    "tb symptoms",
+    "tb diagnosis",
+    "tb treatment"
+  ],
+  "tuberculosis infection": [
+    "tb",
+    "tuberculosis",
+    "tb disease",
+    "consumption",
+    "koch's disease",
+    "tb"
+  ],
+  "tuberculosis prevention": [
+    "tb shot",
+    "tb vaccine",
+    "bcg",
+    "tb prevention",
+    "tb meds",
+    "tb test"
+  ],
+  "tuberculosis treatment": [
+    "tb meds",
+    "antibiotic therapy",
+    "tb shots",
+    "bcg vaccine",
+    "respiratory infection treatment",
+    "lung disease treatment"
+  ],
+  "tumor growth": [
+    "tumor spread",
+    "cancer growth",
+    "metastasis",
+    "tumor progression",
+    "cancer cells",
+    "malignant growth"
+  ],
+  "tumors": [
+    "growths",
+    "lumps",
+    "masses",
+    "cancerous growths",
+    "neoplasms"
+  ],
+  "type 1 diabetes": [
+    "type 1",
+    "t1d",
+    "juvenile diabetes",
+    "insulin dependent",
+    "high blood sugar",
+    "young onset diabetes"
+  ],
+  "type 2 diabetes": [
+    "t2d",
+    "type 2",
+    "high blood sugar",
+    "insulin resistance",
+    "pre-diabetes",
+    "adult-onset diabetes"
+  ],
+  "typhoid fever": [
+    "typhoid",
+    "typhus",
+    "enteric fever",
+    "abdominal cramps",
+    "high fever",
+    "typhoid mary"
+  ],
+  "ulcerative colitis": [
+    "uc",
+    "inflammatory bowel disease",
+    "ibd",
+    "colitis",
+    "colon inflammation"
+  ],
+  "ulcerative colitis management": [
+    "uc management",
+    "ibd management",
+    "inflammatory bowel disease treatment",
+    "ulcerative colitis treatment"
+  ],
+  "urea cycle disorder": [
+    "ammonia buildup",
+    "urea cycle defect",
+    "hyperammonemia",
+    "ammonia toxicity",
+    "nitrogen waste disorder"
+  ],
+  "urea cycle disorders": [
+    "urea cycle",
+    "ammonia buildup",
+    "ornithine transcarbamylase deficiency",
+    "otcd",
+    "carbamoyl phosphate synthetase i deficiency",
+    "cps1"
+  ],
+  "uric acid buildup": [
+    "gout",
+    "urate crystals",
+    "kidney stones",
+    "hyperuricemia",
+    "high uric acid"
+  ],
+  "urinary incontinence": [
+    "bladder control issues",
+    "urinary leakage",
+    "incontinence",
+    "overactive bladder",
+    "bedwetting",
+    "wetting the bed"
+  ],
+  "urinary issues": [
+    "uti",
+    "kidney problems",
+    "bladder issues",
+    "incontinence",
+    "overactive bladder",
+    "urinary retention"
+  ],
+  "urinary retention": [
+    "urinary incontinence",
+    "bladder control issues",
+    "overactive bladder",
+    "oab",
+    "nocturia"
+  ],
+  "urinary tract": [
+    "uti",
+    "kidney problems",
+    "bladder issues",
+    "urinary issues",
+    "utis",
+    "kidney stones"
+  ],
+  "urinary tract infection": [
+    "uti",
+    "kidney infection",
+    "bladder infection",
+    "urinary symptoms",
+    "urine infection",
+    "cystitis"
+  ],
+  "urinary tract infections": [
+    "uti",
+    "kidney infection",
+    "bladder infection",
+    "urinary tract issue",
+    "uti symptoms",
+    "urinary problem"
+  ],
+  "urinary tract issues": [
+    "uti",
+    "kidney infection",
+    "bladder problems",
+    "urinary problems",
+    "uti symptoms",
+    "uti treatment"
+  ],
+  "urinary tract pain": [
+    "uti",
+    "kidney stone pain",
+    "bladder pain",
+    "urinary discomfort",
+    "lower back pain"
+  ],
+  "urinary urgency": [
+    "overactive bladder",
+    "oab",
+    "frequent urination",
+    "urinary frequency",
+    "uti symptoms"
+  ],
+  "uterine contractions": [
+    "menstrual cramps",
+    "period pains",
+    "uterine spasms",
+    "uterus contractions",
+    "m/c",
+    "menstrual cramp"
+  ],
+  "uterine growth": [
+    "fibroids",
+    "uterine tumors",
+    "uterus growths",
+    "myomas",
+    "uterine polyps",
+    "ug"
+  ],
+  "uti symptoms": [
+    "uti",
+    "bladder infection",
+    "kidney infection",
+    "urinary tract infection",
+    "painful urination",
+    "frequent urination"
+  ],
+  "utis": [
+    "uti",
+    "bladder infection",
+    "kidney infection",
+    "urinary tract infection",
+    "uti symptoms",
+    "uti treatment"
+  ],
+  "uveitis": [
+    "eye inflammation",
+    "uveal inflammation",
+    "iritis",
+    "conjunctivitis",
+    "eye infection",
+    "ocular inflammation"
+  ],
+  "vaginal dryness": [
+    "vaginal itch",
+    "vaginal discharge",
+    "yeast infection",
+    "feminine dryness",
+    "estrogen imbalance",
+    "low libido"
+  ],
+  "vaginal itching": [
+    "yeast infection",
+    "vaginal discharge",
+    "vaginitis",
+    "vaginal irritation",
+    "vaginal burning",
+    "vulvar itch"
+  ],
+  "vaginal odor": [
+    "yeast infection",
+    "vaginal discharge",
+    "b.o.",
+    "body odor",
+    "feminine hygiene issues",
+    "vaginitis"
+  ],
+  "vaginal yeast infection": [
+    "yeast infection",
+    "vaginal itch",
+    "vaginitis",
+    "fungal infection",
+    "candida",
+    "thrush"
+  ],
+  "vertigo": [
+    "dizziness",
+    "spinning sensation",
+    "lightheadedness",
+    "balance problem",
+    "inner ear issue"
+  ],
+  "viral infection": [
+    "virus",
+    "viral",
+    "flu-like symptoms",
+    "upper respiratory infection",
+    "uri",
+    "viral illness"
+  ],
+  "viral infections": [
+    "cold",
+    "flu",
+    "bug",
+    "virus",
+    "viral illness",
+    "upper respiratory infection"
+  ],
+  "viral replication": [
+    "viral load",
+    "virus growth",
+    "viral activity",
+    "infection",
+    "illness",
+    "contagion"
+  ],
+  "viral resistance": [
+    "viral mutation",
+    "antibiotic-resistant virus",
+    "superbug",
+    "resistant virus",
+    "viral adaptation",
+    "antiviral resistance"
+  ],
+  "vision correction": [
+    "glasses",
+    "contacts",
+    "lasik",
+    "eye surgery",
+    "vision therapy"
+  ],
+  "vitamin b12 deficiency": [
+    "low b12",
+    "pernicious anemia",
+    "b12 levels",
+    "b12 shot",
+    "b12 deficiency"
+  ],
+  "vitamin d deficiency": [
+    "vitamin d levels",
+    "low vitamin d",
+    "hypovitaminosis d",
+    "rickets",
+    "osteomalacia"
+  ],
+  "vitamin deficiency": [
+    "vitamin d deficiency",
+    "low vitamins",
+    "nutrient deficiency",
+    "malnutrition",
+    "poor nutrition",
+    "nutritional deficiency"
+  ],
+  "vitamin k deficiency": [
+    "vitamin k",
+    "clotting factor",
+    "bleeding disorder",
+    "bruising easily",
+    "easy bruising",
+    "coagulopathy"
+  ],
+  "vomiting": [
+    "throwing up",
+    "puking",
+    "nausea",
+    "queasiness",
+    "stomach upset",
+    "emesis"
+  ],
+  "vomiting pregnancy": [
+    "morning sickness",
+    "hyperemesis gravidarum",
+    "pregnancy nausea",
+    "prenatal vomiting",
+    "queasiness",
+    "stomach issues"
+  ],
+  "water retention": [
+    "swelling",
+    "edema",
+    "water weight gain",
+    "bloating",
+    "fluid retention",
+    "puffiness"
+  ],
+  "weak bones": [
+    "osteoporosis",
+    "brittle bones",
+    "fragile bones",
+    "bone thinning",
+    "low bone density",
+    "osteo"
+  ],
+  "weight gain": [
+    "weight loss resistance",
+    "gaining weight",
+    "putting on pounds",
+    "excess weight",
+    "obesity"
+  ],
+  "weight loss": [
+    "weight gain prevention",
+    "dieting",
+    "losing weight",
+    "slimming down",
+    "fat loss",
+    "calorie reduction"
+  ],
+  "wheezing": [
+    "asthma",
+    "wheezy breathing",
+    "shortness of breath",
+    "copd",
+    "chronic cough",
+    "bronchospasm"
+  ],
+  "whooping cough": [
+    "pertussis",
+    "whoop",
+    "croupy cough",
+    "100-day cough",
+    "b. pertussis"
+  ],
+  "wilson's disease": [
+    "copper disease",
+    "liver disease",
+    "neurological disorder",
+    "genetic disorder",
+    "wilson's syndrome"
+  ],
+  "withdrawal": [
+    "detox",
+    "substance abuse treatment",
+    "addiction recovery",
+    "rehab",
+    "recovery program",
+    "substance dependence"
+  ],
+  "withdrawal symptoms": [
+    "withdrawal",
+    "detox",
+    "addiction issues",
+    "substance abuse",
+    "cravings",
+    "relapse"
+  ],
+  "worm infection": [
+    "parasitic infection",
+    "intestinal worms",
+    "worm infestation",
+    "helminthic infection",
+    "parasitic disease",
+    "gi parasites"
+  ],
+  "worms in gut": [
+    "parasites",
+    "intestinal worms",
+    "giardiasis",
+    "tapeworms",
+    "roundworms",
+    "pinworms"
+  ],
+  "wound care": [
+    "wound healing",
+    "stitches",
+    "sutures",
+    "incision care",
+    "dressing change",
+    "wound closure"
+  ],
+  "wound infection": [
+    "wound care",
+    "wound healing issues",
+    "skin infection",
+    "abscess",
+    "cellulitis",
+    "post-surgical infection"
+  ],
+  "xerostomia": [
+    "dry mouth",
+    "cottonmouth",
+    "dry lips",
+    "oral dryness",
+    "salivary gland dysfunction",
+    "sj\u00f6gren's syndrome"
+  ],
+  "yeast infection": [
+    "yeast overgrowth",
+    "fungal infection",
+    "vaginal itch",
+    "candida",
+    "thrush",
+    "vaginitis"
+  ],
+  "yeast infections": [
+    "vaginal yeast",
+    "fungal infection",
+    "candidiasis",
+    "thrush",
+    "vulvovaginal candidiasis",
+    "vvc"
+  ]
+}

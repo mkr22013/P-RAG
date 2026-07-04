@@ -620,7 +620,13 @@ def find_drug_list_end(pdf, drug_list_start: int) -> int:
     return len(pdf.pages)
 
 
-def generate_sub_index(output_path: str, pdf_path: str) -> list:
+def generate_sub_index(
+    output_path: str,
+    pdf_path: str,
+    classify_illness: bool = False,
+    classify_synonyms: bool = False,
+    force_reclassify: bool = False,
+) -> list:
     """
     Parses the Rx formulary PDF and creates one chunk per drug entry.
     Writes the result as a JSON array to output_path.
@@ -741,7 +747,19 @@ def generate_sub_index(output_path: str, pdf_path: str) -> list:
     # via member_info once category=rx is already confirmed.
     # Set to False for fast structure verification (no LLM cost).
     # Flip to True for the real illness classification run.
-    update_drug_names_file(chunks, classify_illness=False)
+    # Update the shared drug_names.json (Pass 1 + optional Pass 2)
+    drug_names_data = update_drug_names_file(
+        chunks,
+        classify_illness=classify_illness,
+        force_reclassify=force_reclassify,
+    )
+
+    # Pass 3: illness → synonyms (only if classify_synonyms=True)
+    if classify_synonyms:
+        update_condition_synonyms_file(
+            drug_names_data,
+            force_reclassify=force_reclassify,
+        )
 
     return all_chunks
 
@@ -927,6 +945,12 @@ DRUG_NAMES_FILE = os.path.join(
     "drug_names.json",
 )
 
+CONDITION_SYNONYMS_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "indices",
+    "condition_synonyms.json",
+)
+
 # Common connector/category words that appear in illness descriptions but
 # carry no discriminating search value on their own — e.g. "type 2 diabetes"
 # should contribute "diabetes" as a keyword, not "type". Same discipline as
@@ -1042,7 +1066,92 @@ def _classify_illness_terms_batch(drug_words: list, batch_size: int = 25) -> dic
     return results
 
 
-def _is_valid_drug_name(drug_name: str) -> bool:
+def _classify_synonyms_batch(illness_terms: list, batch_size: int = 25) -> dict:
+    """
+    Pass 3: For each unique illness term, generate patient-friendly synonyms.
+
+    Batched LLM call using self-identifying format:
+        diabetes → type 2, blood sugar, high blood sugar, sugar levels, T2D
+        hypertension → blood pressure, high blood pressure, high bp, bp
+
+    Returns dict: {illness_term: [synonym1, synonym2, ...]}
+    Empty list = LLM returned no synonyms (safe fallback).
+    """
+    from utility.llm import llm_chat
+
+    results = {term: [] for term in illness_terms}
+
+    for i in range(0, len(illness_terms), batch_size):
+        batch = illness_terms[i : i + batch_size]
+        illness_list = "\n".join(batch)
+
+        try:
+            messages = [
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a medical terminology assistant. "
+                        "For each medical condition listed, return ONE line with ALL the ways "
+                        "a patient might describe it — including abbreviations, common names, "
+                        "and related terms.\n\n"
+                        "Format: condition → synonym1, synonym2, synonym3\n\n"
+                        "Rules:\n"
+                        "- Use everyday patient language\n"
+                        "- Include abbreviations (bp, T2D, GERD etc.)\n"
+                        "- Maximum 6 synonyms per condition\n"
+                        "- Return ONLY these lines, one per condition\n"
+                        "- If unsure, return: condition → \n\n"
+                        "Examples:\n"
+                        "diabetes → blood sugar, type 2, high blood sugar, sugar levels, T2D\n"
+                        "hypertension → blood pressure, high blood pressure, high bp, bp\n"
+                        "high cholesterol → cholesterol, bad cholesterol, ldl, lipids\n"
+                        "acid reflux → heartburn, GERD, stomach acid, indigestion"
+                    ),
+                },
+                {"role": "user", "content": illness_list},
+            ]
+
+            max_tokens = batch_size * 30
+            response = llm_chat(messages=messages, max_tokens=max_tokens)
+            if not response:
+                continue
+
+            for line in response.strip().split("\n"):
+                if "→" not in line and "->" not in line:
+                    continue
+                separator = "→" if "→" in line else "->"
+                parts = line.split(separator, 1)
+                if len(parts) != 2:
+                    continue
+
+                term = parts[0].strip().lower()
+                synonyms_raw = parts[1].strip()
+
+                if term not in [t.lower() for t in batch]:
+                    continue
+
+                if not synonyms_raw:
+                    continue
+
+                synonyms = [
+                    s.strip().lower() for s in synonyms_raw.split(",") if s.strip()
+                ]
+                clean_synonyms = [s for s in synonyms if len(s) >= 2 and s != term]
+
+                for original_term in batch:
+                    if original_term.lower() == term:
+                        results[original_term] = clean_synonyms[:6]
+                        break
+
+            print(
+                f"[*] Synonym batch {i//batch_size + 1}/{(len(illness_terms)-1)//batch_size + 1} "
+                f"({min(i+batch_size, len(illness_terms))}/{len(illness_terms)} terms)"
+            )
+
+        except Exception as e:
+            print(f"[!] Synonym batch failed for batch {i//batch_size + 1}: {e}")
+
+    return results
     """
     Returns True only for genuine drug name strings from the formulary.
     Filters out PDF parser artifacts — dosage fragments, page numbers,
@@ -1200,7 +1309,10 @@ def _is_valid_drug_name(drug_name: str) -> bool:
 
 
 def update_drug_names_file(
-    drug_chunks: list, file_path: str = DRUG_NAMES_FILE, classify_illness: bool = False
+    drug_chunks: list,
+    file_path: str = DRUG_NAMES_FILE,
+    classify_illness: bool = False,
+    force_reclassify: bool = False,
 ) -> dict:
     """
     Builds and maintains the shared, plan-agnostic drug_names.json file.
@@ -1265,11 +1377,16 @@ def update_drug_names_file(
     # Find entries needing backfill (in file but empty illness terms)
     needs_backfill = set()
     if classify_illness:
-        needs_backfill = {
-            name
-            for name in new_drug_names
-            if name in existing_data and not existing_data[name]
-        }
+        if force_reclassify:
+            # Force mode — reclassify ALL existing entries too
+            needs_backfill = set(new_drug_names) - truly_new
+        else:
+            # Incremental mode — only backfill entries with empty illness terms
+            needs_backfill = {
+                name
+                for name in new_drug_names
+                if name in existing_data and not existing_data[name]
+            }
 
     to_classify = truly_new | needs_backfill
 
@@ -1321,6 +1438,97 @@ def update_drug_names_file(
         f"{len(existing_data)} total entries"
     )
 
+    return existing_data
+
+
+def update_condition_synonyms_file(
+    drug_names_data: dict,
+    file_path: str = CONDITION_SYNONYMS_FILE,
+    force_reclassify: bool = False,
+) -> dict:
+    """
+    Pass 3: Builds and maintains condition_synonyms.json.
+
+    Collects all unique illness terms from drug_names_data, then for each
+    unique term generates patient-friendly synonyms via batched LLM calls.
+
+    Incremental by default — only classifies terms with empty synonym lists.
+    Set force_reclassify=True to redo all terms.
+
+    Structure:
+        {
+          "diabetes": ["blood sugar", "type 2", "high blood sugar", "T2D"],
+          "hypertension": ["blood pressure", "high blood pressure", "high bp", "bp"],
+          ...
+        }
+    """
+    # Collect all unique illness terms across all drugs
+    all_illness_terms = set()
+    for illness_list in drug_names_data.values():
+        for term in illness_list:
+            if term and len(term) >= 3:
+                all_illness_terms.add(term.lower())
+
+    if not all_illness_terms:
+        print(
+            "[*] condition_synonyms: no illness terms found — run with classify_illness=True first"
+        )
+        return {}
+
+    print(
+        f"[*] condition_synonyms: {len(all_illness_terms)} unique illness terms found"
+    )
+
+    # Load existing data
+    existing_data = {}
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, encoding="utf-8") as f:
+                existing_data = json.load(f)
+        except Exception as e:
+            print(f"[!] Failed to load existing condition_synonyms.json: {e}")
+
+    # Determine what needs classification
+    if force_reclassify:
+        to_classify = list(all_illness_terms)
+        print(
+            f"[*] condition_synonyms: force reclassify — processing all {len(to_classify)} terms"
+        )
+    else:
+        to_classify = [
+            term
+            for term in all_illness_terms
+            if term not in existing_data or not existing_data[term]
+        ]
+        already_done = len(all_illness_terms) - len(to_classify)
+        print(
+            f"[*] condition_synonyms: {already_done} already classified, "
+            f"{len(to_classify)} new/empty to process"
+        )
+
+    if not to_classify:
+        print(
+            f"[*] condition_synonyms: nothing to classify — all {len(existing_data)} terms up to date"
+        )
+        return existing_data
+
+    # Classify in batches
+    batch_size = 25
+    for i in range(0, len(to_classify), batch_size):
+        batch = to_classify[i : i + batch_size]
+        batch_results = _classify_synonyms_batch(batch, batch_size=batch_size)
+
+        for term, synonyms in batch_results.items():
+            existing_data[term] = synonyms
+
+        # Progressive save after every batch
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(existing_data, f, indent=2, sort_keys=True)
+
+    print(
+        f"[*] condition_synonyms: complete — {len(existing_data)} conditions with synonyms"
+    )
     return existing_data
 
 

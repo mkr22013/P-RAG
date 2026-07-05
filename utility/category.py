@@ -787,6 +787,15 @@ def detect_category(query_words, query):
         print(f"[*] CATEGORY MATCH → medical")
         return "medical"
 
+    # ── Step 5b: Condition-based rx detection
+    try:
+        from utility.condition_resolver import resolve_query_to_drugs
+
+        if resolve_query_to_drugs(query, use_llm_fallback=False):
+            print("[*] CATEGORY MATCH → rx (condition term found in query)")
+            return "rx"
+    except Exception:
+        pass
     # NOTE: Step 6 (last-resort phonetic drug-name match, placed AFTER
     # Steps 1-4 so it can't steal a legitimately medical/dental/vision
     # query) was attempted and reverted tonight. The STRUCTURAL placement

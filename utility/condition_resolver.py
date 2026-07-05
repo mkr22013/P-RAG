@@ -231,7 +231,7 @@ def extract_condition_terms(query: str) -> list[str]:
     # Normalize
     query_clean = re.sub(r"[^\w\s]", " ", query.lower()).strip()
     words = [
-        w for w in query_clean.split() if w not in _QUERY_STOPWORDS and len(w) >= 2
+        w for w in query_clean.split() if w not in _QUERY_STOPWORDS and len(w) >= 4
     ]
 
     candidates = []

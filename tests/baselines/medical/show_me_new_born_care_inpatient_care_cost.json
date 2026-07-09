@@ -1,31 +1,30 @@
 {
   "query": "show me new born care inpatient care cost",
   "category": "medical",
-  "timestamp": "2026-06-30T16:27:52.243653",
-  "answer": "Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Newborn Care | Inpatient care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Newborn Care | Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan. To continue benefits beyond the 3-week period, see the dependent eligibility and enrollment guidelines outlined in Who Is Eligible For Coverage? and When Does Coverage Begin?. If the mother isn’t eligible to receive obstetrical care benefits under this plan, the newborn isn’t automatically covered for the first 3 weeks. For newborn enrollment information, see Who Is Eligible For Coverage? and When Does Coverage Begin?. Benefits are provided on the same basis as any other care, subject to the child's own cost-shares, if any, and other provisions as specified in this plan. Services must be consistent with accepted medical practice and ordered by the attending provider in consultation with the mother. |\n| Inpatient Care | Inpatient rehabilitation care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital. If you are already an inpatient, this benefit will start when your care becomes mainly rehabilitative and you are transferred to an inpatient rehabilitation center. This benefit only covers care you receive within 24 months from the onset of the injury or illness or from the date of the surgery that made rehabilitation necessary. You must get prior authorization from us before you get treatment in an inpatient rehabilitation center. See Prior Authorization for details. |\n",
+  "timestamp": "2026-07-08T23:20:45.222731",
+  "answer": "Inpatient newborn care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Newborn Care | Inpatient care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Other outpatient services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Inpatient Care | Inpatient rehabilitation care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital. If you are already an inpatient, this benefit will start when your care becomes mainly rehabilitative and you are transferred to an inpatient rehabilitation center. This benefit only covers care you receive within 24 months from the onset of the injury or illness or from the date of the surgery that made rehabilitation necessary. You must get prior authorization from us before you get treatment in an inpatient rehabilitation center. See Prior Authorization for details. |\n",
   "pages": [
     13,
-    42,
     51
   ],
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
     "total_llm_calls": 2,
-    "total_input_tokens": 795,
-    "total_output_tokens": 56,
-    "total_tokens": 851,
+    "total_input_tokens": 787,
+    "total_output_tokens": 52,
+    "total_tokens": 839,
     "calls": [
       {
         "call_type": "ollama",
         "input_tokens": 554,
-        "output_tokens": 25,
-        "total_tokens": 579
+        "output_tokens": 24,
+        "total_tokens": 578
       },
       {
         "call_type": "ollama",
-        "input_tokens": 241,
-        "output_tokens": 31,
-        "total_tokens": 272
+        "input_tokens": 233,
+        "output_tokens": 28,
+        "total_tokens": 261
       }
     ]
   }

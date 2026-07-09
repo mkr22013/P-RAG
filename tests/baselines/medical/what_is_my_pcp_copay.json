@@ -1,8 +1,8 @@
 {
   "query": "what is my pcp copay?",
   "category": "medical",
-  "timestamp": "2026-06-30T16:28:30.954761",
-  "answer": "Your primary care physician (PCP) copayment is a fixed up-front amount that you're required to pay at the time of service.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Professional Visit Copay | Professional visit copay | Kinwell Clinic: $0 / All Other Non-Specialist: $25 / All Other Specialist: $40 | Data Not Found | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Copayments (Copays) | Copayments (“copays”) are fixed up-front dollar amounts that you’re required to pay for certain covered services. Your provider of care may ask that you pay the copay at the time of service. If the amount billed is less than the copay, you only pay the amount billed. |\n| Split Copay For Office Visits | This plan has two Professional Visit Copay amounts for in-network providers' office and home visits, when services are received from providers other than Kinwell providers. When you see one of the types of in-network 22 providers shown below, you pay the non-specialist copay shown in the Summary Of Your Costs for each office or home visit. • Family practice physician • General practice physician • Internist • Gynecologist • Advanced registered nurse practitioner (ARNP) • Obstetrician • Pediatrician • Physician assistant • Chiropractor • Acupuncturist For all other types of in-network providers covered by benefits subject to a professional visit copay, you pay the specialist copay shown in the Summary Of Your Costs for each visit. Certain services don’t require a copay. However, the Professional Visit Copay may apply if you have a consultation with the provider or receive other services. Separate copays will apply if you see more than one in- network provider on the same day. But only one copay per provider, per day will apply. If you receive multiple services from the same provider in the same visit and the copay amounts are different, then the highest copay will apply. |\n",
+  "timestamp": "2026-07-08T23:28:13.694392",
+  "answer": "Your primary care physician (PCP) copayment is a fixed up-front amount that you're required to pay at the time of service for certain covered services.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Professional Visit Copay | Professional visit copay | Kinwell Clinic: $0 / All Other Non-Specialist: $25 / All Other Specialist: $40 | Data Not Found | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Copayments (Copays) | Copayments (“copays”) are fixed up-front dollar amounts that you’re required to pay for certain covered services. Your provider of care may ask that you pay the copay at the time of service. If the amount billed is less than the copay, you only pay the amount billed. |\n| Split Copay For Office Visits | This plan has two Professional Visit Copay amounts for in-network providers' office and home visits, when services are received from providers other than Kinwell providers. When you see one of the types of in-network 22 providers shown below, you pay the non-specialist copay shown in the Summary Of Your Costs for each office or home visit. • Family practice physician • General practice physician • Internist • Gynecologist • Advanced registered nurse practitioner (ARNP) • Obstetrician • Pediatrician • Physician assistant • Chiropractor • Acupuncturist For all other types of in-network providers covered by benefits subject to a professional visit copay, you pay the specialist copay shown in the Summary Of Your Costs for each visit. Certain services don’t require a copay. However, the Professional Visit Copay may apply if you have a consultation with the provider or receive other services. Separate copays will apply if you see more than one in- network provider on the same day. But only one copay per provider, per day will apply. If you receive multiple services from the same provider in the same visit and the copay amounts are different, then the highest copay will apply. |\n",
   "pages": [
     22
   ],
@@ -10,14 +10,14 @@
   "token_usage": {
     "total_llm_calls": 1,
     "total_input_tokens": 254,
-    "total_output_tokens": 28,
-    "total_tokens": 282,
+    "total_output_tokens": 32,
+    "total_tokens": 286,
     "calls": [
       {
         "call_type": "ollama",
         "input_tokens": 254,
-        "output_tokens": 28,
-        "total_tokens": 282
+        "output_tokens": 32,
+        "total_tokens": 286
       }
     ]
   }

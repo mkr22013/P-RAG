@@ -29,28 +29,36 @@ from .utils import smart_match
 # Refreshed every 48 hours per server instance (TTL-based), so long-running
 # instances naturally pick up newly-indexed drug names without a restart.
 
-_DRUG_NAME_DATA: dict[str, list] = {}
+_DRUG_NAME_DATA: dict = {}  # drug_word → {entry_type, full_names}
 _drug_words_loaded_at: datetime | None = None
 _DRUG_WORDS_TTL = timedelta(hours=48)
 
+DRUG_WORDS_FILE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "indices",
+    "drug_words.json",
+)
+
+# Fallback to old file if drug_words.json not yet generated
 DRUG_NAMES_FILE = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     "indices",
-    "drug_names.json",
+    "drug_words.json",
 )
 
 
 def _load_drug_name_data() -> dict:
     """
-    Loads the shared drug_names.json file into memory, cached with a 48-hour
-    TTL per server instance. The file is ALREADY deduplicated and classified
-    at write time (see rx_indexer.py's update_drug_names_file) — no dedup or
-    LLM work needed here, just load directly.
+    Loads drug_words.json into memory with 48-hour TTL cache.
 
-    Structure: {"metformin": ["diabetes", "blood sugar"], "ozempic": [...], ...}
-    Each key is a drug name word, each value is a list of layman illness/
-    condition terms that drug treats (may be empty if not yet classified,
-    or if classify_illness=False was used during indexing).
+    New structure: {
+        "metformin": {"entry_type": "drug", "full_names": [...]},
+        "aerochamber": {"entry_type": "device", "full_names": [...]},
+        "fluzone": {"entry_type": "vaccine", "full_names": [...]},
+        "folic": {"entry_type": "vitamin", "full_names": [...]}
+    }
+
+    Falls back to drug_names.json for backward compat.
     """
     global _DRUG_NAME_DATA, _drug_words_loaded_at
 
@@ -63,73 +71,120 @@ def _load_drug_name_data() -> dict:
         return _DRUG_NAME_DATA
 
     try:
-        if os.path.exists(DRUG_NAMES_FILE):
-            with open(DRUG_NAMES_FILE, encoding="utf-8") as f:
+        target_file = (
+            DRUG_WORDS_FILE if os.path.exists(DRUG_WORDS_FILE) else DRUG_NAMES_FILE
+        )
+
+        if os.path.exists(target_file):
+            with open(target_file, encoding="utf-8") as f:
                 data = json.load(f)
-                # Backward-compat: handle old flat-list format gracefully,
-                # in case this runs against a file from before the illness
-                # mapping upgrade — treat each word as having no illness terms
-                if isinstance(data, list):
-                    data = {word: [] for word in data}
+
+            if isinstance(data, list):
+                data = {
+                    word: {"entry_type": "drug", "full_names": [], "illnesses": []}
+                    for word in data
+                }
+            elif data:
+                first_val = list(data.values())[0]
+                if isinstance(first_val, list):
+                    # Old word-key format: {"metformin": ["diabetes"]}
+                    data = {
+                        k: {"entry_type": "drug", "full_names": [k], "illnesses": v}
+                        for k, v in data.items()
+                    }
+                elif isinstance(first_val, dict) and "drug_category" in first_val:
+                    # Old full-name schema — extract first words
+                    new_data = {}
+                    for full_name in data.keys():
+                        first_word = re.match(r"[a-zA-Z][a-zA-Z0-9\-]*", full_name)
+                        if first_word:
+                            word = first_word.group(0).lower().rstrip("-")
+                            if "-" in word:
+                                word = word.split("-")[0]
+                            if len(word) >= 5 and word not in new_data:
+                                new_data[word] = {
+                                    "entry_type": "drug",
+                                    "full_names": [full_name],
+                                    "illnesses": [],
+                                }
+                    data = new_data
+                # New drug_words.json format — load as-is
         else:
             data = {}
-            print(
-                f"[!] drug_names.json not found at {DRUG_NAMES_FILE} — "
-                f"run the Rx indexer at least once to generate it"
-            )
+            print(f"[!] drug_words.json not found — run rx_indexer first")
     except Exception as e:
-        print(f"[!] Failed to load drug_names.json: {e}")
-        data = (
-            _DRUG_NAME_DATA or {}
-        )  # keep stale cache on error rather than going empty
+        print(f"[!] Failed to load drug_words.json: {e}")
+        data = _DRUG_NAME_DATA or {}
 
     _DRUG_NAME_DATA = data
     _drug_words_loaded_at = now
-    illness_count = sum(1 for terms in data.values() if terms)
+    drug_count = sum(
+        1
+        for v in data.values()
+        if isinstance(v, dict) and v.get("entry_type") == "drug"
+    )
     print(
-        f"[*] Loaded {len(data)} drug name words for rx category detection "
-        f"({illness_count} with illness terms mapped)"
+        f"[*] Loaded {len(data)} drug words ({drug_count} drugs) for rx category detection"
     )
     return _DRUG_NAME_DATA
 
 
 def _load_drug_name_words() -> set:
     """
-    Backward-compatible accessor — returns just the set of drug name words
-    (the dict's keys), for callers that only need membership checks and
-    don't care about illness terms (is_drug_name_query, correct_drug_spelling,
-    is_drug_match all only need this).
+    Returns drug word keys where entry_type == "drug".
+    Devices/vaccines/vitamins excluded — prevents false category detection.
+    e.g. "aerochamber" won't trigger rx category for medical queries.
     """
-    return set(_load_drug_name_data().keys())
+    data = _load_drug_name_data()
+    words = set()
+    for word, entry in data.items():
+        if isinstance(entry, dict):
+            entry_type = entry.get("entry_type", "drug")
+        else:
+            entry_type = "drug"
+        # Only include actual drugs for drug name detection
+        if entry_type == "drug" and len(word) >= 5:
+            words.add(word)
+            if "-" in word:
+                base = word.split("-")[0]
+                if len(base) >= 5:
+                    words.add(base)
+    return words
 
 
 def get_illness_terms_for_word(word: str) -> list:
     """
-    Returns the layman illness/condition terms associated with a drug name
-    word, or an empty list if the word isn't a known drug name or hasn't
-    been classified yet. Used for condition-based Rx queries like
-    "is my diabetes medicine covered?" (see client.py's medicine-signal-word
-    guarded condition search).
+    Returns illness terms for a drug word by scanning full name keys.
+    Checks if any full name key starts with the given word.
     """
     data = _load_drug_name_data()
-    return data.get(word.lower(), [])
+    word_lower = word.lower()
+    for full_name, entry in data.items():
+        first_word = re.match(r"[a-zA-Z][a-zA-Z0-9\-]*", full_name)
+        if first_word and first_word.group(0).lower().startswith(word_lower):
+            if isinstance(entry, dict):
+                return entry.get("illnesses", [])
+            return entry
+    return []
 
 
 def find_drug_words_for_illness(illness_term: str) -> list:
     """
-    Returns all drug name words whose illness terms include the given
-    illness/condition term. Used for condition-based Rx queries.
+    Returns all primary drug identifier words whose illness terms include
+    the given condition term. Used for condition-based Rx queries.
 
     Example: find_drug_words_for_illness("diabetes")
         → ["metformin", "ozempic", "glipizide", ...]
     """
     data = _load_drug_name_data()
     illness_term = illness_term.lower()
-    return [
-        word
-        for word, terms in data.items()
-        if illness_term in [t.lower() for t in terms]
-    ]
+    matched_words = set()
+    for full_name, illness_terms in data.items():
+        if illness_term in [t.lower() for t in illness_terms]:
+            first_word = re.match(r"[a-zA-Z]+", full_name)
+            if first_word:
+                matched_words.add(first_word.group(0).lower())
+    return list(matched_words)
 
 
 def is_drug_name_query(query_words: list) -> bool:
@@ -146,8 +201,7 @@ def is_drug_name_query(query_words: list) -> bool:
     drug_words = _load_drug_name_words()
     if not drug_words:
         return False
-    ##Below code will check if drug name is minimum 5 characters long to avoid false positives for short words like "plan" or "new" which are common in drug names but not actually drug names themselves.
-    return any(w in drug_words for w in query_words if len(w) >= 5)
+    return any(w in drug_words for w in query_words)
 
 
 def correct_drug_spelling(keyword: str) -> str:
@@ -606,7 +660,7 @@ def detect_category_rule_based(query_words: list, query: str) -> str | None:
 def detect_category(query_words, query):
     category = None
 
-    # ── Step 1: Rx signals (before dental/medical to avoid ambiguity)
+    # ── Step 1: Rx keyword signals (unambiguous — before everything)
     if any(
         w in query_words
         for w in [
@@ -629,18 +683,16 @@ def detect_category(query_words, query):
         print("[*] CATEGORY MATCH → rx")
         return "rx"
 
+    # ── Step 1.5: Rx drug name check — BEFORE medical/dental/vision
+    # Catches queries like "does metformin require prior authorization?"
+    # where "authorization" would otherwise steal the match to medical.
+    # Drug name is the strongest possible signal — if a real formulary
+    # drug name is present, the question is about that drug.
+    if is_drug_name_query(query_words):
+        print("[*] CATEGORY MATCH → rx (drug name found in query)")
+        return "rx"
+
     # ── Step 2: Dental procedure terms (high precision)
-    # NOTE: "implant" deliberately removed from this list. Unlike the other
-    # terms here, "implant" is genuinely ambiguous across categories —
-    # medical also legitimately uses it (hearing implants, joint replacement
-    # implants, breast reconstruction implants, cochlear implants). Keeping
-    # it here would FORCE every bare "implant"/"implants" query to dental,
-    # even when the member means a medical implant. A query like "is there
-    # a maximum benefit for implants?" has no way to know which the member
-    # means without more context — so it correctly falls through to the LLM
-    # fallback instead of being forced into one category with false
-    # confidence. "dental implant" / "tooth implant" still correctly routes
-    # to dental via the "dental"/"tooth" terms already in this list.
     _dental_proc_terms = [
         "dental",
         "dentist",
@@ -707,16 +759,7 @@ def detect_category(query_words, query):
         print("[*] CATEGORY MATCH → vision")
         return "vision"
 
-    # ── Step 4: Drug name match — catches queries with no other rx signal
-    # e.g. "does metformin require prior authorization?"
-    # Checked against real drug names from the Rx index — not guessed patterns
-    if is_drug_name_query(query_words):
-        print("[*] CATEGORY MATCH → rx (drug name found in query)")
-        return "rx"
-
-    # ── Step 5: Medical — specific medical terms only
-    # Note: generic words like "covered", "plan", "benefit", "network" removed
-    # to avoid false positives on drug name queries like "is vivjoa covered?"
+    # ── Step 4: Medical specific terms
     _medical_terms = [
         "medical",
         "doctor",
@@ -756,11 +799,9 @@ def detect_category(query_words, query):
         "infusion",
         "chemotherapy",
         "radiation",
-        # Additional unambiguously medical terms — eliminates LLM category calls
         "immunotherapy",
         "therapeutic",
         "vasectomy",
-        "dialysis",
         "reconstruction",
         "gender",
         "affirming",
@@ -779,45 +820,12 @@ def detect_category(query_words, query):
         "transplants",
         "authorization",
         "transportation",
-        "newborn",
         "impatient",
     ]
 
     if any(w in query_words for w in _medical_terms):
-        print(f"[*] CATEGORY MATCH → medical")
+        print("[*] CATEGORY MATCH → medical")
         return "medical"
-
-    # ── Step 5b: Condition-based rx detection
-    try:
-        from utility.condition_resolver import resolve_query_to_drugs
-
-        if resolve_query_to_drugs(query, use_llm_fallback=False):
-            print("[*] CATEGORY MATCH → rx (condition term found in query)")
-            return "rx"
-    except Exception:
-        pass
-    # NOTE: Step 6 (last-resort phonetic drug-name match, placed AFTER
-    # Steps 1-4 so it can't steal a legitimately medical/dental/vision
-    # query) was attempted and reverted tonight. The STRUCTURAL placement
-    # was confirmed correct — it never fired on a query any other category
-    # would have claimed. But it surfaced a real, different problem:
-    # common English words can be phonetically/character-similar to drug
-    # BRAND NAME FRAGMENTS, not just generic dosage-form words we can
-    # safely stoplist.
-    #   - "breast" → "breath" (0.83): fixed — "breath" was a dosage-form
-    #     descriptor ("...AEROSOL POWDR BREATH ACTIVATED...") and has been
-    #     added to the stoplist in rx_indexer.py.
-    #   - "maintenance" → "maintena" (0.84): NOT fixable the same way —
-    #     "MAINTENA" is a genuine fragment of the real brand name "ABILIFY
-    #     MAINTENA". Stoplisting it risks breaking legitimate lookups for
-    #     that drug. "maintenance" itself is an ordinary English word with
-    #     zero relationship to medication — it should never have been
-    #     checked against drug names in the first place.
-    # The right fix is a dedicated common-English-word EXCLUSION list
-    # (similar in spirit to utils.py's NOISE_WORDS) checked BEFORE
-    # attempting phonetic correction in Step 5 — not a per-collision
-    # stoplist patch. Needs proper design time, not a late-session rush.
-    # See RX_INDEXER_FLOW.md for write-up; revisit next session.
 
     # ── LLM fallback — only when rule-based fails
     print("[*] CATEGORY NOT FOUND → CALLING LLM")

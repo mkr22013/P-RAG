@@ -1,7 +1,7 @@
 {
   "query": "Can you show me transplants cost",
   "category": "medical",
-  "timestamp": "2026-06-30T16:25:38.373913",
+  "timestamp": "2026-07-08T23:18:45.421200",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Transplants (Includes donor search and donation costs.) | Inpatient facility care | Deductible, then 20% coinsurance | Not covered* | Data Not Found |\n| Transplants (Includes donor search and donation costs.) | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Not covered* | Data Not Found |\n",
   "pages": [
     17

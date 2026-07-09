@@ -1,8 +1,14 @@
 """
 drug_intelligence_api.py — Drug Intelligence API
 
-Standalone FastAPI service that provides drug and condition intelligence
-from the Rx formulary index. Runs independently of the main BENJI API.
+Standalone FastAPI service that provides READ-ONLY access to drug and
+condition intelligence data from the Rx formulary index.
+
+Data is populated and maintained by the BENJI team using:
+    build_rxclass_lookup.py  — fills illnesses[] in drug_words.json from RxNorm RRF files
+    rx_classifier.py         — generates condition_synonyms.json
+
+No LLM calls are made at query time — all data is pre-computed.
 
 Endpoints:
     GET  /health
@@ -17,9 +23,9 @@ Endpoints:
 Run locally:
     python -m uvicorn drug_intelligence_api:app --port 8001 --reload
 
-Data files (read-only at runtime, written by rx_indexer.py):
-    indices/drug_names.json           — drug word → illness terms
-    indices/condition_synonyms.json   — condition → synonyms
+Data files (read-only at runtime):
+    indices/drug_words.json           — drug word → entry_type + full_names + illnesses
+    indices/condition_synonyms.json   — condition → patient-friendly synonyms
     indices/2026_rx_*.json            — full formulary drug chunks
 """
 
@@ -33,14 +39,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from main.auth0middleware import Auth0Middleware
+from utility.condition_resolver import (
+    _load_drug_illness,
+    _load_condition_synonyms,
+)
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ── Index file paths ──────────────────────────────────────────────────────────
+# ── File paths ────────────────────────────────────────────────────────────────
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DRUG_NAMES_FILE = os.path.join(_BASE_DIR, "indices", "drug_names.json")
+DRUG_WORDS_FILE = os.path.join(_BASE_DIR, "indices", "drug_words.json")
 CONDITION_SYNONYMS_FILE = os.path.join(_BASE_DIR, "indices", "condition_synonyms.json")
 INDICES_DIR = os.path.join(_BASE_DIR, "indices")
 
@@ -51,14 +61,8 @@ async def lifespan(app: FastAPI):
     """Startup — pre-load data files into condition_resolver cache."""
     logger.info("[*] Drug Intelligence API starting up")
 
-    # Pre-warm the condition_resolver caches so first request is fast
     try:
-        from utility.condition_resolver import (
-            _load_drug_names,
-            _load_condition_synonyms,
-        )
-
-        drug_data = _load_drug_names()
+        drug_data = _load_drug_illness()
         synonym_data = _load_condition_synonyms()
         logger.info(
             f"[*] Loaded {len(drug_data)} drug words, "
@@ -79,10 +83,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Auth0 middleware — skipped in dev when AUTH0_DOMAIN/AUDIENCE not set
 app.add_middleware(Auth0Middleware)
 
-# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -92,7 +94,7 @@ app.add_middleware(
 )
 
 
-# ── Request/Response models ───────────────────────────────────────────────────
+# ── Request / Response models ─────────────────────────────────────────────────
 class ResolveRequest(BaseModel):
     query: str
 
@@ -137,12 +139,10 @@ class CacheInvalidateResponse(BaseModel):
 @app.get("/health")
 async def health():
     """Health check — excluded from auth."""
-    drug_names_exists = os.path.exists(DRUG_NAMES_FILE)
-    condition_synonyms_exists = os.path.exists(CONDITION_SYNONYMS_FILE)
     return {
         "status": "ok",
-        "drug_names_file": drug_names_exists,
-        "condition_synonyms_file": condition_synonyms_exists,
+        "drug_words_file": os.path.exists(DRUG_WORDS_FILE),
+        "condition_synonyms_file": os.path.exists(CONDITION_SYNONYMS_FILE),
     }
 
 
@@ -204,7 +204,6 @@ async def resolve_condition(body: ResolveRequest):
     if not body.query or not body.query.strip():
         raise HTTPException(status_code=400, detail="query cannot be empty")
 
-    # Extract candidates and find best match
     candidates = extract_condition_terms(body.query)
     canonical = None
     matched_term = None
@@ -215,7 +214,7 @@ async def resolve_condition(body: ResolveRequest):
             matched_term = term
             break
 
-    drugs = resolve_query_to_drugs(body.query)
+    drugs = resolve_query_to_drugs(body.query, use_llm_fallback=False)
     synonyms = expand_condition(canonical) if canonical else []
 
     return ConditionDrugsResponse(
@@ -231,7 +230,6 @@ async def resolve_condition(body: ResolveRequest):
 async def expand_condition_endpoint(body: ExpandRequest):
     """
     Expands a condition term to its canonical name and all synonyms.
-    Useful for building search queries or understanding term relationships.
 
     Examples:
         {"term": "blood pressure"} → {canonical: "hypertension", synonyms: [...]}
@@ -264,8 +262,8 @@ async def get_conditions_for_drug(
     Returns the conditions a drug treats.
 
     Examples:
-        ?drug=metformin   → ["diabetes", "blood sugar"]
-        ?drug=lisinopril  → ["hypertension", "heart failure"]
+        ?drug=metformin  → ["Diabetes Mellitus, Type 2", "Insulin Resistance"]
+        ?drug=lisinopril → ["Hypertension", "Heart Failure"]
     """
     from utility.condition_resolver import get_conditions_for_drug
 
@@ -290,9 +288,7 @@ async def drug_exists(
         ?name=vivjoa     → {exists: true}
         ?name=randomword → {exists: false}
     """
-    from utility.condition_resolver import _load_drug_names
-
-    drug_data = _load_drug_names()
+    drug_data = _load_drug_illness()
     exists = name.lower().strip() in drug_data
 
     return DrugExistsResponse(drug=name, exists=exists)
@@ -313,9 +309,8 @@ async def search_drug(
         ?name=vivjoa&plan=E4&group=1000016
     """
     name_lower = name.lower().strip()
-
-    # Find matching index file
     entries = []
+
     try:
         for filename in os.listdir(INDICES_DIR):
             if not filename.endswith(".json"):
@@ -371,21 +366,22 @@ async def search_drug(
 @app.post("/api/v1/admin/cache/invalidate", response_model=CacheInvalidateResponse)
 async def invalidate_cache():
     """
-    Clears the in-memory cache for drug_names.json and condition_synonyms.json.
-    Call this after running the rx indexer to pick up new data immediately
-    without restarting the server.
+    Clears the in-memory cache for drug_words.json and condition_synonyms.json.
+    Call this after running build_rxclass_lookup.py or rx_classifier --synonyms
+    to pick up new data without restarting the server.
     """
     try:
         import utility.condition_resolver as cr
 
-        cr._drug_names_loaded_at = None
+        cr._drug_illness_loaded_at = None
         cr._condition_synonyms_loaded_at = None
-        cr._drug_names_data = {}
+        cr._drug_illness_data = {}
         cr._condition_synonyms_data = {}
 
         logger.info("[*] Drug Intelligence API: cache invalidated")
         return CacheInvalidateResponse(
-            status="ok", message="Cache cleared — next request will reload from disk"
+            status="ok",
+            message="Cache cleared — next request will reload from disk",
         )
     except Exception as e:
         raise HTTPException(

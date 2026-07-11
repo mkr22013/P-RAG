@@ -686,13 +686,11 @@ def detect_category(query_words, query):
     # ── Step 1.5: Rx drug name check — BEFORE medical/dental/vision
     # Catches queries like "does metformin require prior authorization?"
     # where "authorization" would otherwise steal the match to medical.
-    # Drug name is the strongest possible signal — if a real formulary
-    # drug name is present, the question is about that drug.
     if is_drug_name_query(query_words):
         print("[*] CATEGORY MATCH → rx (drug name found in query)")
         return "rx"
 
-    # ── Step 2: Dental procedure terms (high precision)
+        # ── Step 2: Dental procedure terms (high precision)
     _dental_proc_terms = [
         "dental",
         "dentist",

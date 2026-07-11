@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
         os.makedirs(local_dir, exist_ok=True)
 
         drug_names = (
-            await download_index("drug_names.json")
+            await download_index("drug_words.json")
             if os.getenv("AZURE_BLOB_CONNECTION_STRING")
             else None
         )
@@ -45,17 +45,17 @@ async def lifespan(app: FastAPI):
             with open(DRUG_NAMES_FILE, "w", encoding="utf-8") as f:
                 json.dump(drug_names, f)
             logger.info(
-                f"[*] drug_names.json synced from Blob: {len(drug_names)} words"
+                f"[*] drug_words.json synced from Blob: {len(drug_names)} words"
             )
         elif os.path.exists(DRUG_NAMES_FILE):
-            logger.info("[*] drug_names.json found locally — using existing file")
+            logger.info("[*] drug_words.json found locally — using existing file")
         else:
             logger.warning(
-                "[*] drug_names.json not found locally or in Blob — "
+                "[*] drug_words.json not found locally or in Blob — "
                 "run the Rx indexer at least once to generate it"
             )
     except Exception as e:
-        logger.warning(f"[*] drug_names.json startup sync skipped: {e}")
+        logger.warning(f"[*] drug_words.json startup sync skipped: {e}")
 
     yield
     logger.info("[*] P-RAG API shutting down")

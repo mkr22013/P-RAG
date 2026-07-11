@@ -562,21 +562,6 @@ async def get_ai_response(
             tool_result = None
 
             if p_type == "rx":
-                # ── Condition-based query resolution ─────────────────────────
-                # If query contains a condition term (e.g. "diabetes", "blood pressure")
-                # but no specific drug name, resolve condition → drug names first.
-                # This enables queries like "what drugs do I have for diabetes?"
-                from utility.condition_resolver import resolve_query_to_drugs
-
-                condition_drugs = []
-                if not is_drug_name_query(query_words):
-                    condition_drugs = resolve_query_to_drugs(
-                        query, use_llm_fallback=False
-                    )
-                    if condition_drugs:
-                        print(
-                            f"[*] CONDITION RESOLVED: {len(condition_drugs)} drugs found"
-                        )
                 # ── Rx: dual-index query ──────────────────────────────────────
 
                 # Extract drug name keywords — skip general terms AND
@@ -654,38 +639,100 @@ async def get_ai_response(
                         for w in query_words
                         if len(w) > 3 and w not in _PURE_NOISE_WORDS
                     )
+
+                    # ── Condition-based query resolution ──────────────────
+                    # If query contains a condition term (e.g. "asthma",
+                    # "diabetes") but no specific drug name, resolve
+                    # condition → drug names first.
+                    condition_drugs = []
+                    if not is_drug_name_query(query_words):
+                        try:
+                            from utility.condition_resolver import (
+                                resolve_query_to_drugs,
+                            )
+
+                            condition_drugs = resolve_query_to_drugs(
+                                query, use_llm_fallback=False
+                            )
+                            if condition_drugs:
+                                print(
+                                    f"[*] CONDITION RESOLVED: {len(condition_drugs)} drugs found"
+                                )
+                        except Exception as _ce:
+                            print(f"[!] Condition resolution failed: {_ce}")
+                            condition_drugs = []
+
                     if condition_drugs:
-                        # Use resolved drug names as search terms
-                        search_terms = tuple(condition_drugs[:10])  # top 10 drugs
-                        query_has_real_drug_name = True  # treat like drug name query
+                        if len(condition_drugs) > 10:
+                            # Too many drugs to show full table — return name list
+                            # and ask member to pick a specific drug.
+                            # Works for both UI and API clients.
+                            from utility.condition_resolver import (
+                                find_canonical_condition,
+                                extract_condition_terms,
+                            )
+
+                            candidates = extract_condition_terms(query)
+                            canonical = next(
+                                (
+                                    find_canonical_condition(t)
+                                    for t in candidates
+                                    if find_canonical_condition(t)
+                                ),
+                                None,
+                            )
+                            label = canonical.title() if canonical else "your condition"
+
+                            # Split into covered vs not-covered using drug_words
+                            # entry_type — devices/vaccines excluded already
+                            # We don't know coverage status without index lookup
+                            # so just list all as candidates
+                            drug_list = ", ".join(sorted(condition_drugs))
+
+                            rx_plan_info = (
+                                member_info.get("plans", {}).get("rx", {})
+                                if member_info
+                                else {}
+                            )
+                            rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
+                            rx_variant = rx_plan_info.get("variant", "")
+                            source = (
+                                f"{rx_plan_name} ({rx_variant})"
+                                if rx_variant
+                                else rx_plan_name
+                            )
+
+                            answer = (
+                                f"Here are the medications that may be available for "
+                                f"**{label}** on your formulary:\n\n"
+                                f"**{drug_list}**\n\n"
+                                f"Ask me about any specific drug to see its tier, "
+                                f"cost and requirements."
+                            )
+                            return {
+                                "answer": answer,
+                                "pages": [],
+                                "source": source,
+                            }
+
+                        # <= 10 drugs — use drug names as topics for full table
+                        search_terms = tuple(condition_drugs)
+                        condition_keywords = tuple(condition_drugs)
+                        query_has_real_drug_name = True
                     else:
+                        query_has_real_drug_name = is_drug_name_query(query_words)
                         search_terms = (
                             rx_keywords
                             or concept_terms
                             or ("formulary", "drug", "list", "tier", "coverage")
                         )
-
-                        # Determine UP FRONT whether the query names a specific
-                        # drug. This decides whether requirements_text (e.g.
-                        # "Preventive No Cost", "Prior Authorization") is safe to
-                        # search:
-                        #   - Specific drug name present (e.g. "humira") → keep
-                        #     requirements_text OUT of search, since it's shared
-                        #     by hundreds of unrelated drugs and would cause
-                        #     false-positive matches against the WRONG drugs.
-                        #   - No specific drug name (e.g. "preventive drugs") →
-                        #     a list-shaped answer IS the correct response shape,
-                        #     so searching requirements_text is safe and necessary
-                        #     to find genuinely condition-flagged drugs (ACA
-                        #     preventive, oral chemotherapy etc.) — see
-                        #     get_plan_data_from_disk's docstring for full reasoning.
-                        query_has_real_drug_name = is_drug_name_query(query_words)
+                        condition_keywords = search_terms
 
                     rx_result = query_insurance_benefits(
                         query=query,
                         topics=search_terms,
                         category="rx",
-                        keywords=search_terms,
+                        keywords=condition_keywords,
                         member_info=json.dumps(member_info) if member_info else "{}",
                         include_requirements_text=not query_has_real_drug_name,
                     )
@@ -722,6 +769,42 @@ async def get_ai_response(
                             flags=_re.DOTALL,
                         ).strip()
                         print("[*] NO RX KEYWORDS — stripped RX section, INFO only")
+
+                    elif rx_result and condition_drugs:
+                        # Filter results to only keep drugs in our condition list
+                        import re as _re
+
+                        condition_drugs_set = set(condition_drugs)
+                        filtered_items = []
+                        not_covered_names = []
+                        for item_match in _re.finditer(
+                            r"Item \d+:\s*\{[^{}]+\}", rx_result, _re.DOTALL
+                        ):
+                            item_text = item_match.group()
+                            drug_name_match = _re.search(
+                                r'"drug_name":\s*"([^"]+)"', item_text
+                            )
+                            if drug_name_match:
+                                drug_name = drug_name_match.group(1).lower()
+                                first_word = drug_name.split()[0] if drug_name else ""
+                                if first_word in condition_drugs_set:
+                                    if "Not on Formulary" in item_text:
+                                        brand_name = (
+                                            drug_name_match.group(1).split()[0].upper()
+                                        )
+                                        if brand_name not in not_covered_names:
+                                            not_covered_names.append(brand_name)
+                                    else:
+                                        filtered_items.append(item_text)
+                        if filtered_items:
+                            rx_result = "### SECTION: RX\n\n" + "\n".join(
+                                filtered_items
+                            )
+                            if not_covered_names:
+                                rx_result += f'\n\n### SECTION: NOT_COVERED\n{", ".join(sorted(not_covered_names))}'
+                        print(
+                            f"[*] CONDITION FILTER: {len(filtered_items)} covered, {len(not_covered_names)} not covered"
+                        )
 
                     elif rx_result and query_has_real_drug_name and not condition_drugs:
                         import re as _re
@@ -872,25 +955,28 @@ async def get_ai_response(
 
                     # Add condition-based prefix message
                     if condition_drugs:
-                        from utility.condition_resolver import (
-                            find_canonical_condition,
-                            extract_condition_terms,
-                        )
+                        try:
+                            from utility.condition_resolver import (
+                                find_canonical_condition,
+                                extract_condition_terms,
+                            )
 
-                        candidates = extract_condition_terms(query)
-                        canonical = next(
-                            (
-                                find_canonical_condition(t)
-                                for t in candidates
-                                if find_canonical_condition(t)
-                            ),
-                            None,
-                        )
-                        label = canonical or "your condition"
-                        answer = (
-                            f"Here are the covered medications for **{label}** on your formulary:\n\n"
-                            + answer
-                        )
+                            candidates = extract_condition_terms(query)
+                            canonical = next(
+                                (
+                                    find_canonical_condition(t)
+                                    for t in candidates
+                                    if find_canonical_condition(t)
+                                ),
+                                None,
+                            )
+                            label = canonical or "your condition"
+                            answer = (
+                                f"Here are the covered medications for **{label}** on your formulary:\n\n"
+                                + answer
+                            )
+                        except Exception:
+                            pass
 
                     return {
                         "answer": answer,
@@ -1413,7 +1499,7 @@ async def get_ai_response(
         return f"⚠️ Client Logic Error: {str(e)}"
 
 
-# # ##========================================Previous working code before Rx spelling mistake changes========================================
+# # ========================================Previous working code before Rx spelling mistake changes========================================
 
 # # import re
 # # import json

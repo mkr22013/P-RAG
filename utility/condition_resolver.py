@@ -33,20 +33,21 @@ import re
 import json
 from datetime import datetime, timedelta
 
-# ── File paths ────────────────────────────────────────────────────────────────
+# -- File paths ----------------------------------------------------------------
 _BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DRUG_WORDS_FILE = os.path.join(_BASE_DIR, "indices", "drug_words.json")
 CONDITION_SYNONYMS_FILE = os.path.join(_BASE_DIR, "indices", "condition_synonyms.json")
 
-# ── In-memory cache with 48-hour TTL ─────────────────────────────────────────
-_drug_illness_data: dict = {}  # drug_word → [illness_terms]
-_condition_synonyms_data: dict[str, list] = {}  # condition → [synonyms]
+# -- In-memory cache with 48-hour TTL -----------------------------------------
+_drug_illness_data: dict = {}  # drug_word -> [illness_terms]
+_drug_words_full_data: dict = {}  # drug_word -> full entry (entry_type, illnesses)
+_condition_synonyms_data: dict = {}  # condition -> [synonyms]
 _drug_illness_loaded_at: datetime | None = None
 _condition_synonyms_loaded_at: datetime | None = None
 _CACHE_TTL = timedelta(hours=48)
 
-# ── Stopwords ─────────────────────────────────────────────────────────────────
+# -- Stopwords -----------------------------------------------------------------
 _QUERY_STOPWORDS = {
     "i",
     "my",
@@ -140,18 +141,37 @@ _QUERY_STOPWORDS = {
 }
 
 
-# ── Data loading ──────────────────────────────────────────────────────────────
+# -- Normalization -------------------------------------------------------------
+
+
+def _normalize_condition_name(name: str) -> str:
+    """
+    Normalize condition names to consistent format.
+    MED-RT uses commas:  "Diabetes Mellitus, Type 2"
+    LLM drops commas:    "Diabetes Mellitus Type 2"
+    We normalize to no-comma format so both map to same key.
+
+    Fix: preserve the type qualifier after the comma.
+        "Diabetes Mellitus, Type 2" -> "Diabetes Mellitus Type 2"  (comma removed)
+        "Arthritis, Rheumatoid"     -> "Arthritis, Rheumatoid"     (kept — not a type qualifier)
+    """
+    # Remove comma ONLY before "Type N" qualifiers
+    name = re.sub(r",\s*(Type\s+\d)", r" \1", name)
+    return name.strip()
+
+
+# -- Data loading --------------------------------------------------------------
 
 
 def _load_drug_illness() -> dict:
     """
     Load drug_words.json and extract {drug_word: [illness_terms]}.
+    Also populates _drug_words_full_data for entry_type filtering.
 
-    Returns empty dict if illnesses[] not yet populated
-    (i.e. build_rxclass_lookup.py has not been run yet).
+    Returns empty dict if illnesses[] not yet populated.
     Does NOT crash — callers handle empty gracefully.
     """
-    global _drug_illness_data, _drug_illness_loaded_at
+    global _drug_illness_data, _drug_words_full_data, _drug_illness_loaded_at
 
     now = datetime.utcnow()
     if (
@@ -161,22 +181,25 @@ def _load_drug_illness() -> dict:
         return _drug_illness_data
 
     data = {}
+    full_data = {}
     try:
         if os.path.exists(DRUG_WORDS_FILE):
             with open(DRUG_WORDS_FILE, encoding="utf-8") as f:
                 raw = json.load(f)
 
-            # New drug_words.json schema:
-            # {word: {entry_type, full_names, illnesses}}
             if raw:
                 first_val = list(raw.values())[0]
                 if isinstance(first_val, dict) and "illnesses" in first_val:
                     for word, entry in raw.items():
+                        full_data[word] = entry  # preserve full entry
                         illnesses = entry.get("illnesses", [])
                         if illnesses:
-                            data[word] = illnesses
+                            # Normalize condition names on load
+                            data[word] = [
+                                _normalize_condition_name(ill) for ill in illnesses
+                            ]
                 elif isinstance(first_val, list):
-                    # Old format {word: [illnesses]} — use as-is
+                    # Old format {word: [illnesses]}
                     data = {k: v for k, v in raw.items() if v}
 
             drugs_with_illnesses = len(data)
@@ -200,13 +223,15 @@ def _load_drug_illness() -> dict:
     except Exception as e:
         print(f"[!] condition_resolver: failed to load drug_words.json: {e}")
         data = _drug_illness_data or {}
+        full_data = _drug_words_full_data or {}
 
     _drug_illness_data = data
+    _drug_words_full_data = full_data
     _drug_illness_loaded_at = now
     return _drug_illness_data
 
 
-def _load_condition_synonyms() -> dict[str, list]:
+def _load_condition_synonyms() -> dict:
     """
     Load condition_synonyms.json.
     Returns empty dict if not yet generated — callers handle gracefully.
@@ -223,7 +248,20 @@ def _load_condition_synonyms() -> dict[str, list]:
     try:
         if os.path.exists(CONDITION_SYNONYMS_FILE):
             with open(CONDITION_SYNONYMS_FILE, encoding="utf-8") as f:
-                data = json.load(f)
+                raw = json.load(f)
+            # Normalize keys so "Diabetes Mellitus, Type 2" and
+            # "Diabetes Mellitus Type 2" both map to same entry
+            data = {}
+            for key, synonyms in raw.items():
+                norm_key = _normalize_condition_name(
+                    key
+                ).lower()  # lowercase for consistent matching
+                if norm_key not in data:
+                    data[norm_key] = synonyms
+                else:
+                    existing = set(data[norm_key])
+                    existing.update(synonyms)
+                    data[norm_key] = sorted(existing)
         else:
             data = {}
             print(
@@ -259,17 +297,13 @@ def invalidate_cache() -> None:
     _condition_synonyms_loaded_at = None
 
 
-# ── Term extraction ───────────────────────────────────────────────────────────
+# -- Term extraction -----------------------------------------------------------
 
 
 def extract_condition_terms(query: str) -> list[str]:
     """
     Extracts candidate condition terms from a query using unigram + bigram + trigram.
     Returns candidates longest-first so phrase matches win over single-word matches.
-
-    Example:
-        "I want blood pressure medication"
-        → ["blood pressure", "blood", "pressure"]
     """
     query_clean = re.sub(r"[^\w\s]", " ", query.lower()).strip()
     words = [
@@ -300,7 +334,63 @@ def extract_condition_terms(query: str) -> list[str]:
     return result
 
 
-# ── Core resolution ───────────────────────────────────────────────────────────
+# -- Core resolution -----------------------------------------------------------
+
+# Priority conditions — when multiple conditions share a synonym, these win.
+_PRIORITY_CONDITION_MAP = {
+    "diabetes": "Diabetes Mellitus Type 2",
+    "blood sugar": "Diabetes Mellitus Type 2",
+    "high blood sugar": "Diabetes Mellitus Type 2",
+    "type 2": "Diabetes Mellitus Type 2",
+    "t2d": "Diabetes Mellitus Type 2",
+    "high blood pressure": "Hypertension",
+    "blood pressure": "Hypertension",
+    "high bp": "Hypertension",
+    "bp": "Hypertension",
+    "hypertension": "Hypertension",
+    "migraine": "Migraine Disorders",
+    "migraines": "Migraine Disorders",
+    "migraine headache": "Migraine Disorders",
+    "cholesterol": "Hypercholesterolemia",
+    "high cholesterol": "Hypercholesterolemia",
+    "bad cholesterol": "Hypercholesterolemia",
+    "ldl": "Hypercholesterolemia",
+    "depression": "Depressive Disorder",
+    "anxiety": "Anxiety Disorders",
+    "asthma": "Asthma",
+    "copd": "Pulmonary Disease, Chronic Obstructive",
+    "chronic lung": "Pulmonary Disease, Chronic Obstructive",
+    "emphysema": "Pulmonary Disease, Chronic Obstructive",
+    "arthritis": "Arthritis, Rheumatoid",
+    "rheumatoid": "Arthritis, Rheumatoid",
+    "seizures": "Epilepsy",
+    "epilepsy": "Epilepsy",
+    "blood clot": "Thromboembolism",
+    "blood clots": "Thromboembolism",
+    "osteoporosis": "Osteoporosis",
+    "heart failure": "Heart Failure",
+    "afib": "Atrial Fibrillation",
+    "hiv": "HIV Infections",
+    "aids": "HIV Infections",
+    "hypothyroidism": "Hypothyroidism",
+    "underactive thyroid": "Hypothyroidism",
+    "obesity": "Obesity",
+    "overweight": "Obesity",
+    "gout": "Gout",
+    "psoriasis": "Psoriasis",
+    "eczema": "Dermatitis, Atopic",
+    "crohn": "Crohn Disease",
+    "ulcerative colitis": "Colitis, Ulcerative",
+    "ms": "Multiple Sclerosis",
+    "multiple sclerosis": "Multiple Sclerosis",
+    "lupus": "Lupus Erythematosus, Systemic",
+    "cystic fibrosis": "Cystic Fibrosis",
+    "cf": "Cystic Fibrosis",
+    "herpes zoster": "Herpes Zoster",
+    "shingles": "Herpes Zoster",
+    "influenza": "Influenza",
+    "flu": "Influenza",
+}
 
 
 def find_canonical_condition(term: str) -> str | None:
@@ -308,11 +398,12 @@ def find_canonical_condition(term: str) -> str | None:
     Given a patient term, find the canonical condition name.
 
     Matching order:
-    1. Exact key match in condition_synonyms.json
-    2. Exact synonym match
-    3. Partial/substring match (>= 6 chars)
+    1. Priority map — common terms map to primary condition
+    2. Exact key match in condition_synonyms.json
+    3. Exact synonym match (prefer primary synonyms)
+    4. Partial/substring match (>= 6 chars)
 
-    Returns None if no match found — caller handles gracefully.
+    Returns None if no match found.
     """
     synonyms_data = _load_condition_synonyms()
     if not synonyms_data:
@@ -320,16 +411,31 @@ def find_canonical_condition(term: str) -> str | None:
 
     term_lower = term.lower().strip()
 
-    # 1. Direct key match
+    # 1. Priority map
+    if term_lower in _PRIORITY_CONDITION_MAP:
+        priority = _PRIORITY_CONDITION_MAP[term_lower]
+        norm_priority = _normalize_condition_name(priority).lower()
+        return norm_priority
+
+    # 2. Direct key match
     if term_lower in synonyms_data:
         return term_lower
 
-    # 2. Exact synonym match
+    # 3. Exact synonym match
+    primary_match = None
     for canonical, synonyms in synonyms_data.items():
-        if term_lower in [s.lower() for s in synonyms]:
-            return canonical
+        syns_lower = [s.lower() for s in synonyms]
+        if term_lower in syns_lower:
+            idx = syns_lower.index(term_lower)
+            if idx == 0:
+                return canonical
+            elif primary_match is None:
+                primary_match = canonical
 
-    # 3. Partial match — only for terms >= 6 chars (avoids "high", "low" etc.)
+    if primary_match:
+        return primary_match
+
+    # 4. Partial match — only for terms >= 6 chars
     if len(term_lower) >= 6:
         for canonical, synonyms in synonyms_data.items():
             if term_lower in canonical.lower():
@@ -343,12 +449,11 @@ def find_canonical_condition(term: str) -> str | None:
 
 def get_drugs_for_condition(condition: str) -> list[str]:
     """
-    Returns all drug words whose illnesses[] includes the given condition
-    or any of its synonyms.
+    Returns all drug words whose illnesses[] includes the given condition.
 
-    Returns [] when:
-    - illnesses[] not yet populated (build_rxclass_lookup.py not run)
-    - condition has no matching drugs
+    Filters out devices, vitamins and vaccines — only returns actual drugs.
+
+    Returns [] when illnesses[] not yet populated or no match found.
     """
     drug_data = _load_drug_illness()
     synonyms_data = _load_condition_synonyms()
@@ -358,7 +463,7 @@ def get_drugs_for_condition(condition: str) -> list[str]:
 
     condition_lower = condition.lower().strip()
 
-    # Build full set of terms to match against
+    # Build full set of terms to match against (condition + all its synonyms)
     match_terms = {condition_lower}
     if condition_lower in synonyms_data:
         match_terms.update(s.lower() for s in synonyms_data[condition_lower])
@@ -370,8 +475,18 @@ def get_drugs_for_condition(condition: str) -> list[str]:
                 break
 
     # Find drugs whose illness terms intersect match_terms
+    # Skip devices, vitamins, vaccines — they have no illness relevance
+    _SKIP_TYPES = {"device", "vitamin", "vaccine"}
     matching_drugs = set()
+
     for drug_word, illness_terms in drug_data.items():
+        # Check entry_type from full data
+        full_entry = _drug_words_full_data.get(drug_word, {})
+        if isinstance(full_entry, dict):
+            entry_type = full_entry.get("entry_type", "drug")
+            if entry_type in _SKIP_TYPES:
+                continue
+
         if isinstance(illness_terms, list):
             drug_illness_lower = [t.lower() for t in illness_terms]
         else:
@@ -395,10 +510,6 @@ def get_conditions_for_drug(drug: str) -> list[str]:
 def expand_condition(term: str) -> list[str]:
     """
     Returns all synonyms for a condition term, including the term itself.
-
-    Example:
-        expand_condition("hypertension")
-        → ["hypertension", "blood pressure", "high blood pressure", "high bp"]
     """
     synonyms_data = _load_condition_synonyms()
     term_lower = term.lower().strip()
@@ -418,39 +529,35 @@ def resolve_query_to_drugs(query: str, use_llm_fallback: bool = True) -> list[st
     Main entry point — resolves a free-text query to matching drug words.
 
     Steps:
-        1. Extract condition terms (trigrams → bigrams → unigrams)
+        1. Extract condition terms (trigrams -> bigrams -> unigrams)
         2. For each term, look up condition_synonyms.json
-        3. If match → get drugs for that condition from drug_words.json illnesses[]
-        4. If no match and use_llm_fallback=True → LLM identifies condition, caches result
+        3. If match -> get drugs for that condition from drug_words.json illnesses[]
+        4. If no match and use_llm_fallback=True -> LLM identifies condition
 
-    Returns [] gracefully when:
-    - illnesses[] not yet populated (UMLS RxNorm not yet downloaded)
-    - No condition match found
+    Returns [] gracefully when illnesses[] not yet populated.
     """
     candidates = extract_condition_terms(query)
 
     if not candidates:
         return []
 
-    # Try each candidate — return on first match (longest first)
     for term in candidates:
         canonical = find_canonical_condition(term)
         if canonical:
             drugs = get_drugs_for_condition(canonical)
             if drugs:
                 print(
-                    f"[*] condition_resolver: '{term}' → '{canonical}' → {len(drugs)} drugs"
+                    f"[*] condition_resolver: '{term}' -> '{canonical}' -> {len(drugs)} drugs"
                 )
                 return drugs
 
-    # LLM fallback — ask LLM what condition the query is about
     if use_llm_fallback:
         condition = _resolve_condition_via_llm(query, candidates)
         if condition:
             drugs = get_drugs_for_condition(condition)
             if drugs:
                 print(
-                    f"[*] condition_resolver: LLM → '{condition}' → {len(drugs)} drugs"
+                    f"[*] condition_resolver: LLM -> '{condition}' -> {len(drugs)} drugs"
                 )
                 return drugs
 
@@ -461,14 +568,13 @@ def resolve_query_to_drugs(query: str, use_llm_fallback: bool = True) -> list[st
     return []
 
 
-# ── LLM fallback ─────────────────────────────────────────────────────────────
+# -- LLM fallback --------------------------------------------------------------
 
 
 def _resolve_condition_via_llm(query: str, candidates: list[str]) -> str | None:
     """
     Calls LLM to identify the medical condition in the query.
     Caches the result in condition_synonyms.json for future use.
-    Only called when condition_synonyms.json lookup fails.
     """
     try:
         from utility.llm import llm_chat
@@ -515,7 +621,6 @@ def _resolve_condition_via_llm(query: str, candidates: list[str]) -> str | None:
             existing.update(s.lower() for s in synonyms if s.strip())
             synonyms_data[condition] = sorted(existing)
 
-        # Add candidate terms as additional synonyms
         for candidate in candidates[:3]:
             if candidate not in synonyms_data.get(condition, []):
                 synonyms_data.setdefault(condition, [])
@@ -523,7 +628,7 @@ def _resolve_condition_via_llm(query: str, candidates: list[str]) -> str | None:
                     synonyms_data[condition].append(candidate)
 
         _save_condition_synonyms(synonyms_data)
-        print(f"[*] condition_resolver: LLM identified '{condition}' → cached")
+        print(f"[*] condition_resolver: LLM identified '{condition}' -> cached")
         return condition
 
     except Exception as e:

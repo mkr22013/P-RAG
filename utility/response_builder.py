@@ -713,6 +713,16 @@ def build_rx_response(rx_context: str, cost_context: str) -> tuple:
     if not answer:
         answer = "Drug coverage information not found for this query."
 
+    # Append not-covered drugs as a simple note (from condition queries)
+    if "### SECTION: NOT_COVERED" in rx_context:
+        import re as _re
+
+        nc_match = _re.search(r"### SECTION: NOT_COVERED\n(.+)", rx_context)
+        if nc_match:
+            not_covered = nc_match.group(1).strip()
+            if not_covered:
+                answer += f"\n\n> **Not covered under your plan:** {not_covered}"
+
     # Return rx pages and cost pages separately so UI can show both sources
     return answer, sorted(set(rx_pages)), sorted(set(cost_pages))
 

@@ -421,7 +421,11 @@ def is_cost_changed(old_answer, new_answer):
         amounts = re.findall(r"\$[\d,]+(?:\.\d+)?", text)
         coinsurance = re.findall(r"\d+%\s*coinsurance", text, re.IGNORECASE)
         copays = re.findall(r"\$[\d,]+\s*copay", text, re.IGNORECASE)
-        return sorted(set(amounts + coinsurance + copays))
+        # "40% of the Allowed Amount" — bare percentages in vision/medical
+        percentages = re.findall(r"\d+%\s*of\s*the", text, re.IGNORECASE)
+        # "No charge" — zero cost indicator
+        no_charge = re.findall(r"No charge", text, re.IGNORECASE)
+        return sorted(set(amounts + coinsurance + copays + percentages + no_charge))
 
     old_costs = extract_costs(old_answer)
     new_costs = extract_costs(new_answer)

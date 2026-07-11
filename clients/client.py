@@ -574,17 +574,6 @@ async def get_ai_response(
                 rx_keywords = tuple(
                     w for w in query_words if len(w) > 3 and w not in RX_NOISE_WORDS
                 )
-                # No fallback to raw `keywords` here — that variable comes from
-                # the generic topic_resolver.py pipeline and is NOT noise-filtered,
-                # so falling back to it would reintroduce exactly the words we
-                # just filtered out (e.g. "formulary", "drugs"). An empty
-                # rx_keywords is the correct signal for "no real drug name in
-                # this query" — it's handled below by query_has_real_drug_name.
-
-                # Apply spelling correction to each keyword BEFORE passing to
-                # scoring — this is the right place to fix "ozempick" → "ozempic"
-                # so tools.py scores against the REAL drug name word and finds
-                # actual matches, rather than scoring zero against a misspelled word
                 if rx_keywords:
                     rx_keywords = tuple(correct_drug_spelling(w) for w in rx_keywords)
                     print(f"[*] RX KEYWORDS AFTER CORRECTION: {rx_keywords}")

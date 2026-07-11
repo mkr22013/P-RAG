@@ -43,7 +43,7 @@ DRUG_WORDS_FILE = os.path.join(
 DRUG_NAMES_FILE = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     "indices",
-    "drug_words.json",
+    "drug_names.json",
 )
 
 

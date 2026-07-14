@@ -46,8 +46,6 @@ def get_smart_keywords(text):
 
 
 # Single source of truth for noise/generic words.
-# Used by both residual keyword extraction (topic_resolver)
-# and LLM keyword cleaning (client).
 NOISE_WORDS = {
     "what",
     "which",
@@ -210,17 +208,10 @@ NOISE_WORDS = {
 
 # Rx-specific noise words — words that are common in Rx queries but carry
 # NO drug-name signal. Filtered from rx_keywords (client.py) AND from
-# strong_query_words scoring against Rx chunk content (tools.py), so both
-# layers stay in sync. This is the single source of truth — adding a word
-# here automatically protects BOTH the keyword-extraction path in client.py
-# and the chunk-scoring path in tools.py from the same false-positive class.
-#
-# Found via a real bug: "I want to know about my preventive drugs?" matched
-# almost EVERY Rx chunk because "drugs" (plural) soft-matched against every
-# drug's drug_category/drug_subcategory field (e.g. "...Immunosuppressant
-# DRUGS"), since tools.py scored raw query_words independently from
-# client.py's already-filtered rx_keywords — two separate filtering systems
-# that had silently diverged. This shared constant closes that gap.
+# strong_query_words scoring against Rx chunk content (tools.py).
+# This is the single source of truth — adding a word here automatically
+# protects BOTH the keyword-extraction path in client.py and the
+# chunk-scoring path in tools.py.
 RX_NOISE_WORDS = {
     "what",
     "tier",
@@ -236,6 +227,9 @@ RX_NOISE_WORDS = {
     "drugs",
     "prescription",
     "medication",
+    "medications",
+    "medicine",
+    "medicines",
     "formulary",
     "generic",
     "brand",
@@ -262,7 +256,7 @@ RX_NOISE_WORDS = {
     "under",
     "your",
     "this",
-    # Conversational filler words — carry no drug-name signal
+    # Conversational filler words
     "want",
     "know",
     "about",
@@ -280,13 +274,47 @@ RX_NOISE_WORDS = {
     "details",
     "find",
     "looking",
-    # General concept words also in GENERAL_RX_TERMS — these
-    # signal an info question, not a drug name, so they
-    # should never survive into rx_keywords either
+    # General concept words
     "preventive",
     "exception",
     "optional",
     "chemotherapy",
+    # Response text words — prevent pasted bot responses becoming keywords
+    "here",
+    "are",
+    "the",
+    "may",
+    "available",
+    "ask",
+    "specific",
+    "requirements",
+    "status",
+    "coverage",
+    "and",
+    "see",
+    "its",
+    "not",
+    "for",
+    "any",
+    "from",
+    "with",
+    "that",
+    "also",
+    "only",
+    "each",
+    "these",
+    "those",
+    "which",
+    "when",
+    "where",
+    "how",
+    "all",
+    "some",
+    "new",
+    "per",
+    "can",
+    "will",
+    "get",
 }
 
 

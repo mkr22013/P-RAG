@@ -165,6 +165,27 @@ async def get_ai_response(
         # Clean words for surgical matching
         query_words = [re.sub(r"[^\w\s]", "", w) for w in query_lower.split()]
 
+        # --- PASTED RESPONSE DETECTION ---
+        # Detect when member pastes back our own drug list response.
+        # Pattern: contains "ask me about any specific drug" or
+        # starts with "here are the medications"
+        _pasted_response = (
+            "ask me about any specific drug" in query_lower
+            or query_lower.strip().startswith("here are the medications")
+            or query_lower.strip().startswith("here are the covered medications")
+        )
+        if _pasted_response:
+            return {
+                "answer": (
+                    "It looks like you pasted the medication list. "
+                    "Please type the name of **one specific drug** "
+                    "to see its tier, cost and requirements.\n\n"
+                    "For example: *metformin* or *ozempic*"
+                ),
+                "pages": [],
+                "source": "",
+            }
+
         print(f"[*] Query Words for Matching: {query_words}")
         print("[DEBUG] urgent match:", smart_match("urgent", query_words, query_lower))
 
@@ -835,6 +856,43 @@ async def get_ai_response(
                     # Return info directly without drug table or cost table
                     has_rx_section = "### SECTION: RX" in (rx_result or "")
                     has_info_section = "### SECTION: INFO" in (rx_result or "")
+
+                    # Drug not found — query had a drug-like keyword but nothing matched
+                    # Covers both known drugs (query_has_real_drug_name=True) and
+                    # unknown/misspelled drugs (rx_keywords present but no index match)
+                    _no_results = not has_rx_section and not has_info_section
+                    _drug_query = query_has_real_drug_name or (
+                        rx_keywords
+                        and not condition_drugs
+                        and not used_generic_fallback
+                    )
+                    if _no_results and _drug_query and not condition_drugs:
+                        drug_name = rx_keywords[0] if rx_keywords else "that drug"
+                        rx_plan_info = (
+                            member_info.get("plans", {}).get("rx", {})
+                            if member_info
+                            else {}
+                        )
+                        rx_plan_name = rx_plan_info.get("plan", "Rx Formulary")
+                        rx_variant = rx_plan_info.get("variant", "")
+                        rx_source = (
+                            f"{rx_plan_name} ({rx_variant})"
+                            if rx_variant
+                            else rx_plan_name
+                        )
+                        print(f"[*] DRUG NOT FOUND: {drug_name}")
+                        return {
+                            "answer": (
+                                f"**{drug_name.title()}** was not found on your formulary.\n\n"
+                                f"It may be:\n"
+                                f"- Known by a different name (brand vs generic)\n"
+                                f"- Not covered under your current plan\n"
+                                f"- Spelled differently\n\n"
+                                f"Please check with your pharmacist or call member services for assistance."
+                            ),
+                            "pages": [],
+                            "source": rx_source,
+                        }
 
                     if has_info_section and not has_rx_section:
                         print(f"[*] RX INFO ONLY — sending to LLM for synthesis")

@@ -1,7 +1,7 @@
 {
   "query": "show me cost for immunotherapy",
   "category": "medical",
-  "timestamp": "2026-07-08T23:18:21.682430",
+  "timestamp": "2026-07-14T15:04:08.106636",
   "answer": "Medically necessary immunotherapy is covered under the plan subject to prior authorization and meeting Premera's medical policy requirements.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Cellular Immunotherapy And Gene Therapy | Cellular Immunotherapy And Gene Therapy | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | You may have additional costs for other services such as x-rays, labs, prescription drugs, and hospital facility charges. See those covered services for details. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Cellular Immunotherapy And Gene Therapy | Benefits are provided for medically necessary immunotherapy and gene therapy, such as CAR-T immunotherapy. Services must meet Premera’s medical policy. You can access our medical policies by contacting customer service or going to premera.com. Services also require prior authorization. See Prior Authorization. |\n",
   "pages": [
     7,

@@ -1,0 +1,15 @@
+{
+  "query": "is wegovy covered under my plan?",
+  "category": "rx",
+  "timestamp": "2026-07-14T19:53:13.021585",
+  "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| WEGOVY HD SUBCUTANEOUS PEN INJECTOR 7.2 MG/0.75 ML | Non-Preferred | Covered | Prior Authorization; Quantity Limit (4 PENS PER 28 DAYS);  |\n| WEGOVY ORAL TABLET 1.5 MG, 25 MG, MG, 9 MG | Non-Preferred | Covered | 4 PA; Optional Benefit; Quantity Limit (30 per 30 days) |\n| WEGOVY SUBCUTANEOUS PEN INJECTOR | Non-Preferred | Covered | Prior Authorization; Quantity Limit (4 PENS PER 28 DAYS);  |\n\n_Find your drug's tier in the Drug Coverage table above, then locate that tier below to see what you'll pay._\n\n## Your Cost\n\n| Drug Tier | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $500 maximum per drug In-Network Specialty Pharmacy | Not covered Out-Of-Network Specialty Pharmacy |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Mail-Order Pharmacy | Not covered Out-Of-Network Mail-Order Pharmacy |\n| Tier 4 — Non-Preferred drugs | 20% of the allowed amount up to a $250 maximum per drug In-Network Retail or Mail-Order Pharmacy | Not covered Out-Of-Network Retail or Mail-Order Pharmacy |\n",
+  "pages": [],
+  "source": "Essentials Formulary Drug List (E4) | Pages 103 || Premera Employees Health Plan – Standard PPO Retiree Plan | Pages 13, 18",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
+}

@@ -173,6 +173,12 @@ QUERIES = {
         "how much is my deductible?",
         "show me my family deductible",
         "does clinical trials covered for me?",
+        # Complex/edge case queries
+        "is mental health and substance abuse covered?",
+        "what is my specialist visit copay?",
+        "is preventive care covered at no cost?",
+        "how much does an ambulance cost?",
+        "what are my mental health benefits?",
     ],
     "dental_willamette": [
         # Office Visit
@@ -295,16 +301,30 @@ QUERIES = {
         "what tier is vivjoa?",
         "what is formulary drugs?",
         "I want to know about my preventive drugs?",
-        # "what medications do I have for diabetes?",
-        # "what drugs treat high blood pressure?",
-        # "is there any medication covered for high cholesterol?",
-        # "what asthma medication is on my formulary?",
-        # "what drugs are available for depression?",
-        # "what anxiety medication is covered under my plan?",
-        # "is there any medication covered for high blood pressure?",
-        # "what cholesterol medication is on my formulary?",
-        # "medication for migraine",
-        # "what is covered for asthma?"
+        # Illness queries — with rx keywords (0 token path)
+        "drugs for diabetes",
+        "medication for migraine",
+        "what drugs treat high blood pressure?",
+        "drugs for high cholesterol",
+        "medication for blood clots",
+        "what drugs are available for depression?",
+        "what anxiety medication is covered under my plan?",
+        "what asthma medication is on my formulary?",
+        "what cholesterol medication is on my formulary?",
+        "is there any medication covered for high blood pressure?",
+        # Illness queries — condition only (LLM category, 0 token retrieval)
+        "what is covered for asthma?",
+        "what is covered for diabetes?",
+        "what treats depression?",
+        "what helps with anxiety?",
+        "what is covered for migraine?",
+        "what is covered for high cholesterol?",
+        "what is covered for blood clots?",
+        # Specific drug queries — new drugs
+        "is wegovy covered under my plan?",
+        "what tier is gabapentin?",
+        "what is covered for epilepsy?",
+        "is jardiance covered?",
     ],
 }
 
@@ -421,11 +441,7 @@ def is_cost_changed(old_answer, new_answer):
         amounts = re.findall(r"\$[\d,]+(?:\.\d+)?", text)
         coinsurance = re.findall(r"\d+%\s*coinsurance", text, re.IGNORECASE)
         copays = re.findall(r"\$[\d,]+\s*copay", text, re.IGNORECASE)
-        # "40% of the Allowed Amount" — bare percentages in vision/medical
-        percentages = re.findall(r"\d+%\s*of\s*the", text, re.IGNORECASE)
-        # "No charge" — zero cost indicator
-        no_charge = re.findall(r"No charge", text, re.IGNORECASE)
-        return sorted(set(amounts + coinsurance + copays + percentages + no_charge))
+        return sorted(set(amounts + coinsurance + copays))
 
     old_costs = extract_costs(old_answer)
     new_costs = extract_costs(new_answer)

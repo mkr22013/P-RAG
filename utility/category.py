@@ -432,6 +432,23 @@ def build_category_prompt(query: str) -> str:
         - A specific drug, medication, or prescription
         - Drug tiers, formulary, prior authorization for drugs
         - Generic vs brand drugs, specialty pharmacy
+        - A medical condition or illness when asking what drugs/medications
+          are available or covered — e.g. "what is covered for asthma?",
+          "what treats depression?", "medication for migraine",
+          "what helps with anxiety?", "is there medication for blood pressure?"
+          UNLESS the query mentions a specific medical service, test,
+          procedure, or cost (e.g. "allergy testing", "specialist visit",
+          "therapy cost", "injection benefit", "treatment cost")
+
+        Use "medical" when the query is about:
+        - Doctor visits, hospital, specialist, surgery, procedures
+        - Medical tests, imaging, lab work
+        - Deductible, copay, coinsurance, out-of-pocket
+        - Specific medical services or treatments (not drug names)
+        - Allergy testing, injections, therapy as a service
+
+        Use "dental" when the query is about dental services or costs.
+        Use "vision" when the query is about vision services or costs.
 
         Use "unknown" when:
         - The query is a greeting (hi, hello, how are you)
@@ -628,7 +645,6 @@ def detect_category_rule_based(query_words: list, query: str) -> str | None:
             "rehabilitation",
             "skilled",
             "nursing",
-            "home health",
             "hospice",
             "preventive",
             "allergy",
@@ -638,9 +654,9 @@ def detect_category_rule_based(query_words: list, query: str) -> str | None:
             "dialysis",
             "out-of-pocket",
             "oop",
-            "deductible",
             "premium",
             "network",
+            "virtual",
             "prior authorization",
             "referral",
             "claim",
@@ -650,6 +666,24 @@ def detect_category_rule_based(query_words: list, query: str) -> str | None:
             "cover",
             "plan",
             "cost",
+            "home",
+            "health",
+            "electronic",
+            "nicotine",
+            "psychological",
+            "foot",
+            "immunotherapy",
+            "therapeutic",
+            "vasectomy",
+            "reconstruction",
+            "gender",
+            "affirming",
+            "clinical",
+            "trial",
+            "trials",
+            "authorization",
+            "transportation",
+            "hospice",
         ]
     ):
         return "medical"
@@ -813,7 +847,6 @@ def detect_category(query_words, query):
         "virtual",
         "nicotine",
         "psychological",
-        "blood",
         "products",
         "transplants",
         "authorization",

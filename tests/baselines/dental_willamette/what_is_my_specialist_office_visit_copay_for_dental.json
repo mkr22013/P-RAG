@@ -1,7 +1,7 @@
 {
   "query": "What is my specialist office visit copay for dental?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-30T16:29:02.255269",
+  "timestamp": "2026-07-14T19:49:30.848649",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Office Visit Copayments | Specialist Office Visit | $30 | Not covered | Data Not Found |\n| Office Visit Copayments | General Office Visit | $15 | Not covered | Data Not Found |\n",
   "pages": [
     3

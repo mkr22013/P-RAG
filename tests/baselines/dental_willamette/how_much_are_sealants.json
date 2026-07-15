@@ -1,7 +1,7 @@
 {
   "query": "How much are sealants?",
   "category": "dental_willamette",
-  "timestamp": "2026-06-30T16:29:06.591212",
+  "timestamp": "2026-07-14T19:49:34.276214",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Diagnostic and Preventive Services | D1351 Sealant - per tooth | Covered In Full | Not covered | Data Not Found |\n",
   "pages": [
     4
@@ -9,15 +9,15 @@
   "source": "Willamette Dental Plan",
   "token_usage": {
     "total_llm_calls": 1,
-    "total_input_tokens": 213,
+    "total_input_tokens": 424,
     "total_output_tokens": 11,
-    "total_tokens": 224,
+    "total_tokens": 435,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 213,
+        "input_tokens": 424,
         "output_tokens": 11,
-        "total_tokens": 224
+        "total_tokens": 435
       }
     ]
   }

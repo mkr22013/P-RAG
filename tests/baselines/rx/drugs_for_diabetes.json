@@ -1,0 +1,15 @@
+{
+  "query": "drugs for diabetes",
+  "category": "rx",
+  "timestamp": "2026-07-14T19:52:51.643160",
+  "answer": "Here are the medications that may be available for **Diabetes Mellitus Type 2** on your formulary:\n\n**acarbose, actoplus, actos, admelog, afrezza, alogliptin, apidra, basaglar, brynovin, colesevelam, dapagliflozin, duetact, exenatide, farxiga, fiasp, glimepiride, glipizide, glyburide, glyxambi, humalog, humulin, insulin, invokamet, invokana, janumet, januvia, jardiance, jentadueto, kazano, kirsty, lantus, liraglutide, lyumjev, metformin, miglitol, mounjaro, nateglinide, nesina, novolin, novolog, ozempic, pioglitazone, repaglinide, rezvoglar, riomet, rybelsus, saxagliptin, segluromet, semglee, sitagliptin, soliqua, steglatro, steglujan, synjardy, toujeo, tradjenta, tresiba, trijardy, trulicity, victoza, welchol, xigduo, xultophy, zepbound, zituvimet, zituvio**\n\nAsk me about any specific drug to see its tier, cost and requirements.",
+  "pages": [],
+  "source": "Essentials Formulary Drug List (E4)",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
+}

@@ -1,7 +1,7 @@
 {
   "query": "what are the cost for breast reconstructions",
   "category": "medical",
-  "timestamp": "2026-07-08T23:20:14.758411",
+  "timestamp": "2026-07-14T19:47:39.228434",
   "answer": "Breast reconstructions are covered when necessary due to disease, illness or injury.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Mastectomy and Breast Reconstruction | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Mastectomy and Breast Reconstruction | Surgery and other professional services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Mastectomy and Breast Reconstruction | Inpatient facility care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Mastectomy And Breast Reconstruction | Benefits are provided for mastectomy necessary due to disease, illness or injury. This benefit covers: • Reconstruction of the breast on which mastectomy was performed • Surgery and reconstruction of the other breast to produce a similar appearance • Physical complications of all stages of mastectomy, including lymphedema treatment and supplies • Inpatient care Planned hospital admissions require prior authorization, see Prior Authorization for details. |\n",
   "pages": [
     11,
@@ -10,15 +10,15 @@
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
     "total_llm_calls": 3,
-    "total_input_tokens": 986,
+    "total_input_tokens": 1197,
     "total_output_tokens": 53,
-    "total_tokens": 1039,
+    "total_tokens": 1250,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 216,
+        "input_tokens": 427,
         "output_tokens": 10,
-        "total_tokens": 226
+        "total_tokens": 437
       },
       {
         "call_type": "ollama",

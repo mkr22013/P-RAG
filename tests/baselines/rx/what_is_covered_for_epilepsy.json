@@ -1,0 +1,22 @@
+{
+  "query": "what is covered for epilepsy?",
+  "category": "rx",
+  "timestamp": "2026-07-14T19:53:15.908994",
+  "answer": "Here are the medications that may be available for **Epilepsy** on your formulary:\n\n**acetazolamide, banzel, bonjesta, brivaracetam, briviact, calcium, celontin, clobazam, clonazepam, depakote, diacomit, diclegis, dilantin, divalproex, elepsia, eprontia, ethosuximide, felbamate, felbatol, fycompa, gabapentin, gabarone, gralise, horizant, keppra, klonopin, lacosamide, lamictal, lamotrigine, levetiracetam, lyrica, methsuximide, motpoly, mysoline, neurontin, oxcarbazepine, oxtellar, perampanel, phenobarb, phenytek, phenytoin, pregabalin, primidone, qsymia, relgaabi, roweepra, rufinamide, sabril, spritam, subvenite, sutab, sympazan, tiagabine, topamax, topiramate, trileptal, trokendi, valproic, vigabatrin, vigadrone, vigafyde, vimpat, zarontin, zonegran, zonisade, zonisamide, ztalmy**\n\nAsk me about any specific drug to see its tier, cost and requirements.",
+  "pages": [],
+  "source": "Essentials Formulary Drug List (E4)",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 424,
+    "total_output_tokens": 10,
+    "total_tokens": 434,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 424,
+        "output_tokens": 10,
+        "total_tokens": 434
+      }
+    ]
+  }
+}

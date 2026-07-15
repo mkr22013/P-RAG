@@ -1,7 +1,7 @@
 {
   "query": "What is the annual maximum benefit for dental?",
   "category": "dental_premera",
-  "timestamp": "2026-06-30T16:30:35.447201",
+  "timestamp": "2026-07-14T19:50:45.667987",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Plan Limits | Annual Benefit Maximum | $2,000 | Benefits based on allowed amount | The maximum amount of dental benefits available to any one member in a calendar year is $2,000. Covered dental services requiring multiple treatment dates are considered incurred on the date the services are completed. This is known as the seat date. Amounts paid for such procedures will be applied to the dental benefit maximum based on the incurred date. |\n| Plan Limits | Orthodontia Lifetime Maximum | $2,000 | Benefits based on allowed amount | Lifetime maximum per member for orthodontic treatment. Applies across all prior contracts or programs issued by this plan. |\n| Plan Limits | Family Dental Deductible | $75 | Benefits based on allowed amount | We also keep track of the expenses applied to the individual calendar year deductible that are incurred by all enrolled family members combined. When the total equals $75, we will consider the individual calendar year deductible of every enrolled family member to be met for the year. The $75 is called the \"family dental deductible.\" Only the amounts used to satisfy each enrolled family member's individual calendar year deductible will count toward the family calendar year deductible. |\n",
   "pages": [],
   "source": "Premera Dental Plan",

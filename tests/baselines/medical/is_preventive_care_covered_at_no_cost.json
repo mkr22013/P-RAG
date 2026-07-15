@@ -1,0 +1,32 @@
+{
+  "query": "is preventive care covered at no cost?",
+  "category": "medical",
+  "timestamp": "2026-07-14T19:49:26.560663",
+  "answer": "Preventive care services are covered at no cost under this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Preventive Care | Preventive exams, including vision and oral health screening for members under 19, diabetes and depression screening | No charge | 40% coinsurance, deductible waived | Data Not Found |\n| Preventive Care | Fall prevention | No charge | 40% coinsurance, deductible waived | Data Not Found |\n| Preventive Care | Immunizations in the provider's office | No charge | 40% coinsurance, deductible waived | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Preventive Care | This plan pays for preventive care as shown in the Summary Of Your Costs. Below is a summary of preventive care services. |\n| About Preventive Care | Preventive care is a set of evidence-based services. These services are based on guidelines required under state or federal law. The guidelines come from: • Services that the United States Preventive Services Task Force has given an A or B rating • Immunizations that the Centers for Disease Control and Prevention recommends • Screening and other care for women, babies, children and teens that the Health Resources and Services Administration recommends. • Services that meet the standards in Washington state law. Please go to this government website for more information: https://www.healthcare.gov/coverage/preventive-care-benefits/ The agencies above may also change their guidelines from time to time. If this happens, the plan will comply with the changes. 49 Some of the covered services your provider does during a routine exam may not be preventive at all. The plan would cover them under other benefits. They would not be covered in full. For example: During your preventive exam, your provider may find a problem that needs further tests or screening for a proper diagnosis to be made. Or, if you have a chronic disease, your provider may check your condition with tests. These types of tests help to diagnose or monitor your illness and would not be covered under the Preventive Care benefit. You would have to pay the cost share under the plan benefit that covers the service or test. The Preventive Care benefit does not cover: • Take-home drugs or over-the-counter items. See Prescription Drug. • Routine newborn exams while the child is in the hospital after birth. See Newborn Care. • Routine or other dental care • Services related to tubal ligation when it is done as a secondary procedure. The charge for the procedure itself is covered under this benefit, but the related services, such as anesthesia, are covered as part of the primary procedure. See the Hospital and Surgery benefits. • Routine vision and hearing exams • Gym fees or exercise classes or programs • Services or tests for a specific illness, injury or set of symptoms. See the plan's other benefits. • Physical exams for basic life or disability insurance • Work-related disability or medical disability exams • Purchase of hospital-grade breast pumps • Vasectomy. See Surgery. |\n",
+  "pages": [
+    15,
+    48,
+    49
+  ],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 791,
+    "total_output_tokens": 36,
+    "total_tokens": 827,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 553,
+        "output_tokens": 21,
+        "total_tokens": 574
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 238,
+        "output_tokens": 15,
+        "total_tokens": 253
+      }
+    ]
+  }
+}

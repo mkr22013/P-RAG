@@ -1,0 +1,22 @@
+{
+  "query": "what treats depression?",
+  "category": "rx",
+  "timestamp": "2026-07-14T19:53:01.258334",
+  "answer": "Here are the medications that may be available for **Depressive Disorder** on your formulary:\n\n**alprazolam, amitriptyline, amoxapine, anafranil, aplenzin, aptensio, ativan, auvelity, bucapsol, bupropion, buspirone, celexa, citalopram, clomipramine, concerta, contrave, cotempla, daytrana, desipramine, desvenlafaxine, doxepin, drizalma, duloxetine, effexor, emsam, erzofri, escitalopram, exxua, fetzima, fluoxetine, fluvoxamine, imipramine, invega, jornay, latuda, lexapro, lithium, lithobid, lorazepam, loreev, lurasidone, marplan, metadate, methylin, methylphenidate, milnacipran, mirtazapine, nardil, nefazodone, nortriptyline, paliperidone, parnate, paroxetine, paxil, phenelzine, pramipexole, pristiq, protriptyline, prozac, prudoxin, qelbree, quetiapine, quillichew, quillivant, raldesy, relexxii, remeron, restoril, rexulti, ritalin, savella, selegiline, seroquel, sertraline, silenor, temazepam, tranylcypromine, trazodone, trimipramine, trintellix, venlafaxine, viibryd, vilazodone, wellbutrin, xanax, zelapar, zoloft, zonalon**\n\nAsk me about any specific drug to see its tier, cost and requirements.",
+  "pages": [],
+  "source": "Essentials Formulary Drug List (E4)",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 422,
+    "total_output_tokens": 10,
+    "total_tokens": 432,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 422,
+        "output_tokens": 10,
+        "total_tokens": 432
+      }
+    ]
+  }
+}

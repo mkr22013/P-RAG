@@ -684,6 +684,9 @@ def detect_category_rule_based(query_words: list, query: str) -> str | None:
             "authorization",
             "transportation",
             "hospice",
+            "outofpocket",
+            "maximum",
+            "products",
         ]
     ):
         return "medical"
@@ -852,6 +855,9 @@ def detect_category(query_words, query):
         "authorization",
         "transportation",
         "impatient",
+        "outofpocket",
+        "maximum",
+        "oop",
     ]
 
     if any(w in query_words for w in _medical_terms):

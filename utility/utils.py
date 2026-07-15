@@ -318,9 +318,62 @@ RX_NOISE_WORDS = {
 }
 
 
-def fuzzy_match(a, b, threshold=0.8):
+def get_benefit_context_prefix(query: str, topics: list) -> str:
+    """
+    Generates a helpful context prefix when the member's query term does not
+    directly match the benefit topic name returned by topic resolution.
+
+    Problem this solves:
+        Member asks: "is chiropractic care covered?"
+        System finds: Rehabilitation Therapy benefit (correct — chiropractic
+                      is covered under rehab therapy in most plans)
+        Without prefix: Member sees a table about "Rehabilitation Therapy"
+                        and wonders why — they asked about chiropractic
+        With prefix:    "Your question about chiropractic care is covered
+                        under Rehabilitation Therapy on your plan."
+
+    Why not hardcode "chiropractic → Rehabilitation Therapy"?
+        Because benefit mappings are plan-specific. Another plan might cover
+        chiropractic under "Office Visits" or not at all. We use the actual
+        topic returned by the system (which read the real plan data) rather
+        than assuming a mapping.
+
+    When prefix is added:
+        - topics were resolved (not empty)
+        - query term doesn't appear in any topic name
+        - This signals the member asked about X but system found it under Y
+
+    When prefix is NOT added:
+        - "show me dialysis benefits" + topic="dialysis" → query matches topic
+        - "my urgent care cost" + topic="urgent care" → query matches topic
+        - topics is empty (LLM fallback handled it differently)
+
+    Args:
+        query:  The original member query string
+        topics: List of resolved topic strings from topic_resolver
+
+    Returns:
+        A markdown prefix string, or empty string if no prefix needed.
+    """
+    if not topics:
+        return ""
+
+    query_lower = query.lower()
+
+    # Check if any topic name appears in the query — if so, no prefix needed
+    for topic in topics:
+        topic_words = topic.lower().replace("-", " ").split()
+        if any(w in query_lower for w in topic_words if len(w) > 3):
+            return ""
+
+    # Query term doesn't match topic — generate helpful context
+    # Use the first/primary topic for the prefix
+    topic_display = topics[0].replace("-", " ").title()
+    return f"Your question is covered under **{topic_display}** on your plan.\n\n"
     return SequenceMatcher(None, a, b).ratio() >= threshold
 
+def fuzzy_match(a, b, threshold=0.8):
+    return SequenceMatcher(None, a, b).ratio() >= threshold
 
 def smart_match(term, query_words, query_lower):
     """

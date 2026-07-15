@@ -1,26 +1,19 @@
 {
   "query": "show me newborn care benefits",
   "category": "medical",
-  "timestamp": "2026-07-14T19:47:58.391967",
-  "answer": "Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Newborn Care | Inpatient care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Other outpatient services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Newborn Care | Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan. To continue benefits beyond the 3-week period, see the dependent eligibility and enrollment guidelines outlined in Who Is Eligible For Coverage? and When Does Coverage Begin?. If the mother isn’t eligible to receive obstetrical care benefits under this plan, the newborn isn’t automatically covered for the first 3 weeks. For newborn enrollment information, see Who Is Eligible For Coverage? and When Does Coverage Begin?. Benefits are provided on the same basis as any other care, subject to the child's own cost-shares, if any, and other provisions as specified in this plan. Services must be consistent with accepted medical practice and ordered by the attending provider in consultation with the mother. |\n| Newborn’S And Mother’S Health Protection Act | Group health plans and health insurance issuers generally may not, under federal law, restrict benefits for any hospital length of stay in connection with childbirth for the mother or newborn child to less than 48 hours following a vaginal delivery, or less than 96 hours following a cesarean section. However, federal law generally does not prohibit the mother’s or newborn’s attending provider, after consulting with the mother, from discharging the mother or her newborn earlier than 48 hours (or 96 hours as applicable.) In any case, group health plans and health insurance issuers may not, under federal law, require that a provider obtain authorization from the plan or the insurance issuer for prescribing a length of stay not in excess of the 48 hours (or 96 hours as applicable.) |\n",
+  "timestamp": "2026-07-15T15:00:32.556704",
+  "answer": "Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Newborn Care | Inpatient care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | Data Not Found |\n| Newborn Care | Other outpatient services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Newborn Care | Newborn children are covered automatically for the first 3 weeks from birth when the mother is eligible to receive obstetrical care benefits under this plan. To continue benefits beyond the 3-week period, see the dependent eligibility and enrollment guidelines outlined in Who Is Eligible For Coverage? and When Does Coverage Begin?. If the mother isn’t eligible to receive obstetrical care benefits under this plan, the newborn isn’t automatically covered for the first 3 weeks. For newborn enrollment information, see Who Is Eligible For Coverage? and When Does Coverage Begin?. Benefits are provided on the same basis as any other care, subject to the child's own cost-shares, if any, and other provisions as specified in this plan. Services must be consistent with accepted medical practice and ordered by the attending provider in consultation with the mother. |\n",
   "pages": [
     13,
-    42,
-    81
+    42
   ],
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
-    "total_llm_calls": 2,
-    "total_input_tokens": 787,
-    "total_output_tokens": 54,
-    "total_tokens": 841,
+    "total_llm_calls": 1,
+    "total_input_tokens": 237,
+    "total_output_tokens": 31,
+    "total_tokens": 268,
     "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 550,
-        "output_tokens": 23,
-        "total_tokens": 573
-      },
       {
         "call_type": "ollama",
         "input_tokens": 237,

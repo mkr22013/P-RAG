@@ -1,8 +1,8 @@
 {
   "query": "What is my emergency dental visit copay?",
   "category": "dental_willamette",
-  "timestamp": "2026-07-14T19:50:16.118515",
-  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Office Visit Copayments | General Office Visit | $15 | Not covered | Data Not Found |\n| Office Visit Copayments | Specialist Office Visit | $30 | Not covered | Data Not Found |\n| Adjunctive General Services | D9440 Office visit - after regularly scheduled hours | $20 copay | Not covered | Data Not Found |\n",
+  "timestamp": "2026-07-15T15:39:19.182265",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Adjunctive General Services | D9440 Office visit - after regularly scheduled hours | $20 copay | Not covered | Data Not Found |\n| Office Visit Copayments | General Office Visit | $15 | Not covered | Data Not Found |\n| Office Visit Copayments | Specialist Office Visit | $30 | Not covered | Data Not Found |\n",
   "pages": [
     3,
     12

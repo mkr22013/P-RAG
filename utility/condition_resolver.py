@@ -400,8 +400,11 @@ def find_canonical_condition(term: str) -> str | None:
     Matching order:
     1. Priority map — common terms map to primary condition
     2. Exact key match in condition_synonyms.json
-    3. Exact synonym match (prefer primary synonyms)
-    4. Partial/substring match (>= 6 chars)
+    3. Exact synonym match — collect ALL matches, pick MOST SPECIFIC
+       (most words in common with term, then longest key name)
+       e.g. "sleep apnea" matches both "Apnea" and "Sleep Apnea, Obstructive"
+            → picks "Sleep Apnea, Obstructive" (more specific, more words match)
+    4. Partial/substring match (>= 6 chars) — most specific first
 
     Returns None if no match found.
     """
@@ -410,6 +413,7 @@ def find_canonical_condition(term: str) -> str | None:
         return None
 
     term_lower = term.lower().strip()
+    term_words = set(term_lower.split())
 
     # 1. Priority map
     if term_lower in _PRIORITY_CONDITION_MAP:
@@ -417,32 +421,80 @@ def find_canonical_condition(term: str) -> str | None:
         norm_priority = _normalize_condition_name(priority).lower()
         return norm_priority
 
-    # 2. Direct key match
-    if term_lower in synonyms_data:
-        return term_lower
+    # 2. Direct key match — prefer most specific (most words in common)
+    direct_matches = []
+    for canonical in synonyms_data:
+        if term_lower == canonical.lower():
+            direct_matches.append(canonical)
+    if direct_matches:
+        # Pick most specific — most words in common with query term
+        best = max(
+            direct_matches,
+            key=lambda c: (len(term_words & set(c.lower().split())), len(c)),
+        )
+        return best.lower()
 
-    # 3. Exact synonym match
-    primary_match = None
+    # 3. Exact synonym match — collect ALL matches, pick most specific
+    # Bug fix: previously returned first match found (dict order) which could
+    # be a less specific condition. e.g. "sleep apnea" matched "Apnea" (which
+    # has "sleep apnea" as a synonym) instead of "Sleep Apnea, Obstructive"
+    # (which is a more specific direct match). Now we collect all matches and
+    # pick the one whose canonical name shares the most words with the query term.
+    all_matches = []
     for canonical, synonyms in synonyms_data.items():
         syns_lower = [s.lower() for s in synonyms]
         if term_lower in syns_lower:
             idx = syns_lower.index(term_lower)
-            if idx == 0:
-                return canonical
-            elif primary_match is None:
-                primary_match = canonical
+            all_matches.append((canonical, idx))
 
-    if primary_match:
-        return primary_match
+    if all_matches:
+        # Also check if term partially matches any canonical key directly
+        # e.g. "sleep apnea" should match "Sleep Apnea, Obstructive" key
+        # even though it also matches "Apnea" as a synonym
+        for canonical in synonyms_data:
+            canonical_lower = canonical.lower()
+            # All words in term must appear in canonical key
+            if all(w in canonical_lower for w in term_lower.split()):
+                canonical_words = set(canonical_lower.replace(",", "").split())
+                words_in_common = len(term_words & canonical_words)
+                all_matches.append((canonical, 0))  # idx=0 (direct key match)
 
-    # 4. Partial match — only for terms >= 6 chars
+        # Score: words in common with term (higher = more specific),
+        # then synonym index (lower = more primary synonym),
+        # then canonical length (longer = more specific condition name)
+        def match_score(item):
+            canonical, idx = item
+            canonical_words = set(canonical.lower().replace(",", "").split())
+            words_in_common = len(term_words & canonical_words)
+            return (words_in_common, -idx, len(canonical))
+
+        best_match = max(all_matches, key=match_score)
+        return best_match[0].lower()
+
+    # 4. Partial match — only for terms >= 6 chars, most specific first
     if len(term_lower) >= 6:
+        partial_matches = []
         for canonical, synonyms in synonyms_data.items():
             if term_lower in canonical.lower():
-                return canonical
-            for synonym in synonyms:
-                if term_lower in synonym.lower():
-                    return canonical
+                canonical_words = set(canonical.lower().replace(",", "").split())
+                words_in_common = len(term_words & canonical_words)
+                partial_matches.append((canonical, words_in_common, len(canonical)))
+            else:
+                for synonym in synonyms:
+                    if term_lower in synonym.lower():
+                        canonical_words = set(
+                            canonical.lower().replace(",", "").split()
+                        )
+                        words_in_common = len(term_words & canonical_words)
+                        partial_matches.append(
+                            (canonical, words_in_common, len(canonical))
+                        )
+                        break
+
+        if partial_matches:
+            # Pick most specific — most words in common, then longest name
+            best = max(partial_matches, key=lambda x: (x[1], x[2]))
+            return best[0].lower()
 
     return None
 

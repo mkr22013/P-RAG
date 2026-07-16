@@ -347,27 +347,46 @@
 #     print(f'#   topics={data["topics"]}  keywords={data["keywords"]}')
 
 
-import re
+# import re
+# import sys
+# import os
+# import io
+# from contextlib import redirect_stdout
+# os.environ["PYTHONIOENCODING"] = "utf-8"
+# sys.path.insert(0, '.')
+
+# from utility.topic_resolver import resolve_insurance_topic
+
+# queries = [
+#     "what are the $ amount for electronic visits",
+#     "show me cost for vasectomy",
+# ]
+
+# for q in queries:
+#     words = [re.sub(r'[^\w\s]', '', w) for w in q.lower().split()]
+#     f = io.StringIO()
+#     with redirect_stdout(f):
+#         result = resolve_insurance_topic(words, q, 'medical')
+#     print(f'Query: "{q}"')
+#     print(f'  topics={result["topics"]}')
+#     print(f'  keywords={result["keywords"]}')
+#     print()
+
 import sys
-import os
-import io
-from contextlib import redirect_stdout
-os.environ["PYTHONIOENCODING"] = "utf-8"
 sys.path.insert(0, '.')
+from utility.condition_resolver import find_canonical_condition
 
-from utility.topic_resolver import resolve_insurance_topic
-
-queries = [
-    "what are the $ amount for electronic visits",
-    "show me cost for vasectomy",
+tests = [
+    'sleep apnea',
+    'apnea',
+    'diabetes',
+    'high blood pressure',
+    'migraine',
+    'anxiety',
+    'depression',
+    'asthma',
+    'blood clots',
+    'high cholesterol',
 ]
-
-for q in queries:
-    words = [re.sub(r'[^\w\s]', '', w) for w in q.lower().split()]
-    f = io.StringIO()
-    with redirect_stdout(f):
-        result = resolve_insurance_topic(words, q, 'medical')
-    print(f'Query: "{q}"')
-    print(f'  topics={result["topics"]}')
-    print(f'  keywords={result["keywords"]}')
-    print()
+for t in tests:
+    print(f'  {t!r} -> {find_canonical_condition(t)!r}')

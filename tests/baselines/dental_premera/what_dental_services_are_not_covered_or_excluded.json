@@ -1,23 +1,23 @@
 {
   "query": "What dental services are NOT covered or excluded?",
   "category": "dental_premera",
-  "timestamp": "2026-07-15T15:45:15.213633",
-  "answer": "Services not covered include amounts over the allowed amount for non-emergency services from a non-participating provider and benefits from other sources.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Exclusions And Limitations | In addition to services listed as not covered under Description of Covered Services, this section lists the services that are either limited or not covered by this plan. Amounts Over the Allowed Amount Costs over the allowed amount as defined by this plan for a non-emergency service from a non-participating provider. Benefits from other sources Services that are covered by other insurance or coverage, such as: • Motor vehicle medical or motor vehicle no-fault coverage • Any type of no-fault coverage, such as Personal Injury Protection (PIP), Medical Payment coverage or Medical Premises coverage • Any type of liability insurance, such as homeowners’ coverage or commercial liability coverage • Any type of excess coverage • Boat coverage • School or athletic coverage Benefits that have been exhausted Services in excess of benefit limitations or maximums of this plan. Broken or missed appointments Case Management Case management, presentation, or extensive treatment planning. Charges for records or reports Charges from providers for supplying records or reports not requested by Premera for utilization review. Cleaning and Inspection of Appliance Services to clean and inspect appliances such as complete and partial dentures. Complications of a non-covered service Including follow-up services or effects of those services. Counseling, Education and Training Counseling, education or training in the absence of illness or injury, including but not limited to: • Job help and outreach • Social or fitness counseling • Acting as a tutor, helping a member with schoolwork, acting as an educational or other aide for a member while the member is at school, or providing services that are part of a school’s individual education program or should otherwise be provided by school staff • Private school or boarding school tuition • Community wellness or safety programs Counseling, Oral Oral counseling, education or training, including: • Nutritional counseling for control of dental disease 8 Premera Dental Plan January 1, 2025 WVB13 V-1 • Tobacco counseling for the control and prevention of oral diseases • Counseling for the control and prevention of adverse oral, behavioral, and systemic health effects associated with high-risk substance use disorder Court-Ordered Services Services that you must get to avoid being tried, sentenced or losing the right to drive when they are not medically or dentally necessary. Dental Services Received From a: • Dental or medical department... |\n",
+  "timestamp": "2026-07-15T23:35:46.469767",
+  "answer": "Services not covered include amounts over the allowed amount for non-emergency services from non-participating providers and benefits already received from other sources.\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Exclusions And Limitations | In addition to services listed as not covered under Description of Covered Services, this section lists the services that are either limited or not covered by this plan. Amounts Over the Allowed Amount Costs over the allowed amount as defined by this plan for a non-emergency service from a non-participating provider. Benefits from other sources Services that are covered by other insurance or coverage, such as: • Motor vehicle medical or motor vehicle no-fault coverage • Any type of no-fault coverage, such as Personal Injury Protection (PIP), Medical Payment coverage or Medical Premises coverage • Any type of liability insurance, such as homeowners’ coverage or commercial liability coverage • Any type of excess coverage • Boat coverage • School or athletic coverage Benefits that have been exhausted Services in excess of benefit limitations or maximums of this plan. Broken or missed appointments Case Management Case management, presentation, or extensive treatment planning. Charges for records or reports Charges from providers for supplying records or reports not requested by Premera for utilization review. Cleaning and Inspection of Appliance Services to clean and inspect appliances such as complete and partial dentures. Complications of a non-covered service Including follow-up services or effects of those services. Counseling, Education and Training Counseling, education or training in the absence of illness or injury, including but not limited to: • Job help and outreach • Social or fitness counseling • Acting as a tutor, helping a member with schoolwork, acting as an educational or other aide for a member while the member is at school, or providing services that are part of a school’s individual education program or should otherwise be provided by school staff • Private school or boarding school tuition • Community wellness or safety programs Counseling, Oral Oral counseling, education or training, including: • Nutritional counseling for control of dental disease 8 Premera Dental Plan January 1, 2025 WVB13 V-1 • Tobacco counseling for the control and prevention of oral diseases • Counseling for the control and prevention of adverse oral, behavioral, and systemic health effects associated with high-risk substance use disorder Court-Ordered Services Services that you must get to avoid being tried, sentenced or losing the right to drive when they are not medically or dentally necessary. Dental Services Received From a: • Dental or medical department... |\n",
   "pages": [
     7
   ],
   "source": "Premera Dental Plan",
   "token_usage": {
     "total_llm_calls": 1,
-    "total_input_tokens": 239,
-    "total_output_tokens": 28,
-    "total_tokens": 267,
+    "total_input_tokens": 221,
+    "total_output_tokens": 29,
+    "total_tokens": 250,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 239,
-        "output_tokens": 28,
-        "total_tokens": 267
+        "input_tokens": 221,
+        "output_tokens": 29,
+        "total_tokens": 250
       }
     ]
   }

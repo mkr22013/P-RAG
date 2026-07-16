@@ -1,8 +1,8 @@
 {
   "query": "I want to know about emergency room service",
   "category": "medical",
-  "timestamp": "2026-07-15T14:59:24.572119",
-  "answer": "Emergency room and provider services, equipment, supplies, drugs, diagnostic tests, and emergency detoxification are all covered under this benefit.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Emergency Room | Facility charges | $350 copay per visit, then deductible, then 20% coinsurance | $350 copay per visit, then deductible, then 20% coinsurance | You may have additional costs for other services. Examples are X-rays or lab tests. See those covered services for details. The copay is waived if you are admitted as an inpatient through the emergency room. The copay is waived if you are transferred and admitted to a different hospital directly from the emergency room. |\n| Emergency Room | Professional services | Deductible, then 20% coinsurance | Deductible, then 20% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Emergency Room | This benefit covers: • Emergency room and provider services • Equipment, supplies and drugs used in the emergency room • Services and exams used for stabilizing an emergency medical condition, including mental health, or substance use disorder condition. This includes emergency services arising from complications from a service that was not covered by the plan. • Diagnostic tests performed with other emergency services • Emergency detoxification You need to let us know if you are admitted to the hospital from the emergency room as soon as possible. See Prior Authorization for details. |\n| Non-Emergency Services Protected From Balance Billing | For these services, the allowed amount is calculated consistent with the requirements of federal or Washington state law. |\n| Emergency Services | The allowed amount for non-participating providers will be calculated consistent with the requirements of federal or Washington state law. You do not have to pay amounts over the allowed amount for emergency services delivered by non-participating providers or facilities. If you have questions about this information, please call us at the number listed on your Premera Blue Cross ID card. |\n",
+  "timestamp": "2026-07-15T23:31:54.384563",
+  "answer": "Emergency room and provider services, equipment, supplies, drugs, diagnostic tests, and emergency detoxification are all covered when medically necessary.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Emergency Room | Facility charges | $350 copay per visit, then deductible, then 20% coinsurance | $350 copay per visit, then deductible, then 20% coinsurance | You may have additional costs for other services. Examples are X-rays or lab tests. See those covered services for details. The copay is waived if you are admitted as an inpatient through the emergency room. The copay is waived if you are transferred and admitted to a different hospital directly from the emergency room. |\n| Emergency Room | Professional services | Deductible, then 20% coinsurance | Deductible, then 20% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Emergency Room | This benefit covers: • Emergency room and provider services • Equipment, supplies and drugs used in the emergency room • Services and exams used for stabilizing an emergency medical condition, including mental health, or substance use disorder condition. This includes emergency services arising from complications from a service that was not covered by the plan. • Diagnostic tests performed with other emergency services • Emergency detoxification You need to let us know if you are admitted to the hospital from the emergency room as soon as possible. See Prior Authorization for details. |\n| Non-Emergency Services Protected From Balance Billing | For these services, the allowed amount is calculated consistent with the requirements of federal or Washington state law. |\n| Emergency Services | The allowed amount for non-participating providers will be calculated consistent with the requirements of federal or Washington state law. You do not have to pay amounts over the allowed amount for emergency services delivered by non-participating providers or facilities. If you have questions about this information, please call us at the number listed on your Premera Blue Cross ID card. |\n",
   "pages": [
     8,
     25,
@@ -11,15 +11,15 @@
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
     "total_llm_calls": 1,
-    "total_input_tokens": 228,
+    "total_input_tokens": 210,
     "total_output_tokens": 27,
-    "total_tokens": 255,
+    "total_tokens": 237,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 228,
+        "input_tokens": 210,
         "output_tokens": 27,
-        "total_tokens": 255
+        "total_tokens": 237
       }
     ]
   }

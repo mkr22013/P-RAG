@@ -1,30 +1,24 @@
 {
   "query": "show me all dialysis related benefits",
   "category": "medical",
-  "timestamp": "2026-07-14T19:46:45.939306",
-  "answer": "Dialysis due to end stage renal disease is covered by providers who have agreements with us or other Blue Cross Blue Shield licensees, and also by providers without such agreements, subject to certain payment limits.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Dialysis | During Medicare's waiting period | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | For permanent kidney failure. See the Dialysis benefit for details. |\n| Dialysis | After Medicare's waiting period | No charge | No cost-shares | For permanent kidney failure. See the Dialysis benefit for details. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Dialysis Due To End Stage Renal Disease | • Providers Who Have Agreements With Us Or Other Blue Cross Blue Shield Licensees The allowable charge is the amount explained above in this definition. • Providers Who Don’t Have Agreements With Us Or Another Blue Cross Blue Shield Licensee The amount the plan allows for dialysis during Medicare’s waiting period will be no less than 125% of the Medicare-approved amount and no more than 90% of billed charges. The amount the plan allows for dialysis after Medicare’s waiting period is 125% of the Medicare-approved amount, even when a member who is eligible for Medicare does not enroll in Medicare. See the Dialysis benefit for more details.. |\n",
+  "timestamp": "2026-07-16T10:29:00.965105",
+  "answer": "Dialysis treatment due to end-stage renal disease is covered by providers with agreements with us or other Blue Cross Blue Shield licensees, and by other providers at a rate no less than.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Dialysis | During Medicare's waiting period | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | For permanent kidney failure. See the Dialysis benefit for details. |\n| Dialysis | After Medicare's waiting period | No charge | No cost-shares | For permanent kidney failure. See the Dialysis benefit for details. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Dialysis Due To End Stage Renal Disease | • Providers Who Have Agreements With Us Or Other Blue Cross Blue Shield Licensees The allowable charge is the amount explained above in this definition. • Providers Who Don’t Have Agreements With Us Or Another Blue Cross Blue Shield Licensee The amount the plan allows for dialysis during Medicare’s waiting period will be no less than 125% of the Medicare-approved amount and no more than 90% of billed charges. The amount the plan allows for dialysis after Medicare’s waiting period is 125% of the Medicare-approved amount, even when a member who is eligible for Medicare does not enroll in Medicare. See the Dialysis benefit for more details.. |\n",
   "pages": [
     8,
     25
   ],
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
-    "total_llm_calls": 2,
-    "total_input_tokens": 798,
-    "total_output_tokens": 65,
-    "total_tokens": 863,
+    "total_llm_calls": 1,
+    "total_input_tokens": 228,
+    "total_output_tokens": 40,
+    "total_tokens": 268,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 552,
-        "output_tokens": 25,
-        "total_tokens": 577
-      },
-      {
-        "call_type": "ollama",
-        "input_tokens": 246,
+        "input_tokens": 228,
         "output_tokens": 40,
-        "total_tokens": 286
+        "total_tokens": 268
       }
     ]
   }

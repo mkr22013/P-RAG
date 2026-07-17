@@ -99,26 +99,29 @@ def run(plan_category: str, classify_fn, generate_fn):
         )
     )
 
-    # ── Step 3b: sync drug_names.json to Blob (Rx only) ────────────────────────
-    # The shared, plan-agnostic drug name word list used by category.py for
+    # ── Step 3b: sync drug_words.json to Blob (Rx only) ─────────────────────────
+    # The shared, plan-agnostic drug word list used by category.py for
     # Rx category detection and spelling correction. Already written locally
-    # by generate_fn() above (via rx_indexer.py's update_drug_names_file).
-    # In production, also upload the updated file to Blob so other server
-    # instances pick it up on their next TTL refresh (see category.py).
-    # No-op locally — upload_index() already handles the local-dev fallback,
-    # but drug_names.json only exists for Rx, so we only attempt this for rx.
+    # by generate_fn() above (via rx_indexer.py). In production, also upload
+    # the updated file to Blob so other server instances pick it up on their
+    # next TTL refresh (see category.py). No-op locally — upload_index()
+    # already handles the local-dev fallback, but drug_words.json only
+    # exists for Rx, so we only attempt this for rx.
+    # NOTE: drug_names.json is retired — DRUG_WORDS_FILE (drug_words.json)
+    # is the active file. category.py keeps DRUG_NAMES_FILE only as a
+    # backward-compat read fallback for old data, not for new writes.
     if plan_category == "rx":
         try:
             from infrastructure.blob_storage import upload_index
-            from utility.category import DRUG_NAMES_FILE
+            from utility.category import DRUG_WORDS_FILE
 
-            if os.path.exists(DRUG_NAMES_FILE):
-                with open(DRUG_NAMES_FILE, encoding="utf-8") as f:
+            if os.path.exists(DRUG_WORDS_FILE):
+                with open(DRUG_WORDS_FILE, encoding="utf-8") as f:
                     drug_words = json.load(f)
-                asyncio.run(upload_index("drug_names.json", drug_words))
-                print(f"[*] drug_names.json synced ({len(drug_words)} words)")
+                asyncio.run(upload_index("drug_words.json", drug_words))
+                print(f"[*] drug_words.json synced ({len(drug_words)} words)")
         except Exception as e:
-            print(f"[!] drug_names.json blob sync skipped: {e}")
+            print(f"[!] drug_words.json blob sync skipped: {e}")
 
     _cleanup(temp_pdf)
 

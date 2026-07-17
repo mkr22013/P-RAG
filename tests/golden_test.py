@@ -325,6 +325,7 @@ QUERIES = {
         "what tier is gabapentin?",
         "what is covered for epilepsy?",
         "is jardiance covered?",
+        "what is covered for sleep apnea?"
     ],
 }
 

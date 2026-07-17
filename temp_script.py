@@ -95,7 +95,7 @@
 # for q in llm_needed:
 #     words = [re.sub(r'[^\w\s]', '', w) for w in q.lower().split()]
 #     # Filter out stopwords
-#     stopwords = {'show', 'me', 'cost', 'for', 'what', 'is', 'my', 'the', 'a', 
+#     stopwords = {'show', 'me', 'cost', 'for', 'what', 'is', 'my', 'the', 'a',
 #                  'an', 'and', 'or', 'i', 'want', 'to', 'know', 'about', 'does',
 #                  'can', 'are', 'how', 'much', 'does', 'do', 'will', 'all', 'any',
 #                  'have', 'be', 'been', 'get', 'in', 'of', 'at', 'by', 'it',
@@ -253,7 +253,7 @@
 #         f = io.StringIO()
 #         with redirect_stdout(f):
 #             result = resolve_insurance_topic(words, q, p_type=category)
-        
+
 #         topics = result.get('topics', [])
 #         if topics:
 #             for t in topics:
@@ -372,21 +372,248 @@
 #     print(f'  keywords={result["keywords"]}')
 #     print()
 
-import sys
-sys.path.insert(0, '.')
-from utility.condition_resolver import find_canonical_condition
+# import sys
+# sys.path.insert(0, '.')
+# from utility.condition_resolver import find_canonical_condition
 
-tests = [
-    'sleep apnea',
-    'apnea',
-    'diabetes',
-    'high blood pressure',
-    'migraine',
-    'anxiety',
-    'depression',
-    'asthma',
-    'blood clots',
-    'high cholesterol',
+# tests = [
+#     'sleep apnea',
+#     'apnea',
+#     'diabetes',
+#     'high blood pressure',
+#     'migraine',
+#     'anxiety',
+#     'depression',
+#     'asthma',
+#     'blood clots',
+#     'high cholesterol',
+# ]
+# for t in tests:
+#     print(f'  {t!r} -> {find_canonical_condition(t)!r}')
+
+# import sys
+# import re
+# import io
+# import json
+# from contextlib import redirect_stdout
+# sys.path.insert(0, '.')
+# from utility.topic_resolver import resolve_insurance_topic
+
+# # Check 1 — topic resolver output
+# q = 'what is my coinsurance for an inpatient hospital stay?'
+# words = [re.sub(r'[^\w\s]', '', w) for w in q.lower().split()]
+# f = io.StringIO()
+# with redirect_stdout(f):
+#     result = resolve_insurance_topic(words, q, 'medical')
+# print(f'topics={result["topics"]}')
+# print(f'keywords={result["keywords"]}')
+# print()
+
+# # Check 2 — Hospital chunk keywords in index
+# with open('indices/2026_medical_ppo_1000016_premera_employees_health_plan_standard_ppo_retiree_plan_retiree.json') as f:
+#     data = json.load(f)
+
+# print('Hospital chunks in index:')
+# for chunk in data:
+#     content = chunk.get('content', {})
+#     event = content.get('event', '') if isinstance(content, dict) else ''
+#     if event.lower() == 'hospital':
+#         print(f'  event: {event}')
+#         print(f'  service: {content.get("service", "")}')
+#         print(f'  chunk_keywords: {chunk.get("chunk_keywords", [])}')
+#         print(f'  topics: {chunk.get("topics", [])}')
+#         print('  ---')
+
+# import sys
+# sys.path.insert(0, '.')
+# from utility.utils import get_smart_keywords
+
+# print("Hospital → Inpatient Care:")
+# content1 = {
+#     'event': 'Hospital',
+#     'service': 'Inpatient Care',
+#     'in_network': 'Deductible, then 20% coinsurance',
+#     'out_of_network': 'Deductible, then 40% coinsurance',
+#     'limitations': 'Data Not Found'
+# }
+# print(get_smart_keywords(content1))
+# print()
+
+# print("Hospice → Inpatient facility care:")
+# content2 = {
+#     'event': 'Hospice Care Lifetime limit for terminal illness: 6 months',
+#     'service': 'Inpatient facility care',
+#     'in_network': 'Deductible, then 20% coinsurance',
+#     'out_of_network': 'Deductible, then 40% coinsurance',
+#     'limitations': 'Data Not Found'
+# }
+# print(get_smart_keywords(content2))
+# print()
+
+# print("Maternity → Inpatient hospital:")
+# content3 = {
+#     'event': 'Maternity Care',
+#     'service': 'Inpatient hospital, birthing centers and short-stay hospitals',
+#     'in_network': 'Deductible, then 20% coinsurance',
+#     'out_of_network': 'Deductible, then 40% coinsurance',
+#     'limitations': 'Data Not Found'
+# }
+# print(get_smart_keywords(content3))
+# print()
+
+# print("Mental Health → Inpatient and residential facility care:")
+# content4 = {
+#     'event': 'Mental Health Care',
+#     'service': 'Inpatient and residential facility care',
+#     'in_network': 'Deductible, then 20% coinsurance',
+#     'out_of_network': 'Deductible, then 40% coinsurance',
+#     'limitations': 'Data Not Found'
+# }
+# print(get_smart_keywords(content4))
+
+# import sys
+# sys.path.insert(0, '.')
+# from utility.utils import get_smart_keywords
+
+# chunks = [
+#     ("Hospital → Inpatient Care", {
+#         'event': 'Hospital', 'service': 'Inpatient Care',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Hospice → Inpatient facility care", {
+#         'event': 'Hospice Care Lifetime limit for terminal illness: 6 months',
+#         'service': 'Inpatient facility care',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Maternity → Inpatient hospital", {
+#         'event': 'Maternity Care',
+#         'service': 'Inpatient hospital, birthing centers and short-stay hospitals',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Mental Health → Inpatient residential", {
+#         'event': 'Mental Health Care',
+#         'service': 'Inpatient and residential facility care',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Gender Affirming → Inpatient facility", {
+#         'event': 'Gender Affirming Care',
+#         'service': 'Inpatient facility care',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Rehabilitation Therapy → Office visits", {
+#         'event': 'Rehabilitation Therapy',
+#         'service': 'Office and clinic visits',
+#         'in_network': '$40 copay per visit, deductible waived',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+#     ("Allergy Testing → Treatment", {
+#         'event': 'Allergy Testing And Treatment',
+#         'service': 'Allergy Testing And Treatment',
+#         'in_network': 'Deductible, then 20% coinsurance',
+#         'out_of_network': 'Deductible, then 40% coinsurance',
+#         'limitations': 'Data Not Found'
+#     }),
+# ]
+
+# print("Keyword comparison (new get_smart_keywords):")
+# print()
+# for name, content in chunks:
+#     kws = get_smart_keywords(content)
+#     print(f"  {name}")
+#     print(f"    {kws}")
+#     print()
+
+# import sys
+# sys.path.insert(0, '.')
+# from utility.utils import get_smart_keywords
+
+# chunks = [
+#     ("Out-of-Pocket Maximum → Individual", {
+#         'event': 'Out-of-Pocket Maximum',
+#         'service': 'Individual out-of-pocket maximum',
+#         'in_network': '$3,500',
+#         'out_of_network': 'None'
+#     }),
+#     ("Deductible → Individual", {
+#         'event': 'Deductible',
+#         'service': 'Individual deductible',
+#         'in_network': '$750',
+#         'out_of_network': '$1,500'
+#     }),
+#     ("Deductible → Family", {
+#         'event': 'Deductible',
+#         'service': 'Family deductible',
+#         'in_network': '$1,500',
+#         'out_of_network': '$3,000'
+#     }),
+# ]
+
+# for name, content in chunks:
+#     kws = get_smart_keywords(content)
+#     print(f'{name}')
+#     print(f'  {kws}')
+#     print()
+
+import sys
+
+sys.path.insert(0, ".")
+from utility.utils import get_smart_keywords
+
+chunks = [
+    (
+        "Hospital → Coverage Information",
+        {
+            "event": "Hospital",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Hospital care is covered for inpatient and outpatient services...",
+        },
+    ),
+    (
+        "Inpatient Care → Coverage Information",
+        {
+            "event": "Inpatient Care",
+            "service": "Coverage Information",
+            "in_network": "Data Not Found",
+            "out_of_network": "Data Not Found",
+            "limitations": "Inpatient rehabilitation care is covered when medically necessary...",
+        },
+    ),
+    (
+        "Professional Visit Copay",
+        {
+            "event": "Professional Visit Copay",
+            "service": "Professional visit copay",
+            "in_network": "Kinwell Clinic: $0 / All Other Non-Specialist: $25 / All Other Specialist: $40",
+            "out_of_network": "Data Not Found",
+        },
+    ),
+    (
+        "Emergency Room → Professional services",
+        {
+            "event": "Emergency Room",
+            "service": "Professional services",
+            "in_network": "Deductible, then 20% coinsurance",
+            "out_of_network": "Deductible, then 20% coinsurance",
+            "limitations": "Data Not Found",
+        },
+    ),
 ]
-for t in tests:
-    print(f'  {t!r} -> {find_canonical_condition(t)!r}')
+
+for name, content in chunks:
+    kws = get_smart_keywords(content)
+    print(f"{name}")
+    print(f"  {kws}")
+    print()

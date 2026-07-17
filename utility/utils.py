@@ -9,37 +9,119 @@ from difflib import SequenceMatcher
 
 def get_smart_keywords(text):
     """
-    Extract up to 10 keywords from a chunk of text or dict content.
-    First matches known insurance domain patterns, then falls back to
-    any word with 7+ characters to fill remaining slots.
+    Extract up to 10 meaningful keywords from a chunk of text or dict content.
+
+    Two-phase extraction:
+    1. Domain pattern matching — insurance-specific terms that are most useful
+       for scoring. Each pattern maps to a clean label used as the keyword.
+    2. Word length fallback — any word 7+ chars not already captured,
+       EXCLUDING JSON field names that leak from dict serialization.
+
+    Why this matters:
+        chunk_keywords are used by tools.py to score chunks against query keywords.
+        Poor keywords (e.g. JSON field names like "in_network", "limitations")
+        cause all chunks to score equally — the correct chunk can't rank higher.
+        Good keywords (e.g. "hospital", "inpatient", "hospice") allow the scoring
+        to differentiate between similar chunks and return the most relevant one.
+
+    Example fix:
+        Before: Hospital chunk keywords = ['deductible', 'coinsurance', 'service',
+                'in_network', 'out_of_network', 'limitations', 'hospital', 'inpatient']
+                Hospice chunk keywords  = ['deductible', 'coinsurance', 'hospice',
+                'inpatient', 'service', 'in_network', ...]
+                → Both score equally for query "inpatient hospital stay"
+
+        After:  Hospital chunk keywords = ['hospital', 'inpatient', 'deductible',
+                'coinsurance']
+                Hospice chunk keywords  = ['hospice', 'inpatient', 'deductible',
+                'coinsurance', 'terminal', 'lifetime']
+                → Hospital chunk scores higher for query containing "hospital"
     """
     if isinstance(text, dict):
         text = json_lib.dumps(text)
 
     text_lower = text.lower()
-    patterns = {
-        "pcp": r"\bpcp\b|primary[- ]?care",
-        "specialist": r"specialist",
-        "in-network": r"in[- ]?network",
-        "out-of-network": r"out[- ]?of[- ]?network",
-        "copay": r"co[- ]?pay|copay",
-        "deductible": r"deductible",
-        "coinsurance": r"co[- ]?insurance",
-        "emergency": r"emergency|medical[- ]?attention",
-        "urgent-care": r"urgent[- ]?care",
-        "pharmacy": r"pharmacy|prescription|rx",
-        "dental": r"dental|dentist|ortho|braces",
-        "vision": r"vision|eye|glasses",
-        "imaging": r"imaging|mri|ct\s?scan|pet\s?scan",
-        "diagnostic": r"diagnostic|x-ray|blood\s?work|blood\s?products|\bblood\b",
-        "mental-health": r"mental|behavioral|substance|abuse",
-        "therapy": r"rehab|physical|speech|occupational",
-    }
-    found = [label for label, pat in patterns.items() if re.search(pat, text_lower)]
 
+    # JSON field name noise — these leak into keywords when dict is serialized
+    # and add no scoring value since they appear in EVERY chunk
+    JSON_FIELD_NOISE = {
+        "in_network",
+        "out_of_network",
+        "limitations",
+        "service",
+        "in_net",
+        "out_net",
+        "event",
+        "notes",
+        "page_number",
+        "information",
+        "benefit_category",
+        "category",
+        "topic",
+        "data_not",
+        "not_found",
+    }
+
+    # Domain-specific patterns — ordered by specificity (most specific first)
+    # Each key is the clean keyword label stored in chunk_keywords
+    patterns = {
+        # Facility / care setting — most important for distinguishing chunks
+        "hospital": r"\bhospital\b(?!\s+stay)",  # hospital (not "hospital stay")
+        "inpatient": r"\binpatient\b",
+        "outpatient": r"\boutpatient\b",
+        "hospice": r"\bhospice\b",
+        "surgical": r"\bsurg(ery|ical|eries)\b",
+        "transplant": r"\btransplant",
+        "maternity": r"\bmaternity\b|\bobstetric",
+        "newborn": r"\bnewborn\b|\bneonatal\b",
+        "dialysis": r"\bdialysis\b",
+        "rehabilitation": r"\brehabilitation\b|\brehab\b",
+        "skilled nursing": r"\bskilled\s+nursing\b",
+        "home health": r"\bhome\s+health\b",
+        "hospice care": r"\bhospice\s+care\b",
+        # Provider type
+        "pcp": r"\bpcp\b|primary[- ]?care\s+physician",
+        "specialist": r"\bspecialist\b",
+        "emergency": r"\bemergency\b|medical[- ]?attention",
+        "urgent-care": r"\burgent[- ]?care\b",
+        # Cost sharing
+        "copay": r"\bco[- ]?pay\b|\bcopay\b",
+        "deductible": r"\bdeductible\b",
+        "coinsurance": r"\bco[- ]?insurance\b|\bcoinsurance\b",
+        "out-of-pocket": r"\bout[- ]?of[- ]?pocket\b",
+        "prior-auth": r"\bprior\s+auth",
+        # Service categories
+        "pharmacy": r"\bpharmacy\b|\bprescription\b|\brx\b",
+        "dental": r"\bdental\b|\bdentist\b|\bortho\b|\bbraces\b",
+        "vision": r"\bvision\b|\beye\b|\bglasses\b",
+        "imaging": r"\bimaging\b|\bmri\b|\bct\s?scan\b|\bpet\s?scan\b",
+        "diagnostic": r"\bdiagnostic\b|\bx-ray\b|\bblood\s?work\b",
+        "mental-health": r"\bmental\b|\bbehavioral\b|\bsubstance\b|\babuse\b",
+        "therapy": r"\bphysical\s+therapy\b|\bspeech\s+therapy\b|\boccupational\b",
+        "preventive": r"\bpreventive\b|\bwellness\b|\bscreening\b",
+        "allergy": r"\ballergy\b|\ballergic\b|\ballergi",
+        "gender-affirming": r"\bgender\s+affirm",
+        "bariatric": r"\bbariatric\b",
+        "clinical-trials": r"\bclinical\s+trial",
+        "transportation": r"\btransportation\b|\bambulance\b",
+        "nicotine": r"\bnicotine\b|\bsmoking\b|\btobacco\b",
+        "virtual-care": r"\bvirtual\s+care\b|\btelehealth\b|\btelemedicine\b",
+        "electronic-visit": r"\belectronic\s+visit\b|\be-visit\b",
+        "foot-care": r"\bfoot\s+care\b|\bpodiatry\b",
+    }
+
+    found = []
+    for label, pat in patterns.items():
+        if re.search(pat, text_lower) and label not in found:
+            found.append(label)
+        if len(found) >= 10:
+            break
+
+    # Word length fallback — fill remaining slots with 7+ char words
+    # excluding JSON field names and already-found keywords
     if len(found) < 10:
-        for word in re.findall(r"\b\w{7,}\b", text_lower):
-            if word not in found and len(found) < 10:
+        for word in re.findall(r"\b[a-z]\w{6,}\b", text_lower):
+            if word not in found and word not in JSON_FIELD_NOISE and len(found) < 10:
                 found.append(word)
 
     return found[:10]
@@ -128,7 +210,6 @@ NOISE_WORDS = {
     "many",
     "more",
     "have",
-    "that",
     "them",
     "they",
     "been",
@@ -175,13 +256,12 @@ NOISE_WORDS = {
     "wrong",
     "think",
     "feel",
-    "know",
     "just",
     "really",
     "actually",
     "mean",
     "whats",
-    "what" "wat",
+    "wat",
     "unknown",
     "during",
     "stay",
@@ -370,10 +450,11 @@ def get_benefit_context_prefix(query: str, topics: list) -> str:
     # Use the first/primary topic for the prefix
     topic_display = topics[0].replace("-", " ").title()
     return f"Your question is covered under **{topic_display}** on your plan.\n\n"
-    return SequenceMatcher(None, a, b).ratio() >= threshold
+
 
 def fuzzy_match(a, b, threshold=0.8):
     return SequenceMatcher(None, a, b).ratio() >= threshold
+
 
 def smart_match(term, query_words, query_lower):
     """

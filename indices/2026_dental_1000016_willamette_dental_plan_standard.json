@@ -11,14 +11,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "copay",
             "copayments",
-            "service",
             "general",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -35,13 +30,8 @@
         },
         "keywords": [
             "specialist",
-            "copay",
             "copayments",
-            "service",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -61,12 +51,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "periodic",
             "evaluation",
             "established",
             "patient",
-            "in_network"
+            "general",
+            "covered"
         ],
         "page_number": 8
     },
@@ -86,12 +76,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "limited",
             "evaluation",
             "problem",
             "focused",
-            "in_network"
+            "general",
+            "covered"
         ],
         "page_number": 8
     },
@@ -107,16 +97,16 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "pcp",
             "specialist",
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "evaluation",
             "patient",
             "counseling",
-            "primary"
+            "primary",
+            "caregiver",
+            "general"
         ],
         "page_number": 8
     },
@@ -136,12 +126,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "comprehensive",
             "evaluation",
             "established",
             "patient",
-            "in_network"
+            "general",
+            "covered"
         ],
         "page_number": 8
     },
@@ -161,12 +151,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "detailed",
             "extensive",
             "evaluation",
             "problem",
-            "focused"
+            "focused",
+            "general"
         ],
         "page_number": 8
     },
@@ -186,12 +176,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "evaluation",
             "limited",
             "problem",
             "focused",
-            "established"
+            "established",
+            "patient"
         ],
         "page_number": 8
     },
@@ -211,12 +201,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "comprehensive",
             "periodontal",
             "evaluation",
             "established",
-            "patient"
+            "patient",
+            "general"
         ],
         "page_number": 8
     },
@@ -235,13 +225,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "intraoral",
             "complete",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 8
     },
@@ -260,13 +247,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "intraoral",
             "periapical",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 8
     },
@@ -285,12 +269,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "intraoral",
             "periapical",
             "additional",
             "radiographic",
-            "in_network",
             "covered"
         ],
         "page_number": 8
@@ -310,13 +292,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "intraoral",
             "occlusal",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 8
     },
@@ -335,13 +314,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "projection",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -360,13 +335,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "bitewing",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -385,13 +356,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "bitewings",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -410,13 +377,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "bitewings",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -435,13 +398,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "bitewings",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -460,13 +419,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "vertical",
             "bitewings",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 8
     },
@@ -485,13 +441,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "panoramic",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -510,13 +462,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "cephalometric",
             "radiographic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 8
     },
@@ -535,12 +483,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "photographic",
             "obtained",
             "intraorally",
             "extraorally",
-            "in_network",
             "covered"
         ],
         "page_number": 9
@@ -561,11 +507,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "susceptibility",
-            "in_network",
             "general",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -586,11 +529,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "vitality",
-            "in_network",
             "general",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -611,12 +551,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
-            "in_network",
             "general",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -635,12 +571,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "prophylaxis",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -659,12 +591,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "prophylaxis",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -683,12 +611,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "topical",
             "application",
             "fluoride",
             "varnish",
-            "in_network",
             "covered"
         ],
         "page_number": 9
@@ -708,13 +634,12 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "topical",
             "application",
             "fluoride",
             "excluding",
             "varnish",
-            "in_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -734,12 +659,11 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "nutritional",
             "counseling",
             "control",
             "disease",
-            "in_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -757,14 +681,14 @@
         "keywords": [
             "diagnostic",
             "preventive",
+            "nicotine",
             "services",
-            "service",
             "tobacco",
             "counseling",
             "control",
             "prevention",
             "disease",
-            "in_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -783,13 +707,9 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "hygiene",
             "instructions",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -808,12 +728,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "sealant",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -833,12 +749,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "maintainer",
             "unilateral",
-            "in_network",
             "general",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -858,12 +772,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "maintainer",
             "bilateral",
-            "in_network",
             "general",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -883,12 +795,11 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "maintainer",
             "removable",
             "unilateral",
-            "in_network",
-            "general"
+            "general",
+            "covered"
         ],
         "page_number": 9
     },
@@ -908,12 +819,11 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "maintainer",
             "removable",
             "bilateral",
-            "in_network",
-            "general"
+            "general",
+            "covered"
         ],
         "page_number": 9
     },
@@ -933,11 +843,8 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "maintainer",
-            "in_network",
             "general",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -958,12 +865,10 @@
             "diagnostic",
             "preventive",
             "services",
-            "service",
             "removal",
             "maintainer",
-            "in_network",
             "general",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -982,13 +887,11 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "amalgam",
             "surface",
             "primary",
             "permanent",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1007,13 +910,11 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "amalgam",
             "surfaces",
             "primary",
             "permanent",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1032,13 +933,11 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "amalgam",
             "surfaces",
             "primary",
             "permanent",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1057,13 +956,11 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "amalgam",
             "surfaces",
             "primary",
             "permanent",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1082,12 +979,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surface",
             "anterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1107,12 +1001,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
             "anterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1132,12 +1023,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
             "anterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1157,13 +1045,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1182,13 +1066,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "anterior",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 9
     },
@@ -1207,12 +1087,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surface",
             "posterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1232,12 +1109,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
             "posterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1257,12 +1131,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
             "posterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 9
@@ -1282,12 +1153,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "composite",
             "surfaces",
             "posterior",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1307,13 +1175,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surface",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1332,13 +1196,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1357,13 +1217,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1382,13 +1238,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1407,13 +1259,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1432,13 +1280,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "metallic",
             "surfaces",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1457,12 +1301,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surface",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1482,12 +1323,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surfaces",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1507,12 +1345,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surfaces",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1532,12 +1367,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surfaces",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1557,12 +1389,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surfaces",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1582,12 +1411,9 @@
             "copay",
             "restorative",
             "services",
-            "service",
             "porcelain",
             "ceramic",
             "surfaces",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 10
@@ -1605,13 +1431,9 @@
         },
         "keywords": [
             "copay",
-            "service",
             "composite",
             "indirect",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1628,13 +1450,9 @@
         },
         "keywords": [
             "copay",
-            "service",
             "porcelain",
             "ceramic",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1651,12 +1469,8 @@
         },
         "keywords": [
             "copay",
-            "service",
             "porcelain",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1673,11 +1487,7 @@
         },
         "keywords": [
             "copay",
-            "service",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1694,11 +1504,7 @@
         },
         "keywords": [
             "copay",
-            "service",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1714,14 +1520,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "partial",
             "coverage",
             "restoration",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1737,11 +1539,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1757,14 +1555,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "prefabricated",
             "stainless",
             "primary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1780,14 +1574,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "prefabricated",
             "stainless",
             "permanent",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1803,12 +1593,8 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "prefabricated",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1824,13 +1610,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "prefabricated",
             "stainless",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1846,13 +1628,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "protective",
             "restoration",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1868,14 +1646,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "buildup",
             "including",
             "required",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1891,14 +1665,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "retention",
             "addition",
             "restoration",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1914,13 +1684,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "prefabricated",
             "addition",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1936,12 +1702,8 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "removal",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1957,13 +1719,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "additional",
             "prefabricated",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 10
     },
@@ -1979,13 +1737,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "temporary",
             "fractured",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2001,11 +1755,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2021,15 +1771,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "service",
             "necessitated",
             "restorative",
             "material",
             "failure",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2046,13 +1792,9 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "excluding",
             "restoration",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2069,14 +1811,10 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "indirect",
             "excluding",
             "restoration",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2092,16 +1830,16 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "mental-health",
             "endodontics",
-            "service",
             "therapeutic",
             "pulpotomy",
             "excluding",
             "restoration",
             "removal",
             "coronal",
-            "dentinocemental"
+            "dentinocemental",
+            "junction",
+            "application"
         ],
         "page_number": 11
     },
@@ -2118,14 +1856,10 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "debridement",
             "primary",
             "permanent",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2142,7 +1876,6 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "therapy",
             "resorbable",
             "filling",
@@ -2150,7 +1883,7 @@
             "primary",
             "excluding",
             "restoration",
-            "in_network"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2167,7 +1900,6 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "therapy",
             "resorbable",
             "filling",
@@ -2175,7 +1907,7 @@
             "primary",
             "excluding",
             "restoration",
-            "in_network"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2193,13 +1925,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "endodontic",
             "therapy",
             "anterior",
             "excluding",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 11
@@ -2218,13 +1947,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "endodontic",
             "therapy",
             "premolar",
             "excluding",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 11
@@ -2243,14 +1969,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "endodontic",
             "therapy",
             "excluding",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2266,15 +1988,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "endodontics",
-            "service",
             "treatment",
             "obstruction",
-            "surgical",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2291,15 +2009,11 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "incomplete",
             "endodontic",
             "therapy",
             "inoperable",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2316,14 +2030,10 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "internal",
             "perforation",
             "defects",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2341,14 +2051,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "retreatment",
             "previous",
             "therapy",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2366,14 +2072,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "retreatment",
             "previous",
             "therapy",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2391,14 +2093,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "retreatment",
             "previous",
             "therapy",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2416,14 +2114,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "apexification",
             "recalcification",
             "initial",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2440,15 +2134,11 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "apexification",
             "recalcification",
             "interim",
             "medication",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2465,14 +2155,10 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "apexification",
             "recalcification",
             "includes",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 11
     },
@@ -2490,13 +2176,9 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "apicoectomy",
             "anterior",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2514,13 +2196,9 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "apicoectomy",
             "premolar",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2538,12 +2216,8 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "apicoectomy",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2560,13 +2234,9 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "apicoectomy",
             "additional",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2583,13 +2253,9 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "retrograde",
             "filling",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2607,12 +2273,8 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "amputation",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2630,14 +2292,10 @@
         "keywords": [
             "copay",
             "endodontics",
-            "service",
             "hemisection",
             "including",
             "removal",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2654,14 +2312,10 @@
         },
         "keywords": [
             "endodontics",
-            "service",
             "preparation",
             "fitting",
             "preformed",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2679,13 +2333,9 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "gingivectomy",
             "gingivoplasty",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2703,14 +2353,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "gingivectomy",
             "gingivoplasty",
             "contiguous",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2728,13 +2374,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "gingival",
             "procedures",
             "including",
             "planing",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 12
@@ -2753,13 +2396,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "gingival",
             "procedure",
             "including",
             "planing",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 12
@@ -2778,13 +2418,9 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "clinical",
             "lengthening",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2800,15 +2436,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "periodontics",
-            "service",
             "osseous",
             "surgery",
             "including",
             "elevation",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 12
@@ -2825,15 +2459,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "periodontics",
-            "service",
             "osseous",
             "surgery",
             "including",
             "elevation",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 12
@@ -2851,14 +2483,10 @@
         },
         "keywords": [
             "periodontics",
-            "service",
             "replacement",
             "retained",
             "natural",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2875,14 +2503,10 @@
         },
         "keywords": [
             "periodontics",
-            "service",
             "replacement",
             "retained",
             "natural",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2900,13 +2524,9 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "pedicle",
             "procedure",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2924,14 +2544,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "autogenous",
             "connective",
             "procedure",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2949,12 +2565,8 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "procedure",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 12
     },
@@ -2972,13 +2584,9 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "procedure",
             "including",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -2996,13 +2604,9 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "procedure",
             "including",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3020,14 +2624,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "autogenous",
             "connective",
             "procedure",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3045,14 +2645,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "periodontic",
             "scaling",
             "planing",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3070,14 +2666,10 @@
         "keywords": [
             "copay",
             "periodontics",
-            "service",
             "periodontic",
             "scaling",
             "planing",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3094,13 +2686,9 @@
         },
         "keywords": [
             "periodontics",
-            "service",
             "debridement",
             "comprehensive",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3117,14 +2705,10 @@
         },
         "keywords": [
             "periodontics",
-            "service",
             "localized",
             "delivery",
             "antimicrobial",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3141,13 +2725,9 @@
         },
         "keywords": [
             "periodontics",
-            "service",
             "periodontic",
             "maintenance",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3166,12 +2746,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "maxillary",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 13
@@ -3191,12 +2768,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "mandibular",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 13
@@ -3216,12 +2790,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "immediate",
             "denture",
             "maxillary",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 13
@@ -3241,12 +2812,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "immediate",
             "denture",
             "mandibular",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 13
@@ -3266,13 +2834,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "maxillary",
             "partial",
             "denture",
             "including",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3291,13 +2857,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "mandibular",
             "partial",
             "denture",
             "including",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3316,13 +2880,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "maxillary",
             "partial",
             "denture",
             "framework",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3341,13 +2903,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "mandibular",
             "partial",
             "denture",
             "framework",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3366,12 +2926,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "unilateral",
             "partial",
             "denture",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 13
@@ -3390,14 +2947,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3415,14 +2968,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3440,14 +2989,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "denture",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 13
     },
@@ -3465,14 +3010,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "denture",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3490,14 +3031,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3515,14 +3052,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "denture",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3540,14 +3073,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "replace",
             "missing",
             "complete",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3565,14 +3095,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "denture",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3590,14 +3116,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "denture",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3615,14 +3137,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "framework",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3640,14 +3158,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "partial",
             "framework",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3665,12 +3179,8 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "replace",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3688,12 +3198,8 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "replace",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3711,14 +3217,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "existing",
             "partial",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3736,14 +3238,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "existing",
             "partial",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3761,13 +3259,9 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "replace",
             "acrylic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3785,13 +3279,9 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "replace",
             "acrylic",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3809,14 +3299,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "maxillary",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3834,14 +3320,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "mandibular",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3859,14 +3341,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "maxillary",
             "partial",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3884,14 +3362,10 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "mandibular",
             "partial",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3909,14 +3383,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "maxillary",
             "denture",
             "chairside",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3934,14 +3405,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "mandibular",
             "denture",
             "chairside",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3959,14 +3427,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "maxillary",
             "partial",
             "denture",
             "chairside",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -3984,14 +3449,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "mandibular",
             "partial",
             "denture",
             "chairside",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4009,14 +3471,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "maxillary",
             "denture",
             "laboratory",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4034,14 +3493,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "complete",
             "mandibular",
             "denture",
             "laboratory",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4059,14 +3515,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "maxillary",
             "partial",
             "denture",
             "laboratory",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4084,14 +3537,11 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "mandibular",
             "partial",
             "denture",
             "laboratory",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4110,13 +3560,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "interim",
             "complete",
             "denture",
             "maxillary",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4135,13 +3583,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "interim",
             "complete",
             "denture",
             "mandibular",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4160,13 +3606,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "interim",
             "partial",
             "denture",
             "maxillary",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4185,13 +3629,11 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "interim",
             "partial",
             "denture",
             "mandibular",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4209,13 +3651,9 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "conditioning",
             "maxillary",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 14
     },
@@ -4233,13 +3671,9 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "conditioning",
             "mandibular",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4258,12 +3692,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "overdenture",
             "complete",
             "maxillary",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4283,12 +3714,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "overdenture",
             "partial",
             "maxillary",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4308,12 +3736,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "overdenture",
             "complete",
             "mandibular",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4333,12 +3758,9 @@
             "copay",
             "prosthodontics",
             "removable",
-            "service",
             "overdenture",
             "partial",
             "mandibular",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4357,13 +3779,9 @@
         "keywords": [
             "prosthodontics",
             "removable",
-            "service",
             "fluoride",
             "carrier",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4381,11 +3799,7 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4403,12 +3817,8 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "porcelain",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4426,13 +3836,9 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "porcelain",
             "predominantly",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4450,12 +3856,8 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "retainer",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4473,12 +3875,8 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "retainer",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4496,13 +3894,9 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "retainer",
             "porcelain",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4520,12 +3914,8 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "retainer",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4543,12 +3933,8 @@
         "keywords": [
             "copay",
             "prosthodontics",
-            "service",
             "retainer",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4565,13 +3951,9 @@
         },
         "keywords": [
             "prosthodontics",
-            "service",
             "partial",
             "denture",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4588,14 +3970,10 @@
         },
         "keywords": [
             "prosthodontics",
-            "service",
             "partial",
             "denture",
             "necessitated",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4611,15 +3989,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "extraction",
             "coronal",
             "remnants",
             "primary",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4636,15 +4012,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "extraction",
             "erupted",
             "exposed",
             "elevation",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4661,15 +4035,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "extraction",
             "erupted",
             "requiring",
             "removal",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4686,15 +4058,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "impacted",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4710,16 +4079,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "impacted",
             "partially",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4735,16 +4101,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "impacted",
             "completely",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4760,16 +4123,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "impacted",
             "completely",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4785,15 +4145,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "residual",
             "cutting",
             "procedure",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 15
@@ -4810,16 +4168,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "oroantral",
             "fistula",
             "closure",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4835,16 +4190,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "primary",
             "closure",
             "perforation",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4860,15 +4212,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "reimplantation",
             "stabilization",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 15
     },
@@ -4884,15 +4233,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "exposure",
             "unerupted",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -4908,15 +4254,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "placement",
             "facilitate",
             "eruption",
             "impacted",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 16
@@ -4933,16 +4277,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "transseptal",
             "fiberotomy",
             "crestal",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -4958,15 +4299,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "alveoloplasty",
             "conjunction",
             "extractions",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -4982,15 +4320,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "alveoloplasty",
             "conjunction",
             "extractions",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5006,15 +4341,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "alveoloplasty",
             "conjunction",
             "extractions",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5030,15 +4362,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "alveoloplasty",
             "conjunction",
             "extractions",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5054,16 +4383,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "vestibuloplasty",
             "extension",
             "secondary",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5079,16 +4405,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "vestibuloplasty",
             "extension",
             "including",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5104,16 +4427,15 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "removal",
             "lateral",
             "exostosis",
             "maxilla",
             "mandible",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5129,16 +4451,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "incision",
             "drainage",
             "abscess",
             "intraoral",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5154,16 +4473,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "incision",
             "drainage",
             "abscess",
             "extraoral",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5179,14 +4495,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "removal",
             "foreign",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5202,16 +4515,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "removal",
             "reaction",
             "producing",
             "foreign",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5227,16 +4537,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "partial",
             "ostectomy",
             "sequestrectomy",
             "removal",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5252,15 +4559,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "alveolus",
             "reduction",
             "include",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5276,12 +4580,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5297,13 +4598,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "surgery",
-            "service",
             "complicated",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5319,15 +4617,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "replacement",
             "preservation",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5343,15 +4638,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "frenulectomy",
             "frenectomy",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5367,15 +4659,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "excision",
             "hyperplastic",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5391,16 +4680,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "copay",
             "surgery",
-            "service",
             "excision",
             "pericoronal",
             "gingiva",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 16
     },
@@ -5421,10 +4707,8 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "palliative",
             "treatment",
-            "in_network",
             "covered"
         ],
         "page_number": 17
@@ -5444,13 +4728,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "partial",
             "denture",
             "sectioning",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5470,12 +4751,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "sedation",
             "anesthesia",
             "minutes",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5495,12 +4774,11 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "inhalation",
             "nitrous",
             "analgesia",
             "anxiolysis",
-            "in_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5521,11 +4799,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "consultation",
             "provided",
             "dentist",
-            "in_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5541,16 +4818,14 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "hospital",
+            "surgical",
             "copay",
             "adjunctive",
             "general",
             "services",
-            "service",
-            "hospital",
             "ambulatory",
-            "surgical",
-            "in_network",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5569,13 +4844,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "observation",
             "regularly",
             "scheduled",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5595,11 +4867,8 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "regularly",
             "scheduled",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 17
@@ -5619,13 +4888,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "application",
             "desensitizing",
             "medicament",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5644,13 +4910,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "application",
             "desensitizing",
             "cervical",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5669,13 +4932,10 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "occlusal",
             "adjustment",
             "limited",
-            "in_network",
-            "covered",
-            "out_of_network"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5694,12 +4954,8 @@
             "adjunctive",
             "general",
             "services",
-            "service",
             "microabrasion",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5715,16 +4971,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "implants",
-            "service",
             "surgical",
+            "implants",
             "placement",
             "implant",
             "endosteal",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5740,14 +4992,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "implants",
-            "service",
             "implant",
             "surgery",
-            "in_network",
-            "covered",
-            "out_of_network",
-            "limitations"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5763,16 +5012,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "implants",
-            "service",
             "surgical",
+            "implants",
             "placement",
             "implant",
             "endosteal",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5788,14 +5033,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "surgical",
             "implants",
-            "service",
             "implant",
             "surgery",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 17
     },
@@ -5811,15 +5053,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "limited",
             "transitional",
             "dentition",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 18
@@ -5836,15 +5074,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "limited",
             "adolescent",
             "dentition",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 18
@@ -5861,16 +5095,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "limited",
             "dentition",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 18
     },
@@ -5886,15 +5115,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "comprehensive",
             "transitional",
             "dentition",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 18
@@ -5911,15 +5136,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "comprehensive",
             "adolescent",
             "dentition",
-            "in_network",
-            "out_of_network",
             "covered"
         ],
         "page_number": 18
@@ -5936,16 +5157,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "dental",
             "orthodontic",
             "treatment",
-            "service",
             "comprehensive",
             "dentition",
-            "in_network",
-            "out_of_network",
-            "covered",
-            "limitations"
+            "covered"
         ],
         "page_number": 18
     },
@@ -5962,15 +5178,15 @@
         },
         "keywords": [
             "dental",
-            "information",
-            "limitations",
             "contact",
             "booklet",
             "customer",
-            "service",
             "questions",
             "benefits",
-            "complaints"
+            "complaints",
+            "receive",
+            "changes",
+            "address"
         ],
         "page_number": 2
     },
@@ -5986,16 +5202,16 @@
             "limitations": "This plan provides benefits for prescribed Covered Services listed as covered in the What Are My Benefits? section. Covered Services must be provided by the Participating Provider, except as specified otherwise. All Covered Services are expressly subject to the Copayments, exclusions, limitations, and all other provisions of the contract. You may freely contract at any time to obtain health care services outside of the contract or for services not covered under the contract on any terms or conditions acceptable to you and the health care provider. ABOUT PARTICIPATING PROVIDERS This plan utilizes Willamette Dental Group, P.C. network of providers. You will receive your Covered Services under this plan from dental care providers at Willamette Dental Group, P.C. This is the network of providers for this plan. In this document Willamette Dental Group, P.C. are also known as \u201cParticipating Providers.\u201d The dentists at Willamette Dental Group, P.C. practice proactive dental care. Proactive dental care at Willamette Dental Group, P.C. builds on two fundamental beliefs; that healthy teeth should last a lifetime and that proper care doesn't always mean invasive treatment. It's about practicing dentistry responsibly: with honesty, integrity and a dentist-patient partnership focused on promoting long-term health. That's what sets Willamette Dental Group, P.C. apart. The Participating Providers use the latest scientific evidence with clinical experience to develop an individualized, evidence-based treatment plan specifically for you. By providing you with the treatment that directly leads to long-term health, Participating Providers will help you maintain or regain a healthy mouth for a lifetime of smiles. Through this treatment plan, the Participating Providers are able to determine your risk level for gum disease and recommend an evidence-based approach to either improve or maintain a satisfactory state of oral health. For very healthy patients, that may require only yearly cleanings. For patients in need of treatment, Participating Providers focus on restoring your health as soon as possible with a proactive treatment plan that may require work done right away, followed by frequent cleanings and check-ins. Their first priority is to diagnose and treat any urgent conditions that pose an immediate threat to your oral health. Their next priority is prevention, which means controlling the disease process, promoting wellness, and helping you maintain good overall oral health. Contracted Health Care Benefit Managers The list of Premera\u2019s contracted Health Care Benefit Managers (HCBM) and the services they manage are available at https://www.premera.com/visitor/partners-vendor and changes to these contracts or services are reflected on the website within 30 business days."
         },
         "keywords": [
-            "copay",
             "dental",
-            "vision",
-            "mental-health",
-            "limitations",
+            "preventive",
             "provides",
             "benefits",
             "prescribed",
             "covered",
-            "services"
+            "services",
+            "section",
+            "provided",
+            "participating"
         ],
         "page_number": 6
     },
@@ -6014,13 +5230,13 @@
             "specialist",
             "dental",
             "referrals",
-            "limitations",
             "participating",
             "provider",
             "covered",
             "services",
             "benefits",
-            "provided"
+            "provided",
+            "available"
         ],
         "page_number": 6
     },
@@ -6036,16 +5252,16 @@
             "limitations": "Participating Providers will provide treatment for Dental Emergencies during office hours. This plan provides benefits for Covered Services provided by Participating Providers for treatment of a Dental Emergency. If the Participating Providers\u2019 offices are closed, you may access after-hours telephonic clinical assistance by calling the Participating Provider at 855-433-6825. There is no cost for accessing after-hours telephonic clinical assistance. You may seek treatment for a Dental Emergency from a Non-Participating Provider if you are more than 50 miles from any Participating Provider office. You will be reimbursed up to the out of area emergency reimbursement amount less any Copayments specified in the What Are My Benefits? section for the cost of the Covered Services. You must submit a written request for reimbursement to the Participating Provider no later than 6 months after the date of service. The written request should include your signature, the attending Non-Participating Provider\u2019s signature, and the attending Non-Participating Provider\u2019s itemized statement. Additional information, including X-rays and other data, may be requested to process the request. The benefit for out of area Dental Emergency treatment will not be provided if the requested information is not received. 2 Willamette Dental Plan January 1, 2024 1000016"
         },
         "keywords": [
-            "copay",
             "emergency",
             "dental",
-            "diagnostic",
-            "limitations",
             "participating",
             "providers",
             "provide",
             "treatment",
-            "emergencies"
+            "emergencies",
+            "provides",
+            "benefits",
+            "covered"
         ],
         "page_number": 7
     },
@@ -6061,16 +5277,16 @@
             "limitations": "Provider Network: Willamette Dental Group, P.C. Office Visit Copayments General Office Visit Copayment: $15 Specialist Office Visit Copayment: $30 Code Procedure You Pay Diagnostic and Preventive Services D0120 Periodic oral evaluation - established patient Covered Under Office Visit Copay D0140 Limited oral evaluation - problem focused Covered Under Office Visit Copay D0145 Oral evaluation for patient under 3 years of age and counseling with primary caregiver Covered Under Office Visit Copay D0150 Comprehensive oral evaluation - new or established patient Covered Under Office Visit Copay D0160 Detailed & extensive oral evaluation - problem focused, by report Covered Under Office Visit Copay D0170 Re-evaluation - limited, problem focused (established patient; not post-operative visit) Covered Under Office Visit Copay D0180 Comprehensive periodontal evaluation - new or established patient Covered Under Office Visit Copay D0210 Intraoral - complete series of radiographic images Covered In Full D0220 Intraoral - periapical-first radiographic image Covered In Full D0230 Intraoral - periapical each additional radiographic image Covered In Full D0240 Intraoral - occlusal radiographic image Covered In Full D0250 Extra-oral - 2D projection radiographic image Covered In Full D0270 Bitewing - single radiographic image Covered In Full D0272 Bitewings - two radiographic images Covered In Full D0273 Bitewings - three radiographic images Covered In Full D0274 Bitewings - four radiographic images Covered In Full D0277 Vertical bitewings - 7 to 8 radiographic images Covered In Full D0330 Panoramic radiographic image Covered In Full D0340 Cephalometric radiographic image Covered In Full 3 Willamette Dental Plan January 1, 2024 1000016 D0350 2D oral/facial photographic image obtained intraorally or extraorally Covered In Full D0425 Caries susceptibility tests Covered Under Office Visit Copay D0460 Pulp vitality tests Covered Under Office Visit Copay D0470 Diagnostic casts Covered Under Office Visit Copay D1110 Prophylaxis - adult Covered In Full D1120 Prophylaxis - child Covered In Full D1206 Topical application of fluoride varnish Covered In Full D1208 Topical application of fluoride - excluding varnish Covered In Full D1310 Nutritional counseling for control of dental disease Covered In Full D1320 Tobacco counseling for the control and prevention of oral disease Covered In Full D1330 Oral hygiene instructions Covered In Full D1351 Sealant - per tooth Covered In Full D1510 Space maintainer - fixed - unilateral Covered Under Office Visit Copay D1515 Space maintainer - fixed - bilateral Covered Under Office Visit Copay D1520 Space maintainer - removable - unilateral Covered Under Office Visit Copay D1525 Space maintainer - removable - bilateral Covered Under Office Visit Copay D1550 Re-cement or re-bond space maintainer Covered Under Office Visit Copay D1555 Removal of fixed space maintainer Covered Under Office Visit Copay Restorative Services D2140 Amalgam - 1 surface, primary or permanent $25 copay D2150 Amalgam - 2 surfaces, primary or permanent $25 copay D2160 Amalgam - 3 surfaces, primary or permanent $25 copay D2161 Amalgam - 4 or more surfaces, primary or permanent $25 copay D2330 Resin - based composite - 1 surface, anterior $25 copay D2331 Resin - based composite - 2 surfaces, anterior $25 copay D2332 Resin - based composite - 3 surfaces, anterior $25 copay D2335 Resin - based composite - 4 or more surfaces $25 copay involving incisal angle (anterior) D2390 Resin - based composite crown, anterior $25 copay D2391 Resin - based composite - 1 surface, posterior $25 copay D2392 Resin - based composite - 2 surfaces, posterior $25 copay D2393 Resin - based composite - 3 surfaces, posterior $25 copay 4 Willamette Dental Plan January 1, 2024 1000016 D2394 Resin - based composite - 4 or more surfaces, posterior $25 copay D2510 Inlay - metallic - 1 surface $250 copay D2520 Inlay - metallic - 2 surfaces $250 copay D2530 Inlay - metallic - 3 or more surfaces $250 copay D2542 Onlay - metallic - 2 surfaces $250 copay D2543 Onlay - metallic - 3 surfaces $250 copay D2544 Onlay - metallic - 4 or more surfaces $250 copay D2610 Inlay - porcelain/ceramic - 1 surface $250 copay D2620 Inlay - porcelain/ceramic - 2 surfaces $250 copay D2630 Inlay - porcelain/ceramic - 3 or more surfaces $250 copay D2642 Onlay - porcelain/ceramic - 2 surfaces $250 copay D2643 Onlay - porcelain/ceramic - 3 surfaces $250 copay D2644 Onlay - porcelain/ceramic - 4 or more surfaces $250 copay Crowns D2710 Crown - resin based composite (indirect) $250 copay D2740 Crown - porcelain/ceramic $250 copay D2750 Crown - porcelain fused to high noble metal $250 copay D2782 Crown - \u00be cast noble metal $250 copay D2792 Crown - full cast noble metal $250 copay D2910 Re-cement or re-bond inlay, onlay, veneer or partial coverage restoration Covered In Full D2920 Re-cement or re-bond crown Covered In Full D2930 Prefabricated stainless steel crown - primary tooth Covered In Full D2931 Prefabricated stainless steel crown - permanent tooth Covered In Full D2932 Prefabricated resin crown Covered In Full D2933 Prefabricated stainless steel crown with resin window Covered In Full D2940 Protective restoration Covered In Full D2950 Core buildup, including any pins when required Covered In Full D2951 Pin retention - per tooth, in addition to restoration Covered In Full D2954 Prefabricated post and core in addition to crown Covered In Full D2955 Post removal Covered In Full D2957 Each additional prefabricated post - same tooth Covered In Full 5 Willamette Dental Plan January 1, 2024 1000016 D2970 Temporary crown (fractured tooth) Covered In Full D2975 Coping Covered In Full D2980 Crown repair necessitated by restorative material failure Covered In Full Endodontics D3110 Pulp cap - direct (excluding final restoration) Covered In Full D3120 Pulp cap - indirect (excluding final restoration) Covered In Full D3220 Therapeutic pulpotomy (excluding final restoration) - removal of pulp coronal to the dentinocemental junction and application of medicament Covered In Full D3221 Pulpal debridement, primary and permanent teeth Covered In Full D3230 Pulpal therapy (resorbable filling) - anterior, primary tooth (excluding final restoration) Covered In Full D3240 Pulpal therapy (resorbable filling) - posterior, primary tooth (excluding final restoration) Covered In Full D3310 Endodontic therapy, anterior tooth (excluding final $155 copay restoration) D3320 Endodontic therapy, premolar tooth (excluding $175 copay final restoration) D3330 Endodontic therapy, molar (excluding final $225 copay restoration) D3331 Treatment of root canal obstruction; non-surgical Covered In Full access D3332 Incomplete endodontic therapy; inoperable, Covered In Full unrestorable or fractured tooth D3333 Internal repair of perforation defects Covered In Full D3346 Retreatment of previous root canal therapy - $155 copay anterior D3347 Retreatment of previous root canal therapy - $175 copay premolar D3348 Retreatment of previous root canal therapy - molar $225 copay D3351 Apexification/recalcification - initial visit (apical $225 copay closure/calcific repair of perforations, root resorption, etc.) D3352 Apexification/recalcification - interim medication Covered In Full replacement D3353 Apexification/recalcification - final visit (includes Covered In Full completed root canal therapy - apical closure/calcific repair of perforations, root resorption, etc.) 6 Willamette Dental Plan January 1, 2024 1000016 D3410 Apicoectomy - anterior $155 copay D3421 Apicoectomy - premolar (first root) $175 copay D3425 Apicoectomy - molar (first root) $225 copay D3426 Apicoectomy - (each additional root) Covered In Full D3430 Retrograde filling - per root Covered In Full D3450 Root amputation - per root $225 copay D3920 Hemisection (including any root removal), not $225 copay including root canal therapy D3950 Canal preparation and fitting of a preformed dowel Covered In Full or post Periodontics D4210 Gingivectomy or gingivoplasty - 4 or more $175 copay contiguous teeth or tooth bounded spaces per quadrant D4211 Gingivectomy or gingivoplasty - 1 to 3 contiguous $75 copay teeth or tooth bounded spaces per quadrant D4240 Gingival flap procedures, including root planing - 4 $175 copay or more contiguous teeth or tooth bounded spaces per quadrant D4241 Gingival flap procedure, including root planing - 1 $175 copay to 3 contiguous teeth or tooth bounded spaces per quadrant D4249 Clinical crown lengthening - hard tissue $175 copay D4260 Osseous surgery (including elevation of a full $175 copay thickness flap and closure) - 4 or more contiguous teeth or tooth bounded spaces per quadrant D4261 Osseous surgery (including elevation of a full $175 copay thickness flap and closure) - 1 to 3 contiguous teeth or tooth bounded spaces per quadrant D4263 Bone replacement graft - retained natural tooth - Covered In Full first site in quadrant D4264 Bone replacement graft - retained natural tooth - Covered In Full each additional site in quadrant D4270 Pedicle soft tissue graft procedure $175 copay D4273 Autogenous connective tissue graft procedure $175 copay (including donor and recipient surgical sites) first tooth or edentulous tooth position in graft D4274 Mesial/distal wedge procedure, single tooth (when $175 copay not performed in conjunction with surgical procedures in the same anatomical area) 7 Willamette Dental Plan January 1, 2024 1000016 D4277 Free soft tissue graft procedure (including $175 copay recipient and donor surgical sites), first tooth or edentulous tooth position in graft D4278 Free soft tissue graft procedure (including $175 copay recipient and donor surgical sites), each additional contiguous tooth or edentulous tooth position in same graft site D4283 Autogenous connective tissue graft procedure $175 copay (including donor and recipient surgical sites) \u2013 each additional contiguous tooth or edentulous tooth position in the same graft site D4341 Periodontic scaling and root planing - 4 or more $75 copay teeth per quadrant D4342 Periodontic scaling and root planing - 1 to 3 teeth $75 copay per quadrant D4355 Full mouth debridement to enable comprehensive Covered In Full evaluation and diagnosis D4381 Localized delivery of antimicrobial agents via a Covered In Full controlled release vehicle into diseased crevicular tissue, per tooth D4910 Periodontic maintenance Covered In Full Prosthodontics - Removable D5110 Complete denture - maxillary $350 copay D5120 Complete denture - mandibular $350 copay D5130 Immediate denture - maxillary $350 copay D5140 Immediate denture - mandibular $350 copay D5211 Maxillary partial denture - resin base (including any $350 copay conventional clasps, rests and teeth) D5212 Mandibular partial denture - resin base (including $350 copay any conventional clasps, rests and teeth) D5213 Maxillary partial denture - cast metal framework with $350 copay resin denture bases (including any conventional clasps, rests and teeth) D5214 Mandibular partial denture - cast metal framework $350 copay with resin denture bases (including any conventional clasps, rests and teeth) D5281 Removable unilateral partial denture - one piece cast $350 copay metal (including clasps and teeth) D5410 Adjust complete denture - maxillary Covered In Full D5411 Adjust complete denture - mandibular Covered In Full D5421 Adjust partial denture - maxillary Covered In Full 8 Willamette Dental Plan January 1, 2024 1000016 D5422 Adjust partial denture - mandibular Covered In Full D5511 Repair broken complete denture base, mandibular Covered In Full D5512 Repair broken complete denture base, maxillary Covered In Full D5520 Replace missing or broken teeth - complete denture Covered In Full (each tooth) D5611 Repair resin partial denture base, mandibular Covered In Full D5612 Repair resin partial denture base, maxillary Covered In Full D5621 Repair cast partial framework, mandibular Covered In Full D5622 Repair cast partial framework, maxillary Covered In Full D5630 Repair or replace broken clasp \u2013 per tooth Covered In Full D5640 Replace broken teeth - per tooth Covered In Full D5650 Add tooth to existing partial denture Covered In Full D5660 Add clasp to existing partial denture \u2013 per tooth Covered In Full D5670 Replace all teeth and acrylic on cast metal Covered In Full framework (maxillary) D5671 Replace all teeth and acrylic on cast metal Covered In Full framework (mandibular) D5710 Rebase complete maxillary denture Covered In Full D5711 Rebase complete mandibular denture Covered In Full D5720 Rebase maxillary partial denture Covered In Full D5721 Rebase mandibular partial denture Covered In Full D5730 Reline complete maxillary denture (chairside) Covered In Full D5731 Reline complete mandibular denture (chairside) Covered In Full D5740 Reline maxillary partial denture (chairside) Covered In Full D5741 Reline mandibular partial denture (chairside) Covered In Full D5750 Reline complete maxillary denture (laboratory) Covered In Full D5751 Reline complete mandibular denture (laboratory) Covered In Full D5760 Reline maxillary partial denture (laboratory) Covered In Full D5761 Reline mandibular partial denture (laboratory) Covered In Full D5810 Interim complete denture (maxillary) $175 copay D5811 Interim complete denture (mandibular) $175 copay D5820 Interim partial denture (maxillary) $175 copay D5821 Interim partial denture (mandibular) $175 copay D5850 Tissue conditioning, maxillary Covered In Full 9 Willamette Dental Plan January 1, 2024 1000016 D5851 Tissue conditioning, mandibular Covered In Full D5863 Overdenture - complete maxillary $350 Copay D5864 Overdenture - partial maxillary $350 Copay D5865 Overdenture - complete mandibular $350 Copay D5866 Overdenture - partial mandibular $350 Copay D5986 Fluoride gel carrier Covered In Full Prosthodontics - Fixed D6210 Pontic - cast high noble metal $250 copay D6240 Pontic - porcelain fused to high noble metal $250 copay D6241 Pontic - porcelain fused to predominantly base metal $250 copay D6545 Retainer - cast metal for resin bonded fixed $250 copay prosthesis D6720 Retainer crown - resin with high noble metal $250 copay D6750 Retainer crown - porcelain fused to high noble metal $250 copay D6780 Retainer crown - \u00be cast high noble metal $250 copay D6790 Retainer crown - full cast high noble metal $250 copay D6930 Re-cement or re-bond fixed partial denture Covered In Full D6980 Fixed partial denture repair necessitated by Covered In Full restorative material failure Oral Surgery D7111 Extraction, coronal remnants - primary tooth $25 copay D7140 Extraction, erupted tooth or exposed root (elevation $25 copay and/or forceps removal) D7210 Extraction, erupted tooth requiring removal of bone $125 copay and/or sectioning of tooth, and including elevation of mucoperiosteal flap if indicated D7220 Removal of impacted tooth - soft tissue $125 copay D7230 Removal of impacted tooth - partially bony $125 copay D7240 Removal of impacted tooth - completely bony $125 copay D7241 Removal of impacted tooth - completely bony, with $125 copay unusual surgical complications D7250 Removal of residual tooth roots (cutting procedure) $125 copay D7260 Oroantral fistula closure $125 copay D7261 Primary closure of a sinus perforation $125 copay D7270 Tooth reimplantation and/or stabilization of $125 copay accidentally evulsed or displaced tooth 10 Willamette Dental Plan January 1, 2024 1000016 D7280 Exposure of an unerupted tooth $125 copay D7283 Placement of device to facilitate eruption of impacted $125 copay tooth D7291 Transseptal fiberotomy/supra crestal fiberotomy, by $125 copay report D7310 Alveoloplasty in conjunction with extractions - 4 or Covered In Full more teeth or tooth spaces, per quadrant D7311 Alveoloplasty in conjunction with extractions - 1 to 3 Covered In Full teeth or tooth spaces, per quadrant D7320 Alveoloplasty not in conjunction with extractions - 4 Covered In Full or more teeth or tooth spaces, per quadrant D7321 Alveoloplasty not in conjunction with extractions - 1 Covered In Full to 3 teeth or tooth spaces, per quadrant D7340 Vestibuloplasty - ridge extension (secondary $125 copay epithelialization) D7350 Vestibuloplasty - ridge extension (including soft $125 copay tissue grafts, muscle reattachment, revision of soft tissue attachment and management of hypertrophied and hyperplastic tissue) D7471 Removal of lateral exostosis (maxilla or mandible) $125 copay D7510 Incision & drainage of abscess - intraoral soft Covered In Full tissue D7520 Incision & drainage of abscess - extraoral soft Covered In Full tissue D7530 Removal of foreign body from mucosa, skin or Covered In Full subcutaneous alveolar tissue D7540 Removal of reaction producing foreign bodies, Covered In Full musculoskeletal system D7550 Partial ostectomy/sequestrectomy for removal of Covered In Full non-vital bone D7670 Alveolus - closed reduction, may include Covered In Full stabilization of teeth D7910 Suture of recent small wounds up to 5 cm Covered In Full D7911 Complicated suture - up to 5 cm Covered In Full D7953 Bone replacement graft for ridge preservation - per $125 copay site D7960 Frenulectomy - also known as frenectomy or $125 copay frenotomy - separate procedure not incidental to another D7970 Excision of hyperplastic tissue - per arch $125 copay D7971 Excision of pericoronal gingiva $125 copay 11 Willamette Dental Plan January 1, 2024 1000016 Adjunctive General Services D9110 Palliative (emergency) treatment of dental pain - minor Covered In Full procedure D9120 Fixed partial denture sectioning Covered In Full D9222 & D9223 Deep sedation/general anesthesia First 30 Minutes: $250 copay Each Additional 15 Minutes: Covered In Full D9230 Inhalation of nitrous oxide/analgesia, anxiolysis $40 copay D9310 Consultation - diagnostic service provided by dentist Covered In Full or physician other than requesting dentist or physician D9420 Hospital or ambulatory surgical center call $125 copay D9430 Office visit for observation (during regularly scheduled Covered In Full hours) - no other services performed D9440 Office visit - after regularly scheduled hours $20 copay D9910 Application of desensitizing medicament Covered In Full D9911 Application of desensitizing resin for cervical and/or Covered In Full root surface, per tooth D9951 Occlusal adjustment - limited Covered In Full D9970 Enamel microabrasion Covered In Full Out of Area Emergency Reimbursement All charges in excess of $100 (You are reimbursed up to $100 per visit.) Implants D6010 Surgical placement of implant body: endosteal Covered In Full, up to the $1,500 implant annual implant maximum D6011 Second state implant surgery Covered In Full, up to the $1,500 annual implant maximum"
         },
         "keywords": [
-            "pcp",
+            "hospital",
+            "surgical",
             "specialist",
-            "copay",
             "emergency",
+            "copay",
             "dental",
-            "vision",
             "diagnostic",
-            "mental-health",
-            "schedule",
-            "covered"
+            "preventive",
+            "nicotine",
+            "schedule"
         ],
         "page_number": 8
     },
@@ -6086,10 +5302,10 @@
             "limitations": "The dental implant services described in this section are covered for Enrollees if all of the following requirements are met: 1) A Participating Provider determines that dental implants are dentally appropriate for you. 2) A Participating Provider prepares the treatment plan for dental implants prior to initiating any implant treatment. 3) All dental implant services are provided by a Participating Provider or under a referral from a Participating Provider. \u2022 Benefits for dental implant surgery are limited to a yearly benefit maximum of $1,500 per member. \u2022 Dental implant surgery limited to one implant per calendar year The following dental implant procedures are Covered Services under this benefit: D6010 Surgical placement of implant body: endosteal implant D6011 Second state implant surgery All other services are not covered including: \u2022 Dental implant supported prosthetics or abutment-supported prosthetics (crown, bridges and dentures) 12 Willamette Dental Plan January 1, 2024 1000016 \u2022 Dental implants to replace an existing bridge or existing denture are not covered, unless 5 ears have elapsed since the placement of the bridge or delivery of the denture. You pay for all dental implant related services not listed above."
         },
         "keywords": [
+            "surgical",
             "dental",
             "implant",
             "surgery",
-            "limitations",
             "services",
             "described",
             "section",
@@ -6112,15 +5328,15 @@
         },
         "keywords": [
             "copay",
-            "dental",
-            "diagnostic",
             "orthodontic",
             "treatment",
-            "limitations",
             "covered",
             "participating",
             "provider",
-            "prepares"
+            "prepares",
+            "starting",
+            "examination",
+            "diagnosis"
         ],
         "page_number": 18
     },
@@ -6137,15 +5353,15 @@
         },
         "keywords": [
             "dental",
-            "mental-health",
             "temporomandibular",
             "disorder",
             "treatment",
-            "limitations",
             "benefits",
             "limited",
             "benefit",
             "maximum",
+            "lifetime",
+            "covered",
             "tmj"
         ],
         "page_number": 18
@@ -6162,16 +5378,16 @@
             "limitations": "The plan does not provide benefits for any of the following conditions, treatments, services, or for any direct complications or consequences thereof. The plan does not provide benefits for excluded services even if approved, prescribed, or recommended by a Participating Provider. \u2022 Benefits aren\u2019t available under this plan when coverage is available through: \u2022 Motor vehicle medical/dental or motor vehicle no-fault coverage \u2022 Personal injury protection (PIP) coverage \u2022 Commercial liability coverage \u2022 Homeowner policy \u2022 Other types of liability insurance \u2022 Worker's Compensation or similar coverage \u2022 Bridges, crowns, dentures, or prosthetic devices requiring multiple treatment dates or fittings, if the prosthetic item is installed or delivered more than 60 days after termination of coverage. \u2022 The completion or delivery of treatments or services performed or initiated prior to the member\u2019s effective date, including the following: \u2022 Endodontic services and prosthodontic services; \u2022 An appliance or modification of one, if an impression for it was made prior to the member\u2019s effective date; or \u2022 A crown, bridge, or cast or processed restoration, if the tooth was prepared prior to the member\u2019s effective date. \u2022 Such services are the liability of the member, prior dental plan, and provider. \u2022 Endodontic therapy completed more than 60 days after termination of coverage. \u2022 Exams or consultations needed solely in connection with a service that is not covered. \u2022 Experimental or Investigational services and related exams or consultations. 14 Willamette Dental Plan January 1, 2024 1000016 \u2022 Full mouth reconstruction, including the extensive restoration of the mouth with crowns, or bridges. \u2022 Hospitalization care outside of a dental office for dental procedures, physician services, or facility fees. See Hospital Setting for a description of when the services of a dentist or other provider are covered when you are hospitalized. \u2022 Maxillofacial prosthetic services. \u2022 Nightguards. \u2022 Orthognathic surgery procedures to lengthen or shorten the jaw not required due to temporomandibular joint disorder, injury, sleep apnea or congenital anomaly. \u2022 Personalized restorations. \u2022 Plastic, reconstructive, or cosmetic surgery and other services, which are primarily intended to improve, alter, or enhance appearance. \u2022 Prescription and over-the-counter drugs and pre-medications. \u2022 Provider charges for a missed appointment or cancelled appointment without 24 hours prior notice. \u2022 Replacement of lost, missing, or stolen dental appliances. \u2022 Replacement of dental appliances that are damaged due to abuse, misuse, or neglect. \u2022 Replacement of sound restorations. \u2022 Services and related exams or consultations that are not within the prescribed treatment plan and/or are not recommended and approved by the Participating Provider. \u2022 Services and related exams or consultations to the extent they are not necessary for the diagnosis, care, or treatment of the condition involved. \u2022 Services by any person other than a Dentist, Denturist, hygienist, registered nurse (RN), Advanced Registered Nurse Practitioner (ARNP) or dental assistant within the scope of his/her license. \u2022 Services for the purpose of splinting, altering vertical dimension, increasing vertical dimension, restoring occlusions, or correcting attrition, abrasion, or erosion. \u2022 Services for the treatment of an injury or disease that is covered under workers\u2019 compensation or that are an employer\u2019s responsibility. \u2022 Services for the treatment of injuries sustained while practicing for or competing in a professional athletic contest of any kind. \u2022 Services for the treatment of intentionally self-inflicted injuries. \u2022 Services for which coverage is available under any federal, state, or other governmental program, unless required by law. \u2022 Services that are not listed as covered in the What Are My Benefits? section. \u2022 Services where there is no evidence of pathology, dysfunction, or disease other than covered preventive services."
         },
         "keywords": [
+            "hospital",
+            "surgical",
             "pharmacy",
             "dental",
             "mental-health",
+            "preventive",
             "exclusions",
-            "limitations",
             "provide",
             "benefits",
-            "following",
-            "conditions",
-            "treatments"
+            "following"
         ],
         "page_number": 19
     },
@@ -6187,16 +5403,16 @@
             "limitations": "Alternate Services If alternative services can be used to treat a condition, the service recommended by the Participating Provider is covered. In the event the member elects a service that is more costly than the service the Participating Provider has approved, the member is responsible for the Copayment for the recommended covered service plus the cost differential between the Reasonable Cash Value of the recommended service and the Reasonable Cash Value of the more costly requested service. 15 Willamette Dental Plan January 1, 2024 1000016 Congenital Malformations Services listed in the What Are My Benefits? section which are provided to correct congenital or developmental malformations which impair functions of the teeth and supporting structures will be covered for dependent children if dentally necessary. Endodontic Retreatment When the initial root canal therapy was performed by the Participating Provider, the retreatment of the root canal therapy will be covered as part of the initial treatment for the first 24 months. After 24 months, the applicable Copayments will apply. When the initial root canal therapy was performed by a Non-Participating Provider, the retreatment of such root canal therapy by the Participating Provider will be subject to the applicable Copayments. General Anesthesia General anesthesia is covered with the Copayments specified in the What Are My Benefits? section only if the following criteria are met: \u2022 It is performed in a dental office; \u2022 It is provided in conjunction with a Covered Service; and \u2022 The Participating Provider determines that it is necessary because the member is under age 7, developmentally disabled, or physically handicapped. Hospital Setting The Covered Services provided by a provider in a hospital setting are covered if the following criteria are met: \u2022 A hospital or similar setting is medically necessary; \u2022 The services are authorized in writing by the Participating Provider; \u2022 The services provided are the same services that would be provided in a dental office; and \u2022 The applicable Copayments are paid. Illegal Acts, Illegal Services and Terrorism Illness or injury you get while committing a felony, an act of terrorism, or an act of riot or revolt, as well as any service that is illegal under state or federal law. Replacements The replacement of an existing denture, crown, inlay, onlay, or other prosthetic appliance is covered if the appliance is more than 5 years old and replacement is dentally necessary due to one of the following conditions: \u2022 A tooth within an existing denture or bridge is extracted; \u2022 The existing denture, crown, inlay, onlay, or other prosthetic appliance or restoration cannot be made serviceable; or \u2022 The existing denture was an immediate denture to replace one or more natural teeth extracted while covered under the plan, and replacement by a permanent denture is necessary. Restorations Crowns, casts, or other indirect fabricated restorations are covered only if dentally necessary and if recommended by the Participating Provider. Crowns, casts, or other indirect fabricated restorations are dentally necessary if provided for treatment for decay, traumatic injury, or substantial loss of tooth structure undermining one or more cusps and the tooth cannot be restored with a direct restorative material or the tooth is an abutment to a covered partial denture or fixed bridge. 16 Willamette Dental Plan January 1, 2024 1000016"
         },
         "keywords": [
-            "copay",
+            "hospital",
             "dental",
-            "mental-health",
-            "therapy",
-            "limitations",
             "alternate",
             "services",
             "alternative",
             "condition",
-            "service"
+            "recommended",
+            "participating",
+            "provider",
+            "covered"
         ],
         "page_number": 20
     },
@@ -6212,8 +5428,8 @@
             "limitations": "If your condition is urgent, you will get our response sooner. Please see the table above. Urgent appeals are only available for services you are currently receiving or have not yet received. Examples of urgent situations are: \u2022 Your life or health is in serious danger, or a delay in treatment would cause you to be in severe pain that you cannot bear, as determined by our medical professionals or your treating physician \u2022 You are requesting coverage for inpatient or emergency services that you are currently receiving You can also contact the Employee Benefits Security Administration of the U.S. Department of Labor. The phone number is 1-866-444-EBSA (3272)."
         },
         "keywords": [
+            "inpatient",
             "emergency",
-            "limitations",
             "condition",
             "response",
             "appeals",

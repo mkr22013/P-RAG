@@ -11,8 +11,7 @@
             "limitations": "Calendar year limit: one complete exam."
         },
         "keywords": [
-            "vision",
-            "allowed"
+            "vision"
         ],
         "page_number": 7
     },
@@ -28,6 +27,7 @@
             "limitations": "Limit per calendar year: $400"
         },
         "keywords": [
+            "vision-hardware",
             "vision",
             "hardware"
         ],
@@ -46,15 +46,7 @@
         },
         "keywords": [
             "coinsurance",
-            "vision",
-            "summary",
-            "section",
-            "covered",
-            "explains",
-            "amounts",
-            "details",
-            "coverage",
-            "services"
+            "vision"
         ],
         "page_number": 7
     },
@@ -71,15 +63,8 @@
         },
         "keywords": [
             "copay",
-            "vision",
-            "summary",
-            "covered",
-            "services",
-            "although",
-            "provider",
-            "amounts",
-            "allowed",
-            "benefit"
+            "vision-hardware",
+            "vision"
         ],
         "page_number": 7
     },
@@ -96,15 +81,12 @@
         },
         "keywords": [
             "out-of-pocket",
+            "vision-exam",
+            "vision-hardware",
+            "out-of-area",
             "vision",
             "selecting",
-            "provider",
-            "benefits",
-            "expenses",
-            "providers",
-            "section",
-            "u2019ll",
-            "choices"
+            "provider"
         ],
         "page_number": 7
     },
@@ -121,15 +103,7 @@
         },
         "keywords": [
             "out-of-pocket",
-            "important",
-            "section",
-            "booklet",
-            "explains",
-            "expenses",
-            "covered",
-            "services",
-            "benefits",
-            "provided"
+            "important"
         ],
         "page_number": 8
     },
@@ -146,15 +120,7 @@
         },
         "keywords": [
             "coinsurance",
-            "vision",
-            "defined",
-            "percentage",
-            "allowable",
-            "amounts",
-            "covered",
-            "u2019re",
-            "responsible",
-            "including"
+            "vision"
         ],
         "page_number": 8
     },
@@ -171,15 +137,8 @@
         },
         "keywords": [
             "coinsurance",
-            "vision",
-            "allowed",
-            "provides",
-            "benefits",
-            "covered",
-            "services",
-            "reserve",
-            "determine",
-            "otherwise"
+            "out-of-area",
+            "vision"
         ],
         "page_number": 9
     },
@@ -195,16 +154,8 @@
             "limitations": "This section of your booklet describes the specific benefits available for covered services and supplies. The benefits of this plan are limited to the services and supplies referenced in this section. Benefits are available for a service or supply described in this section when it meets all of these requirements: \u2022 It must be medically necessary (see Definitions in this booklet). \u2022 It must not be excluded from coverage under this plan. \u2022 The expense for it must be incurred while you\u2019re covered under this plan except as stated under the Vision Hardware benefit below. \u2022 It must be furnished by a \"vision care provider\" (see the Definitions section in this booklet) who\u2019s performing services within the scope of his or her license or certification. Benefits for some types of services and supplies may be limited or excluded under this plan. Refer to the actual benefit provisions throughout this section and Exclusions and Limitations for a complete description of covered services and supplies, limitations and exclusions."
         },
         "keywords": [
-            "vision",
-            "benefits",
-            "section",
-            "booklet",
-            "describes",
-            "specific",
-            "available",
-            "covered",
-            "services",
-            "supplies"
+            "vision-hardware",
+            "vision"
         ],
         "page_number": 9
     },
@@ -220,16 +171,11 @@
             "limitations": "Covered routine exam services include: \u2022 Examination of the outer and inner parts of the eye \u2022 Evaluation of vision sharpness (refraction) \u2022 Binocular balance testing \u2022 Routine tests of color vision, peripheral vision and intraocular pressure \u2022 Case history and recommendations The Vision Exam benefit doesn\u2019t cover: \u2022 Vision hardware or fitting examinations for contact lenses or eyeglasses. \u2022 Routine examinations in connection with employment 3"
         },
         "keywords": [
+            "vision-exam",
+            "vision-hardware",
+            "lenses",
             "vision",
-            "covered",
-            "routine",
-            "services",
-            "include",
-            "examination",
-            "evaluation",
-            "sharpness",
-            "refraction",
-            "binocular"
+            "vision hardware"
         ],
         "page_number": 9
     },
@@ -245,16 +191,13 @@
             "limitations": "Benefits for the vision hardware supplies listed below are provided up to the maximum shown in the Summary Of Your Costs when they meet all of these requirements: \u2022 They must be prescribed and furnished by a licensed or certified vision care provider \u2022 They must be named in this benefit as covered \u2022 They must not be excluded from coverage under this plan What's Covered: \u2022 Prescription eyeglass lenses (single vision, bifocal, trifocal, quadrafocal or lenticular) \u2022 Frames for eyeglasses \u2022 Prescription contact lenses (soft, hard or disposable) \u2022 Prescription safety glasses and prescription sunglasses \u2022 Special features, such as tinting or coating \u2022 Fitting of eyeglass lenses to frames \u2022 Fitting of contact lenses to the eyes Vision hardware benefits are based on the allowed amount (see Important Plan Information in this booklet) for covered services and supplies. Charges for vision services or supplies that exceed the maximums shown in the Summary Of Your Costs aren't covered. Important Note! If you also have coverage under a medical plan sponsored by the Group, prescribed vision hardware necessitated by surgery, injury or disease is covered under the medical plan. The Vision Hardware benefit doesn't cover: \u2022 Services or supplies that aren't named above as covered \u2022 Routine examination in connection with employment \u2022 Plain sunglasses or plain safety glasses \u2022 Services or supplies primarily for beautification \u2022 Special procedures such as orthoptics and visual training \u2022 Vision hardware received while you are not covered under this plan, except when all of the following requirements are met: \u2022 You ordered covered contact lenses, eyeglass lenses and/or frames before the date your coverage under this benefit or plan ended. \u2022 You received the contact lenses, eyeglass lenses and/or frames within 30 days of the date your coverage under this benefit or plan ended."
         },
         "keywords": [
-            "surgical",
-            "pharmacy",
+            "vision-hardware",
+            "frames",
+            "lenses",
+            "bifocal",
             "vision",
             "hardware",
-            "benefits",
-            "supplies",
-            "provided",
-            "maximum",
-            "summary",
-            "requirements"
+            "vision hardware"
         ],
         "page_number": 10
     },
@@ -270,16 +213,9 @@
             "limitations": "As a member of the Blue Cross Blue Shield Association (\"BCBSA\"), Premera Blue Cross has arrangements with other Blue Cross and Blue Shield Licensees (\"Host Blues\") for care in Clark County, Washington and outside Washington and Alaska. These arrangements are called \"Inter-Plan Arrangements.\" Our Inter-Plan Arrangements help you get covered services from providers within the geographic area of a Host Blue. The BlueCard\u00ae Program is the Inter-Plan Arrangement that applies to most claims from Host Blues' in-network providers. The Host Blue is responsible for its in-network providers and handles all interactions with them. Other Inter-Plan Arrangements apply to providers that are not in the Host Blues' networks (non-contracted providers). Out-Of-Area Care explains how the plan pays both types of providers. Your getting services through these Inter-Plan Arrangements does not change what the plan covers, benefit levels, or any stated eligibility requirements. BlueCard Program Except for copays, we will base the amount you must pay for claims from Host Blues' in-network providers on the lower of: \u2022 The provider\u2019s billed charges for your covered services; or \u2022 The allowed amount that the Host Blue made available to us. 4 Often, the allowed amount is a discount that reflects an actual price that the Host Blue pays to the provider. Sometimes it is an estimated price that takes into account a special arrangement with a single provider or a group of providers. In other cases, it may be an average price, based on a discount that results in expected average savings for services from similar types of providers. Host Blues may use a number of factors to set estimated or average prices. These may include settlements, incentive payments, and other credits or charges. Host Blues may also need to adjust their prices to correct their estimates of past prices. However, we will not apply any further adjustments to the price of a claim that has already been paid. Clark County Providers Services in Clark County, Washington are processed through the BlueCard Program. Some providers in Clark County do have contracts with us. These providers will submit claims directly to us, and benefits will be based on our allowed amount for the covered service or supply. Value-Based Programs You might have a provider that participates in a Host Blue's value-based program (VBP). Value-based programs focus on meeting standards for treatment outcomes, cost and quality, and for coordinating care when you are seeing more than one provider. The Host Blue may pay VBP providers for meeting the above standards. If the Host Blue includes charges for these payments in the allowed amount for a claim, you would pay a part of these charges if a deductible or coinsurance applies to the claim. If the VBP pays the provider for coordinating your care with other providers, you will not be billed for it. Taxes, Surcharges and Fees A law or regulation may require a surcharge, tax or other fee be added to the price of a covered service. If that happens, we will add that surcharge, tax or fee to the allowed amount for the claim. Non-Contracted Providers It could happen that you receive covered services from providers in Clark County, Washington and outside Washington and Alaska that do not have a contract with the Host Blue. In most cases, we will base the amount you pay for such services on either our allowed amount for these providers or the pricing requirements under applicable law. See Allowed Amount in Important Plan Information in this booklet for details on allowed amounts. In these situations, you may owe the difference between the amount that the non-contracted provider bills and the payment the plan makes for the covered services as set forth above. Blue Cross Blue Shield Global\u00ae Core If you are outside the United States, Puerto Rico, and the U.S. Virgin Islands (the \"BlueCard service area\"), you may be able to take advantage of Blue Cross Blue Shield Global Core. Blue Cross Blue Shield Global Core is unlike the BlueCard Program in the BlueCard service area in some ways. For instance, although Blue Cross Blue Shield Global Core helps you access a provider network, you will most likely have to pay the provider and send us the claim yourself in order for the plan to reimburse you. See How Do I File A Claim? for more information. However, if you need hospital inpatient care, the service center can often direct you to hospitals that will not require you to pay in full at the time of service. In such cases, these hospitals also send in the claim for you. If you need to find a doctor or hospital outside the BlueCard service area, need help submitting claims or have other questions, call the service center at 800-810-BLUE (2583). The center is open 24 hours a day, seven days a week. You can also call collect at 804-673-1177. More Questions If you have questions or need to find out more about the BlueCard Program, call our customer service department. To find a provider, go to premera.com or call 800-810-BLUE (2583). You can also get Blue Cross Blue Shield Global Core information by calling the toll-free phone number."
         },
         "keywords": [
-            "hospital",
-            "inpatient",
             "deductible",
             "coinsurance",
-            "association",
-            "premera",
-            "arrangements",
-            "licensees",
-            "washington",
-            "outside"
+            "out-of-area"
         ],
         "page_number": 10
     },
@@ -295,16 +231,9 @@
             "limitations": "In addition to services listed as not covered under Covered Services, this section of your booklet lists the services that are either limited or not covered by this plan. 5 Amounts That Exceed The Allowable Charge Costs over the allowed amount as defined by this plan for a non-emergency service from a non-participating provider. Benefits from other sources Services that are covered by liability insurance, motor vehicle insurance, excess coverage, no fault coverage, or workers compensation or similar coverage for work-related conditions. For details, see Subrogation and Reimbursement under What If I Have Other Coverage. Benefits that have been exhausted Services in excess of benefit limitations or maximums of this plan. Broken or missed appointments Broken or missed appointments, including charges from providers for broken or missed appointments. Charges For Records or Reports Charges from vision care providers for supplying records or reports, except those we request for utilization review. Court-Ordered Services Services that you must get to avoid being tried, sentenced or losing the right to drive when they are not medically necessary. Drugs Prescription and over-the-counter drugs, solutions and supplies. Experimental or Investigational Services Experimental or investigational services or supplies, including any complications or effects of such services. This does not apply to certain services that are part of an approved clinical trial. Family Members or Volunteers Services or supplies that you provide to yourself. It also does not cover a provider who is: \u2022 Your spouse, mother, father, child, brother or sister \u2022 Your mother, father, child, brother or sister by marriage \u2022 Your stepmother, stepfather, stepchild, stepbrother or stepsister \u2022 Your grandmother, grandfather, grandchild or the spouse of one of these people \u2022 A volunteer Governmental Facilities Services provided by a state or federal facility that are not emergency services or required by law or regulation. Illegal Acts, Illegal Services, and Terrorism Illness or injury you get while committing a felony, an act of terrorism, or an act of riot or revolt, as well as any service that is illegal under state or federal law. Medical Treatment of Eye Conditions Treatment of medical conditions of the eye, including medical complications. Military Service and War Illness or injury that is caused by or arises from: \u2022 Acts of war, such as armed invasion, no matter if war has been declared or not \u2022 Services in the armed forces of any country, including any related civilian forces or units. Non-Covered Services Services or supplies directly related to any non-covered condition. \u2022 Ordered when this plan is not in effect or when the person is not covered under this plan \u2022 Provided to someone other than the ill or injured member \u2022 That are not listed as covered under this plan. 6 \u2022 Services and supplies for which no charge is made, for which none would have been made if this plan were not in effect, or for which you are not legally required to pay \u2022 Non-treatment charges, including charges for provider time \u2022 Transporting a member in place of a parent or other family member or accompanying the member to appointments or other activities outside the home, such as medical appointments or shopping \u2022 Doing housework or chores for the member or helping the member do housework or chores Provider\u2019s Licensing or Certification Services that are outside the scope of the provider's license or certification or any unlicensed or uncertified providers. Services or Supplies Not Medically Necessary Services or supplies that are not medically necessary even if they are court-ordered. This also includes places of service, such as inpatient hospital care or stays. Vision Therapy Vision therapy, eye exercise, or any sort of training to correct muscular imbalance of the eye (orthoptics), and pleoptics, treatment or surgeries to improve the refractive character of the cornea, or results of such treatments. Work-Related Illness Or Injury This plan does not cover any illness, condition or injury for which you get benefits by law or from separate coverage for illness or injury on the job., For details, see Third Party Recovery under What If I Have Other Coverage."
         },
         "keywords": [
-            "hospital",
-            "inpatient",
-            "surgical",
             "emergency",
-            "pharmacy",
             "vision",
-            "clinical-trials",
-            "exclusions",
-            "addition",
-            "services"
+            "exclusions"
         ],
         "page_number": 11
     }

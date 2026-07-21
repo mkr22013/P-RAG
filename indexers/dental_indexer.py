@@ -14,7 +14,6 @@ assembled before emitting an entry.
 import os
 import re
 import json as json_lib
-import asyncio
 import ollama
 import pdfplumber
 
@@ -441,22 +440,13 @@ def parse_premera_dental_costs(pdf_path, sub_index, seen):
                     "category": "cost",
                     "benefit_category": "dental",
                     "content": content_dict,
-                    "keywords": _dental_keywords(event, service),
+                    # category-aware keyword generation — dental patterns + KB synonyms
+                    # Replaces old _dental_keywords() which used simple word extraction
+                    # New: domain patterns (prophylaxis, crown, bitewing, tmj...) + KB injection
+                    "keywords": get_smart_keywords(content_dict, "dental"),
                     "page_number": page_num,
                 }
             )
-
-    def _dental_keywords(event, service):
-        kws = ["dental"]
-        event_lower = event.lower()
-        for cls in ["class iii", "class ii", "class i", "orthodontia", "plan limits"]:
-            if re.search(r"\b" + re.escape(cls) + r"\b", event_lower):
-                kws.append(cls)
-                break
-        for word in re.split(r"[\s/,()\-]+", service.lower()):
-            if len(word) >= 5 and word not in kws:
-                kws.append(word)
-        return kws[:10]
 
     # ── Service/limitation splitter ───────────────────────────────────────────
     LIMIT_RE = re.compile(
@@ -794,7 +784,8 @@ def parse_prose_sections(pdf_path):
                     "limitations": content_text,
                 },
                 "keywords": get_smart_keywords(
-                    {"event": event, "limitations": content_text}
+                    {"event": event, "limitations": content_text},
+                    "dental",  # category-aware: dental patterns only, no medical/vision noise
                 ),
                 "page_number": section_page,
             }
@@ -842,7 +833,9 @@ def generate_sub_index(sub_index_path, pdf_path):
                             "category": "cost",
                             "benefit_category": "dental",
                             "content": content,
-                            "keywords": get_smart_keywords(content),
+                            "keywords": get_smart_keywords(
+                                content, "dental"
+                            ),  # category-aware keyword generation
                             "page_number": page_num,
                         }
                     )
@@ -1018,7 +1011,8 @@ def generate_sub_index(sub_index_path, pdf_path):
                             {
                                 "event": "Temporomandibular Joint Disorder Treatment",
                                 "limitations": tmj_text,
-                            }
+                            },
+                            "dental",  # category-aware: dental patterns inject tmj synonyms
                         )
                         for kw in ["tmj", "temporomandibular"]:
                             if kw not in tmj_kws:
@@ -1048,15 +1042,6 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
-
-
-PLAN_CATEGORY = "dental"
-
-
-if __name__ == "__main__":
-    from indexers.run_indexer import run
-
-    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # ==================================Previous working code before page number addition==================================

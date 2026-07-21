@@ -1,7 +1,7 @@
 {
   "query": "show me all my virtual care benefits",
   "category": "medical",
-  "timestamp": "2026-07-15T11:41:39.667606",
+  "timestamp": "2026-07-20T16:36:59.614455",
   "answer": "Virtual care services are covered when provided through interactive audio and video technology or store and forward technology in real-time communication between the member and a healthcare provider.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Virtual general medical visits with | $25 copay per visit, deductible waived | Not covered | Data Not Found |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Virtual general medical visits with | No charge | Not covered | Data Not Found |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Virtual mental health visits | $25 copay per visit, deductible waived | Not covered | Data Not Found |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Virtual substance use disorder visits | $25 copay per visit, deductible waived | Not covered | Data Not Found |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Virtual rehabilitative care visits | $40 copay per visit, deductible waived | Not covered | Data Not Found |\n| Virtual Care Interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. | Behavioral/Mental health visits | $25 copay per visit, deductible waived | Not covered | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Virtual Care | Virtual care uses interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. Services must meet the following requirements: • Covered service under this plan • Originating site: Hospital, Rural health clinic, federally qualified health center, physician’s or other health care provider office, community mental health center, skilled nursing facility, home, or renal dialysis center, except an independent renal dialysis center • If the service is provided through store and forward technology, there must be an associated office visit between the member and the referring provider. • Is Medically Necessary 55 This does not include services such as facsimile, email communication and SMS messages (texts) or services that are not HIPAA compliant and secured. See the Summary Of Your Costs for the types of virtual visits covered by this benefit. |\n",
   "pages": [
     18,
@@ -9,22 +9,16 @@
   ],
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
-    "total_llm_calls": 2,
-    "total_input_tokens": 779,
-    "total_output_tokens": 54,
-    "total_tokens": 833,
+    "total_llm_calls": 1,
+    "total_input_tokens": 209,
+    "total_output_tokens": 31,
+    "total_tokens": 240,
     "calls": [
       {
         "call_type": "ollama",
-        "input_tokens": 552,
-        "output_tokens": 23,
-        "total_tokens": 575
-      },
-      {
-        "call_type": "ollama",
-        "input_tokens": 227,
+        "input_tokens": 209,
         "output_tokens": 31,
-        "total_tokens": 258
+        "total_tokens": 240
       }
     ]
   }

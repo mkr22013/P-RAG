@@ -9,16 +9,7 @@
             "explanation": "Generally, you must pay all of the costs from providers up to the deductible amount before this plan begins to pay. If you have other family members on the policy, the overall family deductible must be met before the plan begins to pay."
         },
         "keywords": [
-            "deductible",
-            "question",
-            "overall",
-            "calendar",
-            "aggregate",
-            "individual",
-            "explanation",
-            "generally",
-            "providers",
-            "members"
+            "deductible"
         ]
     },
     {
@@ -33,14 +24,7 @@
         "keywords": [
             "deductible",
             "coinsurance",
-            "preventive",
-            "question",
-            "services",
-            "covered",
-            "explanation",
-            "copayment",
-            "example",
-            "certain"
+            "preventive"
         ]
     },
     {
@@ -52,13 +36,7 @@
             "answer": "No.",
             "explanation": "You don\u2019t have to meet deductibles for specific services."
         },
-        "keywords": [
-            "question",
-            "deductibles",
-            "specific",
-            "explanation",
-            "services"
-        ]
+        "keywords": []
     },
     {
         "topic": "What is the out - of - pocket limit for this plan?",
@@ -70,16 +48,7 @@
             "explanation": "The out - of- f- pocket limit is the most you could pay in a year for covered services. If you have other family members in this plan, the overall family out-of-pocket limit must be met."
         },
         "keywords": [
-            "out-of-pocket",
-            "question",
-            "network",
-            "individual",
-            "applicable",
-            "explanation",
-            "covered",
-            "services",
-            "members",
-            "overall"
+            "out-of-pocket"
         ]
     },
     {
@@ -92,14 +61,7 @@
             "explanation": "Even though you pay these expenses, they don\u2019t count toward the out-of-pocket limit ."
         },
         "keywords": [
-            "out-of-pocket",
-            "question",
-            "included",
-            "premium",
-            "balance",
-            "charges",
-            "explanation",
-            "expenses"
+            "out-of-pocket"
         ]
     },
     {
@@ -111,18 +73,7 @@
             "answer": "Yes. See www.premera.com or call 1-844 - 985 - 4160 for a list of network providers .",
             "explanation": "This plan uses a provider network. You will pay less if you use a provider in the plan\u2019s network . You will pay the most if you use an out-of-network provider, and you might receive a bill from a provider for the difference between the provider\u2019s charge and what your plan pays (balance billing). Be aware your network provider might use an out-of-network provider for some services (such as lab work). Check with your provider before you get services."
         },
-        "keywords": [
-            "question",
-            "network",
-            "provider",
-            "premera",
-            "providers",
-            "explanation",
-            "receive",
-            "difference",
-            "between",
-            "balance"
-        ]
+        "keywords": []
     },
     {
         "topic": "Do you need a referral to see a specialist?",
@@ -134,11 +85,7 @@
             "explanation": "You can see the specialist you choose without a referral ."
         },
         "keywords": [
-            "specialist",
-            "question",
-            "referral",
-            "explanation",
-            "without"
+            "specialist"
         ]
     },
     {
@@ -157,9 +104,7 @@
             "coinsurance",
             "provider",
             "primary",
-            "illness",
-            "kinwell",
-            "applies"
+            "illness"
         ]
     },
     {
@@ -174,8 +119,8 @@
             "limitations": "None"
         },
         "keywords": [
-            "specialist",
             "coinsurance",
+            "specialist",
             "provider"
         ]
     },
@@ -196,8 +141,7 @@
             "preventive",
             "provider",
             "screening",
-            "immunization",
-            "services"
+            "immunization"
         ]
     },
     {
@@ -214,12 +158,7 @@
         "keywords": [
             "deductible",
             "coinsurance",
-            "diagnostic",
-            "kinwell",
-            "certain",
-            "qualify",
-            "clinics",
-            "applies"
+            "diagnostic"
         ]
     },
     {
@@ -234,14 +173,10 @@
             "limitations": "Prior authorization recommended for some outpatient imaging tests. Penalty for out-of\u0002 network: no penalty."
         },
         "keywords": [
-            "outpatient",
             "coinsurance",
             "prior-auth",
-            "imaging",
-            "authorization",
-            "recommended",
-            "penalty",
-            "network"
+            "outpatient",
+            "imaging"
         ]
     },
     {
@@ -263,9 +198,7 @@
             "illness",
             "condition",
             "preferred",
-            "generic",
-            "maximum",
-            "covered"
+            "generic"
         ]
     },
     {
@@ -286,10 +219,7 @@
             "pharmacy",
             "illness",
             "condition",
-            "preferred",
-            "maximum",
-            "covered",
-            "prescription"
+            "preferred"
         ]
     },
     {
@@ -310,10 +240,7 @@
             "illness",
             "condition",
             "preferred",
-            "specialty",
-            "maximum",
-            "covered",
-            "premera"
+            "specialty"
         ]
     },
     {
@@ -333,11 +260,7 @@
             "prior-auth",
             "illness",
             "condition",
-            "generic",
-            "covered",
-            "preferred",
-            "specialty",
-            "services"
+            "generic"
         ]
     },
     {
@@ -352,16 +275,13 @@
             "limitations": "Prior authorization recommended for some services. Penalty for out-of-network: no penalty."
         },
         "keywords": [
-            "outpatient",
-            "surgical",
             "coinsurance",
             "prior-auth",
+            "outpatient",
+            "surgical",
             "facility",
             "ambulatory",
-            "surgery",
-            "authorization",
-            "recommended",
-            "services"
+            "surgery"
         ]
     },
     {
@@ -376,8 +296,8 @@
             "limitations": "None"
         },
         "keywords": [
-            "outpatient",
             "coinsurance",
+            "outpatient",
             "physician",
             "surgeon"
         ]
@@ -394,14 +314,13 @@
             "limitations": "Emergency room copay waived if admitted to hospital. None"
         },
         "keywords": [
-            "hospital",
-            "emergency",
             "copay",
             "coinsurance",
+            "emergency",
+            "hospital",
             "transportation",
             "immediate",
-            "medical",
-            "admitted"
+            "medical"
         ]
     },
     {
@@ -416,15 +335,12 @@
             "limitations": "None medical attention Freestanding center:"
         },
         "keywords": [
-            "hospital",
-            "emergency",
-            "urgent-care",
             "copay",
             "coinsurance",
-            "immediate",
-            "freestanding",
-            "medical",
-            "attention"
+            "emergency",
+            "hospital",
+            "urgent-care",
+            "immediate"
         ]
     },
     {
@@ -439,16 +355,11 @@
             "limitations": "Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty."
         },
         "keywords": [
-            "hospital",
-            "inpatient",
             "coinsurance",
             "prior-auth",
-            "facility",
-            "authorization",
-            "recommended",
-            "planned",
-            "penalty",
-            "network"
+            "hospital",
+            "inpatient",
+            "facility"
         ]
     },
     {
@@ -481,16 +392,15 @@
             "limitations": "40% coinsurance Deductible applies. 40% coinsurance Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty. Cost sharing does not apply for preventive"
         },
         "keywords": [
-            "inpatient",
-            "outpatient",
             "deductible",
             "coinsurance",
             "prior-auth",
+            "inpatient",
+            "outpatient",
             "mental-health",
             "preventive",
             "behavioral",
-            "substance",
-            "services"
+            "substance"
         ]
     },
     {
@@ -505,12 +415,11 @@
             "limitations": ""
         },
         "keywords": [
-            "inpatient",
             "coinsurance",
+            "inpatient",
             "mental-health",
             "behavioral",
-            "substance",
-            "services"
+            "substance"
         ]
     },
     {
@@ -525,16 +434,12 @@
             "limitations": "services. Depending on the type of services, a coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound). Cost sharing does not apply for preventive services. Depending on the type of services, a"
         },
         "keywords": [
-            "maternity",
             "coinsurance",
+            "maternity",
             "mental-health",
             "preventive",
             "behavioral",
-            "substance",
-            "services",
-            "depending",
-            "include",
-            "described"
+            "substance"
         ]
     },
     {
@@ -549,16 +454,13 @@
             "limitations": "coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound). Cost sharing does not apply for preventive services. Depending on the type of services, a coinsurance may apply. Maternity care may include tests and services described elsewhere in the SBC (such as, ultrasound)."
         },
         "keywords": [
-            "maternity",
             "coinsurance",
+            "maternity",
             "preventive",
             "pregnant",
             "childbirth",
             "delivery",
-            "professional",
-            "services",
-            "include",
-            "described"
+            "professional"
         ]
     },
     {
@@ -577,9 +479,7 @@
             "pregnant",
             "childbirth",
             "delivery",
-            "professional",
-            "services",
-            "facility"
+            "professional"
         ]
     },
     {
@@ -594,11 +494,11 @@
             "limitations": "Limited to 130 visits per calendar year Limited to 45 outpatient visits per calendar year, limited to 30 inpatient days per calendar year. Includes physical therapy, speech therapy, and occupational therapy. Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002"
         },
         "keywords": [
+            "coinsurance",
+            "prior-auth",
             "inpatient",
             "outpatient",
             "home health",
-            "coinsurance",
-            "prior-auth",
             "therapy",
             "pregnant",
             "childbirth",
@@ -618,15 +518,12 @@
             "limitations": "network: no penalty."
         },
         "keywords": [
-            "rehabilitation",
             "coinsurance",
+            "rehabilitation",
             "pregnant",
             "childbirth",
             "delivery",
-            "professional",
-            "services",
-            "network",
-            "penalty"
+            "professional"
         ]
     },
     {
@@ -641,16 +538,14 @@
             "limitations": "Limited to 45 outpatient visits per calendar year, limited to 30 inpatient days per calendar year. Includes physical therapy, speech therapy, and occupational therapy. Prior authorization recommended for all planned inpatient stays. Penalty for out-of\u0002 network: no penalty."
         },
         "keywords": [
-            "inpatient",
-            "outpatient",
             "coinsurance",
             "prior-auth",
+            "inpatient",
+            "outpatient",
             "therapy",
             "recovering",
             "special",
-            "habilitation",
-            "services",
-            "limited"
+            "habilitation"
         ]
     },
     {
@@ -665,16 +560,14 @@
             "limitations": "Limited to 120 days per calendar year. Prior authorization recommended for all planned inpatient stays. Penalty for out-of-network: no penalty."
         },
         "keywords": [
-            "inpatient",
-            "skilled nursing",
             "coinsurance",
             "prior-auth",
+            "inpatient",
+            "skilled nursing",
             "recovering",
             "special",
             "skilled",
-            "nursing",
-            "limited",
-            "calendar"
+            "nursing"
         ]
     },
     {
@@ -695,10 +588,7 @@
             "special",
             "durable",
             "medical",
-            "equipment",
-            "authorization",
-            "recommended",
-            "penalty"
+            "equipment"
         ]
     },
     {
@@ -713,16 +603,11 @@
             "limitations": "Limited to 240 respite hours, limited to 10 inpatient days - 6 month overall lifetime benefit limit, except when approved otherwise."
         },
         "keywords": [
+            "coinsurance",
             "inpatient",
             "hospice",
-            "coinsurance",
             "recovering",
-            "special",
-            "services",
-            "limited",
-            "respite",
-            "overall",
-            "lifetime"
+            "special"
         ]
     },
     {
@@ -737,10 +622,10 @@
             "limitations": "None None"
         },
         "keywords": [
+            "vision-exam",
             "vision",
             "children",
-            "glasses",
-            "covered"
+            "glasses"
         ]
     },
     {
@@ -756,8 +641,7 @@
         },
         "keywords": [
             "dental",
-            "children",
-            "covered"
+            "children"
         ]
     },
     {
@@ -771,7 +655,6 @@
         "keywords": [
             "surgical",
             "vision",
-            "not_covered",
             "cosmetic",
             "surgery",
             "routine"
@@ -787,7 +670,6 @@
         },
         "keywords": [
             "dental",
-            "not_covered",
             "private",
             "nursing",
             "programs"
@@ -802,9 +684,7 @@
             "service": "Infertility treatment"
         },
         "keywords": [
-            "not_covered",
-            "infertility",
-            "treatment"
+            "infertility"
         ]
     },
     {
@@ -816,7 +696,6 @@
             "service": "Acupuncture \u2022 Chiropractic care or other spinal manipulations \u2022 Hearing aids"
         },
         "keywords": [
-            "covered",
             "acupuncture",
             "chiropractic",
             "manipulations",
@@ -832,11 +711,10 @@
             "service": "Bariatric surgery \u2022 Foot care \u2022 Non-emergency care when traveling outside the"
         },
         "keywords": [
-            "surgical",
             "emergency",
+            "surgical",
             "bariatric",
             "foot-care",
-            "covered",
             "surgery",
             "traveling",
             "outside"

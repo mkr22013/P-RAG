@@ -217,6 +217,20 @@ def resolve_medical_topic(query_words: list, full_query_text: str) -> dict:
     # 10. HOSPITAL — exact match
     if any(_exact(w, query_words) for w in ["hospital", "nursing", "facility"]):
         topics.append("hospital")
+        # Add "hospital" as keyword ONLY when member explicitly says "hospital"
+        # (not when triggered by "nursing" or "facility" — those are different
+        # benefit topics and should not score against Hospital event chunks)
+        # This gives Hospital → Inpatient Care chunk higher score than
+        # Hospice → Inpatient Care chunk for queries like
+        # "what is my coinsurance for an inpatient hospital stay?"
+        # Without this, both chunks score equally on "inpatient" keyword alone
+        # and Hospice can outrank Hospital due to dict order.
+        if _exact("hospital", query_words) and not _exact("food", query_words):
+            add_keyword("hospital")
+        # Add "inpatient care" keyword when member says "inpatient" — directly
+        # matches the service field "Inpatient Care" in Hospital chunk
+        if _exact("inpatient", query_words):
+            add_keyword("inpatient care")
 
     # 12. PHARMACY — exact match
     if any(
@@ -382,6 +396,11 @@ def resolve_medical_topic(query_words: list, full_query_text: str) -> dict:
     if _exact("preventive", query_words):
         topics.append("preventive care")
         add_keyword("preventive care")
+
+    # 33. MEDICAL FOOD
+    if _exact("food", query_words) or _exact_phrase("medical food", query_lower):
+        topics.append("medical food")
+        add_keyword("medical foods")
 
     print(f"[*] Resolved Topics : {topics}")
     print(f"[*] Extracted Keywords : {extracted_keywords}")

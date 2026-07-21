@@ -1,0 +1,502 @@
+{
+  "dental": {
+    "prophylaxis": [
+      "cleaning",
+      "teeth cleaning",
+      "polish",
+      "tooth polish",
+      "clean teeth",
+      "dental cleaning"
+    ],
+    "extraction": [
+      "tooth removal",
+      "pulling tooth",
+      "tooth pulled",
+      "remove tooth",
+      "tooth extraction",
+      "pull tooth"
+    ],
+    "root canal": [
+      "endodontic",
+      "nerve treatment",
+      "root treatment",
+      "canal treatment",
+      "root canal treatment"
+    ],
+    "crown": [
+      "cap",
+      "tooth cap",
+      "porcelain crown",
+      "dental cap",
+      "tooth crown",
+      "ceramic crown"
+    ],
+    "panoramic": [
+      "full mouth xray",
+      "panoramic xray",
+      "full mouth series",
+      "panorex",
+      "full mouth radiograph"
+    ],
+    "bitewing": [
+      "bitewing xray",
+      "cavity xray",
+      "interproximal xray",
+      "check for cavities"
+    ],
+    "periapical": [
+      "periapical xray",
+      "individual tooth xray",
+      "single tooth xray",
+      "tooth root xray"
+    ],
+    "orthodontic": [
+      "braces",
+      "aligners",
+      "invisalign",
+      "retainer",
+      "teeth straightening",
+      "orthodontia"
+    ],
+    "periodontic": [
+      "gum treatment",
+      "gum disease treatment",
+      "scaling root planing",
+      "gum surgery"
+    ],
+    "scaling": [
+      "deep cleaning",
+      "root planing",
+      "gum cleaning",
+      "periodontal cleaning"
+    ],
+    "implant": [
+      "dental implant",
+      "tooth implant",
+      "implant surgery",
+      "tooth replacement implant"
+    ],
+    "denture": [
+      "false teeth",
+      "removable teeth",
+      "partial denture",
+      "full denture",
+      "dental plate"
+    ],
+    "sealant": [
+      "tooth sealant",
+      "fissure sealant",
+      "dental sealant",
+      "cavity prevention coating"
+    ],
+    "fluoride": [
+      "fluoride treatment",
+      "fluoride varnish",
+      "fluoride application",
+      "fluoride rinse"
+    ],
+    "tmj": [
+      "jaw pain",
+      "jaw disorder",
+      "jaw clicking",
+      "temporomandibular",
+      "jaw treatment",
+      "jaw joint"
+    ],
+    "bridge": [
+      "dental bridge",
+      "tooth bridge",
+      "pontic",
+      "fixed bridge",
+      "tooth replacement bridge"
+    ],
+    "apicoectomy": [
+      "root tip surgery",
+      "root end surgery",
+      "root tip removal",
+      "apical surgery"
+    ],
+    "anesthesia": [
+      "sedation",
+      "sleep dentistry",
+      "dental sedation",
+      "general anesthesia dental"
+    ],
+    "amalgam": ["silver filling", "metal filling", "amalgam filling"],
+    "composite": [
+      "tooth colored filling",
+      "white filling",
+      "resin filling",
+      "composite filling"
+    ],
+    "pulp cap": ["pulp treatment", "nerve cap", "pulp capping"],
+    "gingivectomy": ["gum removal", "gum reshaping", "gum surgery"],
+    "class i": [
+      "diagnostic",
+      "preventive",
+      "preventive services",
+      "cleaning xray exam",
+      "class 1"
+    ],
+    "class ii": [
+      "basic services",
+      "basic dental",
+      "fillings extractions root canals",
+      "class 2"
+    ],
+    "class iii": [
+      "major services",
+      "major dental",
+      "crowns bridges dentures implants",
+      "class 3"
+    ],
+    "office visit": [
+      "dental visit",
+      "dentist visit",
+      "dental appointment",
+      "dental copay"
+    ],
+    "deductible": [
+      "dental deductible",
+      "amount before dental pays",
+      "calendar year deductible"
+    ],
+    "annual maximum": [
+      "dental maximum",
+      "yearly maximum",
+      "benefit maximum",
+      "annual limit",
+      "yearly limit"
+    ]
+  },
+  "medical": {
+    "rehabilitation": [
+      "physical therapy",
+      "rehab therapy",
+      "PT",
+      "occupational therapy",
+      "speech therapy",
+      "chiropractic",
+      "chiropractor",
+      "acupuncture"
+    ],
+    "inpatient": [
+      "hospital stay",
+      "admitted to hospital",
+      "hospitalization",
+      "admitted inpatient"
+    ],
+    "outpatient": [
+      "same day surgery",
+      "ambulatory care",
+      "day surgery",
+      "outpatient surgery"
+    ],
+    "prophylaxis": [
+      "preventive care",
+      "wellness visit",
+      "annual physical",
+      "routine checkup"
+    ],
+    "coinsurance": [
+      "cost sharing",
+      "your share",
+      "percentage you pay",
+      "your percentage",
+      "what you pay after deductible"
+    ],
+    "deductible": [
+      "amount you pay first",
+      "before insurance pays",
+      "annual deductible",
+      "what you pay before coverage"
+    ],
+    "prior authorization": [
+      "prior auth",
+      "pre-approval",
+      "pre-authorization",
+      "PA",
+      "approval before service"
+    ],
+    "formulary": [
+      "drug list",
+      "covered drugs",
+      "medication list",
+      "covered medications"
+    ],
+    "specialist": [
+      "specialist doctor",
+      "specialist visit",
+      "specialist copay",
+      "see a specialist"
+    ],
+    "emergency room": [
+      "ER",
+      "emergency department",
+      "ED",
+      "emergency care",
+      "emergency visit"
+    ],
+    "urgent care": [
+      "urgent care clinic",
+      "walk in clinic",
+      "immediate care",
+      "urgent visit"
+    ],
+    "home health": [
+      "home care",
+      "visiting nurse",
+      "home nursing",
+      "home health care",
+      "care at home"
+    ],
+    "hospice": [
+      "end of life care",
+      "palliative care",
+      "terminal care",
+      "hospice care"
+    ],
+    "dialysis": [
+      "kidney treatment",
+      "renal treatment",
+      "hemodialysis",
+      "kidney dialysis"
+    ],
+    "bariatric": [
+      "weight loss surgery",
+      "gastric bypass",
+      "gastric sleeve",
+      "bariatric surgery"
+    ],
+    "transplant": [
+      "organ transplant",
+      "kidney transplant",
+      "liver transplant",
+      "heart transplant"
+    ],
+    "chiropractic": [
+      "chiropractor",
+      "spinal adjustment",
+      "back adjustment",
+      "spine manipulation"
+    ],
+    "acupuncture": ["acupuncturist", "needle therapy", "acupuncture treatment"],
+    "telehealth": [
+      "virtual visit",
+      "video visit",
+      "online doctor",
+      "virtual care",
+      "telemedicine"
+    ],
+    "durable medical equipment": [
+      "DME",
+      "wheelchair",
+      "crutches",
+      "walker",
+      "medical equipment"
+    ],
+    "allergy": [
+      "allergy testing",
+      "allergy shots",
+      "allergy treatment",
+      "allergen testing"
+    ],
+    "mental health": [
+      "behavioral health",
+      "psychiatrist",
+      "therapist",
+      "counseling",
+      "mental health care"
+    ],
+    "substance use disorder": [
+      "drug treatment",
+      "alcohol treatment",
+      "addiction treatment",
+      "substance abuse"
+    ],
+    "skilled nursing": [
+      "nursing home",
+      "skilled nursing facility",
+      "SNF",
+      "nursing care facility"
+    ],
+    "newborn": ["baby care", "newborn care", "infant care", "nursery care"],
+    "maternity": [
+      "pregnancy",
+      "prenatal care",
+      "obstetric care",
+      "childbirth",
+      "labor and delivery"
+    ],
+    "preventive care": [
+      "annual physical",
+      "wellness exam",
+      "routine checkup",
+      "preventive visit",
+      "free preventive"
+    ],
+    "clinical trials": [
+      "clinical study",
+      "medical study",
+      "research trial",
+      "experimental treatment"
+    ],
+    "medical transportation": [
+      "ambulance",
+      "medical transport",
+      "emergency transport"
+    ],
+    "out of pocket maximum": [
+      "OOP max",
+      "out of pocket max",
+      "maximum you pay",
+      "stop loss",
+      "catastrophic limit"
+    ],
+    "professional visit": [
+      "doctor visit",
+      "office visit",
+      "physician visit",
+      "PCP visit",
+      "copay visit"
+    ]
+  },
+  "vision": {
+    "vision hardware": [
+      "glasses",
+      "eyeglasses",
+      "frames",
+      "lenses",
+      "contacts",
+      "spectacles",
+      "eyewear"
+    ],
+    "vision exam": [
+      "eye exam",
+      "eye examination",
+      "eye checkup",
+      "vision test",
+      "eye test",
+      "optometry exam"
+    ],
+    "contact lenses": [
+      "contacts",
+      "contact lens",
+      "soft lenses",
+      "hard lenses",
+      "contact lenses covered"
+    ],
+    "frames": [
+      "eyeglass frames",
+      "glasses frames",
+      "spectacle frames",
+      "frame allowance"
+    ],
+    "progressive": [
+      "progressive lenses",
+      "no line bifocal",
+      "varifocal",
+      "multifocal lenses"
+    ],
+    "bifocal": [
+      "bifocal lenses",
+      "lined bifocal",
+      "reading glasses",
+      "bifocals"
+    ],
+    "out of area": [
+      "out of state",
+      "outside washington",
+      "travelling",
+      "travel vision",
+      "vision outside"
+    ],
+    "optometrist": ["eye doctor", "vision doctor", "OD", "eye care provider"],
+    "ophthalmologist": [
+      "eye surgeon",
+      "eye specialist",
+      "MD eye doctor",
+      "eye physician"
+    ],
+    "low vision": [
+      "vision impairment",
+      "vision loss",
+      "legally blind",
+      "low vision aids"
+    ],
+    "vision hardware limit": [
+      "glasses allowance",
+      "frame allowance",
+      "hardware limit",
+      "vision benefit limit",
+      "annual vision limit"
+    ],
+    "exclusions": [
+      "not covered vision",
+      "vision exclusions",
+      "what vision doesnt cover",
+      "vision limitations"
+    ],
+    "selecting provider": [
+      "choose eye doctor",
+      "find eye doctor",
+      "vision provider",
+      "in network eye doctor"
+    ]
+  },
+  "shared": {
+    "copay": ["co-pay", "fixed amount", "flat fee", "visit fee", "fixed copay"],
+    "deductible": [
+      "amount before insurance",
+      "your deductible",
+      "annual deductible",
+      "calendar year deductible"
+    ],
+    "out of pocket": [
+      "OOP",
+      "out-of-pocket maximum",
+      "OOP max",
+      "your maximum",
+      "most you pay"
+    ],
+    "covered": ["included", "eligible", "benefits available", "plan covers"],
+    "not covered": [
+      "excluded",
+      "not eligible",
+      "no benefit",
+      "not included",
+      "exclusion"
+    ],
+    "in network": [
+      "in-network",
+      "participating provider",
+      "network provider",
+      "preferred provider"
+    ],
+    "out of network": [
+      "out-of-network",
+      "non-participating",
+      "non-network",
+      "non participating"
+    ],
+    "prior authorization": [
+      "prior auth",
+      "PA required",
+      "pre-approval",
+      "needs approval",
+      "get approval first"
+    ],
+    "calendar year": ["per year", "yearly", "each year", "benefit year"],
+    "coinsurance": [
+      "your percentage",
+      "cost sharing percentage",
+      "what you pay after deductible"
+    ],
+    "allowed amount": [
+      "approved amount",
+      "plan allowance",
+      "maximum allowed",
+      "covered amount"
+    ]
+  }
+}

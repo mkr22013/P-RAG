@@ -11,7 +11,6 @@ Output schema matches all other indexers:
 """
 
 import os, re, json as json_lib
-import asyncio
 import pdfplumber
 import ollama
 from dotenv import load_dotenv
@@ -321,7 +320,8 @@ def parse_cost_table(pdf_path):
                                     "service": benefit,
                                     "in_network": c1,
                                     "out_of_network": c2,
-                                }
+                                },
+                                "vision",  # category-aware: vision patterns + KB synonyms
                             ),
                             "page_number": page_num,
                         }
@@ -521,7 +521,8 @@ def parse_prose_sections(pdf_path):
                         {
                             "event": event,
                             "limitations": chunk_text,
-                        }
+                        },
+                        "vision",  # category-aware: vision patterns + KB synonyms
                     ),
                     "page_number": chunk_page,
                 }
@@ -576,15 +577,6 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
-
-
-PLAN_CATEGORY = "vision"
-
-
-if __name__ == "__main__":
-    from indexers.run_indexer import run
-
-    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # =============================Previous working code before page number addition============================

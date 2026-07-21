@@ -7,7 +7,6 @@ No docling required.
 
 import re, os
 import json as json_lib
-import asyncio
 import ollama
 import pdfplumber
 
@@ -624,7 +623,8 @@ def parse_summary_page(pdf_path):
                         "service": service,
                         "in_network": in_net,
                         "out_of_network": out_net,
-                    }
+                    },
+                    "medical",  # category-aware: medical patterns only, no dental/vision noise
                 ),
             }
         )
@@ -940,7 +940,8 @@ def parse_prose_sections(pdf_path):
                         {
                             "event": event,
                             "limitations": chunk_text,
-                        }
+                        },
+                        "medical",  # category-aware: medical patterns only, no dental/vision noise
                     ),
                     "page_number": chunk_page,
                 }
@@ -987,7 +988,9 @@ def generate_sub_index(sub_index_path, pdf_path):
                     "category": "cost",
                     "benefit_category": "medical",
                     "content": content,
-                    "keywords": get_smart_keywords(content),
+                    "keywords": get_smart_keywords(
+                        content, "medical"
+                    ),  # category-aware keyword generation
                     "page_number": page_num,
                 }
             )
@@ -1145,15 +1148,6 @@ def generate_sub_index(sub_index_path, pdf_path):
         json_lib.dump(sub_index, f, indent=4)
 
     return sub_index
-
-
-PLAN_CATEGORY = "medical"
-
-
-if __name__ == "__main__":
-    from indexers.run_indexer import run
-
-    run(PLAN_CATEGORY, classify_document, generate_sub_index)
 
 
 # ==========================Previous working code before page number addition==========================#

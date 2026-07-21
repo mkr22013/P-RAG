@@ -2,48 +2,186 @@
 Shared utilities used by all booklet indexers (SBC, Medical, Dental, etc.)
 """
 
+import os
 import re
 import json as json_lib
+from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 
+# ── Knowledge Base ─────────────────────────────────────────────────────────────
 
-def get_smart_keywords(text):
+_KB_FILE = os.path.join(os.path.dirname(__file__), "knowledge_base.json")
+_kb_data: dict = {}
+_kb_loaded_at: datetime | None = None
+_KB_TTL = timedelta(hours=24)
+
+
+def _load_knowledge_base() -> dict:
     """
-    Extract up to 10 meaningful keywords from a chunk of text or dict content.
+    Load knowledge_base.json with 24h TTL cache.
 
-    Two-phase extraction:
-    1. Domain pattern matching — insurance-specific terms that are most useful
-       for scoring. Each pattern maps to a clean label used as the keyword.
-    2. Word length fallback — any word 7+ chars not already captured,
-       EXCLUDING JSON field names that leak from dict serialization.
+    Knowledge base maps benefit terms to plain-language synonyms and vice versa.
+    Used at two points:
+        1. Query time — expand query keywords before chunk scoring (tools.py)
+        2. Index time — inject synonyms into chunk_keywords (get_smart_keywords)
 
-    Why this matters:
-        chunk_keywords are used by tools.py to score chunks against query keywords.
-        Poor keywords (e.g. JSON field names like "in_network", "limitations")
-        cause all chunks to score equally — the correct chunk can't rank higher.
-        Good keywords (e.g. "hospital", "inpatient", "hospice") allow the scoring
-        to differentiate between similar chunks and return the most relevant one.
+    Structure:
+        {
+            "dental":  {"prophylaxis": ["cleaning", "teeth cleaning", ...], ...},
+            "medical": {"rehabilitation": ["physical therapy", ...], ...},
+            "vision":  {"vision hardware": ["glasses", "frames", ...], ...},
+            "shared":  {"copay": ["co-pay", "fixed amount", ...], ...}
+        }
+    """
+    global _kb_data, _kb_loaded_at
+    now = datetime.utcnow()
+    if _kb_loaded_at is not None and (now - _kb_loaded_at) < _KB_TTL and _kb_data:
+        return _kb_data
 
-    Example fix:
-        Before: Hospital chunk keywords = ['deductible', 'coinsurance', 'service',
-                'in_network', 'out_of_network', 'limitations', 'hospital', 'inpatient']
-                Hospice chunk keywords  = ['deductible', 'coinsurance', 'hospice',
-                'inpatient', 'service', 'in_network', ...]
-                → Both score equally for query "inpatient hospital stay"
+    try:
+        with open(_KB_FILE, encoding="utf-8") as f:
+            _kb_data = json_lib.load(f)
+        _kb_loaded_at = now
+        print(
+            f"[*] Knowledge base loaded: {sum(len(v) for v in _kb_data.values())} entries"
+        )
+    except FileNotFoundError:
+        print(
+            f"[!] knowledge_base.json not found at {_KB_FILE} — KB expansion disabled"
+        )
+        _kb_data = {}
+    except Exception as e:
+        print(f"[!] Failed to load knowledge_base.json: {e}")
+        _kb_data = {}
 
-        After:  Hospital chunk keywords = ['hospital', 'inpatient', 'deductible',
-                'coinsurance']
-                Hospice chunk keywords  = ['hospice', 'inpatient', 'deductible',
-                'coinsurance', 'terminal', 'lifetime']
-                → Hospital chunk scores higher for query containing "hospital"
+    return _kb_data
+
+
+def expand_query_keywords(keywords: list, benefit_category: str) -> list:
+    """
+    Expands query keywords using knowledge base synonyms.
+
+    Called by tools.py before chunk scoring to bridge the gap between
+    what members say and what the index contains:
+
+        Member says:    "teeth cleaning"
+        Index contains: "prophylaxis"
+
+        Without expansion: 0 keyword matches → wrong chunk
+        With expansion:    "cleaning" → KB → adds "prophylaxis"
+                           → correct chunk scores higher ✅
+
+    FORWARD-ONLY lookup (synonym → canonical):
+        keyword is a VALUE (synonym) → member used lay term → add canonical KEY
+        keyword is a KEY (canonical) → member used technical term → no expansion
+
+        "cleaning"    → found in VALUES of "prophylaxis" → add "prophylaxis" ✅
+        "prophylaxis" → found as KEY → already canonical → skip ✅
+        "allergy"     → found as KEY → already canonical → skip ✅
+        "allergen"    → found in VALUES of "allergy" → add "allergy" ✅
+        "anesthesia"  → found as KEY → already canonical → skip ✅
+        "sedation"    → found in VALUES of "anesthesia" → add "anesthesia" ✅
+
+    Why NOT reverse (canonical → synonyms):
+        Reverse expansion causes cross-chunk contamination:
+        "allergy" (canonical) → would add "allergy shots", "allergen testing"
+        → matches preventive care/office visit chunks incorrectly
+        "anesthesia" (canonical) → would add "nitrous oxide", "sedation"
+        → nitrous query pulls in general anesthesia chunk and vice versa
+        When member uses technical term, no expansion needed — they're already precise.
+
+    Also checks "shared" category for terms common across all categories
+    (copay, deductible, in-network, etc.)
+
+    Pure dict lookup — 0 tokens, 0 LLM calls, microseconds.
+    If word not in KB → use as-is, normal scoring (graceful degradation).
+
+    Args:
+        keywords:         list of query keywords from topic_resolver
+        benefit_category: "dental", "medical", "vision", "rx"
+
+    Returns:
+        Expanded list with KB synonyms added (deduped, order preserved)
+    """
+    kb = _load_knowledge_base()
+    if not kb:
+        return keywords
+
+    category_kb = kb.get(benefit_category, {})
+    shared_kb = kb.get("shared", {})
+
+    expanded = list(keywords)
+
+    def _add_if_new(term: str):
+        if term and term not in expanded:
+            expanded.append(term)
+
+    for keyword in list(keywords):  # iterate original list only
+        keyword_lower = keyword.lower().strip()
+
+        # Forward-only lookup: synonym → canonical
+        # Check category-specific KB + shared KB
+        for kb_section in [category_kb, shared_kb]:
+            for canonical, synonyms in kb_section.items():
+                synonyms_lower = [s.lower() for s in synonyms]
+
+                # Forward ONLY: keyword is a synonym → add canonical
+                # e.g. "cleaning" → found in prophylaxis synonyms → add "prophylaxis"
+                # Reverse deliberately removed — canonical → synonyms causes
+                # cross-chunk contamination (see docstring above)
+                if keyword_lower in synonyms_lower:
+                    _add_if_new(canonical)
+
+    return expanded
+
+
+def get_smart_keywords(text, benefit_category: str | None = None) -> list:
+    """
+    Extract up to 15 meaningful keywords from a chunk of text or dict content.
+
+    Three-phase extraction:
+
+    Phase 1 — Domain pattern matching (runs on full content):
+        Insurance-specific terms mapped to clean labels.
+        Patterns run against full serialized dict — catches domain terms
+        even when they appear in limitations/description text.
+
+    Phase 2 — Word fallback (runs on event+service ONLY):
+        Any 7+ char word not already captured, from event and service
+        fields only. Excludes limitations prose to avoid noise like
+        "rheumatoid", "example", "comparable" leaking in from description text.
+        Also excludes JSON field names and generic stopwords.
+
+    Phase 3 — Knowledge base synonym injection (category-aware):
+        For each keyword found in Phases 1+2, looks up KB synonyms
+        and injects them into chunk_keywords.
+        "prophylaxis" → injects ["cleaning", "teeth cleaning", "polish"]
+        Makes chunk findable via plain-language member queries.
+        benefit_category determines which KB section to use.
+
+    Why benefit_category matters:
+        "prophylaxis" means dental cleaning in dental context
+        "prophylaxis" means preventive care in medical context
+        Category-aware KB prevents cross-category synonym injection.
+
+    Args:
+        text:             dict (chunk content) or str
+        benefit_category: "dental", "medical", "vision", "sbc", None
+
+    Returns:
+        List of up to 15 keywords (10 base + up to 5 KB synonyms)
     """
     if isinstance(text, dict):
-        text = json_lib.dumps(text)
+        full_text = json_lib.dumps(text)
+        # Extract event+service only for word fallback (no limitations prose)
+        fallback_text = f"{text.get('event', '')} {text.get('service', '')}".lower()
+    else:
+        full_text = text
+        fallback_text = text.lower()
 
-    text_lower = text.lower()
+    full_text_lower = full_text.lower()
 
-    # JSON field name noise — these leak into keywords when dict is serialized
-    # and add no scoring value since they appear in EVERY chunk
+    # JSON field name noise — excluded from fallback
     JSON_FIELD_NOISE = {
         "in_network",
         "out_of_network",
@@ -62,11 +200,87 @@ def get_smart_keywords(text):
         "not_found",
     }
 
-    # Domain-specific patterns — ordered by specificity (most specific first)
-    # Each key is the clean keyword label stored in chunk_keywords
-    patterns = {
-        # Facility / care setting — most important for distinguishing chunks
-        "hospital": r"\bhospital\b(?!\s+stay)",  # hospital (not "hospital stay")
+    # Generic prose words that add no scoring value — excluded from fallback
+    FALLBACK_STOPWORDS = JSON_FIELD_NOISE | {
+        "either",
+        "comparable",
+        "including",
+        "focused",
+        "complete",
+        "series",
+        "application",
+        "polishing",
+        "additional",
+        "following",
+        "members",
+        "calendar",
+        "limited",
+        "covered",
+        "amount",
+        "based",
+        "allowed",
+        "benefits",
+        "services",
+        "treatment",
+        "certain",
+        "provides",
+        "provided",
+        "another",
+        "between",
+        "through",
+        "without",
+        "whether",
+        "however",
+        "because",
+        "subject",
+        "requires",
+        "required",
+        "received",
+        "percent",
+        "applies",
+        "applicable",
+        "available",
+        "according",
+        "described",
+        "specified",
+        "standard",
+        "general",
+        "specific",
+        "includes",
+        "included",
+        "related",
+        "relevant",
+        "details",
+        "further",
+        "please",
+        "contact",
+        "section",
+        "booklet",
+        "summary",
+        "applies",
+    }
+
+    # ── Shared patterns — run for ALL categories ──────────────────────────────
+    # Cost sharing terms appear in every category — always meaningful
+    # Emergency/urgent also shared — dental has D9440 emergency visits
+    SHARED_PATTERNS = {
+        # Cost sharing
+        "copay": r"\bco[- ]?pay\b|\bcopay\b",
+        "deductible": r"\bdeductible\b",
+        "coinsurance": r"\bco[- ]?insurance\b|\bcoinsurance\b",
+        "out-of-pocket": r"\bout[- ]?of[- ]?pocket\b",
+        "prior-auth": r"\bprior\s+auth",
+        # Provider type (shared across all)
+        "specialist": r"\bspecialist\b",
+        "emergency": r"\bemergency\b|medical[- ]?attention",
+    }
+
+    # ── Medical-specific patterns ──────────────────────────────────────────────
+    # Only injected when benefit_category == "medical"
+    # Prevents dental/vision chunks from getting medical keywords
+    MEDICAL_PATTERNS = {
+        # Facility / care setting
+        "hospital": r"\bhospital\b(?!\s+stay)",
         "inpatient": r"\binpatient\b",
         "outpatient": r"\boutpatient\b",
         "hospice": r"\bhospice\b",
@@ -81,19 +295,9 @@ def get_smart_keywords(text):
         "hospice care": r"\bhospice\s+care\b",
         # Provider type
         "pcp": r"\bpcp\b|primary[- ]?care\s+physician",
-        "specialist": r"\bspecialist\b",
-        "emergency": r"\bemergency\b|medical[- ]?attention",
         "urgent-care": r"\burgent[- ]?care\b",
-        # Cost sharing
-        "copay": r"\bco[- ]?pay\b|\bcopay\b",
-        "deductible": r"\bdeductible\b",
-        "coinsurance": r"\bco[- ]?insurance\b|\bcoinsurance\b",
-        "out-of-pocket": r"\bout[- ]?of[- ]?pocket\b",
-        "prior-auth": r"\bprior\s+auth",
         # Service categories
         "pharmacy": r"\bpharmacy\b|\bprescription\b|\brx\b",
-        "dental": r"\bdental\b|\bdentist\b|\bortho\b|\bbraces\b",
-        "vision": r"\bvision\b|\beye\b|\bglasses\b",
         "imaging": r"\bimaging\b|\bmri\b|\bct\s?scan\b|\bpet\s?scan\b",
         "diagnostic": r"\bdiagnostic\b|\bx-ray\b|\bblood\s?work\b",
         "mental-health": r"\bmental\b|\bbehavioral\b|\bsubstance\b|\babuse\b",
@@ -110,21 +314,141 @@ def get_smart_keywords(text):
         "foot-care": r"\bfoot\s+care\b|\bpodiatry\b",
     }
 
+    # ── Dental-specific patterns ───────────────────────────────────────────────
+    # Covers all common dental procedure codes and benefit names
+    # Prevents generic words like "either", "comparable", "series" from
+    # appearing as keywords when the real term (e.g. "panoramic") is available
+    DENTAL_PATTERNS = {
+        # Procedures
+        "prophylaxis": r"\bprophylaxis\b",
+        "extraction": r"\bextraction\b",
+        "root-canal": r"\broot\s+canal\b|\bendodontic\b",
+        "crown": r"\bcrown\b|\bporcelain\b|\bstainless\s+steel\b",
+        "bridge": r"\bbridge\b|\bpontic\b",
+        "implant": r"\bimplant\b",
+        "denture": r"\bdenture\b",
+        "sealant": r"\bsealant\b",
+        "fluoride": r"\bfluoride\b",
+        "orthodontic": r"\bordodontic\b|\borthodontic\b|\baligner\b",
+        "periodontic": r"\bperiodontic\b|\bscaling\b|\broot\s+planing\b|\bgingivectomy\b",
+        "tmj": r"\btmj\b|\btemporomandibular\b",
+        "apicoectomy": r"\bapicoectomy\b|\bapical\b",
+        "amalgam": r"\bamalgam\b",
+        "composite": r"\bcomposite\b|\bresin\b",
+        "anesthesia": r"\banesthesia\b|\bsedation\b",  # general anesthesia/sedation only
+        "nitrous": r"\bnitrous\b|\banalgesia\b|\banxiolysis\b",  # nitrous oxide specific
+        "pulp": r"\bpulp\s+cap\b|\bpulpotomy\b|\bpulpectomy\b",
+        # X-rays
+        "panoramic": r"\bpanoramic\b|\bpanorex\b",
+        "bitewing": r"\bbitewing\b",
+        "periapical": r"\bperiapical\b",
+        "cone-beam": r"\bcone\s+beam\b|\bcbct\b",
+        # Benefit classes
+        "class-i": r"\bclass\s+i\b|\bclass\s+1\b|\bdiagnostic\s+and\s+preventive\b",
+        "class-ii": r"\bclass\s+ii\b|\bclass\s+2\b|\bbasic\s+services\b",
+        "class-iii": r"\bclass\s+iii\b|\bclass\s+3\b|\bmajor\s+services\b",
+        # Dental-specific cost
+        "annual-maximum": r"\bannual\s+max\b|\byearly\s+max\b|\bbenefit\s+max\b",
+        "dental-deductible": r"\bdental\s+deductible\b|\bcalendar\s+year\s+deductible\b",
+        # General
+        "dental": r"\bdental\b|\bdentist\b",
+        "oral": r"\boral\b|\bmouth\b|\bgum\b|\btooth\b|\bteeth\b",
+    }
+
+    # ── Vision-specific patterns ───────────────────────────────────────────────
+    # Covers vision exam, hardware, contact lenses, and provider types
+    VISION_PATTERNS = {
+        # Exam
+        "vision-exam": r"\bvision\s+exam\b|\beye\s+exam\b|\boptometry\b",
+        # Hardware
+        "vision-hardware": r"\bvision\s+hardware\b|\beyeglass\b|\bspectacle\b",
+        "frames": r"\bframes\b|\beyeglass\s+frame\b",
+        "lenses": r"\blenses\b|\beyeglass\s+lens\b",
+        "contact-lenses": r"\bcontact\s+lens\b|\bcontacts\b|\bsoft\s+lens\b",
+        "bifocal": r"\bbifocal\b",
+        "progressive": r"\bprogressive\b|\bvarifocal\b|\bno[- ]line\b",
+        "low-vision": r"\blow\s+vision\b|\bvision\s+impairment\b",
+        # Provider
+        "optometrist": r"\boptometrist\b|\bod\b",
+        "ophthalmologist": r"\bophthalmologist\b",
+        # Coverage
+        "out-of-area": r"\bout.of.area\b|\boutside\s+washington\b|\btravel\s+vision\b",
+        "hardware-limit": r"\bhardware\s+limit\b|\bannual\s+limit\b|\bvision\s+allowance\b",
+        # General
+        "vision": r"\bvision\b|\beye\b|\bglasses\b|\bsunglasses\b",
+    }
+
+    # ── Select patterns based on benefit_category ──────────────────────────────
+    # Always start with shared patterns (cost sharing + emergency)
+    # Then add category-specific patterns
+    # This prevents cross-category contamination:
+    #   dental chunk should NOT get "hospital", "inpatient" patterns
+    #   medical chunk should NOT get "prophylaxis", "panoramic" patterns
+    if benefit_category == "dental":
+        active_patterns = {**SHARED_PATTERNS, **DENTAL_PATTERNS}
+    elif benefit_category == "vision":
+        active_patterns = {**SHARED_PATTERNS, **VISION_PATTERNS}
+    elif benefit_category in ("medical", "sbc"):
+        active_patterns = {**SHARED_PATTERNS, **MEDICAL_PATTERNS}
+    else:
+        # Unknown or no category — run all patterns (safe fallback)
+        active_patterns = {
+            **SHARED_PATTERNS,
+            **MEDICAL_PATTERNS,
+            **DENTAL_PATTERNS,
+            **VISION_PATTERNS,
+        }
+
+    # Phase 1 — category-aware domain patterns on full content
     found = []
-    for label, pat in patterns.items():
-        if re.search(pat, text_lower) and label not in found:
+    for label, pat in active_patterns.items():
+        if re.search(pat, full_text_lower) and label not in found:
             found.append(label)
         if len(found) >= 10:
             break
 
-    # Word length fallback — fill remaining slots with 7+ char words
-    # excluding JSON field names and already-found keywords
+    # Phase 2 — word fallback from event+service ONLY (no limitations prose)
     if len(found) < 10:
-        for word in re.findall(r"\b[a-z]\w{6,}\b", text_lower):
-            if word not in found and word not in JSON_FIELD_NOISE and len(found) < 10:
+        for word in re.findall(r"\b[a-z]\w{6,}\b", fallback_text):
+            if word not in found and word not in FALLBACK_STOPWORDS and len(found) < 10:
                 found.append(word)
 
-    return found[:10]
+    # Phase 3 — KB synonym injection (category-aware, forward-only)
+    # Injects canonical terms so chunk is findable via plain-language member queries.
+    #
+    # FORWARD-ONLY: chunk has synonym → inject canonical
+    #   "cleaning" in chunk keywords → inject "prophylaxis" ✅
+    #   "tooth removal" in chunk keywords → inject "extraction" ✅
+    #
+    # NOT reverse: chunk has canonical → do NOT inject synonyms
+    #   "allergy" in chunk keywords → do NOT inject "allergy shots", "allergen testing" ❌
+    #   "anesthesia" in chunk keywords → do NOT inject "nitrous oxide", "sedation" ❌
+    #
+    # Why: reverse injection causes cross-chunk contamination.
+    # "Professional Visits" chunk has "allergy" keyword (from limitations text).
+    # Reverse would inject "allergy testing", "allergy shots" → now this chunk
+    # scores high for allergy queries → wrong chunk returned.
+    # Forward-only keeps injections targeted — only the specific chunk that
+    # uses lay terminology gets enriched with its canonical term.
+    if benefit_category and found:
+        kb = _load_knowledge_base()
+        category_kb = kb.get(benefit_category, {})
+        shared_kb = kb.get("shared", {})
+        enriched = list(found)
+
+        for keyword in found:
+            keyword_lower = keyword.lower()
+            # Forward-only: check if keyword appears as a VALUE (synonym)
+            # in any KB entry → inject the canonical KEY
+            for kb_section in [category_kb, shared_kb]:
+                for canonical, synonyms in kb_section.items():
+                    if keyword_lower in [s.lower() for s in synonyms]:
+                        if canonical not in enriched and len(enriched) < 15:
+                            enriched.append(canonical)
+
+        found = enriched
+
+    return found[:15]
 
 
 # Single source of truth for noise/generic words.
@@ -210,6 +534,7 @@ NOISE_WORDS = {
     "many",
     "more",
     "have",
+    "that",
     "them",
     "they",
     "been",
@@ -256,12 +581,13 @@ NOISE_WORDS = {
     "wrong",
     "think",
     "feel",
+    "know",
     "just",
     "really",
     "actually",
     "mean",
     "whats",
-    "wat",
+    "what" "wat",
     "unknown",
     "during",
     "stay",

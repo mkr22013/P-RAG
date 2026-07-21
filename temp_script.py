@@ -565,55 +565,197 @@
 #     print(f'  {kws}')
 #     print()
 
+# import sys
+
+# sys.path.insert(0, ".")
+# from utility.utils import get_smart_keywords
+
+# chunks = [
+#     (
+#         "Hospital → Coverage Information",
+#         {
+#             "event": "Hospital",
+#             "service": "Coverage Information",
+#             "in_network": "Data Not Found",
+#             "out_of_network": "Data Not Found",
+#             "limitations": "Hospital care is covered for inpatient and outpatient services...",
+#         },
+#     ),
+#     (
+#         "Inpatient Care → Coverage Information",
+#         {
+#             "event": "Inpatient Care",
+#             "service": "Coverage Information",
+#             "in_network": "Data Not Found",
+#             "out_of_network": "Data Not Found",
+#             "limitations": "Inpatient rehabilitation care is covered when medically necessary...",
+#         },
+#     ),
+#     (
+#         "Professional Visit Copay",
+#         {
+#             "event": "Professional Visit Copay",
+#             "service": "Professional visit copay",
+#             "in_network": "Kinwell Clinic: $0 / All Other Non-Specialist: $25 / All Other Specialist: $40",
+#             "out_of_network": "Data Not Found",
+#         },
+#     ),
+#     (
+#         "Emergency Room → Professional services",
+#         {
+#             "event": "Emergency Room",
+#             "service": "Professional services",
+#             "in_network": "Deductible, then 20% coinsurance",
+#             "out_of_network": "Deductible, then 20% coinsurance",
+#             "limitations": "Data Not Found",
+#         },
+#     ),
+# ]
+
+# for name, content in chunks:
+#     kws = get_smart_keywords(content)
+#     print(f"{name}")
+#     print(f"  {kws}")
+#     print()
+
+# import sys
+
+# sys.path.insert(0, ".")
+# from utility.category import correct_drug_spelling
+# from utility.utils import RX_NOISE_WORDS
+
+# print("Spelling correction tests:")
+# tests = ["humera", "metfromin", "lisnopril", "atorvastatine", "flucanazole", "ozempik"]
+# for t in tests:
+#     print(f"  {t!r} -> {correct_drug_spelling(t)!r}")
+
+# print()
+# print(f"RX_NOISE_WORDS count: {len(RX_NOISE_WORDS)}")
+# print(f"RX_NOISE_WORDS sample: {sorted(RX_NOISE_WORDS)[:15]}")
+
+# import sys, re, io
+# from contextlib import redirect_stdout
+
+# sys.path.insert(0, ".")
+# from utility.topic_resolver import resolve_insurance_topic
+
+# q = "what is my coinsurance for an inpatient hospital stay?"
+# words = [re.sub(r"[^\w\s]", "", w) for w in q.lower().split()]
+# f = io.StringIO()
+# with redirect_stdout(f):
+#     result = resolve_insurance_topic(words, q, "medical")
+# print(f'topics={result["topics"]}')
+# print(f'keywords={result["keywords"]}')
+
+# import sys
+# sys.path.insert(0, '.')
+# from utility.utils import expand_query_keywords
+
+# tests = [
+#     (['allergy', 'testing', 'treatment'], 'medical'),
+#     (['newborn', 'inpatient', 'care'], 'medical'),
+#     (['office', 'visit', 'copay', 'dental'], 'dental'),
+#     (['crown', 'cost'], 'dental'),
+#     (['nitrous', 'oxide', 'cost'], 'dental'),
+#     (['anesthesia', 'dental'], 'dental'),
+#     (['deductible', 'dental'], 'dental'),
+#     (['annual', 'maximum', 'dental'], 'dental'),
+# ]
+
+# for kws, cat in tests:
+#     expanded = expand_query_keywords(kws, cat)
+#     new_terms = [t for t in expanded if t not in kws]
+#     if new_terms:
+#         print(f"  {kws} → added: {new_terms}")
+#     else:
+#         print(f"  {kws} → no expansion")
+
+# import sys, json
+# sys.path.insert(0, '.')
+
+# with open('indices/2026_medical_ppo_1000016_premera_employees_health_plan_standard_ppo_retiree_plan_retiree.json') as f:
+#     data = json.load(f)
+
+# print("ALL chunks with 'allergy' in keywords:")
+# for chunk in data:
+#     kws = chunk.get('keywords', [])
+#     content = chunk.get('content', {})
+#     event = content.get('event', '') if isinstance(content, dict) else ''
+#     service = content.get('service', '') if isinstance(content, dict) else ''
+#     if any('allergy' in k.lower() for k in kws):
+#         print(f"  event: {event[:60]}")
+#         print(f"  service: {service[:60]}")
+#         print(f"  keywords: {kws}")
+#         print()
+
+# import sys, json
+# sys.path.insert(0, '.')
+
+# with open('indices/2026_medical_ppo_1000016_premera_employees_health_plan_standard_ppo_retiree_plan_retiree.json') as f:
+#     data = json.load(f)
+
+# print("Newborn chunks:")
+# for chunk in data:
+#     content = chunk.get('content', {})
+#     event = content.get('event', '') if isinstance(content, dict) else ''
+#     if 'newborn' in event.lower():
+#         print(f"  event: {event}")
+#         print(f"  service: {content.get('service','')}")
+#         print(f"  keywords: {chunk.get('keywords',[])}")
+#         print()
+
+# import sys, json
+# sys.path.insert(0, '.')
+
+# with open('indices/2026_dental_1000016_willamette_dental_plan_standard.json') as f:
+#     data = json.load(f)
+
+# print("Anesthesia/Nitrous chunks:")
+# for chunk in data:
+#     content = chunk.get('content', {})
+#     event = content.get('event', '') if isinstance(content, dict) else ''
+#     service = content.get('service', '') if isinstance(content, dict) else ''
+#     kws = chunk.get('keywords', [])
+#     if any(w in (event+service).lower() for w in ['nitrous', 'anesthesia', 'sedation']):
+#         print(f"  event: {event}")
+#         print(f"  service: {service[:60]}")
+#         print(f"  in_network: {content.get('in_network','')}")
+#         print(f"  keywords: {kws}")
+#         print()
+
+# print("\nDental Premera annual maximum chunks:")
+# with open('indices/2026_dental_1000016_premera_dental_plan_standard.json') as f:
+#     data2 = json.load(f)
+
+# for chunk in data2:
+#     content = chunk.get('content', {})
+#     event = content.get('event', '') if isinstance(content, dict) else ''
+#     service = content.get('service', '') if isinstance(content, dict) else ''
+#     if any(w in (event+service).lower() for w in ['maximum', 'deductible', 'annual']):
+#         print(f"  event: {event}")
+#         print(f"  service: {service[:60]}")
+#         print(f"  in_network: {content.get('in_network','')}")
+#         print(f"  keywords: {chunk.get('keywords',[])}")
+#         print()
+        
+# import sys
+# sys.path.insert(0, '.')
+# from utility.utils import expand_query_keywords
+
+# print(expand_query_keywords(['annual', 'maximum', 'benefit', 'dental'], 'dental'))
+
+from sympy import python
+
+
+
 import sys
-
-sys.path.insert(0, ".")
-from utility.utils import get_smart_keywords
-
-chunks = [
-    (
-        "Hospital → Coverage Information",
-        {
-            "event": "Hospital",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Hospital care is covered for inpatient and outpatient services...",
-        },
-    ),
-    (
-        "Inpatient Care → Coverage Information",
-        {
-            "event": "Inpatient Care",
-            "service": "Coverage Information",
-            "in_network": "Data Not Found",
-            "out_of_network": "Data Not Found",
-            "limitations": "Inpatient rehabilitation care is covered when medically necessary...",
-        },
-    ),
-    (
-        "Professional Visit Copay",
-        {
-            "event": "Professional Visit Copay",
-            "service": "Professional visit copay",
-            "in_network": "Kinwell Clinic: $0 / All Other Non-Specialist: $25 / All Other Specialist: $40",
-            "out_of_network": "Data Not Found",
-        },
-    ),
-    (
-        "Emergency Room → Professional services",
-        {
-            "event": "Emergency Room",
-            "service": "Professional services",
-            "in_network": "Deductible, then 20% coinsurance",
-            "out_of_network": "Deductible, then 20% coinsurance",
-            "limitations": "Data Not Found",
-        },
-    ),
-]
-
-for name, content in chunks:
-    kws = get_smart_keywords(content)
-    print(f"{name}")
-    print(f"  {kws}")
-    print()
+sys.path.insert(0, '.')
+from utility import response_builder
+import inspect
+src = inspect.getsource(response_builder.build_cost_table)
+# Check if TOPIC_EVENT_MAP is in the function
+if 'TOPIC_EVENT_MAP' in src:
+    print('TOPIC FILTER FOUND in loaded response_builder')
+else:
+    print('TOPIC FILTER NOT FOUND - wrong file loaded')
+print('File location:', response_builder.__file__)

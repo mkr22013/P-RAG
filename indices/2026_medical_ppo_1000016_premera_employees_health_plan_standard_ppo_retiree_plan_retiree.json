@@ -14,7 +14,8 @@
             "copay",
             "deductible",
             "coinsurance",
-            "acupuncture"
+            "acupuncture",
+            "rehabilitation"
         ],
         "page_number": 11
     },
@@ -34,7 +35,8 @@
             "coinsurance",
             "acupuncture",
             "outside",
-            "setting"
+            "setting",
+            "rehabilitation"
         ],
         "page_number": 11
     },
@@ -53,8 +55,7 @@
             "deductible",
             "coinsurance",
             "allergy",
-            "testing",
-            "treatment"
+            "testing"
         ],
         "page_number": 11
     },
@@ -73,7 +74,8 @@
             "deductible",
             "coinsurance",
             "transportation",
-            "ambulance"
+            "ambulance",
+            "medical transportation"
         ],
         "page_number": 11
     },
@@ -91,8 +93,7 @@
         "keywords": [
             "deductible",
             "coinsurance",
-            "products",
-            "services"
+            "products"
         ],
         "page_number": 11
     },
@@ -108,16 +109,13 @@
             "limitations": "You may have additional costs for other services such as x-rays, labs, prescription drugs, and hospital facility charges. See those covered services for details."
         },
         "keywords": [
-            "hospital",
             "deductible",
             "coinsurance",
+            "hospital",
             "pharmacy",
             "cellular",
             "immunotherapy",
-            "therapy",
-            "additional",
-            "services",
-            "prescription"
+            "therapy"
         ],
         "page_number": 11
     },
@@ -139,8 +137,7 @@
             "radiation",
             "therapy",
             "professional",
-            "facility",
-            "services"
+            "facility"
         ],
         "page_number": 11
     },
@@ -159,13 +156,7 @@
             "hospital",
             "pharmacy",
             "clinical-trials",
-            "clinical",
-            "covered",
-            "routine",
-            "patient",
-            "additional",
-            "services",
-            "prescription"
+            "clinical"
         ],
         "page_number": 11
     },
@@ -181,10 +172,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
-            "dental",
+            "inpatient",
             "facility",
             "anesthesia"
         ],
@@ -202,11 +192,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
-            "surgical",
             "deductible",
             "coinsurance",
-            "dental",
+            "outpatient",
+            "surgical",
             "facility",
             "anesthesia",
             "surgery"
@@ -225,16 +214,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
-            "dental",
+            "specialist",
             "facility",
             "anesthesia",
-            "anesthesiologist",
-            "kinwell",
-            "clinics"
+            "anesthesiologist"
         ],
         "page_number": 11
     },
@@ -250,15 +236,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
-            "dental",
+            "specialist",
             "facility",
-            "anesthesia",
-            "kinwell",
-            "clinics"
+            "anesthesia"
         ],
         "page_number": 11
     },
@@ -274,16 +257,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
-            "dental",
+            "specialist",
             "facility",
             "anesthesia",
-            "determine",
-            "treatment",
-            "kinwell"
+            "determine"
         ],
         "page_number": 11
     },
@@ -301,10 +281,8 @@
         "keywords": [
             "deductible",
             "coinsurance",
-            "dental",
             "facility",
-            "anesthesia",
-            "treatment"
+            "anesthesia"
         ],
         "page_number": 12
     },
@@ -387,15 +365,11 @@
             "limitations": "For permanent kidney failure. See the Dialysis benefit for details."
         },
         "keywords": [
-            "dialysis",
             "deductible",
             "coinsurance",
+            "dialysis",
             "medicare",
-            "waiting",
-            "permanent",
-            "failure",
-            "benefit",
-            "details"
+            "waiting"
         ],
         "page_number": 12
     },
@@ -413,11 +387,7 @@
         "keywords": [
             "dialysis",
             "medicare",
-            "waiting",
-            "permanent",
-            "failure",
-            "benefit",
-            "details"
+            "waiting"
         ],
         "page_number": 12
     },
@@ -435,8 +405,7 @@
         "keywords": [
             "copay",
             "deductible",
-            "electronic",
-            "covered"
+            "electronic"
         ],
         "page_number": 12
     },
@@ -452,16 +421,14 @@
             "limitations": "You may have additional costs for other services. Examples are X-rays or lab tests. See those covered services for details. The copay is waived if you are admitted as an inpatient through the emergency room. The copay is waived if you are transferred and admitted to a different hospital directly from the emergency room."
         },
         "keywords": [
-            "hospital",
-            "inpatient",
-            "emergency",
             "copay",
             "deductible",
             "coinsurance",
+            "emergency",
+            "hospital",
+            "inpatient",
             "facility",
-            "charges",
-            "additional",
-            "services"
+            "charges"
         ],
         "page_number": 12
     },
@@ -477,11 +444,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "emergency",
             "deductible",
             "coinsurance",
-            "professional",
-            "services"
+            "emergency",
+            "professional"
         ],
         "page_number": 12
     },
@@ -497,13 +463,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
-            "foot-care",
-            "kinwell",
-            "clinics"
+            "specialist",
+            "foot-care"
         ],
         "page_number": 13
     },
@@ -538,14 +502,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
+            "specialist",
             "gender-affirming",
-            "affirming",
-            "kinwell",
-            "clinics"
+            "affirming"
         ],
         "page_number": 13
     },
@@ -565,8 +527,7 @@
             "coinsurance",
             "gender-affirming",
             "affirming",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 13
     },
@@ -582,9 +543,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "gender-affirming",
             "affirming",
             "facility"
@@ -639,10 +600,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "home health",
             "deductible",
             "coinsurance",
-            "calendar"
+            "home health"
         ],
         "page_number": 13
     },
@@ -658,11 +618,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "home health",
             "deductible",
             "coinsurance",
+            "home health",
             "pharmacy",
-            "calendar",
             "prescription"
         ],
         "page_number": 13
@@ -685,8 +644,7 @@
             "equipment",
             "orthotics",
             "prosthetics",
-            "supplies",
-            "covered"
+            "supplies"
         ],
         "page_number": 14
     },
@@ -709,8 +667,7 @@
             "orthotics",
             "prosthetics",
             "supplies",
-            "therapeutic",
-            "calendar"
+            "therapeutic"
         ],
         "page_number": 14
     },
@@ -748,11 +705,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "deductible",
+            "coinsurance",
             "inpatient",
             "hospice",
             "hospice care",
-            "deductible",
-            "coinsurance",
             "lifetime",
             "terminal",
             "illness",
@@ -773,11 +730,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "deductible",
+            "coinsurance",
             "inpatient",
             "hospice",
             "hospice care",
-            "deductible",
-            "coinsurance",
             "lifetime",
             "terminal",
             "illness",
@@ -798,11 +755,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "deductible",
+            "coinsurance",
             "inpatient",
             "hospice",
             "hospice care",
-            "deductible",
-            "coinsurance",
             "pharmacy",
             "lifetime",
             "terminal",
@@ -823,10 +780,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
-            "inpatient",
             "deductible",
-            "coinsurance"
+            "coinsurance",
+            "hospital",
+            "inpatient"
         ],
         "page_number": 14
     },
@@ -842,9 +799,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
             "deductible",
             "coinsurance",
+            "hospital",
             "professional"
         ],
         "page_number": 14
@@ -861,9 +818,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
             "deductible",
             "coinsurance",
+            "hospital",
             "facility"
         ],
         "page_number": 14
@@ -880,10 +837,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
-            "outpatient",
             "deductible",
-            "coinsurance"
+            "coinsurance",
+            "hospital",
+            "outpatient"
         ],
         "page_number": 14
     },
@@ -899,9 +856,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
             "deductible",
             "coinsurance",
+            "hospital",
             "professional"
         ],
         "page_number": 14
@@ -937,14 +894,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
+            "specialist",
             "mastectomy",
-            "reconstruction",
-            "kinwell",
-            "clinics"
+            "reconstruction"
         ],
         "page_number": 15
     },
@@ -960,14 +915,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "surgical",
             "deductible",
             "coinsurance",
+            "surgical",
             "mastectomy",
             "reconstruction",
             "surgery",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 15
     },
@@ -983,9 +937,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "mastectomy",
             "reconstruction",
             "facility"
@@ -1004,15 +958,11 @@
             "limitations": "Care during pregnancy, childbirth and after the baby is born. See the Preventive Care benefit for routine exams and tests during pregnancy."
         },
         "keywords": [
-            "maternity",
             "deductible",
             "coinsurance",
+            "maternity",
             "preventive",
-            "professional",
-            "pregnancy",
-            "childbirth",
-            "benefit",
-            "routine"
+            "professional"
         ],
         "page_number": 15
     },
@@ -1028,16 +978,15 @@
             "limitations": "Care during pregnancy, childbirth and after the baby is born. See the Preventive Care benefit for routine exams and tests during pregnancy."
         },
         "keywords": [
+            "deductible",
+            "coinsurance",
             "hospital",
             "inpatient",
             "maternity",
-            "deductible",
-            "coinsurance",
             "preventive",
             "birthing",
             "centers",
-            "hospitals",
-            "pregnancy"
+            "hospitals"
         ],
         "page_number": 15
     },
@@ -1053,15 +1002,11 @@
             "limitations": "Care during pregnancy, childbirth and after the baby is born. See the Preventive Care benefit for routine exams and tests during pregnancy."
         },
         "keywords": [
-            "maternity",
             "deductible",
             "coinsurance",
+            "maternity",
             "preventive",
-            "abortion",
-            "pregnancy",
-            "childbirth",
-            "benefit",
-            "routine"
+            "abortion"
         ],
         "page_number": 15
     },
@@ -1095,13 +1040,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "transplant",
             "deductible",
             "coinsurance",
+            "transplant",
             "transportation",
             "medical",
-            "transplants",
-            "applicable"
+            "transplants"
         ],
         "page_number": 15
     },
@@ -1121,8 +1065,7 @@
             "medical",
             "premera",
             "designated",
-            "excellence",
-            "covered"
+            "excellence"
         ],
         "page_number": 15
     },
@@ -1140,8 +1083,7 @@
         "keywords": [
             "transportation",
             "medical",
-            "providers",
-            "covered"
+            "providers"
         ],
         "page_number": 15
     },
@@ -1182,12 +1124,7 @@
             "medical",
             "restricted",
             "provider",
-            "abortion",
-            "services",
-            "benefits",
-            "limited",
-            "members",
-            "residing"
+            "abortion"
         ],
         "page_number": 16
     },
@@ -1208,11 +1145,7 @@
             "medical",
             "restricted",
             "provider",
-            "affirming",
-            "services",
-            "benefits",
-            "limited",
-            "members"
+            "affirming"
         ],
         "page_number": 16
     },
@@ -1230,14 +1163,7 @@
         "keywords": [
             "transportation",
             "medical",
-            "restricted",
-            "calendar",
-            "benefits",
-            "limited",
-            "members",
-            "residing",
-            "restrict",
-            "lodging"
+            "restricted"
         ],
         "page_number": 16
     },
@@ -1255,14 +1181,7 @@
         "keywords": [
             "transportation",
             "medical",
-            "restricted",
-            "benefits",
-            "limited",
-            "members",
-            "residing",
-            "restrict",
-            "lodging",
-            "covered"
+            "restricted"
         ],
         "page_number": 16
     },
@@ -1284,10 +1203,7 @@
             "support",
             "employees",
             "dependents",
-            "episode",
-            "companion",
-            "limited",
-            "follows"
+            "episode"
         ],
         "page_number": 16
     },
@@ -1308,10 +1224,7 @@
             "medical",
             "support",
             "employees",
-            "dependents",
-            "companion",
-            "limited",
-            "follows"
+            "dependents"
         ],
         "page_number": 16
     },
@@ -1333,10 +1246,7 @@
             "support",
             "employees",
             "dependents",
-            "lodging",
-            "companion",
-            "limited",
-            "follows"
+            "lodging"
         ],
         "page_number": 16
     },
@@ -1360,8 +1270,7 @@
             "dependents",
             "surface",
             "transport",
-            "parking",
-            "companion"
+            "parking"
         ],
         "page_number": 16
     },
@@ -1399,8 +1308,7 @@
             "deductible",
             "coinsurance",
             "mental-health",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 16
     },
@@ -1416,9 +1324,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "mental-health",
             "residential",
             "facility"
@@ -1437,9 +1345,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
             "deductible",
             "coinsurance",
+            "outpatient",
             "mental-health",
             "facility"
         ],
@@ -1460,8 +1368,7 @@
             "copay",
             "deductible",
             "coinsurance",
-            "naturopathy",
-            "services"
+            "naturopathy"
         ],
         "page_number": 17
     },
@@ -1498,13 +1405,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
             "deductible",
             "coinsurance",
+            "outpatient",
             "neurodevelopmental",
             "habilitation",
-            "therapy",
-            "services"
+            "therapy"
         ],
         "page_number": 17
     },
@@ -1520,9 +1426,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "neurodevelopmental",
             "habilitation",
             "therapy"
@@ -1541,10 +1447,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
-            "newborn",
             "deductible",
-            "coinsurance"
+            "coinsurance",
+            "inpatient",
+            "newborn"
         ],
         "page_number": 17
     },
@@ -1560,13 +1466,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "newborn",
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
-            "kinwell",
-            "clinics"
+            "specialist",
+            "newborn"
         ],
         "page_number": 17
     },
@@ -1582,11 +1486,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
-            "newborn",
             "deductible",
             "coinsurance",
-            "services"
+            "outpatient",
+            "newborn"
         ],
         "page_number": 17
     },
@@ -1609,9 +1512,7 @@
             "centers",
             "excellence",
             "program",
-            "certain",
-            "surgeries",
-            "includes"
+            "surgeries"
         ],
         "page_number": 17
     },
@@ -1627,9 +1528,9 @@
             "limitations": "Includes travel as needed. See Medical Transportation."
         },
         "keywords": [
-            "surgical",
             "deductible",
             "coinsurance",
+            "surgical",
             "bariatric",
             "transportation",
             "premera",
@@ -1655,7 +1556,6 @@
             "copay",
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
             "generic"
         ],
@@ -1676,7 +1576,6 @@
             "copay",
             "pharmacy",
             "prescription",
-            "covered",
             "preferred"
         ],
         "page_number": 18
@@ -1695,12 +1594,8 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
-            "generic",
-            "allowed",
-            "maximum",
-            "network"
+            "generic"
         ],
         "page_number": 18
     },
@@ -1719,7 +1614,6 @@
             "copay",
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
             "generic"
         ],
@@ -1740,7 +1634,6 @@
             "copay",
             "pharmacy",
             "prescription",
-            "covered",
             "preferred"
         ],
         "page_number": 18
@@ -1759,13 +1652,9 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
             "generic",
-            "specialty",
-            "allowed",
-            "maximum",
-            "network"
+            "specialty"
         ],
         "page_number": 18
     },
@@ -1784,7 +1673,6 @@
             "copay",
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
             "specialty"
         ],
@@ -1804,12 +1692,8 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "covered",
             "preferred",
-            "specialty",
-            "allowed",
-            "maximum",
-            "network"
+            "specialty"
         ],
         "page_number": 18
     },
@@ -1827,12 +1711,10 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "covered",
             "needles",
             "syringes",
             "purchased",
-            "diabetic",
-            "network"
+            "diabetic"
         ],
         "page_number": 18
     },
@@ -1851,8 +1733,6 @@
             "pharmacy",
             "nicotine",
             "prescription",
-            "covered",
-            "certain",
             "generic",
             "counter"
         ],
@@ -1873,7 +1753,6 @@
             "pharmacy",
             "preventive",
             "prescription",
-            "covered",
             "affordable"
         ],
         "page_number": 19
@@ -1892,7 +1771,6 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "covered",
             "chemotherapy"
         ],
         "page_number": 19
@@ -1912,12 +1790,10 @@
             "emergency",
             "pharmacy",
             "prescription",
-            "covered",
             "contraceptive",
             "devices",
             "supplies",
-            "counter",
-            "includes"
+            "counter"
         ],
         "page_number": 19
     },
@@ -1935,11 +1811,8 @@
         "keywords": [
             "deductible",
             "coinsurance",
-            "vision",
             "preventive",
-            "including",
             "screening",
-            "members",
             "diabetes",
             "depression"
         ],
@@ -2096,7 +1969,8 @@
             "preventive",
             "nutritional",
             "counseling",
-            "therapy"
+            "therapy",
+            "mental health"
         ],
         "page_number": 19
     },
@@ -2116,7 +1990,6 @@
             "coinsurance",
             "preventive",
             "pregnant",
-            "includes",
             "feeding",
             "support",
             "depression",
@@ -2140,7 +2013,6 @@
             "coinsurance",
             "preventive",
             "screening",
-            "includes",
             "prostate",
             "cervical"
         ],
@@ -2218,16 +2090,12 @@
             "limitations": "You may have extra costs for other services like lab tests and facility charges. Also see Allergy Testing And Treatment and Therapeutic Injections."
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
+            "specialist",
             "allergy",
-            "professional",
-            "services",
-            "kinwell",
-            "clinics",
-            "facility"
+            "professional"
         ],
         "page_number": 20
     },
@@ -2246,13 +2114,7 @@
             "deductible",
             "coinsurance",
             "allergy",
-            "professional",
-            "services",
-            "facility",
-            "charges",
-            "testing",
-            "treatment",
-            "therapeutic"
+            "professional"
         ],
         "page_number": 20
     },
@@ -2288,10 +2150,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "rehabilitation",
             "copay",
             "deductible",
             "coinsurance",
+            "rehabilitation",
             "therapy"
         ],
         "page_number": 20
@@ -2308,12 +2170,11 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
-            "rehabilitation",
             "deductible",
             "coinsurance",
-            "therapy",
-            "services"
+            "outpatient",
+            "rehabilitation",
+            "therapy"
         ],
         "page_number": 20
     },
@@ -2329,10 +2190,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
-            "rehabilitation",
             "deductible",
             "coinsurance",
+            "inpatient",
+            "rehabilitation",
             "therapy"
         ],
         "page_number": 20
@@ -2349,9 +2210,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "skilled nursing",
             "deductible",
             "coinsurance",
+            "skilled nursing",
             "skilled",
             "nursing",
             "facility"
@@ -2415,8 +2276,7 @@
             "mental-health",
             "substance",
             "disorder",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 20
     },
@@ -2432,9 +2292,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "mental-health",
             "substance",
             "disorder",
@@ -2455,9 +2315,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
             "deductible",
             "coinsurance",
+            "outpatient",
             "mental-health",
             "substance",
             "disorder",
@@ -2477,16 +2337,16 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
+            "deductible",
+            "coinsurance",
             "hospital",
             "outpatient",
             "surgical",
-            "deductible",
-            "coinsurance",
             "surgery",
-            "includes",
             "anesthesia",
             "transfusions",
-            "benefits"
+            "facility",
+            "charges"
         ],
         "page_number": 21
     },
@@ -2502,10 +2362,10 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "outpatient",
-            "surgical",
             "deductible",
-            "coinsurance"
+            "coinsurance",
+            "outpatient",
+            "surgical"
         ],
         "page_number": 21
     },
@@ -2521,14 +2381,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
+            "specialist",
             "temporomandibular",
-            "disorders",
-            "kinwell",
-            "clinics"
+            "disorders"
         ],
         "page_number": 21
     },
@@ -2548,8 +2406,7 @@
             "coinsurance",
             "temporomandibular",
             "disorders",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 21
     },
@@ -2565,9 +2422,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
             "deductible",
             "coinsurance",
+            "inpatient",
             "temporomandibular",
             "disorders",
             "facility"
@@ -2605,15 +2462,13 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "inpatient",
-            "transplant",
             "deductible",
             "coinsurance",
+            "inpatient",
+            "transplant",
             "transplants",
-            "includes",
             "donation",
-            "facility",
-            "covered"
+            "facility"
         ],
         "page_number": 21
     },
@@ -2629,16 +2484,12 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "transplant",
-            "specialist",
             "copay",
             "deductible",
+            "specialist",
+            "transplant",
             "transplants",
-            "includes",
-            "donation",
-            "kinwell",
-            "clinics",
-            "covered"
+            "donation"
         ],
         "page_number": 21
     },
@@ -2654,16 +2505,14 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "surgical",
-            "transplant",
             "deductible",
             "coinsurance",
+            "surgical",
+            "transplant",
             "transplants",
-            "includes",
             "donation",
             "surgery",
-            "professional",
-            "services"
+            "professional"
         ],
         "page_number": 21
     },
@@ -2679,16 +2528,16 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "urgent-care",
             "copay",
             "deductible",
             "coinsurance",
+            "urgent-care",
             "imaging",
             "diagnostic",
-            "services",
-            "received",
             "facility",
-            "charges"
+            "charges",
+            "freestanding",
+            "centers"
         ],
         "page_number": 22
     },
@@ -2704,16 +2553,16 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "hospital",
-            "urgent-care",
             "copay",
             "deductible",
             "coinsurance",
+            "hospital",
+            "urgent-care",
             "imaging",
             "diagnostic",
-            "services",
-            "received",
-            "facility"
+            "facility",
+            "charges",
+            "centers"
         ],
         "page_number": 22
     },
@@ -2737,8 +2586,8 @@
             "technology",
             "forward",
             "communication",
-            "between",
-            "originating"
+            "originating",
+            "provider"
         ],
         "page_number": 22
     },
@@ -2760,10 +2609,10 @@
             "technology",
             "forward",
             "communication",
-            "between",
             "originating",
             "provider",
-            "diagnoses"
+            "diagnoses",
+            "consultation"
         ],
         "page_number": 22
     },
@@ -2788,7 +2637,7 @@
             "technology",
             "forward",
             "communication",
-            "between"
+            "originating"
         ],
         "page_number": 22
     },
@@ -2813,7 +2662,7 @@
             "technology",
             "forward",
             "communication",
-            "between"
+            "originating"
         ],
         "page_number": 22
     },
@@ -2837,8 +2686,8 @@
             "technology",
             "forward",
             "communication",
-            "between",
-            "originating"
+            "originating",
+            "provider"
         ],
         "page_number": 22
     },
@@ -2863,7 +2712,7 @@
             "technology",
             "forward",
             "communication",
-            "between"
+            "originating"
         ],
         "page_number": 22
     },
@@ -2882,10 +2731,6 @@
             "copay",
             "deductible",
             "out-of-pocket",
-            "vision",
-            "calendar",
-            "complete",
-            "members",
             "maximum"
         ],
         "page_number": 23
@@ -2902,10 +2747,6 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
-            "calendar",
-            "complete",
-            "members",
             "younger"
         ],
         "page_number": 23
@@ -2921,11 +2762,7 @@
             "out_of_network": "No cost shares",
             "limitations": "Data Not Found"
         },
-        "keywords": [
-            "vision",
-            "calendar",
-            "complete"
-        ],
+        "keywords": [],
         "page_number": 23
     },
     {
@@ -2940,9 +2777,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
             "eyeglass"
         ],
         "page_number": 23
@@ -2959,11 +2794,8 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
-            "eyeglass",
-            "contact"
+            "eyeglass"
         ],
         "page_number": 23
     },
@@ -2979,12 +2811,8 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
-            "contact",
             "glasses",
-            "required",
             "medical",
             "reasons"
         ],
@@ -3002,9 +2830,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
             "devices",
             "glasses",
             "magnifiers",
@@ -3026,9 +2852,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
             "scratch",
             "resistant",
             "coating"
@@ -3047,9 +2871,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "vision",
             "hardware",
-            "members",
             "polycarbonate"
         ],
         "page_number": 23
@@ -3066,10 +2888,9 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "specialist",
             "copay",
-            "professional",
-            "kinwell"
+            "specialist",
+            "professional"
         ]
     },
     {
@@ -3085,8 +2906,7 @@
         },
         "keywords": [
             "deductible",
-            "individual",
-            "network"
+            "individual"
         ]
     },
     {
@@ -3101,8 +2921,7 @@
             "limitations": "Data Not Found"
         },
         "keywords": [
-            "deductible",
-            "network"
+            "deductible"
         ]
     },
     {
@@ -3164,13 +2983,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "Plan: Premera Employees Health Plan \u2013 Standard PPO Retiree Plan (Non-Grandfathered)"
         },
-        "keywords": [
-            "premera",
-            "employees",
-            "standard",
-            "retiree",
-            "grandfathered"
-        ],
+        "keywords": [],
         "page_number": 2
     },
     {
@@ -3185,12 +2998,12 @@
             "limitations": "This section shows a summary table of the care covered by your plan. It also explains the amounts you pay. This section does not go into all the details of your coverage. See Covered Services to learn more. First, here is a quick look at how this plan works. Your costs are subject to all of the following. \u2022 Networks. To help control the cost of your care, this plan uses Premera's Heritage network in Washington. You may be able to save money if you use an in-network provider. For more network details, see How Providers Affect Your Costs. You may be able to save even more if you use a Kinwell Clinic. Please call customer service for more information. \u2022 Allowed amount. This is the most this plan allows for a covered service. See Important Plan Information for details. For some covered services, you have to pay part of the allowed amount. This is called your cost share. This plan's cost shares are explained below. You will find the amounts in the summary table. \u2022 Copays. These are set dollar amounts you pay at the time you get some services. If the amount billed is less than the copay, you pay only the amount billed. Copays apply to the out-of-pocket maximum unless stated otherwise in the summary. The deductible does not apply to most services that require a copay. Any exceptions are shown in the table. Kinwell Clinic All other non- All other providers specialist specialist providers providers Professional visit copay $0 $25 $40 \u2022 Kinwell Connect provides access for members who receive covered services from a Kinwell clinic to have lower cost shares and timelier appointment availability. Services will include: \u2022 Primary Care such as pediatric and geriatric care, including management of mental health and chronic health conditions; \u2022 Point of care labs drawn and tested at Kinwell clinics, such as lipids, A1C, some viral testing; and \u2022 Virtual Care Visits \u2022 Deductible. The total allowed amount you pay in each year for in-network and out-of-network providers' care combined before this plan starts to make payments for your covered healthcare costs. You pay down the deductible with each claim. In-Network Providers Out-of-Network Providers Individual deductible $700 Shared with in-network In-Network Providers Out-of-Network Providers Family deductible $2,100 Shared with in-network \u2022 Coinsurance. For some healthcare, you pay a percentage of the allowed amount, and the plan pays the rest. This booklet calls your percentage \u201ccoinsurance.\u201d You pay less coinsurance for many benefits when you use an in-network provider. Your coinsurance is shown in the summary table. In-Network Providers Out-of-Network Providers Coinsurance 20% 40% \u2022 Out-of-pocket maximum. This is the most you pay each calendar year for any deductibles, copays and coinsurance. Not all the amounts you have to pay count toward the out-of-pocket maximum. See Important Plan Information for details. In-Network Providers Out-of-Network Providers Individual out-of-pocket maximum $3,500 None Family out-of-pocket maximum $10,500 None 5 \u2022 Prior Authorization. Some services must be approved in advance before you get them, in order to be covered. See Prior Authorization for details about the types of services and time limits. Some services have special rules. This plan complies with state and federal regulations about diabetes medical treatment coverage. See the Preventive Care, Prescription Drug, Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies, and Foot Care benefits."
         },
         "keywords": [
-            "specialist",
             "copay",
             "deductible",
             "coinsurance",
             "out-of-pocket",
             "prior-auth",
+            "specialist",
             "pharmacy",
             "mental-health",
             "preventive",
@@ -3210,16 +3023,11 @@
             "limitations": "The summary table below shows plan limits and what you pay (your cost shares) for covered services. Facility in the table below means hospitals or other medical institutions. Professional means doctors, nurses, and other people who give you your care. No charge means that you do not pay any deductible, copay or coinsurance for covered services. No cost shares means that although you do not pay any deductible, copay or coinsurance for covered services, the provider can bill you for amounts over the allowed amount. A non- participating provider can bill you for amounts over the allowed amount except for emergency services, covered air ambulance services, or as prohibited by law. 6"
         },
         "keywords": [
-            "emergency",
             "copay",
             "deductible",
             "coinsurance",
-            "transportation",
-            "summary",
-            "covered",
-            "services",
-            "facility",
-            "hospitals"
+            "emergency",
+            "transportation"
         ],
         "page_number": 10
     },
@@ -3236,15 +3044,7 @@
         },
         "keywords": [
             "out-of-pocket",
-            "providers",
-            "benefits",
-            "expenses",
-            "section",
-            "u2019ll",
-            "network",
-            "preferred",
-            "provider",
-            "provides"
+            "providers"
         ],
         "page_number": 24
     },
@@ -3262,14 +3062,7 @@
         "keywords": [
             "contracted",
             "benefit",
-            "managers",
-            "premera",
-            "services",
-            "available",
-            "visitor",
-            "partners",
-            "vendors",
-            "changes"
+            "managers"
         ],
         "page_number": 24
     },
@@ -3285,16 +3078,7 @@
             "limitations": "How Continuity of Care Works You may qualify for Continuity of Care (COC) under certain circumstances when a provider leaves your health plan\u2019s network or your employer transitions to a new carrier. This will depend on your medical condition at the time the change occurs. COC is a process that provides you with short-term, temporary coverage at in-network levels for care received by a non-participating provider. COC applies in these situations: \u2022 The contract with your provider ends \u2022 The benefits covered for your provider change in a way that results in a loss of coverage \u2022 The contract between your company and us ends and that results in a loss of benefits for your provider How you qualify for Continuity of Care If a professional provider contract is terminated without cause, continuing care will be provided according to the details included in the member's notice of the contract termination. 20 During this time, Premera will consider the professional provider to still have an agreement only while this policy remains in effect and a. For the period that is the longest of the following: i. The end of the current policy year ii. Up to 90 days after the termination date, if the event triggering the right to continuing treatment is part of an ongoing course of treatment iii. Through completion of postpartum care, if the member is pregnant on the date of termination; or b. Until the end of the medically necessary treatment for the medical condition if the member has a terminal medical condition. In this paragraph, \u201cterminal\u201d means a life expectancy of less than one year. We will notify you at least 30 days prior to your provider\u2019s termination date. When a termination for cause provides us less than 30 days notice, we will make a good faith effort to assure that a written notice is provided to you immediately. You can request continuity of care by contacting customer service. The contact information is on the back cover of this booklet. If you are approved for continuity of care, you will get continuing care from the terminating provider until the earliest of the following: \u2022 The 90th day after we notified you that your provider\u2019s contract ended \u2022 The day after you complete the active course of treatment entitling you to continuity of care If you are pregnant, and become eligible for continuity of care, you can continue with your provider throughout your pregnancy, plus 8 weeks of postpartum care. Continuity of care does not apply if your provider: \u2022 No longer holds an active license \u2022 Relocates out of the service area \u2022 Goes on leave of absence \u2022 Is unable to provide continuity of care because of other reasons \u2022 Does not meet standards of quality of care When continuity of care ends, non-emergent care from the provider is no longer covered. If we deny your request for continuity of care, you may appeal the denial. See Complaints and Appeals."
         },
         "keywords": [
-            "continuity",
-            "qualify",
-            "certain",
-            "circumstances",
-            "provider",
-            "network",
-            "employer",
-            "transitions",
-            "carrier",
-            "medical"
+            "continuity"
         ],
         "page_number": 24
     },
@@ -3311,15 +3095,7 @@
         },
         "keywords": [
             "participating",
-            "providers",
-            "networks",
-            "network",
-            "contract",
-            "contracted",
-            "washington",
-            "heritage",
-            "services",
-            "allowed"
+            "providers"
         ],
         "page_number": 25
     },
@@ -3335,16 +3111,15 @@
             "limitations": "Non-participating providers have the right to charge you more than the allowed amount for a covered service. This is called \"surprise billing\" or \"balance billing.\" However, Washington state and federal law protects you from balance billing for: Emergency Services from a nonparticipating hospital or facility or from a nonparticipating provider at the hospital or facility. Emergency services includes certain post-stabilization services you may get after you are in stable condition. These include covered services provided as part of outpatient observation or during an inpatient or outpatient stay related to the emergency visit, regardless of which department of the hospital you are in. 21 Non-emergency services from a nonparticipating provider at an in-network hospital or outpatient surgery center. If a non-emergency service is not covered under the in-network benefits and terms of coverage under your health plan, then the federal and state law regarding balance billing do not apply for these services. Ground Ambulance Services from a non-participating ground ambulance service organization for covered ground ambulance services."
         },
         "keywords": [
+            "emergency",
             "hospital",
             "inpatient",
             "outpatient",
             "surgical",
-            "emergency",
             "transportation",
             "balance",
             "billing",
-            "protection",
-            "participating"
+            "protection"
         ],
         "page_number": 25
     },
@@ -3360,16 +3135,15 @@
             "limitations": "Your cost sharing for non-participating air ambulance services shall be no more than if the services were provided by an in-network provider. The cost sharing amount shall be counted towards the in-network deductible and the in-network out of pocket maximum amount. Cost sharing shall be based upon the lesser of the qualifying payment amount (as defined under federal law) or the billed amount. For more information, refer to www.insurance.wa.gov/sites/default/files/documents/consumer-notice-suprise- billing-2024_final_07172024.pdf. For the above services, you will pay no more than the plan's in-network cost shares. See the Summary of Your Costs. Premera Blue Cross will work with the nonparticipating provider to resolve any issues about the amount paid. Premera will also send the plan's payments to the provider directly. Note: Amounts you pay over the allowed amount don\u2019t count toward any applicable calendar year deductible, coinsurance or out-of-pocket maximum. Benefits For Out-Of-Network Or Non-Contracted Providers The following covered services and supplies provided by out-of-network or non-contracted providers will always be covered: \u2022 Emergency services for an emergency medical condition. See Definitions for definitions of these terms. This plan provides worldwide coverage for emergency services. The benefits of this plan will be provided for covered emergency services without the need for any prior authorization and without regard as to whether the health care provider furnishing the services has a contract with us. Emergency services furnished by a non-participating provider will be reimbursed in compliance with applicable laws. \u2022 Services from certain categories of providers to which provider contracts are not offered. These types of providers are not listed in the provider directory. \u2022 Facility and hospital-based provider services received from a hospital that has a provider contract with Premera Blue Cross. \u2022 Covered emergency services received from providers located outside the United States, the Commonwealth of Puerto Rico and the U.S. Virgin Islands. If a covered service is not available from an in-network provider, you can receive benefits for services provided by an out-of-network or non-contracted provider. However, you or your out-of-network provider must request this before you get the care. See Prior authorization to find out how to do this."
         },
         "keywords": [
-            "hospital",
-            "emergency",
             "deductible",
             "coinsurance",
             "out-of-pocket",
             "prior-auth",
+            "emergency",
+            "hospital",
             "transportation",
             "ambulance",
-            "sharing",
-            "participating"
+            "medical transportation"
         ],
         "page_number": 26
     },
@@ -3386,15 +3160,7 @@
         },
         "keywords": [
             "out-of-pocket",
-            "important",
-            "section",
-            "booklet",
-            "explains",
-            "expenses",
-            "covered",
-            "services",
-            "benefits",
-            "provided"
+            "important"
         ],
         "page_number": 26
     },
@@ -3411,15 +3177,7 @@
         },
         "keywords": [
             "copay",
-            "copayments",
-            "u201ccopays",
-            "amounts",
-            "u2019re",
-            "required",
-            "certain",
-            "covered",
-            "services",
-            "provider"
+            "copayments"
         ],
         "page_number": 26
     },
@@ -3435,16 +3193,9 @@
             "limitations": "This plan has two Professional Visit Copay amounts for in-network providers' office and home visits, when services are received from providers other than Kinwell providers. When you see one of the types of in-network 22 providers shown below, you pay the non-specialist copay shown in the Summary Of Your Costs for each office or home visit. \u2022 Family practice physician \u2022 General practice physician \u2022 Internist \u2022 Gynecologist \u2022 Advanced registered nurse practitioner (ARNP) \u2022 Obstetrician \u2022 Pediatrician \u2022 Physician assistant \u2022 Chiropractor \u2022 Acupuncturist For all other types of in-network providers covered by benefits subject to a professional visit copay, you pay the specialist copay shown in the Summary Of Your Costs for each visit. Certain services don\u2019t require a copay. However, the Professional Visit Copay may apply if you have a consultation with the provider or receive other services. Separate copays will apply if you see more than one in- network provider on the same day. But only one copay per provider, per day will apply. If you receive multiple services from the same provider in the same visit and the copay amounts are different, then the highest copay will apply."
         },
         "keywords": [
-            "maternity",
-            "specialist",
             "copay",
-            "professional",
-            "amounts",
-            "network",
-            "providers",
-            "services",
-            "received",
-            "kinwell"
+            "specialist",
+            "maternity"
         ],
         "page_number": 26
     },
@@ -3460,16 +3211,7 @@
             "limitations": "A calendar year deductible is the amount of expense you must incur in each calendar year for covered services and supplies before this plan provides certain benefits. The amount credited toward the calendar year deductible for any covered service or supply won\u2019t exceed the allowed amount. See Allowed Amount below in this booklet. While some benefits have dollar maximums, others have different kinds of maximums, such as a maximum number of visits or days of care that can be covered. We don't count allowed amounts that apply to your individual in-network or out-of-network calendar year deductibles toward dollar benefit maximums. But if you receive services or supplies covered by a benefit that has any other kind of maximum, we do count the services or supplies that apply to either of your individual calendar year deductibles toward that maximum."
         },
         "keywords": [
-            "deductible",
-            "calendar",
-            "expense",
-            "covered",
-            "services",
-            "supplies",
-            "provides",
-            "certain",
-            "benefits",
-            "credited"
+            "deductible"
         ],
         "page_number": 27
     },
@@ -3486,12 +3228,7 @@
         },
         "keywords": [
             "deductible",
-            "individual",
-            "u201cindividual",
-            "satisfy",
-            "certain",
-            "benefits",
-            "provided"
+            "individual"
         ],
         "page_number": 27
     },
@@ -3508,15 +3245,7 @@
         },
         "keywords": [
             "deductible",
-            "coinsurance",
-            "expenses",
-            "applied",
-            "individual",
-            "incurred",
-            "enrolled",
-            "members",
-            "combined",
-            "maximum"
+            "coinsurance"
         ],
         "page_number": 27
     },
@@ -3533,15 +3262,7 @@
         },
         "keywords": [
             "deductible",
-            "coinsurance",
-            "u201ccoinsurance",
-            "defined",
-            "percentage",
-            "allowed",
-            "amounts",
-            "covered",
-            "services",
-            "supplies"
+            "coinsurance"
         ],
         "page_number": 27
     },
@@ -3557,16 +3278,11 @@
             "limitations": "The \u201cindividual out-of-pocket maximum\u201d is the maximum amount, made up of the cost shares below, that each individual could pay each calendar year for certain covered services and supplies. Refer to the Summary Of Your Costs for the amount of out-of-pocket maximums you're responsible for. Once the out-of-pocket maximum has been satisfied, the benefits of this plan will be provided at 100% of allowed amounts for the remainder of that calendar year for covered services that are subject to the maximum. Cost shares that apply toward the out-of-pocket maximum are: \u2022 Your coinsurance \u2022 The calendar year deductible Once the family deductible is met, your individual deductible will be satisfied. However, you must still pay any other cost shares shown in the Summary Of Your Costs until your individual out-of-pocket maximum is reached. \u2022 Copays \u2022 The difference in cost between a brand name drug and an equivalent generic drug when the plan requires the generic drug to be dispensed in place of the brand name drug. There are some exceptions. Expenses that do not apply toward the out-of-pocket maximum are: \u2022 Charges above the allowed amount \u2022 Charges not covered by the plan \u2022 Your cost shares for services of out-of-network providers. However, benefits that always apply in-network cost- shares, like the Emergency Room benefit, will apply toward the out-of-pocket maximum. \u2022 Your cost shares for covered drugs purchased from out-of-network pharmacies. \u2022 Copays for exams covered under the Vision Exams benefit for members 19 or older. \u2022 Copays for exams covered under the Hearing Exams benefit We keep track of the total cost shares applied to the individual out-of-pocket maximum that are incurred by all enrolled family members combined. When this total equals a set maximum, called the \u201cFamily Out-of-Pocket Maximum,\u201d we will consider the individual out-of-pocket maximum of every enrolled family member to be met for that calendar year. Only the amounts used to satisfy each enrolled family member\u2019s individual out-of-pocket maximum will count toward the family out-of-pocket maximum."
         },
         "keywords": [
-            "emergency",
             "deductible",
             "coinsurance",
             "out-of-pocket",
-            "vision",
-            "maximum",
-            "u201cindividual",
-            "individual",
-            "calendar",
-            "certain"
+            "emergency",
+            "maximum"
         ],
         "page_number": 28
     },
@@ -3582,16 +3298,7 @@
             "limitations": "This plan provides benefits based on the allowed amount for covered services. We reserve the right to determine the amount allowed for any given service or supply unless otherwise specified in the Group's administrative services agreement with us. The allowed amount is described below. There are different rules for dialysis due to end-stage renal disease and for certain services as described below. These rules are shown below the general rules."
         },
         "keywords": [
-            "dialysis",
-            "allowed",
-            "provides",
-            "benefits",
-            "covered",
-            "services",
-            "reserve",
-            "determine",
-            "otherwise",
-            "specified"
+            "dialysis"
         ],
         "page_number": 28
     },
@@ -3607,16 +3314,7 @@
             "limitations": "\u2022 Providers In Washington and Alaska Who Have Agreements With Us For any given service or supply, the amount these providers have agreed to accept as payment in full pursuant to the applicable agreement between us and the provider. These providers agree to seek payment from us when they furnish covered services to you. You\u2019ll be responsible only for any applicable calendar year deductibles, copays, coinsurance, charges in excess of the stated benefit maximums, and charges for services and supplies not covered under this plan. Your liability for any applicable calendar year deductibles, coinsurance, copays and amounts applied toward benefit maximums will be calculated on the basis of the allowed amount. 24 \u2022 Providers Outside The Service Area Who Have Agreements With Other Blue Cross Blue Shield Licensees For covered services and supplies received outside the service area, allowed amounts are determined as stated in What Do I Do If I\u2019m Outside Washington And Alaska? (Out-Of-Area Care) in this booklet. \u2022 Providers Who Don\u2019t Have Agreements With Us Or Another Blue Cross Blue Shield Licensee Except as stated below, the allowed amount for providers in the service area that don't have a contract with us is the least of the three amounts shown below. The allowed amount for providers outside Washington or Alaska that don't have a contract with us or the local Blue Cross and/or Blue Shield Licensee is also the least of the three amounts shown below. \u2022 An amount that is no less than the lowest amount the plan pays for the same or similar service from a comparable provider that has a contracting agreement with us \u2022 125% of the fee schedule determined by the Centers for Medicare and Medicaid Services (Medicare), if available \u2022 The provider\u2019s billed charges. If applicable law requires a different allowed amount than the least of the three amounts above, this plan will comply with that law."
         },
         "keywords": [
-            "coinsurance",
-            "general",
-            "providers",
-            "washington",
-            "agreements",
-            "payment",
-            "pursuant",
-            "applicable",
-            "agreement",
-            "between"
+            "coinsurance"
         ],
         "page_number": 28
     },
@@ -3633,15 +3331,9 @@
         },
         "keywords": [
             "emergency",
-            "services",
             "protected",
             "balance",
-            "billing",
-            "allowed",
-            "calculated",
-            "consistent",
-            "requirements",
-            "federal"
+            "billing"
         ],
         "page_number": 29
     },
@@ -3658,15 +3350,7 @@
         },
         "keywords": [
             "dialysis",
-            "disease",
-            "providers",
-            "agreements",
-            "licensees",
-            "allowable",
-            "explained",
-            "definition",
-            "another",
-            "licensee"
+            "disease"
         ],
         "page_number": 29
     },
@@ -3682,16 +3366,7 @@
             "limitations": "The allowed amount for non-participating providers will be calculated consistent with the requirements of federal or Washington state law. You do not have to pay amounts over the allowed amount for emergency services delivered by non-participating providers or facilities. If you have questions about this information, please call us at the number listed on your Premera Blue Cross ID card."
         },
         "keywords": [
-            "emergency",
-            "services",
-            "allowed",
-            "participating",
-            "providers",
-            "calculated",
-            "consistent",
-            "requirements",
-            "federal",
-            "washington"
+            "emergency"
         ],
         "page_number": 29
     },
@@ -3709,14 +3384,7 @@
         "keywords": [
             "transportation",
             "ambulance",
-            "allowed",
-            "participating",
-            "providers",
-            "calculated",
-            "consistent",
-            "requirements",
-            "federal",
-            "washington"
+            "medical transportation"
         ],
         "page_number": 29
     },
@@ -3733,15 +3401,7 @@
         },
         "keywords": [
             "surgical",
-            "mental-health",
-            "covered",
-            "services",
-            "section",
-            "booklet",
-            "describes",
-            "supplies",
-            "benefits",
-            "available"
+            "mental-health"
         ],
         "page_number": 29
     },
@@ -3759,14 +3419,7 @@
         "keywords": [
             "specialist",
             "allergy",
-            "testing",
-            "treatment",
-            "diagnose",
-            "substances",
-            "allergic",
-            "allergies",
-            "services",
-            "provided"
+            "testing"
         ],
         "page_number": 30
     },
@@ -3782,16 +3435,11 @@
             "limitations": "Ambulance This benefit covers: \u2022 Ground ambulance services \u2022 Transport to the nearest facility that can treat your condition \u2022 Medical care you get during the trip \u2022 Transport from one medical facility to another as needed for your condition \u2022 Transport to your home when medically necessary These services are only covered when: \u2022 Any other type of transport would put your health or safety at risk \u2022 The service is from a licensed ambulance \u2022 It is for the member who needs transport Air or sea emergency medical transportation is covered when: \u2022 Transport takes you to the nearest available facility that can treat your condition \u2022 The above requirements for ambulance services are met \u2022 Geographic restraints prevent ground transport \u2022 Ground emergency transportation would put your health or safety at risk 26 Ambulance services that are not for an emergency must be medically necessary and need prior authorization. See Prior Authorization for details. Ground ambulance services means: \u2022 The rendering of medical treatment and care at the scene of a medical emergency or while transporting a member to an appropriate emergency services provider when the services are provided by one or more ground ambulance vehicles designed for this purpose; and \u2022 Ground ambulance transport between emergency services providers, emergency services providers and medical facilities, and between medical facilities when the services are medically necessary and are provided by one or more ground ambulance vehicles designed for this purpose. This benefit does not cover: \u2022 Services from an unlicensed ambulance"
         },
         "keywords": [
-            "emergency",
             "prior-auth",
+            "emergency",
             "transportation",
             "ambulance",
-            "benefit",
-            "services",
-            "transport",
-            "nearest",
-            "facility",
-            "condition"
+            "medical transportation"
         ],
         "page_number": 30
     },
@@ -3807,16 +3455,7 @@
             "limitations": "\u2022 Blood components and services, like blood transfusions, which are provided by a certified or licensed healthcare provider. \u2022 Blood products and services that either help with prevention or diagnosis and treatment of an illness, disease, or injury."
         },
         "keywords": [
-            "products",
-            "services",
-            "components",
-            "transfusions",
-            "provided",
-            "certified",
-            "licensed",
-            "healthcare",
-            "provider",
-            "prevention"
+            "products"
         ],
         "page_number": 31
     },
@@ -3835,13 +3474,7 @@
             "prior-auth",
             "cellular",
             "immunotherapy",
-            "therapy",
-            "benefits",
-            "provided",
-            "medically",
-            "necessary",
-            "services",
-            "premera"
+            "therapy"
         ],
         "page_number": 31
     },
@@ -3857,16 +3490,12 @@
             "limitations": "Treatment which uses powerful chemicals (chemotherapy) or high-energy beams (radiation) to shrink or kill cancer cells. Chemotherapy and radiation must be prescribed by a provider and approved by Premera to be covered. See Prior Authorization. This benefit covers: \u2022 Outpatient chemotherapy and radiation therapy \u2022 Supplies, solutions and drugs used during chemotherapy or radiation visit \u2022 Tooth extractions to prepare your jaw for radiation therapy For drugs you get from a pharmacy, see Prescription Drug. Some services need prior authorization before you get them. See Prior Authorization for details."
         },
         "keywords": [
-            "outpatient",
             "prior-auth",
+            "outpatient",
             "pharmacy",
             "chemotherapy",
             "radiation",
-            "therapy",
-            "treatment",
-            "powerful",
-            "chemicals",
-            "prescribed"
+            "therapy"
         ],
         "page_number": 31
     },
@@ -3885,13 +3514,7 @@
             "imaging",
             "diagnostic",
             "clinical-trials",
-            "clinical",
-            "qualified",
-            "definitions",
-            "scientific",
-            "improves",
-            "treatments",
-            "threatening"
+            "clinical"
         ],
         "page_number": 31
     },
@@ -3908,15 +3531,8 @@
         },
         "keywords": [
             "hospital",
-            "dental",
             "mental-health",
-            "anesthesia",
-            "facility",
-            "outside",
-            "dentist",
-            "medically",
-            "necessary",
-            "benefit"
+            "anesthesia"
         ],
         "page_number": 32
     },
@@ -3933,15 +3549,8 @@
         },
         "keywords": [
             "surgical",
-            "dental",
             "imaging",
-            "diagnostic",
-            "treatment",
-            "injuries",
-            "benefit",
-            "consultations",
-            "surgery",
-            "covered"
+            "diagnostic"
         ],
         "page_number": 32
     },
@@ -3957,16 +3566,15 @@
             "limitations": "Diagnostic x-ray, lab and imaging services are basic and major medical tests that help find or identify diseases. For more information about what services are covered as preventive see Preventive Care. A typical test can result in multiple charges for things like an office visit, test, and anesthesia. You may receive separate bills for each charge. Some tests need to be approved before you receive them. See Prior Authorization for details. Covered services include: \u2022 Basic diagnostic images and scans \u2022 Major diagnostic images and scans: \u2022 Computed Tomography (CT) scan \u2022 High technology ultrasound 28 \u2022 Nuclear cardiology \u2022 Magnetic Resonance Imaging (MRI) \u2022 Magnetic Resonance Angiography (MRA) \u2022 Positron Emission Tomography (PET) scan Diagnostic breast examination for the purpose of this Diagnostic X-Ray, Lab, And Imaging benefit means a medically necessary and appropriate examination of the breast, including an examination using diagnostic mammography breast magnetic resonance imaging, or breast ultrasound, that is used to evaluate an abnormality: \u2022 seen or suspected from a screening examination for breast cancer; or \u2022 detected by another means of examination Supplemental breast examination for the purpose of this Diagnostic X-Ray, Lab, And Imaging benefit means a medically necessary and appropriate examination of the breast, including an examination using breast magnetic resonance imaging or breast ultrasound, that is: \u2022 used to screen for breast cancer when there is no abnormality seen or suspected; and \u2022 based on personal or family medical history, or additional factors that may increase the member's risk for breast cancer For additional details see the following benefits: \u2022 Emergency Room \u2022 Hospital \u2022 Maternity Care \u2022 Preventive Care \u2022 Genetic testing may be covered in some cases. Call customer service before seeking testing, since it may require Prior Authorization. When prescribed by an in-network provider, prior authorization is not required for biomarker testing for members with stage 3 or 4 cancer, or for members with recurrent, relapsed, refractory, or metastatic cancer. Some tests need to be approved before you receive them. See Prior Authorization for details. This benefit does not cover non-diagnostic testing or screening required for employment, schooling, or public health reasons that is not for the purpose of treatment. Dialysis When you have end-stage renal disease (ESRD) you may be eligible to enroll in Medicare. If eligible, it is recommended to enroll in Medicare as soon as possible. When you enroll in Medicare, this plan and Medicare will coordinate benefits. In most cases, this means that you will have little or no out-of-pocket expenses. Medicare has a waiting period, generally the first 90 days after dialysis starts. Benefits are different for dialysis during Medicare's waiting period than after the waiting period ends. See the Summary Of Your Costs. In-Network providers are paid according to their provider contracts. The amount the plan pays out-of-network providers for dialysis after Medicare\u2019s waiting period is 125% of the Medicare-approved amount, even if you do not enroll in Medicare. When covered dialysis services are provided by an out-of-network provider in a county in Washington state where no in-network providers are available, the in-network cost shares will apply. If the dialysis services are provided by a non-contracted provider and you do not enroll in Medicare, then you will owe the difference between the non- contracted provider's billed charges and the plan's payment for the covered services. See Allowed Amount in Important Plan Information for more information."
         },
         "keywords": [
+            "out-of-pocket",
+            "prior-auth",
+            "emergency",
             "hospital",
             "maternity",
             "dialysis",
-            "emergency",
-            "out-of-pocket",
-            "prior-auth",
             "imaging",
             "diagnostic",
-            "preventive",
-            "services"
+            "preventive"
         ],
         "page_number": 32
     },
@@ -3983,15 +3591,7 @@
         },
         "keywords": [
             "electronic-visit",
-            "electronic",
-            "provider",
-            "structured",
-            "consultation",
-            "emergent",
-            "benefit",
-            "advantage",
-            "conveniences",
-            "communication"
+            "electronic"
         ],
         "page_number": 33
     },
@@ -4008,15 +3608,7 @@
         },
         "keywords": [
             "electronic-visit",
-            "confidentiality",
-            "protecting",
-            "confidential",
-            "medical",
-            "important",
-            "because",
-            "established",
-            "quality",
-            "standards"
+            "confidentiality"
         ],
         "page_number": 34
     },
@@ -4034,14 +3626,7 @@
         "keywords": [
             "emergency",
             "electronic-visit",
-            "exclusions",
-            "consultations",
-            "involve",
-            "significant",
-            "network",
-            "provider",
-            "covered",
-            "examples"
+            "exclusions"
         ],
         "page_number": 34
     },
@@ -4057,16 +3642,11 @@
             "limitations": "This benefit covers: \u2022 Emergency room and provider services \u2022 Equipment, supplies and drugs used in the emergency room \u2022 Services and exams used for stabilizing an emergency medical condition, including mental health, or substance use disorder condition. This includes emergency services arising from complications from a service that was not covered by the plan. \u2022 Diagnostic tests performed with other emergency services \u2022 Emergency detoxification You need to let us know if you are admitted to the hospital from the emergency room as soon as possible. See Prior Authorization for details."
         },
         "keywords": [
-            "hospital",
-            "emergency",
             "prior-auth",
+            "emergency",
+            "hospital",
             "diagnostic",
-            "mental-health",
-            "benefit",
-            "provider",
-            "services",
-            "equipment",
-            "supplies"
+            "mental-health"
         ],
         "page_number": 34
     },
@@ -4082,16 +3662,7 @@
             "limitations": "This benefit covers the following medically necessary foot care services that need care from a provider: \u2022 Foot care for members with impaired blood flow to the legs and feet when it puts the member at risk \u2022 Treatment of corns, calluses and toenails This benefit does not cover routine foot care, such as trimming nails or removing corns and calluses that do not need care from a provider."
         },
         "keywords": [
-            "foot-care",
-            "benefit",
-            "following",
-            "medically",
-            "necessary",
-            "services",
-            "provider",
-            "members",
-            "impaired",
-            "treatment"
+            "foot-care"
         ],
         "page_number": 34
     },
@@ -4107,16 +3678,15 @@
             "limitations": "Benefits for medically necessary gender affirming medical care or surgery are subject to the same cost shares that you would pay for inpatient or outpatient treatment for other covered medical conditions. To find the amounts you are responsible for, see the Summary Of Your Costs earlier in this booklet. If you can\u2019t find an in-network provider, or need information about what services are covered under your plan, call customer service. Gender transition or affirmation is the process of changing the gender characteristics a person was born with to the gender characteristics with which a person identifies. Benefits are provided for gender affirming medical care or surgery which meet the requirements of Premera\u2019s medical policy, including facility and anesthesia charges related to surgery. For more information, visit www.premera.com/visitor/care-essentials/lgbt-health. Additionally, our medical policies are available from customer service, or at www.premera.com/visitor/medical-policies. 30 Note: Coverage of prescription drugs, and mental health treatment associated with gender dysphoria and gender transition, are eligible under the general plan provisions for prescription drugs and behavioral health, subject to the applicable plan limitations and exclusions. For members residing in states where laws prohibit access to medically necessary gender affirming care services, travel to a provider in another state may be covered. See Medical Transportation \u2013 State-Restricted Care for details. For covered surgery benefits not part of gender affirming care, see Surgery. Some surgeries need prior authorization before you get them. See Prior Authorization for details."
         },
         "keywords": [
+            "prior-auth",
             "inpatient",
             "outpatient",
             "surgical",
-            "prior-auth",
             "pharmacy",
             "mental-health",
             "gender-affirming",
             "transportation",
-            "affirming",
-            "benefits"
+            "affirming"
         ],
         "page_number": 34
     },
@@ -4132,16 +3702,7 @@
             "limitations": "Hearing exam services include: \u2022 Examination of the inner and exterior of the ear \u2022 Observation and evaluation of hearing, such as whispered voice and tuning fork \u2022 Case history and recommendations \u2022 Hearing testing services, including the use of calibrated equipment. The Hearing Exams benefit doesn\u2019t cover hearing hardware or fitting examinations for hearing hardware."
         },
         "keywords": [
-            "hearing",
-            "services",
-            "include",
-            "examination",
-            "exterior",
-            "observation",
-            "evaluation",
-            "whispered",
-            "history",
-            "recommendations"
+            "hearing"
         ],
         "page_number": 35
     },
@@ -4160,13 +3721,7 @@
             "surgical",
             "rehabilitation",
             "hearing",
-            "hardware",
-            "receive",
-            "benefit",
-            "examined",
-            "licensed",
-            "physician",
-            "audiologist"
+            "hardware"
         ],
         "page_number": 35
     },
@@ -4184,14 +3739,7 @@
         "keywords": [
             "home health",
             "pharmacy",
-            "therapy",
-            "general",
-            "performed",
-            "occasional",
-            "medical",
-            "professional",
-            "employed",
-            "through"
+            "therapy"
         ],
         "page_number": 36
     },
@@ -4207,16 +3755,11 @@
             "limitations": "Skilled Hourly Nursing is also covered under the Home Health Care benefit. Skilled Hourly Nursing is medically intensive care at home that is provided by a licensed nurse. Home health care can be a substitute for hospitalization or inpatient care if hospitalization or inpatient care is medically necessary and such home care: \u2022 can be provided at equal or lesser cost; \u2022 is the most cost-effective setting and appropriate \u2022 is with your consent and recommended by your attending physician or licensed health care provider that such care will adequately meet your needs. You must have a written plan of care from your doctor and requires prior authorization by the plan. See Prior Authorization. This type of care is not subject to any visit limit shown in the Summary of Your Costs. The Home Health Care benefit does not cover: \u2022 Over-the-counter drugs, solutions and nutritional supplements \u2022 Private duty or 24-hour nursing care. Private duty nursing is the independent hiring of a nurse by a family or member to provide care without oversight by a home health agency. The care may be skilled, supportive or respite in nature. \u2022 Non-medical services, such as housekeeping \u2022 Services that bring you food, such as Meals on Wheels, or advice about food Home Medical Equipment (HME), Orthotics,"
         },
         "keywords": [
+            "prior-auth",
             "inpatient",
             "home health",
-            "prior-auth",
             "skilled",
-            "nursing",
-            "covered",
-            "benefit",
-            "medically",
-            "intensive",
-            "provided"
+            "nursing"
         ],
         "page_number": 36
     },
@@ -4233,15 +3776,8 @@
         },
         "keywords": [
             "hospital",
-            "dental",
-            "vision",
             "prosthetics",
-            "supplies",
-            "benefit",
-            "medical",
-            "equipment",
-            "fitting",
-            "expenses"
+            "supplies"
         ],
         "page_number": 36
     },
@@ -4257,16 +3793,11 @@
             "limitations": "Orthopedic shoes for the treatment of complications from diabetes or other medical disorders that cause foot problems. You must have a written order for the items. Your provider must state your condition and estimate the period of its need. Not all equipment or supplies are covered. Some items need prior authorization from us (see Prior Authorization). This benefit does not cover: \u2022 Hypodermic needles, lancets, test strips, testing agents and alcohol swabs. These services are covered under Prescription Drug. \u2022 Supplies or equipment not primarily intended for medical use \u2022 Special or extra-cost convenience features \u2022 Items such as exercise equipment and weights \u2022 Over bed tables, elevators, vision aids, and telephone alert systems 33 \u2022 Over-the-counter orthotic braces and/or cranial banding \u2022 Non-wearable external defibrillators, trusses and ultrasonic nebulizers \u2022 Blood pressure cuffs/monitors (even if prescribed by a physician) \u2022 Enuresis alarm \u2022 Compression stockings which do not require a prescription \u2022 Physical changes to your house or personal vehicle \u2022 Orthopedic shoes used for sport, recreation or similar activity \u2022 Penile prostheses \u2022 Routine eye care \u2022 Prosthetics, intraocular lenses, equipment or devices which require surgery. These items are covered under the Surgery benefit."
         },
         "keywords": [
-            "surgical",
             "prior-auth",
+            "surgical",
             "pharmacy",
-            "dental",
-            "vision",
             "orthopedic",
-            "inserts",
-            "treatment",
-            "complications",
-            "diabetes"
+            "inserts"
         ],
         "page_number": 37
     },
@@ -4290,8 +3821,7 @@
             "hospice care",
             "pharmacy",
             "therapy",
-            "transportation",
-            "covered"
+            "transportation"
         ],
         "page_number": 38
     },
@@ -4307,16 +3837,11 @@
             "limitations": "Hospital This benefit covers: \u2022 Inpatient room and board \u2022 Providers services 34 \u2022 Intensive care or special care units \u2022 Operating rooms, procedure rooms and recovery rooms \u2022 Surgical supplies and anesthesia \u2022 Drugs, blood, medical equipment and oxygen for use in the hospital \u2022 X-ray, lab and testing billed by the hospital Even though you stay at an in-network hospital, you may get care from doctors or other providers who do not have a network contract at all. In that case, you will not have to pay any amounts over the allowed amount. You pay out-of-network cost shares if you get care from a provider not in your network. You will not be balanced- billed for certain services provided by a non-contracted provider. See How Providers Affect Your Costs for details. We must approve all planned inpatient stays before you enter the hospital. See Prior Authorization for details. This benefit does not cover: \u2022 Hospital stays that are only for testing, unless the tests cannot be done without inpatient hospital facilities, or your condition makes inpatient care medically necessary \u2022 Any days of inpatient care beyond what is medically necessary to treat the condition"
         },
         "keywords": [
+            "prior-auth",
             "hospital",
             "inpatient",
             "surgical",
-            "prior-auth",
-            "diagnostic",
-            "benefit",
-            "providers",
-            "services",
-            "intensive",
-            "special"
+            "diagnostic"
         ],
         "page_number": 38
     },
@@ -4335,13 +3860,7 @@
             "outpatient",
             "pharmacy",
             "infusion",
-            "therapy",
-            "infused",
-            "through",
-            "catheter",
-            "treatment",
-            "examples",
-            "include"
+            "therapy"
         ],
         "page_number": 39
     },
@@ -4357,16 +3876,12 @@
             "limitations": "Benefits are provided for mastectomy necessary due to disease, illness or injury. This benefit covers: \u2022 Reconstruction of the breast on which mastectomy was performed \u2022 Surgery and reconstruction of the other breast to produce a similar appearance \u2022 Physical complications of all stages of mastectomy, including lymphedema treatment and supplies \u2022 Inpatient care Planned hospital admissions require prior authorization, see Prior Authorization for details."
         },
         "keywords": [
+            "prior-auth",
             "hospital",
             "inpatient",
             "surgical",
-            "prior-auth",
             "mastectomy",
-            "reconstruction",
-            "benefits",
-            "provided",
-            "necessary",
-            "disease"
+            "reconstruction"
         ],
         "page_number": 39
     },
@@ -4382,16 +3897,7 @@
             "limitations": "Benefits for pregnancy and childbirth are provided on the same basis as any other condition. The Maternity Care benefit includes coverage for abortion."
         },
         "keywords": [
-            "maternity",
-            "benefits",
-            "pregnancy",
-            "childbirth",
-            "provided",
-            "condition",
-            "benefit",
-            "includes",
-            "coverage",
-            "abortion"
+            "maternity"
         ],
         "page_number": 39
     },
@@ -4407,16 +3913,11 @@
             "limitations": "This benefit covers inpatient hospital, birthing center, outpatient hospital and emergency room services, including post-delivery care as determined necessary by the attending provider, in consultation with the mother, based on accepted medical practice. 35 This benefit also covers medically necessary supplies related to home births."
         },
         "keywords": [
+            "emergency",
             "hospital",
             "inpatient",
             "outpatient",
-            "emergency",
-            "facility",
-            "benefit",
-            "birthing",
-            "services",
-            "including",
-            "delivery"
+            "facility"
         ],
         "page_number": 39
     },
@@ -4438,10 +3939,7 @@
             "diagnostic",
             "preventive",
             "transportation",
-            "professional",
-            "benefit",
-            "prenatal",
-            "including"
+            "professional"
         ],
         "page_number": 40
     },
@@ -4457,16 +3955,7 @@
             "limitations": "Medical foods are foods that are specially prepared to be consumed or given directly into the stomach by feeding tube under strict supervision of a doctor. They provide most of a person\u2019s nutrition. They are designed to treat a specific problem that can be detected using medical tests. This benefit covers: \u2022 Dietary replacement to treat inborn errors of metabolism (example phenylketonuria (PKU)) \u2022 Medically necessary elemental formula for eosinophilic gastrointestinal associated disorder \u2022 Other severe conditions when your body cannot take in nutrient from food in the small intestine (malabsorption) disorder \u2022 Disorders where you cannot swallow due to a blockage or a muscular problem and need to be fed through a tube Medical foods must be prescribed and supervised by doctors or other health care providers. This benefit does not cover: \u2022 Oral nutrition or supplements not used to treat inborn errors of metabolism or any of the above listed conditions \u2022 Specialized infant formulas \u2022 Lactose-free foods"
         },
         "keywords": [
-            "medical",
-            "specially",
-            "prepared",
-            "consumed",
-            "directly",
-            "stomach",
-            "feeding",
-            "supervision",
-            "provide",
-            "nutrition"
+            "medical"
         ],
         "page_number": 40
     },
@@ -4485,13 +3974,7 @@
             "hospital",
             "transplant",
             "transportation",
-            "medical",
-            "provides",
-            "benefits",
-            "lodging",
-            "certain",
-            "covered",
-            "services"
+            "medical"
         ],
         "page_number": 40
     },
@@ -4507,10 +3990,7 @@
             "limitations": "One companion needed for the member\u2019s health and safety is covered. For medically necessary care, a second companion is covered for a child under age 19."
         },
         "keywords": [
-            "companion",
-            "covered",
-            "medically",
-            "necessary"
+            "companion"
         ],
         "page_number": 41
     },
@@ -4526,16 +4006,10 @@
             "limitations": "\u2022 Transplants: You must pay for all travel expenses yourself and submit a Claim Reimbursement Form. \u2022 Premera-Designated Centers of Excellence: There are some covered travel services, such as parking or tolls, that are not arranged by Premera\u2019s travel partner. For these services, you must submit a Claim Reimbursement Form. \u2022 Cellular Immunotherapy and Gene Therapy: You must pay for all travel expenses yourself and submit a Claim Reimbursement Form. A separate Claim Reimbursement Form is needed for each patient and each commercial carrier or transportation service used. You can get Claim Reimbursement Forms on our website at premera.com. You can also call us for a copy of the form. You must attach the following documents to the Claim Reimbursement Form: \u2022 A copy of the detailed itinerary as issued by the transportation carrier, travel agency or online travel website. The itinerary must identify the names of the passengers, the dates of travel and total cost of travel, and the origination and final destination points. \u2022 Receipts for all covered travel expenses Credit card statements or other payment receipts are not acceptable forms of documentation. This benefit does not cover: \u2022 Charges and fees for booking changes \u2022 Cancellation fees \u2022 First class airline fees \u2022 International travel \u2022 Lodging at any establishment that is not commercial \u2022 Meals \u2022 Personal care items \u2022 Pet care service animals \u2022 Phone service and long-distance calls \u2022 Reimbursement for mileage rewards or frequent flier coupons 37 \u2022 Reimbursement for travel before contacting us and receiving prior authorization \u2022 Travel for medical procedures not listed above \u2022 Travel in a mobile home, RV, or travel trailer \u2022 Travel to providers outside the network or that have not been designated by Premera to perform the services \u2022 Travel insurance"
         },
         "keywords": [
-            "transplant",
             "prior-auth",
+            "transplant",
             "transportation",
-            "reimbursement",
-            "transplants",
-            "expenses",
-            "yourself",
-            "premera",
-            "designated",
-            "centers"
+            "reimbursement"
         ],
         "page_number": 41
     },
@@ -4553,14 +4027,7 @@
         "keywords": [
             "transportation",
             "medical",
-            "restricted",
-            "provides",
-            "benefits",
-            "lodging",
-            "abortion",
-            "transgender",
-            "services",
-            "resides"
+            "restricted"
         ],
         "page_number": 42
     },
@@ -4580,12 +4047,7 @@
             "medical",
             "support",
             "employees",
-            "dependents",
-            "benefit",
-            "provides",
-            "specified",
-            "emergent",
-            "procedures"
+            "dependents"
         ],
         "page_number": 43
     },
@@ -4608,9 +4070,7 @@
             "pharmacy",
             "mental-health",
             "therapy",
-            "virtual-care",
-            "benefits",
-            "services"
+            "virtual-care"
         ],
         "page_number": 44
     },
@@ -4633,9 +4093,7 @@
             "mental-health",
             "therapy",
             "neurodevelopmental",
-            "habilitation",
-            "benefits",
-            "provided"
+            "habilitation"
         ],
         "page_number": 45
     },
@@ -4652,15 +4110,7 @@
         },
         "keywords": [
             "maternity",
-            "newborn",
-            "children",
-            "covered",
-            "automatically",
-            "eligible",
-            "receive",
-            "obstetrical",
-            "benefits",
-            "continue"
+            "newborn"
         ],
         "page_number": 46
     },
@@ -4676,16 +4126,10 @@
             "limitations": "The Newborn Care benefit covers hospital nursery care as determined necessary by the attending provider, in consultation with the mother, based on accepted medical practice. Also covered are any required readmissions to a hospital and outpatient or emergency room services for medically necessary treatment of an illness or injury."
         },
         "keywords": [
+            "emergency",
             "hospital",
             "outpatient",
-            "newborn",
-            "emergency",
-            "benefit",
-            "nursery",
-            "determined",
-            "necessary",
-            "attending",
-            "provider"
+            "newborn"
         ],
         "page_number": 46
     },
@@ -4701,16 +4145,13 @@
             "limitations": "Premera is working on your behalf to deliver better service excellence and better quality outcomes for services. To accomplish this, Premera has selected providers that have agreed to be held accountable for care quality, experience and cost. Premera calls these providers Designated Centers of Excellence. These providers can give you high quality care for complex medical situations. Designated Centers of Excellence are located throughout the United States. You will have lower out-of-pocket costs when you receive the covered surgeries below from a Designated Center of Excellence. See the Summary Of Your Costs for the cost shares you pay."
         },
         "keywords": [
-            "surgical",
             "out-of-pocket",
+            "surgical",
             "premera",
             "designated",
             "centers",
             "excellence",
-            "program",
-            "working",
-            "deliver",
-            "quality"
+            "program"
         ],
         "page_number": 47
     },
@@ -4726,16 +4167,9 @@
             "limitations": "Members must work with Premera and the Designated Center of Excellence to ensure that their treatment is coordinated and consistent with established standards of medical care. Contact customer service to be connected with a Premera Personal Health Support Clinician to begin the process. Like many elective procedures, the surgeries covered under this benefit require prior authorization from Premera to ensure the procedure is a medically appropriate option for you. If you do not receive prior authorization, this plan will not cover the services, and you will have to pay the total cost for the services. See Prior Authorization to find out how to request prior authorization. Once you are given approval for the services, Premera will refer you to the Designated Center of Excellence closest to your home. Covered Surgeries"
         },
         "keywords": [
-            "surgical",
             "prior-auth",
-            "coverage",
-            "members",
-            "premera",
-            "designated",
-            "excellence",
-            "treatment",
-            "coordinated",
-            "consistent"
+            "surgical",
+            "coverage"
         ],
         "page_number": 47
     },
@@ -4752,11 +4186,7 @@
         },
         "keywords": [
             "surgical",
-            "replacements",
-            "partial",
-            "surgery",
-            "covered",
-            "benefits"
+            "replacements"
         ],
         "page_number": 47
     },
@@ -4779,9 +4209,7 @@
             "skilled nursing",
             "bariatric",
             "transportation",
-            "surgery",
-            "services",
-            "performed"
+            "surgery"
         ],
         "page_number": 47
     },
@@ -4797,16 +4225,7 @@
             "limitations": "This benefit only covers drugs that are approved by the US Food and Drug Administration (FDA) that you get from a licensed pharmacy for take-home use. Covered drugs include the drugs and items listed below. All drugs and other items must be medically necessary. Essentials Drug List This plan uses a specific list of covered prescription drugs. This list, called the Essentials drug list, includes preferred generic drugs, preferred brand-name drugs and non-preferred drugs. However, the Essentials drug list does not cover some of the drugs in certain drug classes. An example is proton pump inhibitors. Except for drugs and items listed under Exclusions below in this benefit, the Essentials drug list covers 43 at least 1 drug in every drug class. (A drug class is a group of drugs that may work in the same way, have a similar chemical structure, or may be used to treat the same conditions or group of conditions.) Drugs not included in the Essentials drug list are not covered by this plan. Please call customer service or visit our website for more information or to find out if a certain drug is covered. If your drug is not covered, please work with your provider to find an alternative drug in that drug class that the plan does cover. See Question 1 in Questions And Answers About Your Pharmacy Benefits below in this benefit to find out how to ask for coverage of a drug that is not in the Essentials drug list."
         },
         "keywords": [
-            "pharmacy",
-            "covered",
-            "benefit",
-            "approved",
-            "administration",
-            "licensed",
-            "include",
-            "medically",
-            "necessary",
-            "essentials"
+            "pharmacy"
         ],
         "page_number": 47
     },
@@ -4826,12 +4245,7 @@
             "pharmacy",
             "allergy",
             "nicotine",
-            "yourself",
-            "prescribed",
-            "insulin",
-            "covered",
-            "prescription",
-            "towards"
+            "yourself"
         ],
         "page_number": 48
     },
@@ -4849,14 +4263,7 @@
         "keywords": [
             "pharmacy",
             "prescription",
-            "vitamins",
-            "specialty",
-            "complex",
-            "problems",
-            "example",
-            "rheumatoid",
-            "arthritis",
-            "special"
+            "vitamins"
         ],
         "page_number": 48
     },
@@ -4872,16 +4279,13 @@
             "limitations": "Initial fills of new prescriptions for certain Specialty Drugs with a higher instance of intolerance are filled as two 15-day prescriptions. During the first 15-day fill, you will be contacted to ensure the medication is working as intended prior to the second fill and your cost for the medication will be prorated accordingly. If the drug is tolerated, standard days\u2019 supply will apply for subsequent fills. This program only applies to the initial fill of a new prescription. Contact customer service for more information about which Specialty Drugs are applicable or visit www.premera.com/splitfill-wa. Human growth hormone Human growth hormone is covered only for medical conditions that affect growth. It is not covered when the cause of short stature is unknown. Human growth hormone is a specialty drug. It is not covered under other benefits of this plan. Contraceptives All FDA-approved prescription and over-the-counter oral contraceptive drugs, supplies and devices, including emergency contraceptives that are required to be covered by state and federal law. See Prescription Drug in the Summary Of Your Costs. You must buy over-the-counter supplies and devices at the pharmacy counter. For details on how to submit a claim, see How Do I File a Claim?. For shots or devices from your provider, see Preventive Care. 44 PV Core Preventive Drugs The plan also covers drugs on our PV Core list, including preventive drugs for hypertension and behavioral health. PV Core drugs are effective in controlling health problems such as heart disease. Our Pharmacy Committee reviews the list throughout the year. They update the PV Core list when needed. The review process is the same as the process described in \u201cQuestions And Answers About Your Pharmacy Benefits\u201d later in this benefit. Please call customer service or log in to the member portal on our website to find out if a drug is on the PV Core list. The phone number and our Web address are on the back of this booklet. Preventive Drugs Required By The Affordable Care Act that your provider prescribes. Some preventive drugs have limits on how often you and/or who should get them. The limits are often based on your age or gender. After one of these limits is reached, these drugs are not covered in full and you may have to pay more out-of-pocket costs. Off-Label Uses The US Food and Drug Administration (FDA) approves prescription drugs for specific health conditions or symptoms. Some drugs are prescribed for uses other than those the FDA has approved. The plan covers such drugs if the use is recognized as effective in standard drug reference guides put out by the American Hospital Formulary Service, the American Medical Association, the US Pharmacopoeia, or other reference guides also recognized by the Federal Secretary of the US Health and Human Services department or the Insurance Commissioner. Drug uses that are not recognized by one of the above standard drug reference guides can be covered if they are recognized by the Secretary of the US Health and Human Services department or by the majority of relevant, peer-reviewed medical literature. For more details, see the definition of \u201cprescription drug\u201d in Definitions. Compound Medications To be covered, these must contain at least one covered prescription drug"
         },
         "keywords": [
-            "hospital",
-            "emergency",
             "out-of-pocket",
+            "emergency",
+            "hospital",
             "pharmacy",
             "mental-health",
             "preventive",
-            "program",
-            "initial",
-            "prescriptions",
-            "certain"
+            "program"
         ],
         "page_number": 48
     },
@@ -4899,13 +4303,7 @@
         "keywords": [
             "pharmacy",
             "getting",
-            "prescriptions",
-            "premera",
-            "question",
-            "questions",
-            "answers",
-            "benefits",
-            "exceptions"
+            "prescriptions"
         ],
         "page_number": 49
     },
@@ -4922,8 +4320,7 @@
         },
         "keywords": [
             "pharmacy",
-            "instructions",
-            "network"
+            "instructions"
         ],
         "page_number": 49
     },
@@ -4941,14 +4338,7 @@
         "keywords": [
             "pharmacy",
             "network",
-            "specialty",
-            "pharmacies",
-            "prescription",
-            "provider",
-            "prescribe",
-            "prescriptions",
-            "download",
-            "website"
+            "specialty"
         ],
         "page_number": 49
     },
@@ -4966,14 +4356,7 @@
         "keywords": [
             "pharmacy",
             "questions",
-            "answers",
-            "benefits",
-            "exclude",
-            "certain",
-            "provider",
-            "prescribe",
-            "encourage",
-            "substitution"
+            "answers"
         ],
         "page_number": 50
     },
@@ -4991,14 +4374,7 @@
         "keywords": [
             "prior-auth",
             "pharmacy",
-            "essentials",
-            "benefit",
-            "therapeutics",
-            "committee",
-            "decisions",
-            "includes",
-            "doctors",
-            "pharmacists"
+            "essentials"
         ],
         "page_number": 50
     },
@@ -5016,14 +4392,8 @@
         "keywords": [
             "copay",
             "pharmacy",
-            "vision",
             "generic",
-            "substitution",
-            "encourages",
-            "appropriate",
-            "defined",
-            "available",
-            "indicated"
+            "substitution"
         ],
         "page_number": 50
     },
@@ -5039,9 +4409,7 @@
             "limitations": "This plan pays for preventive care as shown in the Summary Of Your Costs. Below is a summary of preventive care services."
         },
         "keywords": [
-            "preventive",
-            "summary",
-            "services"
+            "preventive"
         ],
         "page_number": 52
     },
@@ -5058,15 +4426,7 @@
         },
         "keywords": [
             "pharmacy",
-            "vision",
-            "preventive",
-            "routine",
-            "includes",
-            "members",
-            "screening",
-            "depression",
-            "immunizations",
-            "provider"
+            "preventive"
         ],
         "page_number": 52
     },
@@ -5084,14 +4444,7 @@
         "keywords": [
             "imaging",
             "preventive",
-            "screening",
-            "routine",
-            "includes",
-            "services",
-            "recommended",
-            "guidelines",
-            "mammograms",
-            "prostate"
+            "screening"
         ],
         "page_number": 52
     },
@@ -5109,14 +4462,7 @@
         "keywords": [
             "hospital",
             "preventive",
-            "pregnant",
-            "breastfeeding",
-            "support",
-            "counseling",
-            "purchase",
-            "standard",
-            "electric",
-            "medically"
+            "pregnant"
         ],
         "page_number": 52
     },
@@ -5134,14 +4480,7 @@
         "keywords": [
             "preventive",
             "colorectal",
-            "screening",
-            "recommended",
-            "includes",
-            "colonoscopy",
-            "sigmoidoscopy",
-            "consultation",
-            "anesthesia",
-            "medically"
+            "screening"
         ],
         "page_number": 53
     },
@@ -5159,14 +4498,7 @@
         "keywords": [
             "outpatient",
             "education",
-            "training",
-            "programs",
-            "classes",
-            "covered",
-            "conditions",
-            "disease",
-            "diabetes",
-            "program"
+            "training"
         ],
         "page_number": 53
     },
@@ -5187,11 +4519,7 @@
             "nutritional",
             "counseling",
             "therapy",
-            "discuss",
-            "healthy",
-            "screening",
-            "members",
-            "conditions"
+            "mental health"
         ],
         "page_number": 53
     },
@@ -5207,16 +4535,11 @@
             "limitations": "Risk assessments and advice on how to prevent falls for members who are age 65 or older and have a history of falling or have mobility issues. Pre-exposure prophylaxis (PrEP) for members at high risk for HIV infection Post-exposure prophylaxis (PEP) Contraceptives \u2022 Contraceptive devices, shots and implants. The plan will cover up to a 12-month supply of contraceptive pills. See Prescription Drug for coverage of prescription and over-the-counter drugs and devices. \u2022 Emergency contraceptives (\u201cplan B\u201d) \u2022 Tubal ligation. When tubal ligation is done as a secondary procedure, only the charge for the procedure itself is covered under this benefit. The related services, such as anesthesia, are covered as part of the primary procedure. See Hospital and Surgery."
         },
         "keywords": [
+            "emergency",
             "hospital",
             "surgical",
-            "emergency",
             "pharmacy",
-            "prevention",
-            "assessments",
-            "prevent",
-            "members",
-            "history",
-            "falling"
+            "prevention"
         ],
         "page_number": 53
     },
@@ -5236,12 +4559,7 @@
             "surgical",
             "newborn",
             "pharmacy",
-            "dental",
-            "vision",
-            "preventive",
-            "evidence",
-            "services",
-            "guidelines"
+            "preventive"
         ],
         "page_number": 53
     },
@@ -5286,12 +4604,7 @@
             "therapy",
             "psychological",
             "neuropsychological",
-            "testing",
-            "covered",
-            "services",
-            "including",
-            "interpretation",
-            "preparation"
+            "testing"
         ],
         "page_number": 55
     },
@@ -5310,13 +4623,7 @@
             "surgical",
             "rehabilitation",
             "mental-health",
-            "therapy",
-            "benefits",
-            "provided",
-            "licensed",
-            "physical",
-            "therapist",
-            "occupational"
+            "therapy"
         ],
         "page_number": 55
     },
@@ -5332,16 +4639,11 @@
             "limitations": "Inpatient rehabilitation care is covered when medically necessary and provided in a specialized inpatient rehabilitation center, which may be part of a hospital. If you are already an inpatient, this benefit will start when your care becomes mainly rehabilitative and you are transferred to an inpatient rehabilitation center. This benefit only covers care you receive within 24 months from the onset of the injury or illness or from the date of the surgery that made rehabilitation necessary. You must get prior authorization from us before you get treatment in an inpatient rehabilitation center. See Prior Authorization for details."
         },
         "keywords": [
+            "prior-auth",
             "hospital",
             "inpatient",
             "surgical",
-            "rehabilitation",
-            "prior-auth",
-            "covered",
-            "medically",
-            "necessary",
-            "provided",
-            "specialized"
+            "rehabilitation"
         ],
         "page_number": 55
     },
@@ -5361,12 +4663,7 @@
             "outpatient",
             "surgical",
             "rehabilitation",
-            "therapy",
-            "benefit",
-            "following",
-            "medically",
-            "necessary",
-            "physical"
+            "therapy"
         ],
         "page_number": 55
     },
@@ -5382,16 +4679,15 @@
             "limitations": "This benefit includes: \u2022 Room and board \u2022 Skilled nursing services \u2022 Supplies and drugs 51 \u2022 Skilled nursing care during some stages of recovery \u2022 Skilled rehabilitation provided by physical, occupational or speech therapists while in a skilled nursing facility \u2022 Short or long term stay immediately following a hospitalization \u2022 Active supervision by your provider while in the skilled nursing facility We must approve all planned skilled nursing facility stays before you enter a skilled nursing facility. See Prior Authorization for details. This benefit does not cover: \u2022 Acute nursing care \u2022 Skilled nursing facility stay not immediately following hospitalization or inpatient stay \u2022 Skilled nursing care outside of a hospital or skilled nursing facility \u2022 Care or stay provided at a facility that is not qualified per our standards"
         },
         "keywords": [
+            "prior-auth",
             "hospital",
             "inpatient",
             "rehabilitation",
             "skilled nursing",
-            "prior-auth",
             "therapy",
             "skilled",
             "nursing",
-            "facility",
-            "benefit"
+            "facility"
         ],
         "page_number": 55
     },
@@ -5409,14 +4705,7 @@
         "keywords": [
             "rehabilitation",
             "therapy",
-            "manipulations",
-            "benefit",
-            "medically",
-            "necessary",
-            "covered",
-            "illness",
-            "condition",
-            "massage"
+            "manipulations"
         ],
         "page_number": 56
     },
@@ -5432,12 +4721,12 @@
             "limitations": "This benefit covers inpatient and outpatient substance use disorder conditions treatment and supporting services. Covered services include services provided by a state-approved treatment program or other licensed or certified provider. Covered outpatient visits can include interactive audio and video technology or using store and forward technology in real-time communication between the member at the originating site and the provider for diagnoses, consultation, or treatment. See the Virtual Care benefit. The current edition of the Patient Placement Criteria for the Treatment of Substance Related Disorders as published by the American Society of Addiction Medicine is used to determine if substance use disorder conditions treatment is medically necessary. Note: Medically necessary detoxification is covered in any medically necessary setting. Detoxification in the hospital is covered under the Emergency Room and Hospital benefits. Acupuncture services when provided for substance use disorder conditions do not apply to the Acupuncture benefit visit limits. The Substance Use Disorder benefit doesn\u2019t cover: \u2022 Halfway houses, quarterway houses, recovery houses, and other sober living residences Surgery This benefit covers surgical services (including injections) that are not named as covered under other benefits, when performed on an inpatient or outpatient basis, in such locations as a hospital, ambulatory surgical facility, surgical suite or provider\u2019s office. Also covered under this benefit are: \u2022 Anesthesia or sedation and postoperative care as medically necessary. \u2022 Cornea transplantation, skin grafts, repair of a dependent child\u2019s congenital anomaly, and the transfusion of blood or blood derivatives. \u2022 Colonoscopy and other scope insertion procedures are also covered under this benefit unless they qualify as preventive services as described in the Preventive Care benefit. \u2022 Surgery that is medically necessary to correct the cause of infertility. This does not include assisted reproduction techniques or sterilization reversal. \u2022 Repair of a defect that is the direct result of an injury, providing such repair is started within 12 months of the date of the injury. \u2022 Correction of functional disorders upon our review and approval. \u2022 Vasectomy For organ, bone marrow or stem cell transplant procedure benefit information, see the Transplants benefit. For services to change gender, see the Gender Affirming Care benefit. 52 For members residing in states where laws prohibit access to medically necessary gender affirming care, travel to a provider in another state may be covered. See Medical Transportation \u2013 State-Restricted Care for details. This benefit does not cover removal of excess skin or fat related to either weight loss surgery or the use of drugs for weight loss."
         },
         "keywords": [
+            "emergency",
             "hospital",
             "inpatient",
             "outpatient",
             "surgical",
             "transplant",
-            "emergency",
             "mental-health",
             "preventive",
             "gender-affirming",
@@ -5458,12 +4747,7 @@
         },
         "keywords": [
             "outpatient",
-            "surgical",
-            "benefits",
-            "provided",
-            "services",
-            "supplies",
-            "furnished"
+            "surgical"
         ],
         "page_number": 57
     },
@@ -5479,16 +4763,13 @@
             "limitations": "TMJ disorders are covered on the same basis as any other condition. TMJ disorders include those conditions that have some of the following symptoms: \u2022 Muscle pain linked with TMJ \u2022 Headaches linked with the TMJ \u2022 Arthritic problems linked with the TMJ \u2022 Clicking or locking in the jawbone joint \u2022 An abnormal range of motion or limited motion of the jawbone joint This benefit covers: \u2022 Exams \u2022 Consultations \u2022 Treatment Some services may be covered under other benefits sections of this plan with different or additional cost share, such as: \u2022 X-rays. See Diagnostic X-ray, Lab, and Imaging. \u2022 Surgery. See Surgery. \u2022 Hospital. See Hospital. Some surgeries need prior authorization before you get them. See Prior Authorization for details. \u201cMedical Services\u201d for the purpose of this TMJ benefit are those that meet all of the following requirements: \u2022 Reasonable and appropriate for the treatment of a disorder of the temporomandibular joint, under all the factual circumstances of the case \u2022 Effective for the control or elimination of one or more of the following, caused by a disorder of the temporomandibular joint: pain, infection, disease, difficulty in speaking, or difficulty in chewing or swallowing food \u2022 Recognized as effective, according to the professional standards of good medical practice \u2022 Not experimental or investigational, according to the criteria stated under Definitions, or primarily for cosmetic purposes \u201cDental Services\u201d for the purpose of this TMJ benefit are those that meet all of the following requirements: \u2022 Reasonable and appropriate for the treatment of a disorder of the temporomandibular joint, under all the factual circumstances of the case \u2022 Effective for the control or elimination of one or more of the following, caused by a disorder of the temporomandibular joint: pain, infection, disease, difficulty in speaking, or difficulty in chewing or swallowing food \u2022 Recognized as effective, according to the professional standards of good dental practice \u2022 Not experimental or investigational, according to the criteria stated under Definitions, or primarily for cosmetic purposes"
         },
         "keywords": [
+            "prior-auth",
             "hospital",
             "surgical",
-            "prior-auth",
-            "dental",
             "imaging",
             "diagnostic",
             "temporomandibular",
-            "disorders",
-            "covered",
-            "condition"
+            "disorders"
         ],
         "page_number": 57
     },
@@ -5512,8 +4793,7 @@
             "allergy",
             "transportation",
             "therapeutic",
-            "injections",
-            "benefit"
+            "injections"
         ],
         "page_number": 57
     },
@@ -5532,13 +4812,7 @@
             "inpatient",
             "outpatient",
             "transplant",
-            "recipient",
-            "benefit",
-            "reinfusion",
-            "related",
-            "expenses",
-            "including",
-            "preparation"
+            "recipient"
         ],
         "page_number": 58
     },
@@ -5555,15 +4829,7 @@
         },
         "keywords": [
             "surgical",
-            "transportation",
-            "covered",
-            "services",
-            "include",
-            "selection",
-            "removal",
-            "harvesting",
-            "evaluation",
-            "including"
+            "transportation"
         ],
         "page_number": 59
     },
@@ -5581,14 +4847,7 @@
         "keywords": [
             "transplant",
             "transportation",
-            "lodging",
-            "benefits",
-            "provided",
-            "certain",
-            "expenses",
-            "related",
-            "services",
-            "approved"
+            "lodging"
         ],
         "page_number": 59
     },
@@ -5606,14 +4865,7 @@
         "keywords": [
             "hospital",
             "surgical",
-            "urgent-care",
-            "benefit",
-            "treatment",
-            "sprains",
-            "infections",
-            "services",
-            "covered",
-            "benefits"
+            "urgent-care"
         ],
         "page_number": 59
     },
@@ -5634,11 +4886,7 @@
             "skilled nursing",
             "mental-health",
             "virtual-care",
-            "virtual",
-            "interactive",
-            "technology",
-            "forward",
-            "communication"
+            "virtual"
         ],
         "page_number": 59
     },
@@ -5654,16 +4902,9 @@
             "limitations": "This benefit provides for routine vision exams by an ophthalmologist or optometrist as stated in the Summary Of Your Costs. Covered routine exam services include: \u2022 Examination of the outer and inner parts of the eye \u2022 Evaluation of vision sharpness (refraction) \u2022 Binocular balance testing \u2022 Routine tests of color vision, peripheral vision and intraocular pressure \u2022 Case history and recommendations The Vision Exam benefit for members under 19 will provide coverage until the end of the month in which the member turns 19. Some clinics that are based in or owned by a hospital will charge a separate facility fee for all physician visits, including routine vision exams. Benefits for these fees will be subject to your calendar year deductible and coinsurance, if any. Note: For vision exams and testing related to medical conditions of the eye, see the Professional Visits And Services benefit. The Vision Exams benefit doesn\u2019t cover vision hardware or fitting examinations for contact lenses or eyeglasses."
         },
         "keywords": [
-            "hospital",
             "deductible",
             "coinsurance",
-            "vision",
-            "benefit",
-            "provides",
-            "routine",
-            "ophthalmologist",
-            "optometrist",
-            "summary"
+            "hospital"
         ],
         "page_number": 60
     },
@@ -5679,16 +4920,7 @@
             "limitations": "Benefits for vision hardware for members 19 or older are provided when all of the requirements listed below are met: \u2022 They must be named in this benefit as covered \u2022 They must not be excluded from coverage under this plan The Vision Hardware benefit covers: \u2022 Prescription eyeglass lenses (single vision, bifocal, trifocal, progressive), quadrafocal or lenticular) \u2022 Frames for eyeglasses \u2022 Prescription contact lenses (soft, hard or disposable) \u2022 Prescription safety glasses \u2022 Prescription sunglasses \u2022 Special features, such as tinting or coating \u2022 Fitting of eyeglass lenses to frames \u2022 Fitting of contact lenses to the eyes Vision hardware benefits are based on the \u201callowed amount\u201d (see Important Plan Information in this booklet) for covered services and supplies. Charges for vision services or supplies that exceed what\u2019s covered under this benefit aren\u2019t covered under other benefits of this plan. \u2022 Services and supplies (including hardware) received after your coverage under this benefit has ended, except when all of the following requirements are met: \u2022 You ordered covered contact lenses, eyeglass lenses and/or frames before the date your coverage under this benefit or plan ended \u2022 You received the contact lenses, eyeglass lenses and/or frames within 30 days of the date your coverage under this benefit or plan ended 56 For members 19 or older, the Vision Hardware benefit doesn\u2019t cover: \u2022 Services or supplies that aren\u2019t named above as covered or that are covered under other provisions of this plan. See the Medical Vision Hardware subsection of the Home Medical Equipment (HME), Orthotics, Prosthetics And Supplies benefit for hardware coverage for certain conditions of the eye. \u2022 Non-prescription eyeglasses or contact lenses, or other special purpose vision aids (such as magnifying attachments) or light-sensitive lenses, even if prescribed \u2022 Vision therapy, eye exercise, or any sort of training to correct muscular imbalance of the eye (orthoptics), or pleoptics \u2022 Supplies used for the maintenance of contact lenses"
         },
         "keywords": [
-            "pharmacy",
-            "vision",
-            "members",
-            "benefits",
-            "hardware",
-            "provided",
-            "requirements",
-            "benefit",
-            "covered",
-            "excluded"
+            "pharmacy"
         ],
         "page_number": 60
     },
@@ -5703,15 +4935,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "The Vision Hardware benefit will provide coverage as shown in the Summary Of Your Costs until the end of the month in which the member turns 19."
         },
-        "keywords": [
-            "vision",
-            "members",
-            "hardware",
-            "benefit",
-            "provide",
-            "coverage",
-            "summary"
-        ],
+        "keywords": [],
         "page_number": 61
     },
     {
@@ -5727,15 +4951,7 @@
         },
         "keywords": [
             "prior-auth",
-            "pharmacy",
-            "association",
-            "u201cbcbsa",
-            "premera",
-            "arrangements",
-            "licensees",
-            "u201chost",
-            "washington",
-            "outside"
+            "pharmacy"
         ],
         "page_number": 61
     },
@@ -5754,13 +4970,7 @@
             "deductible",
             "coinsurance",
             "bluecard",
-            "program",
-            "network",
-            "providers",
-            "provider",
-            "charges",
-            "covered",
-            "services"
+            "program"
         ],
         "page_number": 61
     },
@@ -5776,13 +4986,7 @@
             "limitations": "A law or regulation may require a surcharge, tax or other fee be added to the price of a covered service. If that happens, we will add that surcharge, tax or fee to the allowed amount for the claim."
         },
         "keywords": [
-            "surcharges",
-            "regulation",
-            "require",
-            "surcharge",
-            "covered",
-            "happens",
-            "allowed"
+            "surcharges"
         ],
         "page_number": 62
     },
@@ -5799,15 +5003,7 @@
         },
         "keywords": [
             "contracted",
-            "providers",
-            "receive",
-            "covered",
-            "services",
-            "washington",
-            "outside",
-            "contract",
-            "allowed",
-            "pricing"
+            "providers"
         ],
         "page_number": 62
     },
@@ -5824,15 +5020,7 @@
         },
         "keywords": [
             "hospital",
-            "inpatient",
-            "outside",
-            "islands",
-            "u201cbluecard",
-            "advantage",
-            "bluecard",
-            "program",
-            "instance",
-            "although"
+            "inpatient"
         ],
         "page_number": 62
     },
@@ -5848,14 +5036,7 @@
             "limitations": "If you have questions or need to find out more about the BlueCard Program, please call our customer service Department. To find a provider, go to premera.com or call 800-810-BLUE (2583). You can also get Blue Cross Blue Shield Global Core information by calling the toll-free phone number."
         },
         "keywords": [
-            "questions",
-            "bluecard",
-            "program",
-            "customer",
-            "department",
-            "provider",
-            "premera",
-            "calling"
+            "questions"
         ],
         "page_number": 62
     },
@@ -5871,16 +5052,7 @@
             "limitations": "Care Management services work to help ensure that you receive appropriate and cost-effective medical care. Your role in the Care Management process is simple, but important, as explained below. You must be eligible on the dates of service and services must be medically necessary. We encourage you to call customer service to verify that you meet the required criteria for claims payment."
         },
         "keywords": [
-            "management",
-            "services",
-            "receive",
-            "appropriate",
-            "effective",
-            "medical",
-            "process",
-            "important",
-            "explained",
-            "eligible"
+            "management"
         ],
         "page_number": 62
     },
@@ -5896,16 +5068,10 @@
             "limitations": "You must get Premera's approval for some services before the service is performed. This process is called prior authorization. There are two different types of prior authorization required: 1. Prior Authorization For Benefit Coverage You must get prior authorization for certain types of medical services, equipment, and for most inpatient facility stays. This is so that Premera can confirm that these services are medically necessary and covered by the plan. 2. Prior Authorization For In-Network Cost Shares For Out-Of-Network Providers You must get prior authorization in order for an out-of-network provider to be covered at the plan\u2019s in-network benefit level, except for emergency services. See Exceptions To Prior Authorization For Out-of-Network Providers below for more information."
         },
         "keywords": [
-            "inpatient",
-            "emergency",
             "prior-auth",
-            "authorization",
-            "premera",
-            "approval",
-            "services",
-            "performed",
-            "process",
-            "different"
+            "emergency",
+            "inpatient",
+            "authorization"
         ],
         "page_number": 62
     },
@@ -5922,15 +5088,7 @@
         },
         "keywords": [
             "prior-auth",
-            "authorization",
-            "decision",
-            "request",
-            "services",
-            "require",
-            "writing",
-            "calendar",
-            "receipt",
-            "necessary"
+            "authorization"
         ],
         "page_number": 62
     },
@@ -5946,16 +5104,11 @@
             "limitations": "The plan has a list of services, equipment, and facility types that must have prior authorization before you receive the service or are admitted as an inpatient at the facility. Please contact your in-network provider or Premera customer service before you receive a service to find out if your service requires prior authorization. \u2022 In-network providers or facilities are required to request prior authorization for the service. \u2022 Out-of-network and out-of-area providers and facilities will not request prior authorization for the service. You have to ask Premera to prior authorize the service. It is a good idea to ask Premera for prior authorization when you see a non-contracted provider. It is to your advantage to know ahead of time if the plan is not going to cover a service, equipment, or an inpatient stay."
         },
         "keywords": [
-            "inpatient",
             "prior-auth",
+            "inpatient",
             "medical",
-            "services",
             "supplies",
-            "equipment",
-            "facility",
-            "authorization",
-            "receive",
-            "admitted"
+            "equipment"
         ],
         "page_number": 63
     },
@@ -5971,16 +5124,10 @@
             "limitations": "The plan has a specific list of prescription drugs that must have prior authorization before you get them at a pharmacy. The list is on our website at premera.com. Your provider can ask for a prior authorization by faxing an accurately completed prior authorization form to us. This form is also on the pharmacy section of our website. If your provider does not get prior authorization, when you go to the pharmacy to get your prescription, the pharmacy will tell you that you need it. You or your pharmacy should inform your provider of the need for prior authorization. Your provider can fax us an accurately completed prior authorization form for review. You can buy the drug before it is prior authorized, but you must pay the full cost. If the drug is authorized after you bought it, you can send us a claim for reimbursement. Reimbursement will be based on the allowed amount. See How Do I File A Claim? for details. Sometimes, benefits for some prescription drugs may be limited to one or more of the following: \u2022 A set number of days\u2019 supply or a specific drug or drug dosage appropriate for a usual course of treatment. \u2022 Certain drugs for a specific diagnosis \u2022 For certain drugs, you may need to get a prescription from an appropriate medical specialist \u2022 Step therapy, meaning you must try a generic drug or a specified brand name drug first \u2022 Drug synchronization, meaning the coordination of medication refills for a patient taking two or more medication for a chronic condition such that the patient\u2019s medications are refilled on the same schedule for a given time period. Cost-shares are adjusted if the fill is less than the standard refill amount in compliance with state law. These limits are based on medical standards, the drug maker\u2019s advice, and your specific case. They are also based on FDA guidelines and medical articles and papers."
         },
         "keywords": [
-            "specialist",
             "prior-auth",
+            "specialist",
             "pharmacy",
-            "prescription",
-            "specific",
-            "authorization",
-            "website",
-            "premera",
-            "provider",
-            "accurately"
+            "prescription"
         ],
         "page_number": 63
     },
@@ -5996,12 +5143,12 @@
             "limitations": "The following services do not require prior-authorization for benefit coverage, but they have separate requirements: \u2022 The first six visits provided by an in-network provider for rehabilitation and habilitation therapy, spinal manipulative treatment or acupuncture. \u2022 Emergency services and emergency hospital admissions, including emergency drug or alcohol detox in a hospital. \u2022 Childbirth admission to a hospital, or admissions for newborns who need emergency medical care at birth. Emergency and childbirth hospital admissions do not require prior authorization, but you must notify us as soon as reasonably possible. 59 2. Prior Authorization For Out-Of-Network Provider Coverage Generally, non-emergent care by out-of-network providers is covered at a lower benefit level. However, you may ask for a prior authorization to cover the out-of-network provider at the in-network benefit level if the services are medically necessary and are only available from an out-of-network provider. You or the out-of- network provider must ask for prior authorization before you receive the services. Note: It is your responsibility to get prior authorization for any services that require it when you see a provider that is out-of-network. If you do not get a prior authorization, the services will not be covered at the in-network benefit level. The prior authorization request for an out-of-network provider must include the following: \u2022 A statement explaining how the provider has unique skills or provides unique services that are medically necessary for your care, and that are not reasonably available from an in-network provider, and \u2022 Medical records needed to support the request. If the out-of-network services are authorized, the plan will cover the service at the in-network benefit level. However, in addition to the cost shares, you may pay any amounts over the allowed amount if the provider does not have a contract with us or the local Blue Cross and/or Blue Shield Licensee. Amounts over the allowed amount do not count toward your plan deductible and out-of-pocket maximum. Exceptions To Prior Authorization For Out-of-Network Providers Out-of-network providers can be covered at the in-network benefit level without prior authorization for emergency services and hospital admissions for an emergency medical condition. This includes hospital admissions for emergency drug or alcohol detox or for childbirth. If you are admitted to an out-of-network hospital due to an emergency condition, those services are always covered at the in-network benefit level. The plan will continue to cover those services until you are medically stable and can safely transfer to an in-network hospital. If you choose to stay in the out-of-network hospital after you are medically stable and can safely transfer to an in-network hospital, you may be subject to additional charges which may not be covered by your plan."
         },
         "keywords": [
-            "hospital",
-            "rehabilitation",
-            "emergency",
             "deductible",
             "out-of-pocket",
             "prior-auth",
+            "emergency",
+            "hospital",
+            "rehabilitation",
             "exceptions",
             "authorization",
             "benefit",
@@ -6021,16 +5168,7 @@
             "limitations": "Premera Blue Cross has developed or adopted guidelines and medical policies that outline clinical criteria used to make medical necessity determinations. The criteria are reviewed annually and are updated as needed to ensure our determinations are consistent with current medical practice standards and follow national and regional norms. Practicing community doctors are involved in the review and development of our internal criteria. Our medical policies are on our website. You or your provider may review them at premera.com. You or your provider may also request a copy of the criteria used to make a medical necessity decision for a particular condition or procedure. To obtain the information, please send your request to Care Management at the address or fax number shown on the back cover. Premera Blue Cross reserves the right to deny payment for services that are not medically necessary or that are considered experimental/investigational. A decision by Premera Blue Cross following this review may be appealed in the manner described in Complaints And Appeals. In general, when there is more than one treatment option, the plan will cover the least costly option that will meet your medical needs. Premera Blue Cross works cooperatively with you and your physician to consider effective alternatives to hospital stays and other high-cost care to make better use of this plan's benefits."
         },
         "keywords": [
-            "clinical",
-            "premera",
-            "developed",
-            "adopted",
-            "guidelines",
-            "medical",
-            "policies",
-            "outline",
-            "criteria",
-            "necessity"
+            "clinical"
         ],
         "page_number": 64
     },
@@ -6050,12 +5188,7 @@
             "surgical",
             "personal",
             "support",
-            "programs",
-            "participation",
-            "premera",
-            "services",
-            "members",
-            "managing"
+            "programs"
         ],
         "page_number": 64
     },
@@ -6073,14 +5206,7 @@
         "keywords": [
             "chronic",
             "condition",
-            "management",
-            "premera",
-            "contracted",
-            "consumer",
-            "digital",
-            "company",
-            "program",
-            "manager"
+            "management"
         ],
         "page_number": 65
     },
@@ -6096,13 +5222,7 @@
             "limitations": "In addition to services listed as not covered under Covered Services, this section of your booklet lists the services that are either limited or not covered by this plan."
         },
         "keywords": [
-            "exclusions",
-            "addition",
-            "services",
-            "covered",
-            "section",
-            "booklet",
-            "limited"
+            "exclusions"
         ],
         "page_number": 65
     },
@@ -6119,11 +5239,7 @@
         },
         "keywords": [
             "emergency",
-            "amounts",
-            "allowed",
-            "defined",
-            "participating",
-            "provider"
+            "amounts"
         ],
         "page_number": 65
     },
@@ -6141,14 +5257,7 @@
         "keywords": [
             "surgical",
             "assisted",
-            "reproduction",
-            "technologies",
-            "including",
-            "limited",
-            "infertility",
-            "required",
-            "procedures",
-            "artificial"
+            "reproduction"
         ],
         "page_number": 65
     },
@@ -6166,14 +5275,7 @@
         "keywords": [
             "charges",
             "records",
-            "reports",
-            "providers",
-            "supplying",
-            "requested",
-            "premera",
-            "utilization",
-            "complications",
-            "covered"
+            "reports"
         ],
         "page_number": 66
     },
@@ -6190,15 +5292,7 @@
         },
         "keywords": [
             "gender-affirming",
-            "cosmetic",
-            "services",
-            "supplies",
-            "medically",
-            "necessary",
-            "includes",
-            "performed",
-            "reshape",
-            "structures"
+            "cosmetic"
         ],
         "page_number": 66
     },
@@ -6218,12 +5312,7 @@
             "counseling",
             "education",
             "training",
-            "absence",
-            "illness",
-            "including",
-            "limited",
-            "outreach",
-            "fitness"
+            "mental health"
         ],
         "page_number": 66
     },
@@ -6239,11 +5328,7 @@
             "limitations": "Services that you must get to avoid being tried, sentenced or losing the right to drive when they are not medically necessary."
         },
         "keywords": [
-            "ordered",
-            "services",
-            "sentenced",
-            "medically",
-            "necessary"
+            "ordered"
         ],
         "page_number": 66
     },
@@ -6258,18 +5343,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "Dental care or supplies, that are not covered under any dental benefits. This exclusion also doesn't apply to dental services covered under the Temporomandibular Joint Disorders (TMJ) Care benefit. EEG biofeedback or neurofeedback services"
         },
-        "keywords": [
-            "dental",
-            "supplies",
-            "covered",
-            "benefits",
-            "exclusion",
-            "services",
-            "temporomandibular",
-            "disorders",
-            "benefit",
-            "biofeedback"
-        ],
+        "keywords": [],
         "page_number": 66
     },
     {
@@ -6286,14 +5360,7 @@
         "keywords": [
             "clinical-trials",
             "experimental",
-            "investigational",
-            "services",
-            "supplies",
-            "including",
-            "complications",
-            "effects",
-            "certain",
-            "approved"
+            "investigational"
         ],
         "page_number": 66
     },
@@ -6309,16 +5376,7 @@
             "limitations": "Services or supplies that you provide to yourself. It also does not cover a provider who is: \u2022 Your spouse, mother, father, child, brother or sister \u2022 Your mother, father, child, brother or sister by marriage \u2022 Your stepmother, stepfather, stepchild, stepbrother or stepsister \u2022 Your grandmother, grandfather, grandchild or the spouse of one of these people \u2022 A volunteer 62"
         },
         "keywords": [
-            "members",
-            "volunteers",
-            "services",
-            "supplies",
-            "provide",
-            "yourself",
-            "provider",
-            "brother",
-            "marriage",
-            "stepmother"
+            "volunteers"
         ],
         "page_number": 66
     },
@@ -6336,13 +5394,7 @@
         "keywords": [
             "emergency",
             "governmental",
-            "facilities",
-            "services",
-            "provided",
-            "federal",
-            "facility",
-            "required",
-            "regulation"
+            "facilities"
         ],
         "page_number": 67
     },
@@ -6358,15 +5410,7 @@
             "limitations": "\u2022 Drugs, supplies, equipment, or procedures to replace hair, slow hair loss, or stimulate hair growth \u2022 Hair prostheses, such as wigs or hair weaves, transplants and implants"
         },
         "keywords": [
-            "transplant",
-            "supplies",
-            "equipment",
-            "procedures",
-            "replace",
-            "stimulate",
-            "prostheses",
-            "transplants",
-            "implants"
+            "transplant"
         ],
         "page_number": 67
     },
@@ -6383,11 +5427,7 @@
         },
         "keywords": [
             "illegal",
-            "services",
-            "terrorism",
-            "illness",
-            "committing",
-            "federal"
+            "terrorism"
         ],
         "page_number": 67
     },
@@ -6403,15 +5443,7 @@
             "limitations": "Illness or injury that is caused by or arises from: \u2022 Acts of war, such as armed invasion, no matter if war has been declared or not \u2022 Services in the armed forces of any country, including any related civilian forces or units."
         },
         "keywords": [
-            "military",
-            "illness",
-            "invasion",
-            "declared",
-            "services",
-            "country",
-            "including",
-            "related",
-            "civilian"
+            "military"
         ],
         "page_number": 67
     },
@@ -6426,18 +5458,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "Services or supplies directly related to any non-covered condition. \u2022 Ordered when this plan is not in effect or when the person is not covered under this plan \u2022 Provided to someone other than the ill or injured member \u2022 That are not listed as covered under this plan. \u2022 Services and supplies for which no charge is made, for which none would have been made if this plan were not in effect, or for which you are not legally required to pay \u2022 Non-treatment charges, including charges for provider time \u2022 Transporting a member in place of a parent or other family member or accompanying the member to appointments or other activities outside the home, such as medical appointments or shopping \u2022 Doing housework or chores for the member or helping the member do housework or chores"
         },
-        "keywords": [
-            "covered",
-            "services",
-            "supplies",
-            "directly",
-            "related",
-            "condition",
-            "ordered",
-            "provided",
-            "someone",
-            "injured"
-        ],
+        "keywords": [],
         "page_number": 67
     },
     {
@@ -6452,16 +5473,10 @@
             "limitations": "\u2022 Institutional care \u2022 Housing \u2022 Incarceration \u2022 Programs from facilities that are not licensed to provide medical or behavioral health treatment for covered services. Examples are prisons, nursing homes, juvenile detention facilities. Orthodontia Orthodontia, regardless of condition, including casts, models, x-rays, photographs, examinations, appliances, braces, and retainers."
         },
         "keywords": [
-            "dental",
             "mental-health",
-            "treatment",
             "facilities",
             "institutions",
-            "programs",
-            "institutional",
-            "housing",
-            "incarceration",
-            "licensed"
+            "programs"
         ],
         "page_number": 67
     },
@@ -6480,13 +5495,7 @@
             "surgical",
             "gender-affirming",
             "orthognathic",
-            "surgery",
-            "procedures",
-            "lengthen",
-            "shorten",
-            "cosmetic",
-            "services",
-            "medically"
+            "surgery"
         ],
         "page_number": 67
     },
@@ -6504,13 +5513,7 @@
         "keywords": [
             "provider",
             "licensing",
-            "certification",
-            "services",
-            "outside",
-            "license",
-            "unlicensed",
-            "uncertified",
-            "providers"
+            "certification"
         ],
         "page_number": 68
     },
@@ -6528,14 +5531,7 @@
         "keywords": [
             "recreational",
             "activity",
-            "programs",
-            "include",
-            "training",
-            "creative",
-            "sensory",
-            "movement",
-            "therapy",
-            "adventure"
+            "programs"
         ],
         "page_number": 68
     },
@@ -6555,12 +5551,7 @@
             "inpatient",
             "surgical",
             "serious",
-            "adverse",
-            "medical",
-            "management",
-            "prolonged",
-            "hospitalization",
-            "produces"
+            "adverse"
         ],
         "page_number": 68
     },
@@ -6577,15 +5568,7 @@
         },
         "keywords": [
             "surgical",
-            "dysfunction",
-            "diagnosis",
-            "treatment",
-            "dysfunctions",
-            "regardless",
-            "medical",
-            "psychological",
-            "impotence",
-            "hypoactive"
+            "dysfunction"
         ],
         "page_number": 68
     },
@@ -6602,15 +5585,7 @@
         },
         "keywords": [
             "surgical",
-            "vision",
-            "therapy",
-            "exercise",
-            "training",
-            "correct",
-            "muscular",
-            "imbalance",
-            "orthoptics",
-            "pleoptics"
+            "therapy"
         ],
         "page_number": 68
     },
@@ -6627,13 +5602,7 @@
         },
         "keywords": [
             "voluntary",
-            "support",
-            "patient",
-            "consumer",
-            "affinity",
-            "diabetic",
-            "alcoholics",
-            "anonymous"
+            "support"
         ],
         "page_number": 68
     },
@@ -6649,14 +5618,7 @@
             "limitations": "Any illness, condition or injury for which you get benefits by law or from separate coverage for illness or injury on the job. For details, see Third Party Recovery under What If I Have Other Coverage. 64"
         },
         "keywords": [
-            "related",
-            "illness",
-            "condition",
-            "benefits",
-            "separate",
-            "coverage",
-            "details",
-            "recovery"
+            "illness"
         ],
         "page_number": 68
     },
@@ -6671,18 +5633,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "An important part of coordinating benefits is determining the order in which the plans provide benefits. One plan is responsible for providing benefits first. This is called the \u201cprimary\u201d plan. The primary plan provides its full benefits as if there were no other plans involved. The other plans then become \u201csecondary.\u201d When this plan is secondary, it will reduce its benefits for each claim so that the benefits from all medical plans aren't more than the allowable medical expense for that claim and the benefits from all dental plans aren't more than the allowable dental expense for that claim. We will coordinate benefits when you have other health care coverage that is primary over this plan. Coordination of benefits applies whether or not a claim is filed with the primary coverage."
         },
-        "keywords": [
-            "dental",
-            "benefits",
-            "important",
-            "coordinating",
-            "determining",
-            "provide",
-            "responsible",
-            "providing",
-            "u201cprimary",
-            "primary"
-        ],
+        "keywords": [],
         "page_number": 70
     },
     {
@@ -6699,14 +5650,7 @@
         "keywords": [
             "prior-auth",
             "primary",
-            "secondary",
-            "certain",
-            "governmental",
-            "medicaid",
-            "required",
-            "medicare",
-            "supplement",
-            "coordinate"
+            "secondary"
         ],
         "page_number": 70
     },
@@ -6724,14 +5668,7 @@
         "keywords": [
             "medical",
             "premises",
-            "coverage",
-            "athletic",
-            "liability",
-            "insurance",
-            "homeowners",
-            "commercial",
-            "related",
-            "illness"
+            "coverage"
         ],
         "page_number": 72
     },
@@ -6748,15 +5685,7 @@
         },
         "keywords": [
             "reimbursement",
-            "subrogation",
-            "advances",
-            "payment",
-            "benefits",
-            "without",
-            "lawyers",
-            "expenses",
-            "doctrine",
-            "negligence"
+            "subrogation"
         ],
         "page_number": 72
     },
@@ -6772,16 +5701,7 @@
             "limitations": "\u2022 If any of the requirements below are not met, the plan shall: \u2022 Deny or delay claims related to your injury \u2022 Recoup directly from you all benefits the plan has provided for your injury \u2022 Deduct the benefits owed from any future claims \u2022 You must notify Premera Blue Cross of the existence of the injury immediately and no later than 30 days of any claim for the injury. \u2022 You must notify the third parties of the plan's rights under this provision. \u2022 You must cooperate fully with the plan in the recovery of the benefits advanced by the plan and the plan\u2019s exercise of its reimbursement and subrogation rights. You must take no action that would prejudice the plan's rights. You must also keep the plan advised of any changes in the status of your claim or lawsuit. \u2022 If you hire a lawyer, you must tell Premera Blue Cross right away and provide the contact information. Neither the plan nor Premera Blue Cross shall be liable for any costs or lawyer's fees you must pay in pursuing your suit or claim. You shall defend, indemnify and hold the plan and Premera Blue Cross harmless from any claims from your lawyer for lawyer's fees or costs. \u2022 You must complete and return to the plan an Incident Questionnaire and any other documents required by the plan. Claims for your injury shall not be paid until Premera Blue Cross receives a completed copy of the Incident Questionnaire when one was sent. \u2022 You must tell Premera Blue Cross if you have received a recovery. If you have, the plan will not pay any more claims for the injury unless you and the plan agree otherwise. \u2022 You must notify the plan at least 14 days prior to any settlement or any trial or other material hearing concerning the suit or claim."
         },
         "keywords": [
-            "responsibilities",
-            "requirements",
-            "related",
-            "directly",
-            "benefits",
-            "provided",
-            "premera",
-            "existence",
-            "immediately",
-            "parties"
+            "responsibilities"
         ],
         "page_number": 73
     },
@@ -6799,14 +5719,7 @@
         "keywords": [
             "reimbursement",
             "subrogation",
-            "procedures",
-            "receive",
-            "recovery",
-            "separately",
-            "satisfied",
-            "equitable",
-            "constructive",
-            "determined"
+            "procedures"
         ],
         "page_number": 73
     },
@@ -6823,15 +5736,7 @@
         },
         "keywords": [
             "retiree",
-            "eligibility",
-            "subscriber",
-            "retired",
-            "employee",
-            "following",
-            "requirements",
-            "medicare",
-            "retirement",
-            "premera"
+            "eligibility"
         ],
         "page_number": 74
     },
@@ -6849,14 +5754,7 @@
         "keywords": [
             "employees",
             "performing",
-            "employment",
-            "services",
-            "employers",
-            "political",
-            "subdivisions",
-            "governments",
-            "schools",
-            "universities"
+            "employment"
         ],
         "page_number": 74
     },
@@ -6872,12 +5770,7 @@
             "limitations": "To enroll a new foster child, we must get any payment needed, a completed enrollment form, and a copy of the child's foster papers. We must get these items no more than 30 days after the date the subscriber became the child's foster parent. When we get these items on time, the plan will cover the child as of the first of the month after the date the subscriber became the child's foster parent. If we do not get the items on time, the child must wait for the Group's next open enrollment period to be enrolled."
         },
         "keywords": [
-            "children",
-            "payment",
-            "completed",
-            "enrollment",
-            "subscriber",
-            "enrolled"
+            "children"
         ],
         "page_number": 75
     },
@@ -6894,15 +5787,7 @@
         },
         "keywords": [
             "children",
-            "through",
-            "guardianship",
-            "receive",
-            "completed",
-            "enrollment",
-            "application",
-            "required",
-            "charges",
-            "subscriber"
+            "guardianship"
         ],
         "page_number": 75
     },
@@ -6919,15 +5804,8 @@
         },
         "keywords": [
             "children",
-            "covered",
             "medical",
-            "support",
-            "receive",
-            "completed",
-            "enrollment",
-            "application",
-            "coverage",
-            "otherwise"
+            "support"
         ],
         "page_number": 75
     },
@@ -6944,15 +5822,7 @@
         },
         "keywords": [
             "involuntary",
-            "coverage",
-            "eligible",
-            "dependent",
-            "enrolled",
-            "subject",
-            "limited",
-            "exceptions",
-            "application",
-            "enrollment"
+            "coverage"
         ],
         "page_number": 75
     },
@@ -6971,13 +5841,7 @@
             "deductible",
             "out-of-pocket",
             "contract",
-            "replacement",
-            "updated",
-            "transfer",
-            "another",
-            "premera",
-            "companies",
-            "benefit"
+            "replacement"
         ],
         "page_number": 76
     },
@@ -6994,15 +5858,7 @@
         },
         "keywords": [
             "qualifying",
-            "coverage",
-            "contact",
-            "immediately",
-            "highlighted",
-            "continuation",
-            "periods",
-            "covered",
-            "domestic",
-            "partners"
+            "coverage"
         ],
         "page_number": 77
     },
@@ -7017,17 +5873,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "Eligible family members may be added after the continuation period begins, but only as allowed under Special Enrollment in When Does Coverage Begin?. Family members added after COBRA begins aren\u2019t eligible for further coverage if they later have a qualifying event."
         },
-        "keywords": [
-            "members",
-            "eligible",
-            "continuation",
-            "allowed",
-            "special",
-            "enrollment",
-            "coverage",
-            "further",
-            "qualifying"
-        ],
+        "keywords": [],
         "page_number": 78
     },
     {
@@ -7044,14 +5890,7 @@
         "keywords": [
             "informed",
             "address",
-            "changes",
-            "protect",
-            "records",
-            "notices",
-            "coverage",
-            "premium",
-            "required",
-            "monthly"
+            "changes"
         ],
         "page_number": 78
     },
@@ -7068,15 +5907,7 @@
         },
         "keywords": [
             "pharmacy",
-            "dental",
-            "prescription",
-            "providers",
-            "directly",
-            "however",
-            "complete",
-            "subscriber",
-            "separate",
-            "necessary"
+            "prescription"
         ],
         "page_number": 80
     },
@@ -7092,16 +5923,7 @@
             "limitations": "Step 4 Check that all required information is complete. Bills received won't be considered to be claims until all necessary information is included. Step 5 Sign the Subscriber Claim Form in the space provided. Step 6 Mail your claims to us at the mailing address shown on the back cover of this booklet."
         },
         "keywords": [
-            "medicare",
-            "benefits",
-            "required",
-            "complete",
-            "received",
-            "considered",
-            "necessary",
-            "included",
-            "subscriber",
-            "provided"
+            "medicare"
         ],
         "page_number": 80
     },
@@ -7119,14 +5941,7 @@
         "keywords": [
             "pharmacy",
             "network",
-            "pharmacies",
-            "purchases",
-            "premera",
-            "pharmacist",
-            "directly",
-            "prescription",
-            "yourself",
-            "instructions"
+            "pharmacies"
         ],
         "page_number": 80
     },
@@ -7144,14 +5959,7 @@
         "keywords": [
             "copay",
             "special",
-            "procedure",
-            "process",
-            "quickly",
-            "possible",
-            "receive",
-            "writing",
-            "decided",
-            "matters"
+            "procedure"
         ],
         "page_number": 81
     },
@@ -7166,18 +5974,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "\u2022 Complete the Member Appeal Form, you can find it on premera.com or call customer service to request a copy. Step 1. Get the form If you need help submitting an appeal, or would like a copy of the appeals process, call customer service at 844-985-4160 (TTY:711) \u2022 Collect any supporting documents that may help with your appeal. This may include chart notes, medical records, or a letter from your doctor. Within 3 working days, we will confirm in writing that we have your request. Step 2. Collect supporting \u2022 If you would like someone to appeal on your behalf, including your documents provider, complete a Member Appeal Form with authorization, you can find it on premera.com. We can\u2019t release your information without this form. 78 To help process your appeal, be sure to complete the form and return with any supporting documents. Send your documents to:"
         },
-        "keywords": [
-            "complete",
-            "premera",
-            "customer",
-            "request",
-            "submitting",
-            "appeals",
-            "process",
-            "collect",
-            "supporting",
-            "documents"
-        ],
+        "keywords": [],
         "page_number": 82
     },
     {
@@ -7193,15 +5990,7 @@
         },
         "keywords": [
             "specialist",
-            "response",
-            "u2019ll",
-            "decision",
-            "writing",
-            "timeframes",
-            "premera",
-            "representatives",
-            "reviewed",
-            "medical"
+            "response"
         ],
         "page_number": 83
     },
@@ -7219,14 +6008,7 @@
         "keywords": [
             "evidence",
             "medical",
-            "necessity",
-            "require",
-            "services",
-            "supplies",
-            "receive",
-            "benefits",
-            "provided",
-            "submitted"
+            "necessity"
         ],
         "page_number": 85
     },
@@ -7245,13 +6027,7 @@
             "healthcare",
             "providers",
             "independent",
-            "contractors",
-            "provide",
-            "services",
-            "supplies",
-            "provisions",
-            "contract",
-            "between"
+            "contractors"
         ],
         "page_number": 85
     },
@@ -7269,14 +6045,7 @@
         "keywords": [
             "intentionally",
             "misleading",
-            "statements",
-            "benefits",
-            "provider",
-            "commission",
-            "providing",
-            "entitled",
-            "recover",
-            "amounts"
+            "statements"
         ],
         "page_number": 85
     },
@@ -7292,12 +6061,7 @@
             "limitations": "You're under a duty to cooperate with us and the Group in a timely and appropriate manner in our administration of benefits. You're also under a duty to cooperate with us and the Group in the event of a lawsuit."
         },
         "keywords": [
-            "cooperation",
-            "cooperate",
-            "appropriate",
-            "administration",
-            "benefits",
-            "lawsuit"
+            "cooperation"
         ],
         "page_number": 85
     },
@@ -7315,14 +6079,7 @@
         "keywords": [
             "hospital",
             "newborn",
-            "protection",
-            "insurance",
-            "issuers",
-            "generally",
-            "federal",
-            "restrict",
-            "benefits",
-            "connection"
+            "protection"
         ],
         "page_number": 85
     },
@@ -7338,16 +6095,7 @@
             "limitations": "As a condition of receiving benefits under this plan, you must notify us of: \u2022 Any legal action or claim against another party for a condition or injury for which the plan provides benefits; and the name and address of that party's insurance carrier \u2022 The name and address of any insurance carrier that provides: \u2022 Personal injury protection (PIP) \u2022 Underinsured motorist coverage \u2022 Uninsured motorist coverage \u2022 Any other insurance under which you are or may be entitled to recover compensation \u2022 The name of any group or individual insurance plans that cover you Notices Any notice we're required to submit to the Group or subscriber will be considered to be delivered if it's mailed to the Group or subscriber at the most recent address appearing on our records. We'll use the date of postmark in determining the date of our notification. If you are required to submit notice to us, it will be considered delivered 3 days after the postmark date, or if not postmarked, the date we receive it."
         },
         "keywords": [
-            "coverage",
-            "condition",
-            "receiving",
-            "benefits",
-            "against",
-            "another",
-            "provides",
-            "address",
-            "insurance",
-            "carrier"
+            "coverage"
         ],
         "page_number": 86
     },
@@ -7362,13 +6110,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "Self-funded employee welfare benefit plan that is a group health plan. The ERISA Plan provides health care benefits."
         },
-        "keywords": [
-            "employee",
-            "welfare",
-            "benefit",
-            "provides",
-            "benefits"
-        ],
+        "keywords": [],
         "page_number": 87
     },
     {
@@ -7385,14 +6127,7 @@
         "keywords": [
             "emergency",
             "eligibility",
-            "participate",
-            "employees",
-            "dependents",
-            "eligible",
-            "benefits",
-            "requirements",
-            "booklet",
-            "enrolled"
+            "participate"
         ],
         "page_number": 88
     },
@@ -7408,16 +6143,7 @@
             "limitations": "The percentage of the cost of the plan contributed by the employer and the employee is determined by the employer. Self-payments are also permitted; see How Do I Continue Coverage."
         },
         "keywords": [
-            "contributions",
-            "percentage",
-            "contributed",
-            "employer",
-            "employee",
-            "determined",
-            "payments",
-            "permitted",
-            "continue",
-            "coverage"
+            "contributions"
         ],
         "page_number": 88
     },
@@ -7433,16 +6159,7 @@
             "limitations": "Benefits of this plan are paid from the general assets of the employer and participant contributions. There is not a special fund or account to hold plan assets. The employer reserves the right to change, modify or terminate the Plan or any cost sharing, at any time for any reason."
         },
         "keywords": [
-            "funding",
-            "benefits",
-            "general",
-            "employer",
-            "participant",
-            "contributions",
-            "special",
-            "account",
-            "reserves",
-            "terminate"
+            "funding"
         ],
         "page_number": 88
     },
@@ -7459,15 +6176,7 @@
         },
         "keywords": [
             "changes",
-            "termination",
-            "coverage",
-            "portions",
-            "booklet",
-            "describe",
-            "circumstances",
-            "changed",
-            "terminated",
-            "reserves"
+            "termination"
         ],
         "page_number": 88
     },
@@ -7483,16 +6192,7 @@
             "limitations": "Physical harm caused by a sudden, unexpected event at a certain time and place. Accidental injury does not mean any of the following: \u2022 An illness, except for infection of a cut or wound \u2022 Dental injuries caused by biting or chewing \u2022 Over-exertion or muscle strains"
         },
         "keywords": [
-            "dental",
-            "accidental",
-            "physical",
-            "unexpected",
-            "certain",
-            "following",
-            "illness",
-            "infection",
-            "injuries",
-            "chewing"
+            "accidental"
         ],
         "page_number": 89
     },
@@ -7510,14 +6210,7 @@
         "keywords": [
             "adverse",
             "benefit",
-            "determination",
-            "decision",
-            "terminate",
-            "failure",
-            "provide",
-            "payment",
-            "services",
-            "includes"
+            "determination"
         ],
         "page_number": 89
     },
@@ -7533,12 +6226,7 @@
             "limitations": "The Patient Protection and Affordable Care Act of 2010 (Public Law 111-148) as amended by the Health Care and Education Reconciliation Act of 2010 (Public Law 111-152)."
         },
         "keywords": [
-            "affordable",
-            "patient",
-            "protection",
-            "amended",
-            "education",
-            "reconciliation"
+            "affordable"
         ],
         "page_number": 90
     },
@@ -7556,14 +6244,7 @@
         "keywords": [
             "inpatient",
             "surgical",
-            "ambulatory",
-            "healthcare",
-            "facility",
-            "licensed",
-            "certified",
-            "required",
-            "operates",
-            "following"
+            "ambulatory"
         ],
         "page_number": 90
     },
@@ -7582,13 +6263,7 @@
             "mental-health",
             "applied",
             "behavioral",
-            "analysis",
-            "implementation",
-            "evaluation",
-            "environmental",
-            "modifications",
-            "stimuli",
-            "consequences"
+            "analysis"
         ],
         "page_number": 90
     },
@@ -7606,14 +6281,7 @@
         "keywords": [
             "diagnostic",
             "spectrum",
-            "disorders",
-            "pervasive",
-            "developmental",
-            "conditions",
-            "substantially",
-            "characteristics",
-            "defined",
-            "current"
+            "disorders"
         ],
         "page_number": 90
     },
@@ -7629,16 +6297,7 @@
             "limitations": "Benefit booklet describes the benefits, limitations, exclusions, eligibility and other coverage provisions included in this plan and is part of the entire contract."
         },
         "keywords": [
-            "benefit",
-            "booklet",
-            "describes",
-            "benefits",
-            "exclusions",
-            "eligibility",
-            "coverage",
-            "provisions",
-            "included",
-            "contract"
+            "benefit"
         ],
         "page_number": 90
     },
@@ -7653,13 +6312,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "The period of 12 consecutive months that starts each January 1 at 12:01 a.m. and ends on December 31 at midnight."
         },
-        "keywords": [
-            "calendar",
-            "consecutive",
-            "january",
-            "december",
-            "midnight"
-        ],
+        "keywords": [],
         "page_number": 90
     },
     {
@@ -7675,14 +6328,7 @@
         },
         "keywords": [
             "mental-health",
-            "community",
-            "licensed",
-            "washington",
-            "provide",
-            "treatment",
-            "supervision",
-            "physician",
-            "psychologist"
+            "community"
         ],
         "page_number": 91
     },
@@ -7701,13 +6347,7 @@
             "surgical",
             "maternity",
             "complication",
-            "pregnancy",
-            "medical",
-            "condition",
-            "related",
-            "childbirth",
-            "categories",
-            "surgery"
+            "pregnancy"
         ],
         "page_number": 91
     },
@@ -7724,10 +6364,7 @@
         },
         "keywords": [
             "congenital",
-            "anomaly",
-            "difference",
-            "structure",
-            "present"
+            "anomaly"
         ],
         "page_number": 91
     },
@@ -7746,13 +6383,7 @@
             "emergency",
             "mental-health",
             "eligibility",
-            "waiting",
-            "subscriber",
-            "dependent",
-            "eligible",
-            "covered",
-            "enrolls",
-            "special"
+            "waiting"
         ],
         "page_number": 92
     },
@@ -7770,14 +6401,7 @@
         "keywords": [
             "clinical-trials",
             "experimental",
-            "investigative",
-            "services",
-            "treatment",
-            "procedure",
-            "equipment",
-            "medical",
-            "following",
-            "criteria"
+            "investigative"
         ],
         "page_number": 93
     },
@@ -7793,12 +6417,7 @@
             "limitations": "An explanation of benefits is a statement that shows what you will owe and what we will pay for healthcare services received. It\u2019s not a bill."
         },
         "keywords": [
-            "explanation",
-            "benefits",
-            "statement",
-            "healthcare",
-            "services",
-            "received"
+            "explanation"
         ],
         "page_number": 93
     },
@@ -7819,11 +6438,7 @@
             "skilled nursing",
             "mental-health",
             "facility",
-            "medical",
-            "skilled",
-            "nursing",
-            "approved",
-            "treatment"
+            "medical"
         ],
         "page_number": 93
     },
@@ -7843,12 +6458,7 @@
             "pharmacy",
             "mental-health",
             "benefit",
-            "managers",
-            "specializes",
-            "managing",
-            "certain",
-            "services",
-            "carrier"
+            "managers"
         ],
         "page_number": 93
     },
@@ -7869,11 +6479,7 @@
             "hospice care",
             "mental-health",
             "medical",
-            "equipment",
-            "ordered",
-            "healthcare",
-            "provider",
-            "everyday"
+            "equipment"
         ],
         "page_number": 93
     },
@@ -7890,14 +6496,7 @@
         },
         "keywords": [
             "pharmacy",
-            "network",
-            "licensed",
-            "contracts",
-            "benefit",
-            "manager",
-            "provide",
-            "prescription",
-            "benefits"
+            "network"
         ],
         "page_number": 94
     },
@@ -7915,14 +6514,7 @@
         "keywords": [
             "inpatient",
             "network",
-            "provider",
-            "networks",
-            "providers",
-            "confined",
-            "medical",
-            "facility",
-            "overnight",
-            "patient"
+            "provider"
         ],
         "page_number": 94
     },
@@ -7938,15 +6530,7 @@
             "limitations": "A nursing facility licensed under chapter 18.51 RCW, continuing care retirement community defined under RCW 70.38.025, or assisted living facility licensed under chapter 18.20 RCW."
         },
         "keywords": [
-            "facility",
-            "nursing",
-            "licensed",
-            "chapter",
-            "continuing",
-            "retirement",
-            "community",
-            "defined",
-            "assisted"
+            "facility"
         ],
         "page_number": 94
     },
@@ -7963,12 +6547,7 @@
         },
         "keywords": [
             "medical",
-            "equipment",
-            "mechanical",
-            "repeated",
-            "connection",
-            "treatment",
-            "illness"
+            "equipment"
         ],
         "page_number": 94
     },
@@ -7988,12 +6567,7 @@
             "medically",
             "necessary",
             "medical",
-            "necessity",
-            "services",
-            "provider",
-            "exercising",
-            "prudent",
-            "clinical"
+            "necessity"
         ],
         "page_number": 94
     },
@@ -8008,15 +6582,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "An organization that engages in the procurement, processing, storage, distribution, or use of human milk contributed by donors."
         },
-        "keywords": [
-            "organization",
-            "engages",
-            "procurement",
-            "processing",
-            "storage",
-            "distribution",
-            "contributed"
-        ],
+        "keywords": [],
         "page_number": 95
     },
     {
@@ -8032,10 +6598,7 @@
         },
         "keywords": [
             "contracted",
-            "provider",
-            "network",
-            "premera",
-            "licensee"
+            "provider"
         ],
         "page_number": 95
     },
@@ -8052,15 +6615,7 @@
         },
         "keywords": [
             "participating",
-            "provider",
-            "networks",
-            "providers",
-            "network",
-            "premera",
-            "licensee",
-            "orthodontia",
-            "dentistry",
-            "specializes"
+            "provider"
         ],
         "page_number": 95
     },
@@ -8079,13 +6634,7 @@
             "inpatient",
             "outpatient",
             "network",
-            "provider",
-            "networks",
-            "providers",
-            "treatment",
-            "received",
-            "setting",
-            "medical"
+            "provider"
         ],
         "page_number": 95
     },
@@ -8103,14 +6652,7 @@
         "keywords": [
             "inpatient",
             "outpatient",
-            "surgical",
-            "facility",
-            "licensed",
-            "certified",
-            "required",
-            "operates",
-            "following",
-            "organized"
+            "surgical"
         ],
         "page_number": 95
     },
@@ -8128,13 +6670,7 @@
         "keywords": [
             "pharmacy",
             "benefit",
-            "manager",
-            "described",
-            "booklet",
-            "premiums",
-            "monthly",
-            "condition",
-            "coverage"
+            "manager"
         ],
         "page_number": 95
     },
@@ -8150,16 +6686,7 @@
             "limitations": "You are a Post-2023 Retiree if you terminate active employment with Premera and its affiliates on or after April 1, 2023, are age 55 or older at the time of your termination of employment with Premera and its affiliates and have five or more years of service as defined in the Premera Pension Equity Plan, and you are enrolled in active Premera-sponsored medical coverage at the time of your termination of employment with Premera and its affiliates."
         },
         "keywords": [
-            "retiree",
-            "terminate",
-            "employment",
-            "premera",
-            "affiliates",
-            "termination",
-            "defined",
-            "pension",
-            "enrolled",
-            "sponsored"
+            "retiree"
         ],
         "page_number": 96
     },
@@ -8175,16 +6702,7 @@
             "limitations": "You are a Pre-1993 Retiree if you terminated active employment with Premera and its affiliates before January 1, 1993 and you were eligible for normal or early retirement under the Premera Companies Retirement Plan at the time of termination of active employment with Premera and its affiliates."
         },
         "keywords": [
-            "retiree",
-            "terminated",
-            "employment",
-            "premera",
-            "affiliates",
-            "january",
-            "eligible",
-            "retirement",
-            "companies",
-            "termination"
+            "retiree"
         ],
         "page_number": 96
     },
@@ -8203,13 +6721,7 @@
             "diagnostic",
             "mental-health",
             "psychiatric",
-            "condition",
-            "current",
-            "edition",
-            "statistical",
-            "disorders",
-            "include",
-            "conditions"
+            "condition"
         ],
         "page_number": 97
     },
@@ -8227,14 +6739,7 @@
         "keywords": [
             "surgical",
             "reconstructive",
-            "surgery",
-            "restores",
-            "features",
-            "damaged",
-            "illness",
-            "correct",
-            "congenital",
-            "deformity"
+            "surgery"
         ],
         "page_number": 97
     },
@@ -8249,13 +6754,7 @@
             "out_of_network": "Data Not Found",
             "limitations": "The area in which we directly operate provider networks. This area is made up of the states of Washington (except Clark County) and Alaska"
         },
-        "keywords": [
-            "directly",
-            "operate",
-            "provider",
-            "networks",
-            "washington"
-        ],
+        "keywords": [],
         "page_number": 97
     },
     {
@@ -8272,14 +6771,7 @@
         "keywords": [
             "skilled nursing",
             "skilled",
-            "nursing",
-            "medical",
-            "ordered",
-            "physician",
-            "requiring",
-            "knowledge",
-            "training",
-            "licensed"
+            "nursing"
         ],
         "page_number": 97
     },
@@ -8298,13 +6790,7 @@
             "skilled nursing",
             "skilled",
             "nursing",
-            "facility",
-            "medical",
-            "providing",
-            "services",
-            "require",
-            "direction",
-            "physician"
+            "facility"
         ],
         "page_number": 97
     },
@@ -8325,11 +6811,7 @@
             "nicotine",
             "substance",
             "disorder",
-            "conditions",
-            "related",
-            "disorders",
-            "included",
-            "edition"
+            "conditions"
         ],
         "page_number": 98
     }

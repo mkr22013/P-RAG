@@ -1,24 +1,17 @@
 {
   "query": "Can you show me transplants cost",
   "category": "medical",
-  "timestamp": "2026-07-14T19:46:18.646584",
+  "timestamp": "2026-07-20T16:36:54.207587",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Transplants (Includes donor search and donation costs.) | Inpatient facility care | Deductible, then 20% coinsurance | Not covered* | Data Not Found |\n| Transplants (Includes donor search and donation costs.) | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Not covered* | Data Not Found |\n",
   "pages": [
     17
   ],
   "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
   "token_usage": {
-    "total_llm_calls": 1,
-    "total_input_tokens": 552,
-    "total_output_tokens": 19,
-    "total_tokens": 571,
-    "calls": [
-      {
-        "call_type": "ollama",
-        "input_tokens": 552,
-        "output_tokens": 19,
-        "total_tokens": 571
-      }
-    ]
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
   }
 }

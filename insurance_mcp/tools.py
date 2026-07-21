@@ -235,6 +235,17 @@ def get_plan_data_from_disk(
             query_clean = normalize_text(query)
             query_words = tokenize(query_clean)
             keywords = [k.lower().strip() for k in (keywords or []) if k]
+            # Expand query keywords via knowledge base before chunk scoring.
+            # Bridges gap between member language and index terms:
+            #   "cleaning"         → adds "prophylaxis"
+            #   "glasses"          → adds "vision hardware"
+            #   "physical therapy" → adds "rehabilitation"
+            #   "panoramic"        → adds "full mouth xray", "panoramic xray"
+            # Pure dict lookup — 0 tokens, 0 LLM calls, microseconds.
+            # If word not in KB → used as-is, normal scoring (graceful degradation).
+            from utility.utils import expand_query_keywords
+
+            keywords = expand_query_keywords(keywords, category)
 
             print(f"[*] QUERY WORDS: {query_words}")
             print(f"[*] KEYWORDS: {keywords}")

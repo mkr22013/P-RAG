@@ -3,10 +3,17 @@ import os
 import re
 import sqlite3
 import logging
+import asyncio
 from functools import lru_cache
 from fastmcp import FastMCP
 from dotenv import load_dotenv
-from utility.utils import RX_NOISE_WORDS
+
+from utility.utils import (
+    expand_query_keywords,
+    find_kb_gaps,
+    _log_kb_gaps_async,
+    RX_NOISE_WORDS,
+)
 
 # ============================================================
 # INIT
@@ -243,9 +250,20 @@ def get_plan_data_from_disk(
             #   "panoramic"        → adds "full mouth xray", "panoramic xray"
             # Pure dict lookup — 0 tokens, 0 LLM calls, microseconds.
             # If word not in KB → used as-is, normal scoring (graceful degradation).
-            from utility.utils import expand_query_keywords
 
-            keywords = expand_query_keywords(keywords, category)
+            expanded_keywords = expand_query_keywords(keywords, category)
+            # Fire-and-forget gap detection — find terms with no KB match.
+            # Logged to kb_gap_log.jsonl for offline batch review by build_kb.py.
+            # Never awaited, never blocks response — zero latency impact.
+            gaps = find_kb_gaps(keywords, expanded_keywords, category)
+            if gaps:
+                try:
+                    asyncio.create_task(_log_kb_gaps_async(gaps, category, query))
+                except RuntimeError:
+                    # No running event loop (test/dev context) — skip silently
+                    pass
+
+            keywords = expanded_keywords
 
             print(f"[*] QUERY WORDS: {query_words}")
             print(f"[*] KEYWORDS: {keywords}")

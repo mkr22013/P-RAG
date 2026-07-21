@@ -1,8 +1,8 @@
 {
   "query": "allergy testing and treatment cost",
   "category": "medical",
-  "timestamp": "2026-07-20T16:39:40.712026",
-  "answer": "Allergy testing and treatment, including skin and blood tests, allergy shots, and serums, are covered when provided by a certified or licensed allergy specialist.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Allergy Testing And Treatment | Allergy Testing And Treatment | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Professional Visits and Services | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | You may have extra costs for other services like lab tests and facility charges. Also see Allergy Testing And Treatment and Therapeutic Injections. |\n| Professional Visits and Services | Other professional services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | You may have extra costs for other services like lab tests and facility charges. Also see Allergy Testing And Treatment and Therapeutic Injections. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Allergy Testing And Treatment | Skin and blood tests used to diagnose what substances a person is allergic to, and treatment for allergies. Services must be provided by a certified or licensed allergy specialist. This benefit covers: • Testing • Allergy shots • Serums |\n",
+  "timestamp": "2026-07-20T23:46:26.309406",
+  "answer": "Allergy testing and treatment are covered when services are provided by a certified or licensed allergy specialist.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Allergy Testing And Treatment | Allergy Testing And Treatment | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Professional Visits and Services | Office and clinic visits | Kinwell Clinics: $0 copay per visit, deductible waived  All Other Non-Specialist: $25 copay per visit, deductible waived  All Other Specialist: $40 copay per visit, deductible waived | Deductible, then 40% coinsurance | You may have extra costs for other services like lab tests and facility charges. Also see Allergy Testing And Treatment and Therapeutic Injections. |\n| Professional Visits and Services | Other professional services | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | You may have extra costs for other services like lab tests and facility charges. Also see Allergy Testing And Treatment and Therapeutic Injections. |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Allergy Testing And Treatment | Skin and blood tests used to diagnose what substances a person is allergic to, and treatment for allergies. Services must be provided by a certified or licensed allergy specialist. This benefit covers: • Testing • Allergy shots • Serums |\n",
   "pages": [
     7,
     16,
@@ -12,14 +12,14 @@
   "token_usage": {
     "total_llm_calls": 1,
     "total_input_tokens": 164,
-    "total_output_tokens": 32,
-    "total_tokens": 196,
+    "total_output_tokens": 20,
+    "total_tokens": 184,
     "calls": [
       {
         "call_type": "ollama",
         "input_tokens": 164,
-        "output_tokens": 32,
-        "total_tokens": 196
+        "output_tokens": 20,
+        "total_tokens": 184
       }
     ]
   }

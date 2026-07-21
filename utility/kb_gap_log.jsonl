@@ -1,0 +1,104 @@
+{"timestamp": "2026-07-21T06:44:12.032733", "category": "medical", "query": "do i need to pay any amount for psychological testing", "gaps": ["psychological testing"]}
+{"timestamp": "2026-07-21T06:46:30.318352", "category": "medical", "query": "want to know about blood products", "gaps": ["products", "blood work"]}
+{"timestamp": "2026-07-21T06:46:34.757875", "category": "medical", "query": "show me cost for immunotherapy", "gaps": ["immunotherapy"]}
+{"timestamp": "2026-07-21T06:46:39.584961", "category": "medical", "query": "i want to know about emergency room service", "gaps": ["after hours", "emergency"]}
+{"timestamp": "2026-07-21T06:46:48.938065", "category": "medical", "query": "are there any benefit for therapeutic injections", "gaps": ["therapeutic injections"]}
+{"timestamp": "2026-07-21T06:46:49.028194", "category": "medical", "query": "can you show me transplants cost", "gaps": ["transplants"]}
+{"timestamp": "2026-07-21T06:46:54.643942", "category": "medical", "query": "i want to know about nicotine habit breaking programs cost", "gaps": ["nicotine habit", "breaking"]}
+{"timestamp": "2026-07-21T06:46:54.783705", "category": "medical", "query": "what is my cost for x-ray, lab and imaging", "gaps": ["x-ray", "xray"]}
+{"timestamp": "2026-07-21T06:47:11.658773", "category": "medical", "query": "what are the $ amount for electronic visits", "gaps": ["electronic visits"]}
+{"timestamp": "2026-07-21T06:47:18.122369", "category": "medical", "query": "show me foot care in an office or clinic visit cost", "gaps": ["foot care", "clinic"]}
+{"timestamp": "2026-07-21T06:47:26.810382", "category": "medical", "query": "show me cost for vasectomy", "gaps": ["vasectomy"]}
+{"timestamp": "2026-07-21T06:47:32.988900", "category": "medical", "query": "what are the benefits for skilled nursing facility care", "gaps": ["skilled", "nursing", "facility"]}
+{"timestamp": "2026-07-21T06:47:37.827533", "category": "medical", "query": "do i need to pay any amount for psychological testing", "gaps": ["psychological testing"]}
+{"timestamp": "2026-07-21T06:47:43.684607", "category": "medical", "query": "what are the cost for breast reconstructions", "gaps": ["breast reconstruction", "reconstructions"]}
+{"timestamp": "2026-07-21T06:47:48.342964", "category": "medical", "query": "show me gender affirming care professional service", "gaps": ["gender affirming care", "professional service"]}
+{"timestamp": "2026-07-21T06:47:52.850905", "category": "medical", "query": "does my plan provide medical food during my hospital stay", "gaps": ["medical foods"]}
+{"timestamp": "2026-07-21T06:48:19.537189", "category": "medical", "query": "what is prior authorization and how does it affect my benefits", "gaps": ["affect"]}
+{"timestamp": "2026-07-21T06:48:27.509863", "category": "medical", "query": "what is my pcp copay?", "gaps": ["professional visit copay"]}
+{"timestamp": "2026-07-21T06:48:31.746135", "category": "medical", "query": "what is my out-of-pocket max?", "gaps": ["outofpocket"]}
+{"timestamp": "2026-07-21T06:48:38.449746", "category": "medical", "query": "show me my family deductible", "gaps": ["family"]}
+{"timestamp": "2026-07-21T06:48:48.022522", "category": "medical", "query": "is mental health and substance abuse covered?", "gaps": ["abuse", "substance"]}
+{"timestamp": "2026-07-21T06:48:56.894827", "category": "medical", "query": "how much does an ambulance cost?", "gaps": ["after hours", "emergency"]}
+{"timestamp": "2026-07-21T06:49:01.044701", "category": "dental", "query": "what is my general office visit copay for dental?", "gaps": ["office visit copayments"]}
+{"timestamp": "2026-07-21T06:49:01.163630", "category": "dental", "query": "what is my specialist office visit copay for dental?", "gaps": ["specialist", "office visit copayments"]}
+{"timestamp": "2026-07-21T06:49:01.263089", "category": "dental", "query": "how much does a teeth cleaning cost?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive"]}
+{"timestamp": "2026-07-21T06:49:01.405761", "category": "dental", "query": "what is the cost for a dental x-ray?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive", "xray", "radiographic"]}
+{"timestamp": "2026-07-21T06:49:01.567253", "category": "dental", "query": "how much is a dental exam?", "gaps": ["periodic", "dental exam", "class i diagnostic and preventive services", "diagnostic and preventive", "comprehensive", "oral evaluation", "exam", "evaluation"]}
+{"timestamp": "2026-07-21T06:49:01.676727", "category": "dental", "query": "what does a panoramic x-ray cost?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive", "xray", "radiographic"]}
+{"timestamp": "2026-07-21T06:49:01.800149", "category": "dental", "query": "what is the cost for fluoride treatment?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive", "varnish"]}
+{"timestamp": "2026-07-21T06:49:04.995735", "category": "dental", "query": "how much are sealants?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive", "sealants"]}
+{"timestamp": "2026-07-21T06:49:05.109283", "category": "dental", "query": "what is the cost for a filling?", "gaps": ["class ii basic services", "filling", "restorative"]}
+{"timestamp": "2026-07-21T06:49:05.376102", "category": "dental", "query": "what is my copay for a composite filling?", "gaps": ["office visit copayments", "class ii basic services", "filling", "restorative"]}
+{"timestamp": "2026-07-21T06:49:05.453657", "category": "dental", "query": "how much does a crown cost?", "gaps": ["class iii major services", "stainless", "porcelain"]}
+{"timestamp": "2026-07-21T06:49:05.623026", "category": "dental", "query": "what is my copay for a porcelain crown?", "gaps": ["stainless", "office visit copayments", "porcelain", "class iii major services"]}
+{"timestamp": "2026-07-21T06:49:05.695161", "category": "dental", "query": "what does a stainless steel crown cost?", "gaps": ["stainless", "porcelain", "class iii major services", "steel"]}
+{"timestamp": "2026-07-21T06:49:05.774568", "category": "dental", "query": "what does a root canal cost?", "gaps": ["class ii basic services", "canal"]}
+{"timestamp": "2026-07-21T06:49:15.030312", "category": "dental", "query": "how much is periodontal scaling and root planing?", "gaps": ["class i diagnostic and preventive services", "periodontal", "diagnostic and preventive", "planing", "class ii basic services", "root"]}
+{"timestamp": "2026-07-21T06:49:23.522452", "category": "dental", "query": "what does periodontic maintenance cost?", "gaps": ["maintenance"]}
+{"timestamp": "2026-07-21T06:49:23.627607", "category": "dental", "query": "what is my copay for gum surgery?", "gaps": ["office visit copayments", "surgery"]}
+{"timestamp": "2026-07-21T06:49:23.697170", "category": "dental", "query": "how much does a tooth extraction cost?", "gaps": ["erupted", "class ii basic services", "impacted"]}
+{"timestamp": "2026-07-21T06:49:29.680325", "category": "dental", "query": "what is the cost to remove an impacted tooth?", "gaps": ["impacted tooth", "removal"]}
+{"timestamp": "2026-07-21T06:49:34.419619", "category": "dental", "query": "what does wisdom tooth removal cost?", "gaps": ["wisdom tooth removal"]}
+{"timestamp": "2026-07-21T06:49:34.530847", "category": "dental", "query": "how much does a complete denture cost?", "gaps": ["class iii major services", "removable", "complete"]}
+{"timestamp": "2026-07-21T06:49:34.605399", "category": "dental", "query": "what is the cost for a partial denture?", "gaps": ["class iii major services", "partial", "removable"]}
+{"timestamp": "2026-07-21T06:49:34.701445", "category": "dental", "query": "how much does a dental bridge cost?", "gaps": ["class iii major services", "prosthodontics"]}
+{"timestamp": "2026-07-21T06:49:34.777464", "category": "dental", "query": "how much does a dental implant cost?", "gaps": ["class iii major services", "endosteal"]}
+{"timestamp": "2026-07-21T06:49:39.408233", "category": "dental", "query": "what is covered for dental implants?", "gaps": ["class iii major services", "implants", "endosteal"]}
+{"timestamp": "2026-07-21T06:49:44.330915", "category": "dental", "query": "what does nitrous oxide cost at the dentist?", "gaps": ["nitrous oxide"]}
+{"timestamp": "2026-07-21T06:49:50.827418", "category": "dental", "query": "how much is general anesthesia for a dental procedure?", "gaps": ["general anesthesia", "dental procedure"]}
+{"timestamp": "2026-07-21T06:49:51.061175", "category": "dental", "query": "what is my emergency dental visit copay?", "gaps": ["office visit copayments", "emergency room", "after hours", "emergency"]}
+{"timestamp": "2026-07-21T06:50:00.665789", "category": "dental", "query": "show me all benefits for temporomandibular joint disorders (tmj) care", "gaps": ["joint", "disorders"]}
+{"timestamp": "2026-07-21T06:50:05.340482", "category": "dental", "query": "what dental services are not covered?", "gaps": ["limitations", "exclusions"]}
+{"timestamp": "2026-07-21T06:50:08.169012", "category": "dental", "query": "what happens if i go to an out of network dentist?", "gaps": ["limitations", "participating", "referrals", "exclusions"]}
+{"timestamp": "2026-07-21T06:50:15.296435", "category": "dental", "query": "what are my orthodontic benefits?", "gaps": ["orthodontic treatment"]}
+{"timestamp": "2026-07-21T06:50:20.880894", "category": "dental", "query": "is there a maximum benefit for dental implants?", "gaps": ["endosteal", "implants", "maximum", "class iii major services"]}
+{"timestamp": "2026-07-21T06:50:20.947034", "category": "dental", "query": "what is my coinsurance for a basic dental service?", "gaps": ["class ii basic services", "basic"]}
+{"timestamp": "2026-07-21T06:50:26.374077", "category": "dental", "query": "what percentage do i pay for major dental work like a crown?", "gaps": ["major", "work", "stainless", "like", "percentage", "porcelain", "class iii major services"]}
+{"timestamp": "2026-07-21T06:50:26.522284", "category": "dental", "query": "what is my calendar year dental deductible?", "gaps": ["plan limits", "calendar", "year"]}
+{"timestamp": "2026-07-21T06:50:26.664789", "category": "dental", "query": "what is the annual maximum benefit for dental?", "gaps": ["annual", "plan limits", "maximum"]}
+{"timestamp": "2026-07-21T06:50:26.788574", "category": "dental", "query": "what does class i diagnostic and preventive services cost me?", "gaps": ["class i diagnostic and preventive services", "diagnostic and preventive"]}
+{"timestamp": "2026-07-21T06:50:27.011143", "category": "dental", "query": "what dental services fall under class ii basic services?", "gaps": ["class ii basic services", "basic", "fall"]}
+{"timestamp": "2026-07-21T06:50:27.139742", "category": "dental", "query": "what is included in class iii major dental services?", "gaps": ["class iii major services", "major"]}
+{"timestamp": "2026-07-21T06:50:27.333997", "category": "dental", "query": "are fillings covered under my dental plan?", "gaps": ["fillings", "class ii basic services", "filling", "restorative"]}
+{"timestamp": "2026-07-21T06:50:56.372301", "category": "dental", "query": "what dental services are not covered or excluded?", "gaps": ["limitations", "exclusions"]}
+{"timestamp": "2026-07-21T06:50:56.442289", "category": "vision", "query": "what is the cost for a vision exam?", "gaps": ["vision exams"]}
+{"timestamp": "2026-07-21T06:51:02.621286", "category": "vision", "query": "what is my out-of-network cost for vision hardware?", "gaps": ["outofnetwork"]}
+{"timestamp": "2026-07-21T06:51:02.660370", "category": "vision", "query": "how much does vision hardware cost in network?", "gaps": ["network"]}
+{"timestamp": "2026-07-21T06:51:06.515728", "category": "vision", "query": "what is the annual limit for vision hardware?", "gaps": ["limit", "annual"]}
+{"timestamp": "2026-07-21T06:51:09.017353", "category": "vision", "query": "is there a calendar year limit for eye exams?", "gaps": ["limit", "vision exams", "calendar", "year"]}
+{"timestamp": "2026-07-21T06:51:24.460503", "category": "vision", "query": "are contact lenses covered under my vision plan?", "gaps": ["contact"]}
+{"timestamp": "2026-07-21T06:51:27.507935", "category": "vision", "query": "what is not covered under vision hardware?", "gaps": ["exclusions and limitations"]}
+{"timestamp": "2026-07-21T06:51:32.361999", "category": "vision", "query": "how does selecting an in-network vision provider affect my costs?", "gaps": ["innetwork", "selecting a vision care provider", "affect"]}
+{"timestamp": "2026-07-21T06:51:37.606614", "category": "vision", "query": "what happens if i need vision care outside washington?", "gaps": ["outside", "out-of-area care", "washington"]}
+{"timestamp": "2026-07-21T06:51:37.655266", "category": "vision", "query": "is vision care covered when i am travelling?", "gaps": ["out-of-area care"]}
+{"timestamp": "2026-07-21T06:51:43.082449", "category": "vision", "query": "what vision services are excluded from my plan?", "gaps": ["exclusions and limitations"]}
+{"timestamp": "2026-07-21T06:51:46.457707", "category": "vision", "query": "are plain sunglasses covered under my vision plan?", "gaps": ["sunglasses", "plain"]}
+{"timestamp": "2026-07-21T06:51:58.620912", "category": "vision", "query": "what does my vision plan cover and how much will i pay?", "gaps": ["vision exams"]}
+{"timestamp": "2026-07-21T06:51:59.231037", "category": "rx", "query": "what tier is metformin?", "gaps": ["metformin"]}
+{"timestamp": "2026-07-21T06:51:59.232137", "category": "medical", "query": "prescription drug tier cost", "gaps": ["prescription", "drug", "generic", "brand", "specialty", "tier"]}
+{"timestamp": "2026-07-21T06:51:59.698005", "category": "rx", "query": "what tier is lisinopril?", "gaps": ["lisinopril"]}
+{"timestamp": "2026-07-21T06:52:00.267570", "category": "rx", "query": "what tier is atorvastatin?", "gaps": ["atorvastatin"]}
+{"timestamp": "2026-07-21T06:52:00.845890", "category": "rx", "query": "what tier is amlodipine?", "gaps": ["amlodipine"]}
+{"timestamp": "2026-07-21T06:52:01.532544", "category": "rx", "query": "what tier is omeprazole?", "gaps": ["omeprazole"]}
+{"timestamp": "2026-07-21T06:52:02.086995", "category": "rx", "query": "is vivjoa covered?", "gaps": ["vivjoa"]}
+{"timestamp": "2026-07-21T06:52:02.739986", "category": "rx", "query": "does my plan cover humira?", "gaps": ["humira"]}
+{"timestamp": "2026-07-21T06:52:03.513551", "category": "rx", "query": "what are the requirements for cresemba?", "gaps": ["cresemba"]}
+{"timestamp": "2026-07-21T06:52:03.967703", "category": "rx", "query": "is lipitor on my formulary?", "gaps": ["lipitor"]}
+{"timestamp": "2026-07-21T06:52:04.561841", "category": "rx", "query": "is ozempic covered under my plan?", "gaps": ["ozempic"]}
+{"timestamp": "2026-07-21T06:52:05.083577", "category": "rx", "query": "is fluconazole on my formulary?", "gaps": ["fluconazole"]}
+{"timestamp": "2026-07-21T06:52:05.578881", "category": "rx", "query": "is metformin on my formulary?", "gaps": ["metformin"]}
+{"timestamp": "2026-07-21T06:52:06.076966", "category": "rx", "query": "is ibuprofen covered under my prescription plan?", "gaps": ["ibuprofen"]}
+{"timestamp": "2026-07-21T06:52:06.614242", "category": "rx", "query": "does metformin require prior authorization?", "gaps": ["metformin"]}
+{"timestamp": "2026-07-21T06:52:07.128367", "category": "rx", "query": "does humira need prior authorization?", "gaps": ["humira"]}
+{"timestamp": "2026-07-21T06:52:07.532644", "category": "rx", "query": "is ancobon covered?", "gaps": ["ancobon"]}
+{"timestamp": "2026-07-21T06:52:07.948999", "category": "rx", "query": "is diflucan covered?", "gaps": ["diflucan"]}
+{"timestamp": "2026-07-21T06:52:09.081357", "category": "rx", "query": "what tier is glipizide metformin?", "gaps": ["glipizide", "metformin"]}
+{"timestamp": "2026-07-21T06:52:10.509979", "category": "rx", "query": "is glyburide metformin covered?", "gaps": ["glyburide", "metformin"]}
+{"timestamp": "2026-07-21T06:52:10.969582", "category": "rx", "query": "what tier is vivjoa?", "gaps": ["vivjoa"]}
+{"timestamp": "2026-07-21T06:53:04.133579", "category": "rx", "query": "what is formulary drugs?", "gaps": ["formulary", "drug", "list", "tier"]}
+{"timestamp": "2026-07-21T06:53:05.727237", "category": "rx", "query": "i want to know about my preventive drugs?", "gaps": ["preventive"]}
+{"timestamp": "2026-07-21T06:53:28.693185", "category": "rx", "query": "is wegovy covered under my plan?", "gaps": ["wegovy"]}
+{"timestamp": "2026-07-21T06:53:29.251401", "category": "rx", "query": "what tier is gabapentin?", "gaps": ["gabapentin"]}
+{"timestamp": "2026-07-21T06:53:32.514783", "category": "rx", "query": "is jardiance covered?", "gaps": ["jardiance"]}
+{"timestamp": "2026-07-21T06:53:38.778010", "category": "rx", "query": "what is covered for sleep apnea?", "gaps": ["anoro", "modafinil", "provigil", "trelegy"]}

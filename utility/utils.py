@@ -57,6 +57,115 @@ def _load_knowledge_base() -> dict:
     return _kb_data
 
 
+# ── KB Gap Detection ──────────────────────────────────────────────────────────
+
+KB_GAP_LOG = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "kb_gap_log.jsonl"
+)
+
+
+def find_kb_gaps(
+    original_keywords: list, expanded_keywords: list, benefit_category: str
+) -> list:
+    """
+    Find keywords that had no KB match — candidates for KB growth.
+
+    A gap is a keyword that:
+    - Was NOT expanded (not found as synonym in KB)
+    - Is NOT already a canonical KB key (already the right term)
+    - Is meaningful (length > 3, not stop/weak word)
+
+    These are plain-language terms the member used that have
+    no mapping in the KB yet. Logged for offline batch review.
+
+    Args:
+        original_keywords:  keywords before KB expansion
+        expanded_keywords:  keywords after KB expansion
+        benefit_category:   "dental", "medical", "vision", "rx"
+
+    Returns:
+        List of gap terms to log
+    """
+    kb = _load_knowledge_base()
+    category_kb = kb.get(benefit_category, {})
+    shared_kb = kb.get("shared", {})
+
+    # All canonical keys in KB — these are already correct terms, not gaps
+    all_canonicals = set(k.lower() for k in category_kb.keys())
+    all_canonicals |= set(k.lower() for k in shared_kb.keys())
+
+    # All synonym values in KB — these were already matched/expanded
+    all_synonyms = set()
+    for synonyms in category_kb.values():
+        all_synonyms.update(s.lower() for s in synonyms)
+    for synonyms in shared_kb.values():
+        all_synonyms.update(s.lower() for s in synonyms)
+
+    gaps = []
+    for kw in original_keywords:
+        kw_lower = kw.lower().strip()
+
+        # Skip too short — not meaningful enough for KB
+        if len(kw_lower) <= 3:
+            continue
+        # Skip already a canonical key — already the right term
+        if kw_lower in all_canonicals:
+            continue
+        # Skip already a synonym — was matched and expanded
+        if kw_lower in all_synonyms:
+            continue
+        # Skip noise/weak words
+        if kw_lower in NOISE_WORDS:
+            continue
+        # Skip purely numeric
+        if kw_lower.isdigit():
+            continue
+
+        gaps.append(kw_lower)
+
+    return gaps
+
+
+async def _log_kb_gaps_async(gaps: list, category: str, query: str) -> None:
+    """
+    Fire-and-forget async gap logger.
+
+    Appends unmatched keywords to kb_gap_log.jsonl for offline
+    batch processing by build_kb.py.
+
+    Called via asyncio.create_task() — never awaited, never blocks
+    the query response. Silent fail on any error.
+
+    Log format (one JSON object per line):
+        {
+            "timestamp": "2026-07-20T15:30:00",
+            "category":  "dental",
+            "query":     "what does a tooth cap cost?",
+            "gaps":      ["cap"]
+        }
+    """
+    try:
+        if not gaps:
+            return
+
+        entry = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "category": category,
+            "query": query,
+            "gaps": gaps,
+        }
+
+        # Append one line — JSONL format, safe for concurrent writes
+        with open(KB_GAP_LOG, "a", encoding="utf-8") as f:
+            f.write(json_lib.dumps(entry) + "\n")
+
+        print(f"[KB GAP] {len(gaps)} gap(s) logged for {category}: {gaps}")
+
+    except Exception:
+        # Silent fail — gap logging must NEVER impact query response
+        pass
+
+
 def expand_query_keywords(keywords: list, benefit_category: str) -> list:
     """
     Expands query keywords using knowledge base synonyms.

@@ -1,0 +1,26 @@
+{
+  "query": "what are the hospital facility charges?",
+  "category": "medical",
+  "timestamp": "2026-07-21T10:19:53.986660",
+  "answer": "Hospital facility charges include room and board, operating rooms, surgical supplies, anesthesia, drugs, blood, medical equipment, oxygen, X-ray, lab, and testing services.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Hospital | Facility | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospital | Inpatient Care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospital | Professional | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospital | Outpatient Care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospital | Professional* | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Hospital | Hospital This benefit covers: • Inpatient room and board • Providers services 34 • Intensive care or special care units • Operating rooms, procedure rooms and recovery rooms • Surgical supplies and anesthesia • Drugs, blood, medical equipment and oxygen for use in the hospital • X-ray, lab and testing billed by the hospital Even though you stay at an in-network hospital, you may get care from doctors or other providers who do not have a network contract at all. In that case, you will not have to pay any amounts over the allowed amount. You pay out-of-network cost shares if you get care from a provider not in your network. You will not be balanced- billed for certain services provided by a non-contracted provider. See How Providers Affect Your Costs for details. We must approve all planned inpatient stays before you enter the hospital. See Prior Authorization for details. This benefit does not cover: • Hospital stays that are only for testing, unless the tests cannot be done without inpatient hospital facilities, or your condition makes inpatient care medically necessary • Any days of inpatient care beyond what is medically necessary to treat the condition |\n| Hospital Care | The Newborn Care benefit covers hospital nursery care as determined necessary by the attending provider, in consultation with the mother, based on accepted medical practice. Also covered are any required readmissions to a hospital and outpatient or emergency room services for medically necessary treatment of an illness or injury. |\n",
+  "pages": [
+    10,
+    34,
+    42
+  ],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 224,
+    "total_output_tokens": 35,
+    "total_tokens": 259,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 224,
+        "output_tokens": 35,
+        "total_tokens": 259
+      }
+    ]
+  }
+}

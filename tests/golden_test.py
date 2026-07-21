@@ -179,6 +179,9 @@ QUERIES = {
         "is preventive care covered at no cost?",
         "how much does an ambulance cost?",
         "what are my mental health benefits?",
+        "what is my coinsurance for an inpatient hospital stay?",
+        "what are the hospital facility charges?",
+        "what is covered for hospice care?"
     ],
     "dental_willamette": [
         # Office Visit
@@ -229,6 +232,11 @@ QUERIES = {
         "What happens if I go to an out of network dentist?",
         "What are my orthodontic benefits?",
         "Is there a maximum benefit for dental implants?",
+        "what is the cost for a deep cleaning?",
+        "what does a panoramic x-ray cost at the dentist?",
+        "how much is wisdom tooth removal?",
+        "how much does braces cost?",
+        "what is covered for gum disease treatment?",
     ],
     "dental_premera": [
         "What is my coinsurance for a basic dental service?",

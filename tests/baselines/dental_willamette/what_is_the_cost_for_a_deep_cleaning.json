@@ -1,0 +1,17 @@
+{
+  "query": "what is the cost for a deep cleaning?",
+  "category": "dental_willamette",
+  "timestamp": "2026-07-21T10:21:22.917979",
+  "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Diagnostic and Preventive Services | D1110 Prophylaxis - adult | Covered In Full | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D1120 Prophylaxis - child | Covered In Full | Not covered | Data Not Found |\n",
+  "pages": [
+    4
+  ],
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 0,
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "calls": []
+  }
+}

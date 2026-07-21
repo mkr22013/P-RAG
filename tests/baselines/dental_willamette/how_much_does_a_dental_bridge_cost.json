@@ -1,7 +1,7 @@
 {
   "query": "How much does a dental bridge cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-07-14T19:50:00.564782",
+  "timestamp": "2026-07-21T10:20:44.227960",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Prosthodontics - Fixed | D6210 Pontic - cast high noble metal | $250 copay | Not covered | Data Not Found |\n| Prosthodontics - Fixed | D6240 Pontic - porcelain fused to high noble metal | $250 copay | Not covered | Data Not Found |\n| Prosthodontics - Fixed | D6241 Pontic - porcelain fused to predominantly base metal | $250 copay | Not covered | Data Not Found |\n",
   "pages": [
     10

@@ -1,0 +1,31 @@
+{
+  "query": "what is covered for hospice care?",
+  "category": "medical",
+  "timestamp": "2026-07-21T10:20:02.817669",
+  "answer": "Hospice care must be part of a written plan of care prescribed, periodically reviewed, and approved by a physician to be covered.\n\n| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max | Inpatient facility care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max | Home and respite care | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n| Hospice Care Lifetime limit for terminal illness: 6 months Lifetime limit for non-terminal illness: none Inpatient stay limit: 10 days Home visits: Unlimited Respite care: 240 hours lifetime max | Prescription drugs billed by the hospice | Deductible, then 20% coinsurance | Deductible, then 40% coinsurance | Data Not Found |\n\n| Topic | Coverage Information |\n| :--- | :--- |\n| Hospice Care | To be covered, hospice care must be part of a written plan of care prescribed, periodically reviewed, and approved by a physician (MD or DO). In the plan of care, the physician must certify that confinement in a hospital or skilled nursing facility would be required without hospice services. The plan provides benefits for covered services furnished and billed by a hospice that is Medicare-certified or is licensed or certified by the state it operates in. See the Summary Of Your Costs for limits. Covered employees of a hospice are a registered nurse; a licensed practical nurse; a licensed physical therapist or occupational therapist; a certified respiratory therapist; a speech therapist certified by the American Speech, Language, and Hearing Association; a home health aide directly supervised by one of the above providers (performing services prescribed in the plan of care to achieve the desired medical results); and a social worker. The Hospice Care benefit covers: • Hospice care for a terminally ill member, for up to 6 months. Benefits may be provided for up to an additional 6 months of care when needed. The initial 6-month period starts on the first day of covered hospice care. • Palliative care for a member who has a serious or life-threatening condition that is not terminal. Coverage of palliative care can be extended based on the member's specific condition. Coverage includes expanded access to home-based care and care coordination. Covered services are: • In-home intermittent hospice visits by one or more of the hospice employees above. • Respite care to relieve anyone who lives with and cares for the terminally ill member. • Inpatient hospice care This benefit provides for inpatient services and supplies used while you’re a hospice inpatient, such as solutions, medications or dressings, when ordered by the attending physician. • Insulin and Other Hospice Provider Prescribed Drugs Benefits are provided for prescription drugs and insulin furnished and billed by a hospice. This benefit doesn’t cover: • Over-the-counter drugs, solutions and nutritional supplements • Services provided to someone other than the ill or injured member • Services of family members or volunteers • Services, supplies or providers not in the written plan of care or not named as covered in this benefit • Non-medical services, such as spiritual, bereavement, legal or financial counseling • Normal living expenses, such as food, clothing, transportation and household supplies;... |\n",
+  "pages": [
+    10,
+    34
+  ],
+  "source": "Premera Employees Health Plan – Standard PPO Retiree Plan",
+  "token_usage": {
+    "total_llm_calls": 2,
+    "total_input_tokens": 776,
+    "total_output_tokens": 49,
+    "total_tokens": 825,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 553,
+        "output_tokens": 21,
+        "total_tokens": 574
+      },
+      {
+        "call_type": "ollama",
+        "input_tokens": 223,
+        "output_tokens": 28,
+        "total_tokens": 251
+      }
+    ]
+  }
+}

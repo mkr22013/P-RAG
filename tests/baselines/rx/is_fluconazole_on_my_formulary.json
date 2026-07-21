@@ -1,7 +1,7 @@
 {
   "query": "is fluconazole on my formulary?",
   "category": "rx",
-  "timestamp": "2026-07-16T16:45:38.708602",
+  "timestamp": "2026-07-21T10:36:51.547195",
   "answer": "## Drug Coverage\n\n| Drug | Tier | Status | Requirements |\n| :--- | :--- | :--- | :--- |\n| fluconazole oral suspension for reconstitution 10 mg/ml, 40 mg/ml | Preferred Generic | Covered | — |\n| fluconazole oral tablet 100 mg, 150 mg, 200 mg, 50 mg | Preferred Generic | Covered | — |\n\n_Find your drug's tier in the Drug Coverage table above, then locate that tier below to see what you'll pay._\n\n## Your Cost\n\n| Drug Tier | In-Network | Out-of-Network |\n| :--- | :--- | :--- |\n| Tier 1 — Preferred Generic drugs | $25 copay | Not covered |\n| Tier 1 — Preferred Generic drugs | $50 copay | Not covered |\n",
   "pages": [],
   "source": "Essentials Formulary Drug List (E4) | Pages 6 || Premera Employees Health Plan – Standard PPO Retiree Plan | Pages 13, 18",

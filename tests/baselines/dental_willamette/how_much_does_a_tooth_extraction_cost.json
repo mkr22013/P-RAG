@@ -1,7 +1,7 @@
 {
   "query": "How much does a tooth extraction cost?",
   "category": "dental_willamette",
-  "timestamp": "2026-07-14T19:49:50.218704",
+  "timestamp": "2026-07-21T10:20:34.891002",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Oral Surgery | D7140 Extraction, erupted tooth or exposed root (elevation | $25 copay | Not covered | Data Not Found |\n| Oral Surgery | D7210 Extraction, erupted tooth requiring removal of bone | $125 copay | Not covered | Data Not Found |\n| Oral Surgery | D7111 Extraction, coronal remnants - primary tooth | $25 copay | Not covered | Data Not Found |\n",
   "pages": [
     10

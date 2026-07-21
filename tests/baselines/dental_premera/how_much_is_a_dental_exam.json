@@ -1,7 +1,7 @@
 {
   "query": "how much is a dental exam?",
   "category": "dental_premera",
-  "timestamp": "2026-07-14T19:51:09.498921",
+  "timestamp": "2026-07-21T10:34:38.717347",
   "answer": "| Benefit | Service | In-Network | Out-of-Network | Limitations |\n| :--- | :--- | :--- | :--- | :--- |\n| Diagnostic and Preventive Services | D0120 Periodic oral evaluation - established patient | $15 (General Visit) / $30 (Specialist Visit) | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0150 Comprehensive oral evaluation - new or established patient | $15 (General Visit) / $30 (Specialist Visit) | Not covered | Data Not Found |\n| Diagnostic and Preventive Services | D0140 Limited oral evaluation - problem focused | $15 (General Visit) / $30 (Specialist Visit) | Not covered | Data Not Found |\n",
   "pages": [
     3

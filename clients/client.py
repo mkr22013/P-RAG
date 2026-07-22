@@ -1381,6 +1381,19 @@ def _build_response(
             else build_cost_table(cost_ctx, query, keywords, found_topics)
         )
 
+        # # Not found — procedure not in plan, save tokens
+        # if cost_table == "__NOT_FOUND__":
+        #     return {
+        #         "answer": (
+        #             "This service does not appear to be covered under your plan. "
+        #             "Please check your plan booklet or contact member services "
+        #             "for more information."
+        #         ),
+        #         "category": p_type,
+        #         "pages": [],
+        #         "source": _booklet_name,
+        #     }
+
         # Pure dental cost queries don't need INFO prose (avoids unrelated text)
         _SERVICE_SPECIFIC_KEYS = {
             "radiographic",
@@ -1411,6 +1424,26 @@ def _build_response(
             if _pure_cost_query
             else build_info_response(info_ctx, query, keywords)
         )
+        
+        # Not found in COST — procedure not in plan schedule
+        # Case 1: INFO exists (e.g. TMJ has coverage info but no D-codes)
+        #         → show INFO only, skip "not covered" message
+        # Case 2: No INFO either (e.g. night guard, teeth whitening)
+        #         → return "not covered" message immediately
+        if cost_table == "__NOT_FOUND__":
+            if info_table not in (None, "__USE_LLM__"):
+                cost_table = None  # fall through to info-only path below
+            else:
+                return {
+                    "answer": (
+                        "This service does not appear to be covered under your plan. "
+                        "Please check your plan booklet or contact member services "
+                        "for more information."
+                    ),
+                    "category": p_type,
+                    "pages": [],
+                    "source": _booklet_name,
+                }
 
         # Both tables built successfully — combine and return
         if cost_table not in (None, "__USE_LLM__") and info_table not in (
@@ -1473,6 +1506,18 @@ def _build_response(
             final_answer, final_pages = build_cost_table(
                 clean_context, query, keywords, found_topics
             )
+            if final_answer == "__NOT_FOUND__":
+                print("[*] NOT FOUND → returning not covered message")
+                return {
+                    "answer": (
+                        "This service does not appear to be covered under your plan. "
+                        "Please check your plan booklet or contact member services "
+                        "for more information."
+                    ),
+                    "category": p_type,
+                    "pages": [],
+                    "source": _booklet_name,
+                }
             if final_answer == "__USE_LLM__":
                 print("[*] SWITCHING TO LLM DUE TO NOISE")
             elif final_answer:

@@ -1,0 +1,22 @@
+{
+  "query": "what does a dental night guard cost?",
+  "category": "dental_willamette",
+  "timestamp": "2026-07-22T01:29:45.572469",
+  "answer": "This service does not appear to be covered under your plan. Please check your plan booklet or contact member services for more information.",
+  "pages": [],
+  "source": "Willamette Dental Plan",
+  "token_usage": {
+    "total_llm_calls": 1,
+    "total_input_tokens": 553,
+    "total_output_tokens": 25,
+    "total_tokens": 578,
+    "calls": [
+      {
+        "call_type": "ollama",
+        "input_tokens": 553,
+        "output_tokens": 25,
+        "total_tokens": 578
+      }
+    ]
+  }
+}

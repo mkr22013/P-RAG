@@ -363,7 +363,20 @@ def build_cost_table(
         if any("class" in (k or "") for k in keywords):
             for s, e, r in event_scores:
                 print(f"[BCT] score={s:5d} rows={len(r):2d} event={e[:45]!r}")
+
         best_score, _, _ = event_scores[0]
+
+        # Score ≤ 90: noise-only matches — procedure not in plan.
+        # e.g. "night guard", "teeth whitening" — not in Willamette schedule.
+        # These score exactly 90 from weak full-text matches (+10 per term per row).
+        # Sending irrelevant chunks to LLM wastes tokens and confuses member.
+        NOT_FOUND_THRESHOLD = 90
+        if best_score <= NOT_FOUND_THRESHOLD:
+            print(
+                f"[*] NOT FOUND (score={best_score} ≤ {NOT_FOUND_THRESHOLD}) → not in plan"
+            )
+            return "__NOT_FOUND__", []
+
         if best_score < MIN_CONFIDENCE:
             print(f"[*] LOW CONFIDENCE (score={best_score}) → LLM")
             return "__USE_LLM__", []

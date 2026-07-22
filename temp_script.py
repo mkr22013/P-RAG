@@ -744,18 +744,44 @@
 
 # print(expand_query_keywords(['annual', 'maximum', 'benefit', 'dental'], 'dental'))
 
-from sympy import python
+# from sympy import python
 
 
 
-import sys
-sys.path.insert(0, '.')
-from utility import response_builder
-import inspect
-src = inspect.getsource(response_builder.build_cost_table)
-# Check if TOPIC_EVENT_MAP is in the function
-if 'TOPIC_EVENT_MAP' in src:
-    print('TOPIC FILTER FOUND in loaded response_builder')
-else:
-    print('TOPIC FILTER NOT FOUND - wrong file loaded')
-print('File location:', response_builder.__file__)
+# import sys
+# sys.path.insert(0, '.')
+# from utility import response_builder
+# import inspect
+# src = inspect.getsource(response_builder.build_cost_table)
+# # Check if TOPIC_EVENT_MAP is in the function
+# if 'TOPIC_EVENT_MAP' in src:
+#     print('TOPIC FILTER FOUND in loaded response_builder')
+# else:
+#     print('TOPIC FILTER NOT FOUND - wrong file loaded')
+# print('File location:', response_builder.__file__)
+
+# import json
+# with open('indices/2026_dental_1000016_willamette_dental_plan_standard.json') as f:
+#     data = json.load(f)
+
+# for chunk in data:
+#     content = chunk.get('content', {})
+#     service = content.get('service', '') if isinstance(content, dict) else ''
+#     if any(w in service.lower() for w in ['guard', 'night', 'occlusal', 'D9940', 'appliance', 'splint']):
+#         print(f"  service: {service}")
+#         print(f"  in_network: {content.get('in_network','')}")
+#         print()
+
+import json
+with open('indices/2026_vision_1000016_vision_plan_standard.json') as f:
+    data = json.load(f)
+
+for chunk in data:
+    content = chunk.get('content', {})
+    if 'Vision Hardware' in content.get('event', ''):
+        print(f"event: {content.get('event','')}")
+        print(f"service: {content.get('service','')}")
+        print(f"in_network: {content.get('in_network','')}")
+        print(f"limitations: {content.get('limitations','')[:200]}")
+        print(f"keywords: {chunk.get('keywords',[])}")
+        print()

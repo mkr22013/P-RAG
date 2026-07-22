@@ -385,7 +385,10 @@ def get_plan_data_from_disk(
                     for w in strong_query_words:
                         if soft_match(w, full_text):
                             match_score += 1
-
+                    if category == "vision" and "vision hardware" in keywords:
+                        print(
+                            f"[DEBUG] chunk={chunk_topic[:30]} match_score={match_score} score={score}"
+                        )
                     # ❌ ONLY skip if NOTHING matches
                     if match_score == 0:
                         continue

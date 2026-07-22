@@ -181,7 +181,7 @@ QUERIES = {
         "what are my mental health benefits?",
         "what is my coinsurance for an inpatient hospital stay?",
         "what are the hospital facility charges?",
-        "what is covered for hospice care?"
+        "what is covered for hospice care?",
     ],
     "dental_willamette": [
         # Office Visit
@@ -237,6 +237,8 @@ QUERIES = {
         "how much is wisdom tooth removal?",
         "how much does braces cost?",
         "what is covered for gum disease treatment?",
+        "what does a dental night guard cost?",
+        "how much is a teeth cleaning?",
     ],
     "dental_premera": [
         "What is my coinsurance for a basic dental service?",
@@ -278,6 +280,7 @@ QUERIES = {
         "What vision services are excluded from my plan?",
         "Are plain sunglasses covered under my vision plan?",
         "What does my vision plan cover and how much will I pay?",
+        "how much is my glasses allowance?",
     ],
     "rx": [
         # Tier queries — generic drugs
@@ -333,7 +336,7 @@ QUERIES = {
         "what tier is gabapentin?",
         "what is covered for epilepsy?",
         "is jardiance covered?",
-        "what is covered for sleep apnea?"
+        "what is covered for sleep apnea?",
     ],
 }
 

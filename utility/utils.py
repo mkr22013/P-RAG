@@ -470,7 +470,10 @@ def get_smart_keywords(text, benefit_category: str | None = None) -> list:
         # Exam
         "vision-exam": r"\bvision\s+exam\b|\beye\s+exam\b|\boptometry\b",
         # Hardware
-        "vision-hardware": r"\bvision\s+hardware\b|\beyeglass\b|\bspectacle\b",
+        "vision-hardware": r"\bvision\s+hardware\b|\beyeglass\b|\bspectacle\b"
+        r"|\bcontact\b|\blens\b|\bfitting\b|\bframes\b"
+        r"|\bglasses\b|\bprogressive\b|\bbifocal\b"
+        r"|\btrifocal\b|\ballowance\b|\bcontacts\b",
         "frames": r"\bframes\b|\beyeglass\s+frame\b",
         "lenses": r"\blenses\b|\beyeglass\s+lens\b",
         "contact-lenses": r"\bcontact\s+lens\b|\bcontacts\b|\bsoft\s+lens\b",
